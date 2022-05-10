@@ -3,8 +3,7 @@ export class Constants{
 }
 
 export class RouteConstants{
+    public static DefaultRoute : string = "";
     public static AccountRoute : string = "account";
-    public static HomeRoute : string = "home";
     public static DashboardRoute : string = "home";
-    
   }
