@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseEndpoint: 'https://localhost:7130/api/v1/',
+  encriptionKey:"123456$#@$^@1ERF"
 };
 
 /*

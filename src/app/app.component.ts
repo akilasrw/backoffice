@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AccountService } from './account/account.service';
 import { Constants } from './core/constants/constants';
 
 
@@ -13,6 +14,8 @@ export class AppComponent implements OnInit{
 
   constructor(
     public translate: TranslateService,
+    public accountService: AccountService,
+
   ) {
     translate.addLangs(['en', 'vi']);
     var userSelectedLanguage = localStorage.getItem(Constants.LANGUAGE)
