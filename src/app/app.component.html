@@ -1,6 +1,6 @@
 <div>
-  <app-side-nav (hideMenu)="hideMenu($event)" *ngIf="true"></app-side-nav>
-  <div>
+  <app-side-nav (hideMenu)="hideMenu($event)" *ngIf="(accountService.currentUser$ | async) != null"></app-side-nav>
+  <div [ngClass]="{'content-container': (accountService.currentUser$ | async) != null}">
       <router-outlet></router-outlet>
   </div>
             
