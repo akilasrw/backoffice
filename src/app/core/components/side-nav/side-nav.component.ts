@@ -19,6 +19,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   currentUser?:User | null
   subscription?:Subscription;
   public showCollapseMenu:boolean=false;
+  public showProfileCard:boolean=true;
   @Output() hideMenu = new EventEmitter<any>();
   
   constructor(
@@ -41,8 +42,12 @@ export class SideNavComponent implements OnInit, OnDestroy {
     });
   }
 
+  profileClick(){
+    this.showProfileCard = !this.showProfileCard
+  }
+
   signOut() {
-    //this.accountService.logout();
+    this.accountService.logout();
   }
 
   settings(){
@@ -59,7 +64,11 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.None:
         this.showCollapseMenu=!this.showCollapseMenu;
         this.hideMenu.emit(this.showCollapseMenu);
-        this.router.navigate([RouteConstants.DashboardRoute])
+        if(!this.showCollapseMenu){
+          this.showProfileCard = true;
+        }else{
+          this.showProfileCard = !this.showProfileCard;
+        }
       break;
       case MenuType.DashBoard:
         this.router.navigate([RouteConstants.DashboardRoute])
