@@ -6,4 +6,5 @@ export class RouteConstants{
     public static DefaultRoute : string = "";
     public static AccountRoute : string = "account";
     public static DashboardRoute : string = "home";
+    public static BookingSummaryRoute : string = "booking-summary";
   }
