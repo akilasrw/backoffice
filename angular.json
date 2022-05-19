@@ -75,6 +75,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "aeroclub-scs-backoffice-client:build",
+            "port": 4300
+          },
           "configurations": {
             "production": {
               "browserTarget": "aeroclub-scs-backoffice-client:build:production"
