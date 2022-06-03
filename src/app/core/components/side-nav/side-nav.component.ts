@@ -1,3 +1,4 @@
+import { AwbStackManagementComponent } from './../../../modules/air-waybill/awb-stack-management/awb-stack-management.component';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/user.model';
 import { Subscription } from 'rxjs';
@@ -75,6 +76,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       break;
       case MenuType.BookingSummay:
         this.router.navigate([RouteConstants.BookingSummaryRoute])
+      break;
+      case MenuType.AWBStackManagement:
+        this.router.navigate([RouteConstants.AirWaybillRoute])
       break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
