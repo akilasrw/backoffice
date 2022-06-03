@@ -1,3 +1,4 @@
+import { AirWaybillModule } from './modules/air-waybill/air-waybill.module';
 import { BookingModule } from './modules/booking/booking.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: RouteConstants.AccountRoute, loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule) },
   { path: RouteConstants.DashboardRoute, loadChildren: () => import('./modules/home/home.module').then(mod => mod.HomeModule), canActivate: [AuthGuard]},
   { path: RouteConstants.BookingSummaryRoute, loadChildren: () => import('./modules/booking/booking.module').then(mod => mod.BookingModule), canActivate: [AuthGuard]},
+  { path: RouteConstants.AirWaybillRoute, loadChildren: ()=> import('./modules/air-waybill/air-waybill.module').then(mod => mod.AirWaybillModule), canActivate: [AuthGuard]},
   { path: '**', component: NotFoundComponent }
 ];
 
