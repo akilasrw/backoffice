@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,8 @@ import { AwbStackManagementComponent } from './awb-stack-management/awb-stack-ma
   ],
   imports: [
     CommonModule,
-    AirWaybillRoutingModule
+    AirWaybillRoutingModule,
+    SharedModule
   ]
 })
 export class AirWaybillModule { }

@@ -9,17 +9,8 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label class="form-label">Booking Agent Name(s)</label>
-                    <input type="text"  class="form-control">
-                    <!-- <div class="list-item">
-                        <div class="item">
-                            <div>Test User 1</div>
-                            <i class="ca ca-icn-verify"></i>
-                        </div>
-                        <div class="item">
-                            <div>Test User 1</div>
-                            <i class="ca ca-icn-verify"></i>
-                        </div>
-                    </div> -->
+                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                        (selectFileOutput)="selectedCargoAgent($event)"></app-auto-complete-dropdown>
                 </div>
             </div>
             <div class="col-md-3">

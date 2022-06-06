@@ -6,13 +6,13 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { AutoCmpleteDropdownComponent } from './components/forms/auto-cmplete-dropdown/auto-cmplete-dropdown.component';
+import { AutoCompleteDropdownComponent } from './components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 
 
 @NgModule({
   declarations: [
     TextInputComponent,
-    AutoCmpleteDropdownComponent
+    AutoCompleteDropdownComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +28,7 @@ import { AutoCmpleteDropdownComponent } from './components/forms/auto-cmplete-dr
     FormsModule,
     ReactiveFormsModule,
     TextInputComponent,
+    AutoCompleteDropdownComponent
   ]
 })
 export class SharedModule { }

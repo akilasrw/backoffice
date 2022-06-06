@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-auto-cmplete-dropdown',
-  templateUrl: './auto-cmplete-dropdown.component.html',
-  styleUrls: ['./auto-cmplete-dropdown.component.scss']
+  selector: 'app-auto-complete-dropdown',
+  templateUrl: './auto-complete-dropdown.component.html',
+  styleUrls: ['./auto-complete-dropdown.component.scss']
 })
-export class AutoCmpleteDropdownComponent implements OnInit {
+export class AutoCompleteDropdownComponent implements OnInit {
 
   
   @Input() keyword: string = '';
