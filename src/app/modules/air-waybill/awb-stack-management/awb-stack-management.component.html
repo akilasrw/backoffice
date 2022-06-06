@@ -57,10 +57,20 @@
                             <td>{{item.cargoAgentName}}</td>
                             <td>{{item.startSequenceNumber}}</td>
                             <td>{{item.endSequenceNumber}}</td>
-                            <td>{{item.lastUsedSequenceNumber}}</td>
+                            <td>{{(item.lastUsedSequenceNumber !== 0)?item.lastUsedSequenceNumber:'-'}}</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="not-available" *ngIf="totalCount == 0">
+                <img src="./assets/images/no-data.png" alt="No Content Data">
+                <div>AWB stack not available.</div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                <app-pager [pageSize]="awbStackFilterQuery?.pageSize" [pageNumber]="awbStackFilterQuery?.pageIndex"
+                    [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                <app-paging-header [totalCount]="totalCount" [pageSize]="awbStackFilterQuery?.pageSize"
+                    [pageNumber]="awbStackFilterQuery?.pageIndex"></app-paging-header>
             </div>
         </div>
     </div>

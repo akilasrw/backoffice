@@ -7,12 +7,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AutoCompleteDropdownComponent } from './components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
-
+import { PagerComponent } from './components/pager/pager.component';
+import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
     TextInputComponent,
-    AutoCompleteDropdownComponent
+    AutoCompleteDropdownComponent,
+    PagerComponent,
+    PagingHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -21,14 +26,20 @@ import { AutoCompleteDropdownComponent } from './components/forms/auto-complete-
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    NgxPaginationModule,
+    PaginationModule
   ],
   exports:[
     ToastrModule,
     FormsModule,
     ReactiveFormsModule,
     TextInputComponent,
-    AutoCompleteDropdownComponent
+    AutoCompleteDropdownComponent,
+    PagerComponent,
+    PagingHeaderComponent,
+    NgxPaginationModule,
+    PaginationModule
   ]
 })
 export class SharedModule { }

@@ -927,3 +927,22 @@ a {
       margin-bottom: 15px;
     }
 }
+
+// Details not available style
+
+.not-available {
+	text-align: center;
+	padding: 30px;
+	box-shadow: 0 0 5px rgb(0 0 0 / 4%);
+	border-radius: 4px;
+	img {
+		margin-bottom: 20px;
+		max-width: 86px;
+	}
+}
+
+.page-count {
+	font-size: 12px;
+	padding-left: 15px;
+	
+}

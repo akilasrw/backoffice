@@ -68,7 +68,7 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   getAWBStackList() {
-     this.awbStackFilterQuery.isAgentInclude = false;
+     this.awbStackFilterQuery.isAgentInclude = true;
       this.awbSerice.getFilteredAWBStackList(this.awbStackFilterQuery).subscribe(
         {
           next: (res) => {
@@ -140,6 +140,11 @@ export class AwbStackManagementComponent implements OnInit {
 
   }
 
-
+  public onPageChanged(event: any) {
+    if (this.awbStackRequest?.pageIndex !== event) {
+      this.awbStackRequest.pageIndex = event;
+      this.getAWBStackList();
+    }
+  }
 
 }
