@@ -18,12 +18,14 @@ export class AwbStackManagementComponent implements OnInit {
   cargoAgents: SelectList[] = [];
   lastAWBStackNumber?: number;
   startSequenceNumber?: number;
-  endSequenceNumber?: number ;
+  endSequenceNumber?: number;
   cargoAgentId?: string;
+  cargoAgentName?: string;
   awbStackRequest: AWBStckRequest = new AWBStckRequest();
   awbStackFilterQuery: AWBStackFilterQuery = new AWBStackFilterQuery();
   awbStackList: AWBStack[] = []
   totalCount: number = 0;
+  filterFormHasValue = false
 
   constructor(
     private awbSerice: AwbService,
@@ -68,19 +70,20 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   getAWBStackList() {
-     this.awbStackFilterQuery.isAgentInclude = true;
-      this.awbSerice.getFilteredAWBStackList(this.awbStackFilterQuery).subscribe(
-        {
-          next: (res) => {
-            this.awbStackList = res.data
-            this.totalCount = res.count
-          },
-          error: (error) => {
-            this.totalCount = 0;
-            this.awbStackList = []
-          }
+    this.awbStackFilterQuery.cargoAgentName = this.cargoAgentName;
+    this.awbStackFilterQuery.isAgentInclude = true;
+    this.awbSerice.getFilteredAWBStackList(this.awbStackFilterQuery).subscribe(
+      {
+        next: (res) => {
+          this.awbStackList = res.data
+          this.totalCount = res.count
+        },
+        error: (error) => {
+          this.totalCount = 0;
+          this.awbStackList = []
         }
-      )
+      }
+    )
   }
 
   selectedCargoAgent(value: any) {
@@ -97,7 +100,7 @@ export class AwbStackManagementComponent implements OnInit {
         next: (res) => {
           this.toastr.success('AWB number stack added successfully.');
           this.getLastAWBStack();
-          this.endSequenceNumber=undefined;
+          this.endSequenceNumber = undefined;
           this.getAWBStackList();
         },
         error: (error) => {
@@ -108,27 +111,27 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   isValid(): boolean {
-    if(this.cargoAgentId === undefined || this.cargoAgentId === null){
+    if (this.cargoAgentId === undefined || this.cargoAgentId === null) {
       this.toastr.warning('Please select cargo agent.');
       return false;
     }
-    
-    if(this.startSequenceNumber === undefined || this.startSequenceNumber === null) {
+
+    if (this.startSequenceNumber === undefined || this.startSequenceNumber === null) {
       this.toastr.warning('Please enter starting sequence number.');
       return false;
     }
 
-    if(this.endSequenceNumber === undefined || this.endSequenceNumber === null) {
+    if (this.endSequenceNumber === undefined || this.endSequenceNumber === null) {
       this.toastr.warning('Please enter ending sequence number.');
       return false;
     }
 
-    if(this.lastAWBStackNumber != null && this.startSequenceNumber != null && this.startSequenceNumber < this.lastAWBStackNumber){
-      this.toastr.warning('Starting sequence number should be '+this.lastAWBStackNumber+'.');
+    if (this.lastAWBStackNumber != null && this.startSequenceNumber != null && this.startSequenceNumber < this.lastAWBStackNumber) {
+      this.toastr.warning('Starting sequence number should be ' + this.lastAWBStackNumber + '.');
       return false;
     }
 
-    if(this.endSequenceNumber != null &&  this.startSequenceNumber != null && this.endSequenceNumber <= this.startSequenceNumber){
+    if (this.endSequenceNumber != null && this.startSequenceNumber != null && this.endSequenceNumber <= this.startSequenceNumber) {
       this.toastr.warning('Ending sequence number should be greater than starting sequence number.');
       return false;
     }
@@ -136,8 +139,17 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   onChangeFilterFrm(event: any) {
+    if (this.cargoAgentName !== undefined && this.cargoAgentName !== "") {
+    this.filterFormHasValue = true;
+  } else {
+    this.filterFormHasValue = false;
+  }
 
+  }
 
+  clearFilter() {
+    this.cargoAgentName=undefined;
+    this.filterFormHasValue = false;
   }
 
   public onPageChanged(event: any) {

@@ -36,12 +36,13 @@
                 <div class="filter-wrapper">
                     <div class="filter-group">
                         <label class="form-label">Agent Name</label>
-                        <input type="text" class="form-control">
+                        <input [(ngModel)]="cargoAgentName"  type="text" class="form-control" (change)="onChangeFilterFrm($event)">
                     </div>
                     <div class="button">
-                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                        <button (click)="getAWBStackList()" class="btn sm btn-primary-outline">Add Filter</button>
                     </div>
-                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i class="ca ca-icn-close"
+                        (click)="clearFilter()"></i></div>
                 </div>
             </div>
             <div class="table-content">
