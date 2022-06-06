@@ -16,14 +16,19 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label class="form-label">Start of the Sequence Number</label>
-                    <input type="number"  class="form-control">
+                    <input [(ngModel)]="startSequenceNumber" type="number" class="form-control"
+                        (change)="onChangeFilterFrm($event)">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label class="form-label">End of the Sequence Number</label>
-                    <input type="number"  class="form-control">
+                    <input [(ngModel)]="endSequenceNumber" type="number" class="form-control"
+                        (change)="onChangeFilterFrm($event)">
                 </div>
+            </div>
+            <div class="col-md-3">
+                <div class="button"><button (click)="addAWBStack()" class="btn  btn-primary-outline">Add</button></div>
             </div>
         </div>
         <div class="row">
@@ -48,17 +53,11 @@
                         <th>Last Used Number</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Test User Name 1</td>
-                            <td>123456</td>
-                            <td>123456</td>
-                            <td>12354</td>
-                        </tr>
-                        <tr>
-                            <td>Test User Name 1</td>
-                            <td>123456</td>
-                            <td>123456</td>
-                            <td>12354</td>
+                        <tr *ngFor="let item of this.awbStackList">
+                            <td>{{item.cargoAgentName}}</td>
+                            <td>{{item.startSequenceNumber}}</td>
+                            <td>{{item.endSequenceNumber}}</td>
+                            <td>{{item.lastUsedSequenceNumber}}</td>
                         </tr>
                     </tbody>
                 </table>

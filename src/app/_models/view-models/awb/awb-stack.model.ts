@@ -5,6 +5,7 @@ export interface AWBStack{
   lastUsedSequenceNumber: number;
   isSequenceCompleted: boolean;
   cargoAgentId: string;
+  cargoAgentName: string;
 }
 
 
