@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { RouteConstants } from './core/constants/constants';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ServerErrorComponent } from './core/components/server-error/server-error.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: RouteConstants.DashboardRoute, loadChildren: () => import('./modules/home/home.module').then(mod => mod.HomeModule), canActivate: [AuthGuard]},
   { path: RouteConstants.BookingSummaryRoute, loadChildren: () => import('./modules/booking/booking.module').then(mod => mod.BookingModule), canActivate: [AuthGuard]},
   { path: RouteConstants.AirWaybillRoute, loadChildren: ()=> import('./modules/air-waybill/air-waybill.module').then(mod => mod.AirWaybillModule), canActivate: [AuthGuard]},
+  { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
