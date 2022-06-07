@@ -874,14 +874,12 @@ a {
                                     position: absolute;
                                     left: 0.938rem;
                                     font-size: 0.688rem;
-                                    top: 0.25rem;
+                                    top: 0.5rem;
                                     text-transform: uppercase;
                                 }
                                 div {
                                     position: relative;
-                                    &:first-child {
-                                        margin-bottom: -0.188rem;
-                                    }
+                                    line-height: 0;
                                 }
                             }
                         }
@@ -896,6 +894,7 @@ a {
                         display: flex;
                         align-items: center;
                         .seat-row {
+                            padding-right: 0.5rem;
                             text-align: center;
                             .seat-block {
                                 &:first-child {
@@ -903,13 +902,13 @@ a {
                                 }
                                 div {
                                     position: relative;
-                                    margin-top: -0.313rem;
+                                    line-height: 0;
                                     cursor: pointer;
                                     .point {
                                         font-size: 0.688rem;
                                         position: absolute;
                                         left: 0.375rem;
-                                        top: 0.25rem;
+                                        top: 0.5rem;
                                         text-transform: uppercase;
                                     }
                                 }
