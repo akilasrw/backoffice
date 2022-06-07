@@ -855,12 +855,18 @@ a {
                 .flight-detail {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
                     .sr-number {
                         font-size: 0.625rem;
                         color: $default-black;
                     }
                     .block-1 {
                         padding-right: 0.625rem;
+                        &.exit {
+                            img {
+                                min-height: 9.375rem;
+                            }
+                        }
                     }
                     .front-seats {
                         display: flex;
@@ -888,13 +894,13 @@ a {
                         writing-mode: vertical-lr;
                         text-transform: uppercase;
                         font-size: 0.688rem;
-                        padding-right: 0.5rem;
+                        padding-right: 0.625rem;
                     }
                     .body-seat {
                         display: flex;
                         align-items: center;
                         .seat-row {
-                            padding-right: 0.5rem;
+                            padding-right: 0.625rem;
                             text-align: center;
                             .seat-block {
                                 &:first-child {
