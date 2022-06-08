@@ -6,6 +6,7 @@ import { AWBStack } from './../../../_models/view-models/awb/awb-stack.model';
 import { Component, OnInit } from '@angular/core';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { ToastrService } from 'ngx-toastr';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 
 @Component({
   selector: 'app-awb-stack-management',
@@ -159,4 +160,7 @@ export class AwbStackManagementComponent implements OnInit {
     }
   }
 
+  GetFormattedAWBNumber(value: number): string {
+    return value == 0?'-':CoreExtensions.PadLeadingZeros(value,8);
+  }
 }

@@ -56,9 +56,9 @@
                     <tbody>
                         <tr *ngFor="let item of this.awbStackList">
                             <td>{{item.cargoAgentName}}</td>
-                            <td>{{item.startSequenceNumber}}</td>
-                            <td>{{item.endSequenceNumber}}</td>
-                            <td>{{(item.lastUsedSequenceNumber !== 0)?item.lastUsedSequenceNumber:'-'}}</td>
+                            <td>{{GetFormattedAWBNumber(item.startSequenceNumber)}}</td>
+                            <td>{{GetFormattedAWBNumber(item.endSequenceNumber)}}</td>
+                            <td>{{GetFormattedAWBNumber(item.lastUsedSequenceNumber)}}</td>
                         </tr>
                     </tbody>
                 </table>
