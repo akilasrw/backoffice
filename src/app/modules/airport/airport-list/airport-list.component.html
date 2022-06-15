@@ -80,7 +80,7 @@
                         class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-airport-create *ngIf="modalVisible"></app-airport-create>
+                <app-airport-create  (submitSuccess)="onAirportAdd()" (closePopup)="closeAddAirport()" *ngIf="modalVisible"></app-airport-create>
             </div>
         </div>
     </div>

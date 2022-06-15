@@ -4,6 +4,7 @@ import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { BaseService } from '../core/services/base.service';
 import { IPagination } from '../shared/models/pagination.model';
 import { AirportFilterQuery } from '../_models/queries/airport/airport-filter-query.model';
+import { AirportCreateRM} from '../_models/request-models/airport/airport-create-rm';
 import { Airport } from '../_models/view-models/Airport/airport.model';
 
 @Injectable({
@@ -41,6 +42,10 @@ export class AirportService extends BaseService {
       this.getFilteredListEndpoint,
       params
     );
+  }
+
+  create(airportCreateRM: AirportCreateRM){
+    return this.post<any>(this.endpointEntityName, airportCreateRM);
   }
   
 }

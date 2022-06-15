@@ -79,4 +79,7 @@ export class AirportListComponent implements OnInit {
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
+  onAirportAdd(){
+    this.getAirportList();
+  }
 }
