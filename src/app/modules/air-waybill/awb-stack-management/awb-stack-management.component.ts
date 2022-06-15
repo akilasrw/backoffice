@@ -154,8 +154,8 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   public onPageChanged(event: any) {
-    if (this.awbStackRequest?.pageIndex !== event) {
-      this.awbStackRequest.pageIndex = event;
+    if (this.awbStackFilterQuery?.pageIndex !== event) {
+      this.awbStackFilterQuery.pageIndex = event;
       this.getAWBStackList();
     }
   }

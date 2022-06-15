@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AirportRoutingModule } from './airport-routing.module';
 import { AirportListComponent } from './airport-list/airport-list.component';
 import { AirportCreateComponent } from './airport-create/airport-create.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { AirportCreateComponent } from './airport-create/airport-create.componen
   ],
   imports: [
     CommonModule,
-    AirportRoutingModule
+    AirportRoutingModule,
+    SharedModule
   ]
 })
 export class AirportModule { }
