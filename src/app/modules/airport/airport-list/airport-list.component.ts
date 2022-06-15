@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AirportListComponent implements OnInit {
 
+  modalVisible = false;
+  modalVisibleAnimate = false;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  addAirport(){
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  closeAddAirport() {
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
+  }
 }
