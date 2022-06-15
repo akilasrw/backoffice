@@ -18,7 +18,7 @@ export class AirportListComponent implements OnInit {
   countryName?: string;
   modalVisible = false;
   modalVisibleAnimate = false;
-  filterFormHasValue = true;
+  filterFormHasValue = false;
 
   constructor(private airpotService: AirportService) { }
 
