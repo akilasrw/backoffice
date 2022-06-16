@@ -1,3 +1,4 @@
+import { AirportUpdateRM } from './../_models/request-models/airport/airport-update-rm';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
@@ -46,6 +47,10 @@ export class AirportService extends BaseService {
 
   create(airportCreateRM: AirportCreateRM){
     return this.post<any>(this.endpointEntityName, airportCreateRM);
+  }
+
+  update(airportUpdateRM: AirportUpdateRM){
+    return this.put<any>(this.endpointEntityName, airportUpdateRM);
   }
   
   deleteAirport(id:string){

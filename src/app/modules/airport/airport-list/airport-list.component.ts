@@ -24,6 +24,7 @@ export class AirportListComponent implements OnInit {
   modalVisibleDelete = false;
   modalVisibleAnimateDelete = false;
   selectedDeletedID?: string;
+  selectedAirport?:Airport;
 
 
   constructor(private airpotService: AirportService, private toastr: ToastrService) { }
@@ -77,6 +78,13 @@ export class AirportListComponent implements OnInit {
   }
 
   addAirport() {
+    this.selectedAirport=undefined;
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  onEdit(airport: Airport){
+    this.selectedAirport=airport;
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
   }
