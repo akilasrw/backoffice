@@ -48,4 +48,7 @@ export class AirportService extends BaseService {
     return this.post<any>(this.endpointEntityName, airportCreateRM);
   }
   
+  deleteAirport(id:string){
+    return this.delete<boolean>(`${this.endpointEntityName}?id=${id}`, null);
+  }
 }

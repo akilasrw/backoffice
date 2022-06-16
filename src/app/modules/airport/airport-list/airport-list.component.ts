@@ -2,6 +2,8 @@ import { Airport } from './../../../_models/view-models/Airport/airport.model';
 import { AirportService } from './../../../_services/airport.service';
 import { Component, OnInit } from '@angular/core';
 import { AirportFilterQuery } from 'src/app/_models/queries/airport/airport-filter-query.model';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-airport-list',
@@ -19,8 +21,12 @@ export class AirportListComponent implements OnInit {
   modalVisible = false;
   modalVisibleAnimate = false;
   filterFormHasValue = false;
+  modalVisibleDelete = false;
+  modalVisibleAnimateDelete = false;
+  selectedDeletedID?: string;
 
-  constructor(private airpotService: AirportService) { }
+
+  constructor(private airpotService: AirportService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAirportList();
@@ -57,9 +63,9 @@ export class AirportListComponent implements OnInit {
   }
 
   clearFilter() {
-    this.airportName=undefined;
-    this.countryName=undefined;
-    this.airportCode=undefined;
+    this.airportName = undefined;
+    this.countryName = undefined;
+    this.airportCode = undefined;
     this.filterFormHasValue = false;
   }
 
@@ -79,7 +85,41 @@ export class AirportListComponent implements OnInit {
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
-  onAirportAdd(){
+  onAirportAdd() {
     this.getAirportList();
+  }
+
+  onDelete(airportId: string) {
+    this.selectedDeletedID = airportId;
+    this.showDelete();
+  }
+
+  showDelete() {
+    this.modalVisibleDelete = true;
+    setTimeout(() => (this.modalVisibleAnimateDelete = true));
+  }
+
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDelete = false;
+    setTimeout(() => (this.modalVisibleDelete = false), 300);
+  }
+
+  deleteAirport() {
+    if (this.selectedDeletedID) {
+      this.airpotService.deleteAirport(this.selectedDeletedID)
+        .subscribe({
+          next: (res) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.airports = [];
+            this.getAirportList();
+          },
+          error: (error) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+          }
+        });
+    }
   }
 }
