@@ -1,1 +1,62 @@
-<p>sector-list works!</p>
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div><h1>Sector</h1></div>
+            <div>
+                <button class="btn btn-primary" type="button">Add Sector</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Sector Type</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Origin Airport</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Destination Airport</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear">
+                        <i class="ca ca-icn-close"></i>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn sm btn-primary-outline">Advanced Filter</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Sector Type</th>
+                        <th>Origin Airport</th>
+                        <th>Destination Airport</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Domestic</td>
+                            <td>YYZ - Toronto Pearson International Airport</td>
+                            <td>YYZ - Toronto Pearson International Airport</td>
+                            <td>
+                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-bin" title="Delete"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
