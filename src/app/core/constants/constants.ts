@@ -8,4 +8,6 @@ export class RouteConstants{
     public static DashboardRoute : string = "home";
     public static BookingSummaryRoute : string = "booking-summary";
     public static AirWaybillRoute : string = "air-waybill";
+    public static AirportRoute : string = "airport";
+    public static SectorRoute : string = "sector";
   }

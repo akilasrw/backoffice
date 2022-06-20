@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-auto-complete-dropdown',
@@ -7,15 +7,24 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class AutoCompleteDropdownComponent implements OnInit {
 
-  
+
   @Input() keyword: string = '';
   //@Input() placeholder: string = 'Select Airport';
   @Input() data: any = [];
+  @Input() selectedIndex?: number;
   @Output() selectFileOutput = new EventEmitter<any>();
+  @Output() clearSearch = new EventEmitter<any>();
+  @Output() changeSearch = new EventEmitter<any>();
+  @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
 
-  constructor() { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      if (this.selectedIndex != null && this.data.length > 0) {
+        this.autocompleteDropdown.initialValue = this.data[this.selectedIndex]?.value;
+        this.autocompleteDropdown.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;
+      }
+    }, 1000);
   }
 
   selectEvent(item: any) {
@@ -24,10 +33,13 @@ export class AutoCompleteDropdownComponent implements OnInit {
   }
 
   onChangeSearch(val: string) {
-    console.log('onChangeSearch');
+    this.changeSearch.emit();
   }
 
-  onFocused(e: any){
+  onFocused(e: any) {
     console.log('onFocused');
+  }
+  onClearSearch() {
+    this.clearSearch.emit();
   }
 }

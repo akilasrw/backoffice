@@ -1,0 +1,91 @@
+<form [formGroup]='airportForm' (ngSubmit)="saveAirportDetails()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    <app-auto-complete-dropdown [data]="countryList" [keyword]="keyword" [selectedIndex]="editCountryIndex"
+                        (selectFileOutput)="selectedCountry($event)" (clearSearch)="onClearCountry()"[tabindex]="1"></app-auto-complete-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Airport Name</label>
+                    <app-text-input [formControl]='airportForm.controls["name"]' type="text" [label]='"airport name."'>
+                    </app-text-input>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Airport Code</label>
+                    <app-text-input [formControl]='airportForm.controls["code"]' type="text" [label]='"airport code."'>
+                    </app-text-input>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Latitude</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select class="form-control" formControlName="latitudeDirection"
+                                    [ngClass]="{ 'is-invalid' : airportForm.get('latitudeDirection')?.errors && (airportForm.get('latitudeDirection')?.touched || airportForm.get('latitudeDirection')?.dirty) }">
+                                    <option>North</option>
+                                    <option>South</option>
+                                </select>
+                                <div *ngIf="airportForm.get('latitudeDirection')?.errors?.required"
+                                    class="invalid-feedback ml-3">
+                                    Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="number" class="form-control" formControlName="lat"
+                                    [ngClass]="{ 'is-invalid' : airportForm.get('lat')?.errors && (airportForm.get('lat')?.touched || airportForm.get('lat')?.dirty)  }" />
+                                <div *ngIf="airportForm.get('lat')?.errors?.required" class="invalid-feedback ml-3">
+                                    Required.
+                                </div>
+                                <div *ngIf="airportForm.get('lat')?.errors?.pattern" class="invalid-feedback ml-3">
+                                    Invalid input.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Longitude</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select class="form-control" formControlName="longitudeDirection"
+                                    [ngClass]="{ 'is-invalid' : airportForm.get('longitudeDirection')?.errors && (airportForm.get('longitudeDirection')?.touched || airportForm.get('longitudeDirection')?.dirty) }">
+                                    <option>East</option>
+                                    <option>West</option>
+                                </select>
+                                <div *ngIf="airportForm.get('longitudeDirection')?.errors?.required"
+                                    class="invalid-feedback ml-3">
+                                    Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="number" class="form-control" formControlName="lon"
+                                    [ngClass]="{ 'is-invalid' : airportForm.get('lon')?.errors && (airportForm.get('lon')?.touched || airportForm.get('lon')?.dirty)  }" />
+                                <div *ngIf="airportForm.get('lon')?.errors?.required" class="invalid-feedback ml-3">
+                                    Required.
+                                </div>
+                                <div *ngIf="airportForm.get('lon')?.errors?.pattern" class="invalid-feedback ml-3">
+                                    Invalid input.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
