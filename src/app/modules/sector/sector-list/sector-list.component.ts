@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectorListComponent implements OnInit {
 
+  modalVisible = false;
+  modalVisibleAnimate = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  closeAddSector() {
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
+  }
+
+  addSector() {
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
 }
