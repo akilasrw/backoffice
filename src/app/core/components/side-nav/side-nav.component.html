@@ -32,6 +32,12 @@
                         <span class="menu-title">Airport</span>
                     </div>
                 </li>
+                <li>
+                    <div class="menu-item" (click)="menuClickEvent(5)" [ngClass]="{'selected': selectedMenu == 5}">
+                        <span class="menu-icn ca ca-icn-awb tool-tip"><span class="tooltiptext">Sector</span></span>
+                        <span class="menu-title">Sector</span>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

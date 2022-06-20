@@ -3,6 +3,7 @@ export enum MenuType {
     DashBoard = 1,
     BookingSummay = 2,
     AWBStackManagement = 3,
-    Airport = 4
+    Airport = 4,
+    Sector = 5
  
   }
