@@ -14,14 +14,14 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Input() selectedIndex?: number;
   @Output() selectFileOutput = new EventEmitter<any>();
   @Output() clearSearch = new EventEmitter<any>();
-  @ViewChild('aziendaAutocomplete') aziendaAutocomplete: any;
+  @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
 
 
   ngOnInit(): void {
     setTimeout(() => {
       if (this.selectedIndex != null && this.data.length > 0) {
-        this.aziendaAutocomplete.initialValue = this.data[this.selectedIndex]?.value;
-        this.aziendaAutocomplete.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;
+        this.autocompleteDropdown.initialValue = this.data[this.selectedIndex]?.value;
+        this.autocompleteDropdown.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;
       }
     }, 1000);
   }
