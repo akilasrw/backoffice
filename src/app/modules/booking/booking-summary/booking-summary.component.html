@@ -22,7 +22,7 @@
                 <div><button type="submit" class="btn btn-primary-outline ms-5 mb-2" (click)="find()">Find</button></div>
             </div>
         </div>
-        <div class="booking-details">
+        <div class="booking-details" *ngIf="cargoBookingSummary">
             <h3>View Booking Details</h3>
             <div class="details-box-section">
                 <div class="details-box">
@@ -33,7 +33,7 @@
                             {{cargoBookingSummary.cargoPositionSummary.weightPercentage | percent}}</div>
                     </div>
                 </div>
-                <div class="details-box">
+                <div class="details-box" style="display: none">
                     <h4>Total Booked Volume (m3)</h4>
                     <div class="value"><span class="">400</span></div>
                     <!-- <div class="progress">

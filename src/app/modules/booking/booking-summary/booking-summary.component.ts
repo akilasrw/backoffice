@@ -25,6 +25,8 @@ export class BookingSummaryComponent implements OnInit {
     .subscribe({
       next: (res) => {
         this.cargoBookingSummary = res;
+        console.log(res);
+        
         },
         error: (error) => {
 
