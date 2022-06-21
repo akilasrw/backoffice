@@ -6,6 +6,8 @@ import { Sector } from 'src/app/_models/view-models/sector/sector.model';
 import { SectorFilterQuery } from 'src/app/_models/queries/sector/sector-filter-query.model';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { SectorType } from 'src/app/core/enums/common-enums';
+import { ToastrService } from 'ngx-toastr';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
 
 @Component({
   selector: 'app-sector-list',
@@ -25,9 +27,12 @@ export class SectorListComponent implements OnInit {
   sectorType?: number;
   originAirportId?: string;
   destinationAirportId?: string;
+  selectedDeletedID?:string;
+  modalVisibleDelete = false;
+  modalVisibleAnimateDelete = false;
   keyword = 'value';
 
-  constructor(private sectorService : SectorService,private airportService: AirportService) { }
+  constructor(private sectorService : SectorService,private airportService: AirportService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadAirports();
@@ -64,7 +69,7 @@ export class SectorListComponent implements OnInit {
           this.sectors = []
         }
       }
-    )
+    );
   }
 
   onEdit(sector:Sector){
@@ -72,7 +77,33 @@ export class SectorListComponent implements OnInit {
   }
 
   onDelete(id:string){
+    this.selectedDeletedID = id;
+    this.modalVisibleDelete = true;
+    setTimeout(() => (this.modalVisibleAnimateDelete = true));
+  }
 
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDelete = false;
+    setTimeout(() => (this.modalVisibleDelete = false), 300);
+  }
+
+  deleteSector() {
+    if (this.selectedDeletedID) {
+      this.sectorService.deleteSector(this.selectedDeletedID)
+        .subscribe({
+          next: (res) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.sectors = [];
+            this.getSectorList();
+          },
+          error: (error) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+          }
+        });
+    }
   }
 
   selectedSectorType(value: any){

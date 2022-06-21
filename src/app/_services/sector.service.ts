@@ -37,4 +37,8 @@ export class SectorService extends BaseService{
       params
     );
   }
+
+  deleteSector(id:string){
+    return this.delete<boolean>(`${this.endpointEntityName}?id=${id}`, null);
+  }
 }
