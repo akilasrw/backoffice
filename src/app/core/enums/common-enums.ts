@@ -7,3 +7,9 @@ export enum MenuType {
     Sector = 5
  
   }
+
+  export enum SectorType {
+    None = 0,
+    Domestic = 1,
+    International = 2 
+  }
