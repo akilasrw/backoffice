@@ -24,6 +24,7 @@ export class SectorCreateComponent implements OnInit {
   constructor(private airportService:AirportService) { }
 
   ngOnInit(): void {
+    console.log("Hello");
     this.loadSectorTypes();
     this.loadAirports();
   }
@@ -78,6 +79,10 @@ export class SectorCreateComponent implements OnInit {
   closeModal() {
     this.sectorForm.reset();
     this.closePopup.emit();
+  }
+
+  saveSectorDetails(){
+    
   }
 
 }
