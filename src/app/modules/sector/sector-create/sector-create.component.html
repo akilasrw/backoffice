@@ -3,30 +3,29 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="form-label">Sector Type</label>
-                <select class="form-control">
-                    <option></option>
-                    <option>1</option>
-                    <option>2</option>
-                </select>
+                <app-auto-complete-dropdown [data]="sectorTypes" [keyword]="keyword"
+                    (selectFileOutput)="selectedSectorType($event)" (changeSearch)="onClearSectorType()" (clearSearch)="onClearSectorType()"></app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Origin Airport</label>
-                <input type="text" class="form-control">
+                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()" (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Destination Airport</label>
-                <input type="text" class="form-control">
+                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <div class="cu-check">
                     <label class="cu-checkbox"> Create Return Sector
-                        <input type="checkbox">
+                        <input [formControl]='sectorForm.controls["isCreateReturnSector"]' type="checkbox">
                         <span class="checkmark"></span>
                     </label>
                 </div>
@@ -35,6 +34,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary me-3">Cancel</button>
+    <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
     <button type="submit" class="btn btn-primary">Save</button>
 </div>
