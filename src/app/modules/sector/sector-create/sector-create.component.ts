@@ -1,9 +1,12 @@
+import { SectorService } from './../../../_services/sector.service';
 import { AirportService } from 'src/app/_services/airport.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SectorType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { SectorCreateRM } from 'src/app/_models/request-models/sector/sector-create-rm';
 
 @Component({
   selector: 'app-sector-create',
@@ -16,15 +19,19 @@ export class SectorCreateComponent implements OnInit {
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   @Output() closePopup = new EventEmitter<any>();
+  @Output() submitSuccess = new EventEmitter<any>();
   createReturnSector:boolean=false;
-  sectorForm!: FormGroup;
+  public sectorForm!: FormGroup;
+  isEditAirport:boolean=false;
   keyword = 'value';
 
 
-  constructor(private airportService:AirportService) { }
+  constructor(private airportService:AirportService,
+    private sectorService:SectorService,
+    private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    console.log("Hello");
+    this.initializeForm()
     this.loadSectorTypes();
     this.loadAirports();
   }
@@ -82,6 +89,57 @@ export class SectorCreateComponent implements OnInit {
   }
 
   saveSectorDetails(){
+ 
+      if (this.sectorForm.get('sectorType')?.value === null || this.sectorForm.get('sectorType')?.value === "") {
+        this.toastr.error('Please select sector type.');
+      }
+      if (this.sectorForm.get('originAirportId')?.value === null || this.sectorForm.get('originAirportId')?.value === "") {
+        this.toastr.error('Please select origin airport.');
+      }
+      if (this.sectorForm.get('destinationAirportId')?.value === null || this.sectorForm.get('destinationAirportId')?.value === "") {
+        this.toastr.error('Please select destination airport.');
+      }
+
+      if (this.sectorForm.valid) {
+  
+        if (this.isEditAirport) {
+          // var editAirport: AirportUpdateRM = this.sectorForm.value;
+  
+          // editAirport.lat = this.airportForm.value.latitudeDirection.toLowerCase() == "south"
+          //   ? this.airportForm.value.lat * -1
+          //   : Number(this.airportForm.value.lat);
+  
+          //   editAirport.lon = this.airportForm.value.longitudeDirection.toLowerCase() == "west"
+          //   ? this.airportForm.value.lon * -1
+          //   : Number(this.airportForm.value.lon);
+  
+          // this.airportService.update(editAirport).subscribe({
+          //   next: (res) => {
+          //     this.toastr.success('Successfully update airport.');
+          //     this.submitSuccess.emit();
+          //     this.closeModal();
+          //   },
+          //   error: (err) => {
+          //     this.toastr.error('Unable to update airport.');
+          //   }
+          // })
+        } else {
+          var sector: SectorCreateRM = this.sectorForm.value;
+          this.sectorService.create(sector).subscribe({
+            next: (res) => {
+              this.toastr.success('Successfully create sector.');
+              this.submitSuccess.emit();
+              this.closeModal();
+            },
+            error: (err) => {
+              
+            }
+          })
+        }
+      } else {
+        this.sectorForm.markAllAsTouched();
+      }
+    
     
   }
 

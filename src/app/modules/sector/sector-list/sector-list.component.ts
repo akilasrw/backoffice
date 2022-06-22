@@ -144,4 +144,8 @@ export class SectorListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
+  onSectorAdd() {
+    this.getSectorList();
+  }
+ 
 }

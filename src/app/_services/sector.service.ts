@@ -5,6 +5,7 @@ import { SectorFilterQuery } from '../_models/queries/sector/sector-filter-query
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { IPagination } from '../shared/models/pagination.model';
 import { Sector } from '../_models/view-models/sector/sector.model';
+import { SectorCreateRM } from '../_models/request-models/sector/sector-create-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class SectorService extends BaseService{
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
 
   constructor(http: HttpClient) { super(http)}
+
+  create(sectorCreateRM: SectorCreateRM){
+    return this.post<any>(this.endpointEntityName, sectorCreateRM);
+  }
 
   getFilteredList(query: SectorFilterQuery){
     var params = new HttpParams();

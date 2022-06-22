@@ -81,7 +81,7 @@
                         class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-sector-create  *ngIf="modalVisible"></app-sector-create>
+                <app-sector-create (submitSuccess)="onSectorAdd()" (closePopup)="closeAddSector()"  *ngIf="modalVisible"></app-sector-create>
             </div>
         </div>
     </div>
