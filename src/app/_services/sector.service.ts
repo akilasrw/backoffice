@@ -6,6 +6,7 @@ import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { IPagination } from '../shared/models/pagination.model';
 import { Sector } from '../_models/view-models/sector/sector.model';
 import { SectorCreateRM } from '../_models/request-models/sector/sector-create-rm';
+import { SectorUpdateRM } from '../_models/request-models/sector/sector-update-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class SectorService extends BaseService{
 
   create(sectorCreateRM: SectorCreateRM){
     return this.post<any>(this.endpointEntityName, sectorCreateRM);
+  }
+
+  update(sectorUpdateRM: SectorUpdateRM){
+    return this.put<any>(this.endpointEntityName, sectorUpdateRM);
   }
 
   getFilteredList(query: SectorFilterQuery){

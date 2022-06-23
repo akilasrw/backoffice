@@ -1,12 +1,14 @@
+import { Sector } from 'src/app/_models/view-models/sector/sector.model';
 import { SectorService } from './../../../_services/sector.service';
 import { AirportService } from 'src/app/_services/airport.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SectorType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SectorCreateRM } from 'src/app/_models/request-models/sector/sector-create-rm';
+import { SectorUpdateRM } from 'src/app/_models/request-models/sector/sector-update-rm';
 
 @Component({
   selector: 'app-sector-create',
@@ -20,9 +22,13 @@ export class SectorCreateComponent implements OnInit {
   destinationAirpots: SelectList[] = [];
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
+  @Input() sector:Sector = new Sector();
+  editSectorTypeIndex?:number;
+  editOriginAirportIndex?:number;
+  editDestinationAirportIndex?:number;
   createReturnSector:boolean=false;
   public sectorForm!: FormGroup;
-  isEditAirport:boolean=false;
+  isEditSector:boolean=false;
   keyword = 'value';
 
 
@@ -32,12 +38,19 @@ export class SectorCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm()
+    if(this.sector != null){
+      this.isEditSector = true;
+      this.editSectorForm(this.sector);
+    }
     this.loadSectorTypes();
     this.loadAirports();
   }
 
   loadSectorTypes(){
     this.sectorTypes.push({id:'0',value:'All'},{id:'1',value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:'2',value:CoreExtensions.GetSectorType(SectorType.International)});
+    if (this.isEditSector) {
+      this.editSectorTypeIndex = this.sectorTypes.findIndex(x => x.id == this.sector.sectorType);
+    }
   }
 
   loadAirports() {
@@ -46,17 +59,29 @@ export class SectorCreateComponent implements OnInit {
         if (res.length > 0) {
           this.originAirpots = res;
           Object.assign(this.destinationAirpots, res);
+          if (this.isEditSector) {
+            this.editOriginAirportIndex = this.originAirpots.findIndex(x => x.id == this.sector.originAirportId);
+            this.editDestinationAirportIndex = this.destinationAirpots.findIndex(x => x.id == this.sector.destinationAirportId);
+          }
         }
       });
   }
 
   initializeForm(){
     this.sectorForm= new FormGroup({
+      id: new FormControl(null),
       originAirportId: new FormControl(null, [Validators.required]),
       destinationAirportId: new FormControl(null, [Validators.required]),
       sectorType : new FormControl(null, [Validators.required]),
       isCreateReturnSector: new FormControl(false)
     });
+  }
+
+  editSectorForm(sector: Sector) {
+    this.sectorForm.get('id')?.patchValue(sector.id);
+    this.sectorForm.get('originAirportId')?.patchValue(sector.originAirportId);
+    this.sectorForm.get('destinationAirportId')?.patchValue(sector.destinationAirportId);
+    this.sectorForm.get('sectorType')?.patchValue(sector.sectorType);
   }
 
   selectedSectorType(value: any){
@@ -102,27 +127,17 @@ export class SectorCreateComponent implements OnInit {
 
       if (this.sectorForm.valid) {
   
-        if (this.isEditAirport) {
-          // var editAirport: AirportUpdateRM = this.sectorForm.value;
-  
-          // editAirport.lat = this.airportForm.value.latitudeDirection.toLowerCase() == "south"
-          //   ? this.airportForm.value.lat * -1
-          //   : Number(this.airportForm.value.lat);
-  
-          //   editAirport.lon = this.airportForm.value.longitudeDirection.toLowerCase() == "west"
-          //   ? this.airportForm.value.lon * -1
-          //   : Number(this.airportForm.value.lon);
-  
-          // this.airportService.update(editAirport).subscribe({
-          //   next: (res) => {
-          //     this.toastr.success('Successfully update airport.');
-          //     this.submitSuccess.emit();
-          //     this.closeModal();
-          //   },
-          //   error: (err) => {
-          //     this.toastr.error('Unable to update airport.');
-          //   }
-          // })
+        if (this.isEditSector) {
+          var editSector: SectorUpdateRM = this.sectorForm.value;
+          this.sectorService.update(editSector).subscribe({
+            next: (res) => {
+              this.toastr.success('Successfully update airport.');
+              this.submitSuccess.emit();
+              this.closeModal();
+            },
+            error: (err) => {
+            }
+          })
         } else {
           var sector: SectorCreateRM = this.sectorForm.value;
           this.sectorService.create(sector).subscribe({
@@ -132,7 +147,6 @@ export class SectorCreateComponent implements OnInit {
               this.closeModal();
             },
             error: (err) => {
-              
             }
           })
         }

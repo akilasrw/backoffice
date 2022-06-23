@@ -30,6 +30,7 @@ export class SectorListComponent implements OnInit {
   selectedDeletedID?:string;
   modalVisibleDelete = false;
   modalVisibleAnimateDelete = false;
+  selectedSector?:Sector;
   keyword = 'value';
 
   constructor(private sectorService : SectorService,private airportService: AirportService,private toastr: ToastrService) { }
@@ -73,7 +74,9 @@ export class SectorListComponent implements OnInit {
   }
 
   onEdit(sector:Sector){
-
+    this.selectedSector = sector;
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
   onDelete(id:string){
@@ -140,6 +143,7 @@ export class SectorListComponent implements OnInit {
   }
 
   addSector() {
+    this.selectedSector = undefined;
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
   }

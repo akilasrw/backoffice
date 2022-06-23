@@ -5,20 +5,20 @@
                 <div class="form-group">
                     <label class="form-label">Country</label>
                     <app-auto-complete-dropdown [data]="countryList" [keyword]="keyword" [selectedIndex]="editCountryIndex"
-                        (selectFileOutput)="selectedCountry($event)" (clearSearch)="onClearCountry()"[tabindex]="1"></app-auto-complete-dropdown>
+                        (selectFileOutput)="selectedCountry($event)" (clearSearch)="onClearCountry()" [tabindex]="1"></app-auto-complete-dropdown>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Airport Name</label>
-                    <app-text-input [formControl]='airportForm.controls["name"]' type="text" [label]='"airport name."'>
+                    <app-text-input [formControl]='airportForm.controls["name"]' type="text" [label]='"airport name."'[tabindex]="2">
                     </app-text-input>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Airport Code</label>
-                    <app-text-input [formControl]='airportForm.controls["code"]' type="text" [label]='"airport code."'>
+                    <app-text-input [formControl]='airportForm.controls["code"]' type="text" [label]='"airport code."'[tabindex]="3">
                     </app-text-input>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control" formControlName="latitudeDirection"
+                                <select class="form-control" formControlName="latitudeDirection" [tabindex]="4"
                                     [ngClass]="{ 'is-invalid' : airportForm.get('latitudeDirection')?.errors && (airportForm.get('latitudeDirection')?.touched || airportForm.get('latitudeDirection')?.dirty) }">
                                     <option>North</option>
                                     <option>South</option>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="number" class="form-control" formControlName="lat"
+                                <input type="number" class="form-control" formControlName="lat" [tabindex]="5"
                                     [ngClass]="{ 'is-invalid' : airportForm.get('lat')?.errors && (airportForm.get('lat')?.touched || airportForm.get('lat')?.dirty)  }" />
                                 <div *ngIf="airportForm.get('lat')?.errors?.required" class="invalid-feedback ml-3">
                                     Required.
@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control" formControlName="longitudeDirection"
+                                <select class="form-control" formControlName="longitudeDirection" [tabindex]="6"
                                     [ngClass]="{ 'is-invalid' : airportForm.get('longitudeDirection')?.errors && (airportForm.get('longitudeDirection')?.touched || airportForm.get('longitudeDirection')?.dirty) }">
                                     <option>East</option>
                                     <option>West</option>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="number" class="form-control" formControlName="lon"
+                                <input type="number" class="form-control" formControlName="lon" [tabindex]="7"
                                     [ngClass]="{ 'is-invalid' : airportForm.get('lon')?.errors && (airportForm.get('lon')?.touched || airportForm.get('lon')?.dirty)  }" />
                                 <div *ngIf="airportForm.get('lon')?.errors?.required" class="invalid-feedback ml-3">
                                     Required.

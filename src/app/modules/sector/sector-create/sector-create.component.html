@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label class="form-label">Sector Type</label>
-                    <app-auto-complete-dropdown [data]="sectorTypes" [keyword]="keyword"
+                    <app-auto-complete-dropdown [data]="sectorTypes" [keyword]="keyword" [selectedIndex]="editSectorTypeIndex" [tabindex]="1"
                         (selectFileOutput)="selectedSectorType($event)" (changeSearch)="onClearSectorType()"
                         (clearSearch)="onClearSectorType()"></app-auto-complete-dropdown>
                 </div>
@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Origin Airport</label>
-                    <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                    <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" [selectedIndex]="editOriginAirportIndex" [tabindex]="2"
                         (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                         (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                 </div>
@@ -20,12 +20,12 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Destination Airport</label>
-                    <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                    <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" [selectedIndex]="editDestinationAirportIndex" [tabindex]="3"
                         (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
                         (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div  class="col-md-6" *ngIf="!isEditSector">
                 <div class="form-group">
                     <div class="cu-check">
                         <label class="cu-checkbox"> Create Return Sector
