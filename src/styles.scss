@@ -996,3 +996,25 @@ a {
 	padding-left: 15px;
 	
 }
+
+// Pagination
+.pagination {
+    margin-bottom: 0;
+    .page-item {
+        .page-link {
+            padding: 0.125rem 0.625rem;
+            border-radius: 0.25rem;
+            margin: 0 0.063rem;
+        }
+        &.active {
+            .page-link {
+                background-color: $brand-primary;
+                border-color: $brand-primary;
+            }
+        }
+        &.disabled {
+            .page-link {
+            }
+        }
+    }
+}
