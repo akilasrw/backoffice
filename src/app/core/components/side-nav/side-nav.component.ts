@@ -86,6 +86,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.Sector:
         this.router.navigate([RouteConstants.SectorRoute])
       break;
+      case MenuType.Aircraft:
+        this.router.navigate([RouteConstants.AircraftRoute])
+      break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;

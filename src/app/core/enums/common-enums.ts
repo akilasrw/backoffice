@@ -4,7 +4,8 @@ export enum MenuType {
     BookingSummay = 2,
     AWBStackManagement = 3,
     Airport = 4,
-    Sector = 5
+    Sector = 5,
+    Aircraft = 6
  
   }
 

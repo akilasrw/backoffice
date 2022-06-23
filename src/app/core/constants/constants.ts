@@ -10,4 +10,5 @@ export class RouteConstants{
     public static AirWaybillRoute : string = "air-waybill";
     public static AirportRoute : string = "airport";
     public static SectorRoute : string = "sector";
+    public static AircraftRoute : string = "aircraft";
   }

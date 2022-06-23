@@ -1,0 +1,13 @@
+import { AircraftListComponent } from './aircraft-list/aircraft-list.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: AircraftListComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class AircraftRoutingModule { }
