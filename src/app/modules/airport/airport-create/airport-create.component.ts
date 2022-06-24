@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AirportCreateRM } from 'src/app/_models/request-models/airport/airport-create-rm';
 import { AirportService } from 'src/app/_services/airport.service';
-import { Airport } from 'src/app/_models/view-models/airport/airport.model';
+import { Airport } from 'src/app/_models/view-models/airports/airport.model';
 import { AirportUpdateRM } from 'src/app/_models/request-models/airport/airport-update-rm';
 
 @Component({

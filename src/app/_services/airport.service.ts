@@ -6,7 +6,7 @@ import { BaseService } from '../core/services/base.service';
 import { IPagination } from '../shared/models/pagination.model';
 import { AirportFilterQuery } from '../_models/queries/airport/airport-filter-query.model';
 import { AirportCreateRM} from '../_models/request-models/airport/airport-create-rm';
-import { Airport } from 'src/app/_models/view-models/airport/airport.model';
+import { Airport } from 'src/app/_models/view-models/airports/airport.model';
 import { SelectList } from '../shared/models/select-list.model';
 
 @Injectable({
