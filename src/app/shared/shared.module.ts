@@ -12,8 +12,8 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { OverheadTemplateComponent } from './Templates/overhead-template/overhead-template.component';
-import { SeatTemplateComponent } from './Templates/seat-template/seat-template.component';
+import { OverheadTemplateComponent } from './templates/overhead-template/overhead-template.component';
+import { SeatTemplateComponent } from './templates/seat-template/seat-template.component';
 
 @NgModule({
   declarations: [
