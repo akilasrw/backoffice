@@ -12,13 +12,17 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { OverheadTemplateComponent } from './Templates/overhead-template/overhead-template.component';
+import { SeatTemplateComponent } from './Templates/seat-template/seat-template.component';
 
 @NgModule({
   declarations: [
     TextInputComponent,
     AutoCompleteDropdownComponent,
     PagerComponent,
-    PagingHeaderComponent
+    PagingHeaderComponent,
+    OverheadTemplateComponent,
+    SeatTemplateComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +46,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PagingHeaderComponent,
     NgxSpinnerModule,
     NgxPaginationModule,
-    PaginationModule
+    PaginationModule,
+    OverheadTemplateComponent,
+    SeatTemplateComponent
   ]
 })
 export class SharedModule { }
