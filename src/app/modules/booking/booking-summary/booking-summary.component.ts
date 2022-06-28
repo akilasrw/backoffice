@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingSummaryType } from 'src/app/core/enums/common-enums';
 import { BookingSummaryQuery } from 'src/app/_models/queries/booking-summary/booking-summary-query.model';
 import { CargoBookingSummary } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary.model';
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
@@ -12,6 +13,7 @@ export class BookingSummaryComponent implements OnInit {
 
   bookingSummaryQuery: BookingSummaryQuery = new BookingSummaryQuery();
   cargoBookingSummary!: CargoBookingSummary;
+  bookingSummaryType : BookingSummaryType = BookingSummaryType.OnSeat;
 
   constructor(private bookingSummaryService: BookingSummaryService) { }
 

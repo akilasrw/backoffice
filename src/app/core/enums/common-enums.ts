@@ -14,3 +14,10 @@ export enum MenuType {
     Domestic = 1,
     International = 2 
   }
+
+  export enum BookingSummaryType {
+    None = 0,
+    OnSeat = 1,
+    UnderSeat = 2,
+    Overhead = 3
+  }
