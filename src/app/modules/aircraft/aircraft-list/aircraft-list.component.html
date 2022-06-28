@@ -1,1 +1,76 @@
-<p>aircraft-list works!</p>
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div><h1>Aircraft</h1></div>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="addAircraft()">Add Aircraft</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Reg Number</label>
+                        <input [(ngModel)]="regNumber"  type="text" class="form-control" (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Aircraft Type</label>
+                        <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword"
+                        (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()" (clearSearch)="onClearAircraft()"></app-auto-complete-dropdown>
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Activity</label>
+                        <!-- <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                        (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()"></app-auto-complete-dropdown> -->
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline" (click)="getAircraftList()">Add Filter</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn sm btn-primary-outline" >Advanced Filter</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Reg Number</th>
+                        <th>Aircraft Type</th>
+                        <th>Config</th>
+                        <th>Status</th>
+                        <th>Activity</th>
+                        <th>Actions</th>
+                    </thead>
+                    <!-- <tbody>
+                        <tr *ngFor="let item of this.sectors">
+                            <td>{{GetSectorType(item.sectorType)}}</td>
+                            <td>{{item.originAirportCode+" - "+item.originAirportName}}</td>
+                            <td>{{item.destinationAirportCode+" - "+item.destinationAirportName}}</td>
+                            <td>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
+                            </td>
+                        </tr>
+                    </tbody> -->
+                </table>
+            </div>
+            <div class="not-available" *ngIf="totalCount == 0">
+                <img src="./assets/images/no-data.png" alt="No Content Data">
+                <div>Aircraft not available.</div>
+            </div>
+            <!-- <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                <app-pager [pageSize]="sectorFilterQuery?.pageSize" [pageNumber]="sectorFilterQuery?.pageIndex"
+                    [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                <app-paging-header [totalCount]="totalCount" [pageSize]="sectorFilterQuery?.pageSize"
+                    [pageNumber]="sectorFilterQuery?.pageIndex"></app-paging-header>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
+
