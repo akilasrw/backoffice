@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AircraftCreateComponent implements OnInit {
 
+  modalVisible = false;
+  modalVisibleAnimate = false;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  addLayout(){
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  closeAddLayout(){
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
+  }
+
+  onLayoutAdd(){
+
+  }
 }
