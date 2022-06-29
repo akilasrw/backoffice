@@ -46,10 +46,13 @@
                         <th>Actions</th>
                     </thead>
                     <!-- <tbody>
-                        <tr *ngFor="let item of this.sectors">
-                            <td>{{GetSectorType(item.sectorType)}}</td>
-                            <td>{{item.originAirportCode+" - "+item.originAirportName}}</td>
-                            <td>{{item.destinationAirportCode+" - "+item.destinationAirportName}}</td>
+                        <tr *ngFor="let item of this.aircrafts">
+                            <td>{{item.regNo}}</td>
+                            <td>{{GetAircraftType(item.aircraftType)}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{(item.IsActive)?"Active":Inactive}}</td>
+
                             <td>
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
