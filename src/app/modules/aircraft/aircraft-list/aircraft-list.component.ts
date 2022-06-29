@@ -11,6 +11,8 @@ export class AircraftListComponent implements OnInit {
   regNumber?:string;
   totalCount: number = 0;
   aircraftTypes : SelectList[] = [];
+  modalVisible = false;
+  modalVisibleAnimate = false;
   keyword = 'value';
 
 
@@ -32,10 +34,22 @@ export class AircraftListComponent implements OnInit {
   }
 
   addAircraft(){
-
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
   onChangeFilterFrm(event: any){
 
   }
+
+  closeAddAircraft(){
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
+  }
+
+  onAircraftAdd(){
+    
+  }
+
+
 }
