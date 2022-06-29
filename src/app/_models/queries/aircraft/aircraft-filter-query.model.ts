@@ -3,6 +3,6 @@ import { BasePaginationQuery } from 'src/app/shared/models/base-pagination-query
 
 export class AircraftFilterQuery extends BasePaginationQuery {
   regNo?: string;
-  isActive?: boolean;
+  activeType?: number;
   aircraftType?: AircraftTypes;
 }

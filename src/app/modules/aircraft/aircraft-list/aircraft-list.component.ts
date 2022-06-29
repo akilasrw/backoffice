@@ -17,14 +17,17 @@ export class AircraftListComponent implements OnInit {
 
   regNumber?:string;
   selectedAircraftType?: number;
+  selectedActiveType?:number;
   totalCount: number = 0;
   modalVisible = false;
   modalVisibleAnimate = false;
   layoutModalVisible = false;
   layoutModalVisibleAnimate = false;
   aircraftTypes?:SelectList[]=[];
+  activeTypes:SelectList[]=[];
   subscription?:Subscription;
   aircrafts:Aircaft[]=[];
+  filterFormHasValue = false;
   aircraftFilterQuery:  AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
 
@@ -33,13 +36,14 @@ export class AircraftListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAircraftTypes();
-    this.getAircraftList()
+    this.loadActiveTypes();
+    this.getAircraftList();
   }
 
   getAircraftList() {
     this.aircraftFilterQuery.regNo = this.regNumber;
     this.aircraftFilterQuery.aircraftType = this.selectedAircraftType;
-    this.aircraftFilterQuery.isActive = true;
+    this.aircraftFilterQuery.activeType = this.selectedActiveType;
     this.aircraftServce.getFilteredList(this.aircraftFilterQuery).subscribe(
       {
         next: (res) => {
@@ -75,6 +79,10 @@ export class AircraftListComponent implements OnInit {
     });
   }
 
+  loadActiveTypes(){
+    this.activeTypes.push({id:'0',value:'All'},{id:'1',value: CoreExtensions.GetAircraftActiveStaus(1)},{id:'2',value: CoreExtensions.GetAircraftActiveStaus(2)});
+  }
+
   selectedAircraft(value: any){
     this.selectedAircraftType = Number(value.id);
   }
@@ -83,13 +91,36 @@ export class AircraftListComponent implements OnInit {
     this.selectedAircraftType = undefined;
   }
 
+  selectedActive(value: any){
+    this.selectedActiveType = Number(value.id);
+  }
+
+  onClearActive(){
+    this.selectedActiveType = undefined;
+  }
+
+  onEdit(item : any){
+
+  }
+
   addAircraft(){
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
-  onChangeFilterFrm(event: any){
+  onChangeFilterFrm(event: any) {
+    if (this.regNumber !== undefined && this.regNumber !== "") {
+      this.filterFormHasValue = true;
+    } else {
+      this.filterFormHasValue = false;
+    }
+  }
 
+  clearFilter() {
+    this.regNumber = undefined;
+    this.onClearActive();
+    this.onClearAircraft();
+    this.filterFormHasValue = false;
   }
 
   closeAddAircraft(){
@@ -102,10 +133,18 @@ export class AircraftListComponent implements OnInit {
   }
 
   GetAircraftType(type:number){
-    CoreExtensions.GetAircraftType(type);
+    return CoreExtensions.GetAircraftType(type);
   }
 
-  addLayout(){
+  GetAircraftConfigType(type:number){
+    return CoreExtensions.GetAircraftConfigType(type);
+  }
+
+  GetAircraftStaus(type:number){
+    return CoreExtensions.GetAircraftStaus(type);
+  }
+
+  viewLayout(){
     this.layoutModalVisible = true;
     setTimeout(() => (this.layoutModalVisibleAnimate = true));
   }
@@ -114,8 +153,9 @@ export class AircraftListComponent implements OnInit {
     this.layoutModalVisibleAnimate = false;
     setTimeout(() => (this.layoutModalVisible = false), 300);
   }
-  
+
   onLayoutAdd(){
 
   }
+
 }
