@@ -20,6 +20,8 @@ export class AircraftListComponent implements OnInit {
   totalCount: number = 0;
   modalVisible = false;
   modalVisibleAnimate = false;
+  layoutModalVisible = false;
+  layoutModalVisibleAnimate = false;
   aircraftTypes?:SelectList[]=[];
   subscription?:Subscription;
   aircrafts:Aircaft[]=[];
@@ -103,5 +105,17 @@ export class AircraftListComponent implements OnInit {
     CoreExtensions.GetAircraftType(type);
   }
 
+  addLayout(){
+    this.layoutModalVisible = true;
+    setTimeout(() => (this.layoutModalVisibleAnimate = true));
+  }
 
+  closeAddLayout(){
+    this.layoutModalVisibleAnimate = false;
+    setTimeout(() => (this.layoutModalVisible = false), 300);
+  }
+  
+  onLayoutAdd(){
+
+  }
 }

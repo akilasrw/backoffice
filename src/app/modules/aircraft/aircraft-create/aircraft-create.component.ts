@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-aircraft-create',
@@ -9,23 +9,18 @@ export class AircraftCreateComponent implements OnInit {
 
   modalVisible = false;
   modalVisibleAnimate = false;
+  @Output() viewLayout = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  addLayout(){
-    this.modalVisible = true;
-    setTimeout(() => (this.modalVisibleAnimate = true));
-  }
-
-  closeAddLayout(){
-    this.modalVisibleAnimate = false;
-    setTimeout(() => (this.modalVisible = false), 300);
-  }
-
-  onLayoutAdd(){
 
   }
+
+  
+  onViewLayout(){
+    this.viewLayout.emit();
+  }
+ 
+
 }
