@@ -11,13 +11,18 @@ import { PagerComponent } from './components/pager/pager.component';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { OverheadTemplateComponent } from './templates/overhead-template/overhead-template.component';
+import { SeatTemplateComponent } from './templates/seat-template/seat-template.component';
 
 @NgModule({
   declarations: [
     TextInputComponent,
     AutoCompleteDropdownComponent,
     PagerComponent,
-    PagingHeaderComponent
+    PagingHeaderComponent,
+    OverheadTemplateComponent,
+    SeatTemplateComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +32,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
       positionClass: 'toast-bottom-right'
     }),
     AutocompleteLibModule,
+    NgxSpinnerModule,
     NgxPaginationModule,
     PaginationModule
   ],
@@ -38,8 +44,11 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AutoCompleteDropdownComponent,
     PagerComponent,
     PagingHeaderComponent,
+    NgxSpinnerModule,
     NgxPaginationModule,
-    PaginationModule
+    PaginationModule,
+    OverheadTemplateComponent,
+    SeatTemplateComponent
   ]
 })
 export class SharedModule { }

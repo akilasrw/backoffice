@@ -1,5 +1,5 @@
-import { Airport } from '../../../_models/view-models/airport/airport.model';
-import { AirportService } from './../../../_services/airport.service';
+import { Airport } from 'src/app/_models/view-models/airports/airport.model';
+import { AirportService } from 'src/app/_services/airport.service';
 import { Component, OnInit } from '@angular/core';
 import { AirportFilterQuery } from 'src/app/_models/queries/airport/airport-filter-query.model';
 import { CommonMessages } from 'src/app/core/constants/common-messages';
