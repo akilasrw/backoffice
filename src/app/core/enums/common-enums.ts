@@ -53,3 +53,10 @@ export enum MenuType {
       Schedule = 2,
       Maintenance = 3,
   }
+
+  export enum AircraftActiveTypes
+  {
+      None = 0,
+      Active = 1,
+      Inactive = 2
+  }

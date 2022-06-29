@@ -46,8 +46,8 @@ export class AircraftService extends BaseService {
       params = params.append("regNo", query.regNo);
     }
 
-    if (query.isActive) {
-      params = params.append("isActive", query.isActive);
+    if (query.activeType) {
+      params = params.append("activeType", query.activeType);
     }
     
     if (query.aircraftType) {
