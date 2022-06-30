@@ -103,7 +103,7 @@
                         class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-create  (viewLayout)="viewLayout()" (closePopup)="closeAddAircraft()" *ngIf="modalVisible"></app-aircraft-create>
+                <app-aircraft-create [layoutAddedaircraftType]="this.selectedAircraftSubType" (viewLayout)="viewLayout($event)" (closePopup)="closeAddAircraft()" *ngIf="modalVisible"></app-aircraft-create>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
                         class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-select-layout (submitSuccess)="onLayoutAdd()" (closePopup)="closeAddLayout()" *ngIf="layoutModalVisible"></app-aircraft-select-layout>
+                <app-aircraft-select-layout [aircraftSubType]="this.selectedAircraftSubType" (submitSuccess)="onLayoutAdd($event)" (closePopup)="closeAddLayout()"  *ngIf="layoutModalVisible"></app-aircraft-select-layout>
             </div>
         </div>
     </div>

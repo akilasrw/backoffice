@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AircraftSubType } from 'src/app/_models/view-models/aircrafts/aircraft-sub-type.model';
 
 @Component({
   selector: 'app-aircraft-select-layout',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AircraftSelectLayoutComponent implements OnInit {
 
+  @Input() aircraftSubType: AircraftSubType = new AircraftSubType();
+  @Output() closePopup = new EventEmitter<any>();
+  @Output() submitSuccess = new EventEmitter<any>();
+
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  closeModal() {
+    this.closePopup.emit();
+  }
+
+  onAddLayout(){
+    if(this.aircraftSubType != null){
+      this.aircraftSubType.isSelected = true;
+      this.submitSuccess.emit(this.aircraftSubType);
+      this.closeModal();
+    } 
   }
 
 }

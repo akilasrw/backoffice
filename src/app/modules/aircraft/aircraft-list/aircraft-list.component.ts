@@ -1,7 +1,8 @@
+import { AircraftSubType } from './../../../_models/view-models/aircrafts/aircraft-sub-type.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { Aircaft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { AircraftFilterQuery } from './../../../_models/queries/aircraft/aircraft-filter-query.model';
-import { AircraftTypes } from './../../../core/enums/common-enums';
+import { AircraftActiveTypes, AircraftTypes } from './../../../core/enums/common-enums';
 import { AircraftService } from './../../../_services/aircraft.service';
 import { Component, OnInit } from '@angular/core';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -28,13 +29,14 @@ export class AircraftListComponent implements OnInit {
   aircraftTypes?:SelectList[]=[];
   activeTypes:SelectList[]=[];
   subscription?:Subscription;
+  selectedAircraftSubType?:AircraftSubType;
   aircrafts:Aircaft[]=[];
   filterFormHasValue = false;
   aircraftFilterQuery:  AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
 
 
-  constructor(private aircraftServce:AircraftService) { }
+  constructor(private aircraftService:AircraftService) { }
 
   ngOnInit(): void {
     this.getAircraftTypes();
@@ -46,7 +48,7 @@ export class AircraftListComponent implements OnInit {
     this.aircraftFilterQuery.regNo = this.regNumber;
     this.aircraftFilterQuery.aircraftType = this.selectedAircraftType;
     this.aircraftFilterQuery.activeType = this.selectedActiveType;
-    this.aircraftServce.getFilteredList(this.aircraftFilterQuery).subscribe(
+    this.aircraftService.getFilteredList(this.aircraftFilterQuery).subscribe(
       {
         next: (res) => {
           this.aircrafts = res.data
@@ -61,7 +63,7 @@ export class AircraftListComponent implements OnInit {
   }
 
   getAircraftTypes() {
-    this.aircraftServce.getAircraftTypes().subscribe({
+    this.aircraftService.getAircraftTypes().subscribe({
       next:(res)=>{
         this.getFileredAircraftTypes();
       },
@@ -72,7 +74,7 @@ export class AircraftListComponent implements OnInit {
   }
 
   getFileredAircraftTypes(){
-    this.subscription = this.aircraftServce.aircraftTypes$.subscribe(res => {
+    this.subscription = this.aircraftService.aircraftTypes$.subscribe(res => {
       if(res != null){
         res.forEach(obj=>{
           this.aircraftTypes?.push({id:obj.type?.toString(),value:obj.name});
@@ -82,7 +84,9 @@ export class AircraftListComponent implements OnInit {
   }
 
   loadActiveTypes(){
-    this.activeTypes.push({id:'0',value:'All'},{id:'1',value: CoreExtensions.GetAircraftActiveStaus(1)},{id:'2',value: CoreExtensions.GetAircraftActiveStaus(2)});
+    this.activeTypes.push({id:AircraftActiveTypes.None.toString(),value:'All'},
+    {id:AircraftActiveTypes.Active.toString(),value: CoreExtensions.GetAircraftActiveStaus(AircraftActiveTypes.Active)},
+    {id:AircraftActiveTypes.Inactive.toString(),value: CoreExtensions.GetAircraftActiveStaus(AircraftActiveTypes.Inactive)});
   }
 
   selectedAircraft(value: any){
@@ -146,7 +150,8 @@ export class AircraftListComponent implements OnInit {
     return CoreExtensions.GetAircraftStaus(type);
   }
 
-  viewLayout(){
+  viewLayout(model:AircraftSubType){
+    this.selectedAircraftSubType = model;
     this.layoutModalVisible = true;
     setTimeout(() => (this.layoutModalVisibleAnimate = true));
   }
@@ -156,8 +161,8 @@ export class AircraftListComponent implements OnInit {
     setTimeout(() => (this.layoutModalVisible = false), 300);
   }
 
-  onLayoutAdd(){
-
+  onLayoutAdd(model: AircraftSubType){
+    this.selectedAircraftSubType = model;
   }
 
   viewAircraftDetails(){
