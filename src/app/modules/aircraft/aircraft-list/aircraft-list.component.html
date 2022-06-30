@@ -57,6 +57,7 @@
 
                             <td>
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
+                                <i class="ca ca-icn-view" title="View" (click)="viewAircraftDetails()"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -71,6 +72,22 @@
                     [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
                 <app-paging-header [totalCount]="totalCount" [pageSize]="aircraftFilterQuery?.pageSize"
                     [pageNumber]="aircraftFilterQuery?.pageIndex"></app-paging-header>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': detailsModalVisibleAnimate}"
+    [ngStyle]="{'display': detailsModalVisible ? 'block' : 'none', 'opacity': detailsModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Aircraft Details</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAircraftDetails()" aria-label="Close"><span
+                        class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-aircraft-details  (closePopup)="closeAircraftDetails()" *ngIf="detailsModalVisible"></app-aircraft-details>
             </div>
         </div>
     </div>

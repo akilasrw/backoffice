@@ -23,6 +23,8 @@ export class AircraftListComponent implements OnInit {
   modalVisibleAnimate = false;
   layoutModalVisible = false;
   layoutModalVisibleAnimate = false;
+  detailsModalVisible=false;
+  detailsModalVisibleAnimate = false;
   aircraftTypes?:SelectList[]=[];
   activeTypes:SelectList[]=[];
   subscription?:Subscription;
@@ -156,6 +158,16 @@ export class AircraftListComponent implements OnInit {
 
   onLayoutAdd(){
 
+  }
+
+  viewAircraftDetails(){
+    this.detailsModalVisible = true;
+    setTimeout(() => (this.detailsModalVisibleAnimate = true));
+  }
+
+  closeAircraftDetails(){
+    this.detailsModalVisibleAnimate = false;
+    setTimeout(() => (this.detailsModalVisible = false), 300);
   }
 
 }
