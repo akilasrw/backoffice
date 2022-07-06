@@ -32,9 +32,7 @@ export enum MenuType {
   {
       None = 0,
       B7879TypeOne = 1,
-      B7879TypeTwo = 2,
-      A320200TypeOne = 3,
-      A320200TypeTwo = 4,
+      A320200TypeOne = 2,
   }
 
 

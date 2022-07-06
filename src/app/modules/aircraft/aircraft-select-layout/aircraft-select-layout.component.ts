@@ -10,7 +10,6 @@ export class AircraftSelectLayoutComponent implements OnInit {
 
   @Input() aircraftSubType: AircraftSubType = new AircraftSubType();
   @Output() closePopup = new EventEmitter<any>();
-  @Output() submitSuccess = new EventEmitter<any>();
 
 
   constructor() { }
@@ -25,7 +24,6 @@ export class AircraftSelectLayoutComponent implements OnInit {
   onAddLayout(){
     if(this.aircraftSubType != null){
       this.aircraftSubType.isSelected = true;
-      this.submitSuccess.emit(this.aircraftSubType);
       this.closeModal();
     } 
   }

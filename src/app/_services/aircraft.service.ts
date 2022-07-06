@@ -7,6 +7,7 @@ import { AircraftFilterQuery } from '../_models/queries/aircraft/aircraft-filter
 import { IPagination } from '../shared/models/pagination.model';
 import { Aircaft } from '../_models/view-models/aircrafts/aircraft.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
+import { AircraftCreateRM } from '../_models/request-models/aircraft/aircraft-create-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,9 @@ export class AircraftService extends BaseService {
     );
   }
 
+  create(aircraftCreateRM: AircraftCreateRM){
+    return this.post<any>(this.endpointEntityName, aircraftCreateRM);
+  }
 
 
 

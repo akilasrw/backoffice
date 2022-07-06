@@ -15,11 +15,11 @@
                 (selectFileOutput)="selectedAircraftType($event)" (changeSearch)="onClearAircraftType()" (clearSearch)="onClearAircraftType()" [tabindex]="2"></app-auto-complete-dropdown>
             </div>
         </div>
-        <div class="col-md-12" *ngIf="this.selectedSubTypes?.length >0">
+        <div class="col-md-12" *ngIf="this.aircraftSubTypes?.length >0">
             <div class="form-group">
                 <label class="form-label">Select Aircraft Sub Type</label>
                 <div class="drawer-chip">
-                    <div *ngFor="let subType of this.selectedSubTypes">
+                    <div *ngFor="let subType of this.aircraftSubTypes">
                         <div class="chip" [ngClass]="{'active': subType.isSelected}" >
                             <div>{{"Layout - "+ subType.name}}</div>
                             <div>
@@ -28,13 +28,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="chip active">
-                        <div>Layout - Boeing 7773 ER</div>
-                        <div>
-                            <i title="View" class="ca ca-icn-view" (click)="onViewLayout()"></i>
-                            <i title="Close" class="ca ca-icn-close"></i>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>

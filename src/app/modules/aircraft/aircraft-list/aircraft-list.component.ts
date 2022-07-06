@@ -134,10 +134,6 @@ export class AircraftListComponent implements OnInit {
     setTimeout(() => (this.modalVisible = false), 300);
   }
 
-  onAircraftAdd(){
-    
-  }
-
   GetAircraftType(type:number){
     return CoreExtensions.GetAircraftType(type);
   }
@@ -161,10 +157,6 @@ export class AircraftListComponent implements OnInit {
     setTimeout(() => (this.layoutModalVisible = false), 300);
   }
 
-  onLayoutAdd(model: AircraftSubType){
-    this.selectedAircraftSubType = model;
-  }
-
   viewAircraftDetails(){
     this.detailsModalVisible = true;
     setTimeout(() => (this.detailsModalVisibleAnimate = true));
@@ -173,6 +165,10 @@ export class AircraftListComponent implements OnInit {
   closeAircraftDetails(){
     this.detailsModalVisibleAnimate = false;
     setTimeout(() => (this.detailsModalVisible = false), 300);
+  }
+
+  onAircraftAdd() {
+    this.getAircraftList();
   }
 
 }
