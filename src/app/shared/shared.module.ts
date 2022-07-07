@@ -12,10 +12,10 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { OverheadTemplateComponent } from './templates/overhead-template/overhead-template.component';
-import { SeatTemplateComponent } from './templates/seat-template/seat-template.component';
 import { AlB7879TypeOneComponent } from './Templates/aircraft-layout/al-b7879-type-one/al-b7879-type-one.component';
 import { AlA320200TypeOneComponent } from './Templates/aircraft-layout/al-a320200-type-one/al-a320200-type-one.component';
+import { OverheadTemplateComponent } from './Templates/overhead-template/overhead-template.component';
+import { SeatTemplateComponent } from './Templates/seat-template/seat-template.component';
 
 @NgModule({
   declarations: [
