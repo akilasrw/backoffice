@@ -1,7 +1,9 @@
 <div class="main-card">
     <div class="card-header px-0 pt-0">
         <div class="d-flex justify-content-between align-items-center">
-            <div><h1>Aircraft</h1></div>
+            <div>
+                <h1>Aircraft</h1>
+            </div>
             <div>
                 <button class="btn btn-primary" type="button" (click)="addAircraft()">Add Aircraft</button>
             </div>
@@ -13,26 +15,29 @@
                 <div class="filter-wrapper">
                     <div class="filter-group">
                         <label class="form-label">Reg Number</label>
-                        <input [(ngModel)]="regNumber"  type="text" class="form-control" (change)="onChangeFilterFrm($event)">
+                        <input [(ngModel)]="regNumber" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Aircraft Type</label>
                         <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword"
-                        (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()" (clearSearch)="onClearAircraft()"></app-auto-complete-dropdown>
+                            (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
+                            (clearSearch)="onClearAircraft()"></app-auto-complete-dropdown>
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Activity</label>
                         <app-auto-complete-dropdown [data]="activeTypes" [keyword]="keyword"
-                        (selectFileOutput)="selectedActive($event)" (changeSearch)="onClearActive()" (clearSearch)="onClearActive()"></app-auto-complete-dropdown>
+                            (selectFileOutput)="selectedActive($event)" (changeSearch)="onClearActive()"
+                            (clearSearch)="onClearActive()"></app-auto-complete-dropdown>
                     </div>
                     <div class="button">
                         <button class="btn sm btn-primary-outline" (click)="getAircraftList()">Add Filter</button>
                     </div>
-                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i class="ca ca-icn-close"
-                        (click)="clearFilter()"></i></div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
+                            class="ca ca-icn-close" (click)="clearFilter()"></i></div>
                 </div>
                 <div>
-                    <button class="btn sm btn-primary-outline" >Advanced Filter</button>
+                    <button class="btn sm btn-primary-outline">Advanced Filter</button>
                 </div>
             </div>
         </div>
@@ -83,11 +88,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Aircraft Details</h2>
-                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAircraftDetails()" aria-label="Close"><span
-                        class="ca ca-icn-close"></span></button>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAircraftDetails()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-details  (closePopup)="closeAircraftDetails()" *ngIf="detailsModalVisible"></app-aircraft-details>
+                <app-aircraft-details (closePopup)="closeAircraftDetails()" *ngIf="detailsModalVisible">
+                </app-aircraft-details>
             </div>
         </div>
     </div>
@@ -99,11 +105,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Create New Aircraft</h2>
-                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddAircraft()" aria-label="Close"><span
-                        class="ca ca-icn-close"></span></button>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddAircraft()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-create (viewLayout)="viewLayout($event)" (closePopup)="closeAddAircraft()"  (submitSuccess)="onAircraftAdd($event)" *ngIf="modalVisible"></app-aircraft-create>
+                <app-aircraft-create (viewLayout)="viewLayout($event)" (closePopup)="closeAddAircraft()"
+                    (submitSuccess)="onAircraftAdd($event)" *ngIf="modalVisible"></app-aircraft-create>
             </div>
         </div>
     </div>
@@ -116,11 +123,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Aircraft Layout</h2>
-                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddLayout()" aria-label="Close"><span
-                        class="ca ca-icn-close"></span></button>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddLayout()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-select-layout [aircraftSubType]="this.selectedAircraftSubType" (closePopup)="closeAddLayout()"  *ngIf="layoutModalVisible"></app-aircraft-select-layout>
+                <app-aircraft-select-layout [aircraftSubType]="this.selectedAircraftSubType"
+                    (closePopup)="closeAddLayout()" *ngIf="layoutModalVisible"></app-aircraft-select-layout>
             </div>
         </div>
     </div>

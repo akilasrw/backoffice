@@ -21,11 +21,11 @@ export class AircraftSelectLayoutComponent implements OnInit {
     this.closePopup.emit();
   }
 
-  onAddLayout(){
-    if(this.aircraftSubType != null){
+  onAddLayout() {
+    if (this.aircraftSubType != null) {
       this.aircraftSubType.isSelected = true;
       this.closeModal();
-    } 
+    }
   }
 
 }

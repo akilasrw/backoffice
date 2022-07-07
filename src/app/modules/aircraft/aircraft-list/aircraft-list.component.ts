@@ -2,12 +2,11 @@ import { AircraftSubType } from './../../../_models/view-models/aircrafts/aircra
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { Aircaft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { AircraftFilterQuery } from './../../../_models/queries/aircraft/aircraft-filter-query.model';
-import { AircraftActiveTypes, AircraftTypes } from './../../../core/enums/common-enums';
+import { AircraftActiveTypes } from './../../../core/enums/common-enums';
 import { AircraftService } from './../../../_services/aircraft.service';
 import { Component, OnInit } from '@angular/core';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { Subscription } from 'rxjs';
-import { AircraftType } from 'src/app/_models/view-models/aircrafts/aircraft-type.model';
 
 @Component({
   selector: 'app-aircraft-list',
@@ -16,27 +15,27 @@ import { AircraftType } from 'src/app/_models/view-models/aircrafts/aircraft-typ
 })
 export class AircraftListComponent implements OnInit {
 
-  regNumber?:string;
+  regNumber?: string;
   selectedAircraftType?: number;
-  selectedActiveType?:number;
+  selectedActiveType?: number;
   totalCount: number = 0;
   modalVisible = false;
   modalVisibleAnimate = false;
   layoutModalVisible = false;
   layoutModalVisibleAnimate = false;
-  detailsModalVisible=false;
+  detailsModalVisible = false;
   detailsModalVisibleAnimate = false;
-  aircraftTypes?:SelectList[]=[];
-  activeTypes:SelectList[]=[];
-  subscription?:Subscription;
-  selectedAircraftSubType?:AircraftSubType;
-  aircrafts:Aircaft[]=[];
+  aircraftTypes?: SelectList[] = [];
+  activeTypes: SelectList[] = [];
+  subscription?: Subscription;
+  selectedAircraftSubType?: AircraftSubType;
+  aircrafts: Aircaft[] = [];
   filterFormHasValue = false;
-  aircraftFilterQuery:  AircraftFilterQuery = new AircraftFilterQuery();
+  aircraftFilterQuery: AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
 
 
-  constructor(private aircraftService:AircraftService) { }
+  constructor(private aircraftService: AircraftService) { }
 
   ngOnInit(): void {
     this.getAircraftTypes();
@@ -64,54 +63,45 @@ export class AircraftListComponent implements OnInit {
 
   getAircraftTypes() {
     this.aircraftService.getAircraftTypes().subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.getFileredAircraftTypes();
       },
-      error:(err)=>{
-       
+      error: (err) => {
+
       }
     });
   }
 
-  getFileredAircraftTypes(){
+  getFileredAircraftTypes() {
     this.subscription = this.aircraftService.aircraftTypes$.subscribe(res => {
-      if(res != null){
-        res.forEach(obj=>{
-          this.aircraftTypes?.push({id:obj.type?.toString(),value:obj.name});
+      if (res != null) {
+        res.forEach(obj => {
+          this.aircraftTypes?.push({ id: obj.type?.toString(), value: obj.name });
         });
       }
     });
   }
 
-  loadActiveTypes(){
-    this.activeTypes.push({id:AircraftActiveTypes.None.toString(),value:'All'},
-    {id:AircraftActiveTypes.Active.toString(),value: CoreExtensions.GetAircraftActiveStaus(AircraftActiveTypes.Active)},
-    {id:AircraftActiveTypes.Inactive.toString(),value: CoreExtensions.GetAircraftActiveStaus(AircraftActiveTypes.Inactive)});
+  loadActiveTypes() {
+    this.activeTypes.push({ id: AircraftActiveTypes.None.toString(), value: 'All' },
+      { id: AircraftActiveTypes.Active.toString(), value: CoreExtensions.GetAircraftActiveStaus(AircraftActiveTypes.Active) },
+      { id: AircraftActiveTypes.Inactive.toString(), value: CoreExtensions.GetAircraftActiveStaus(AircraftActiveTypes.Inactive) });
   }
 
-  selectedAircraft(value: any){
+  selectedAircraft(value: any) {
     this.selectedAircraftType = Number(value.id);
   }
 
-  onClearAircraft(){
+  onClearAircraft() {
     this.selectedAircraftType = undefined;
   }
 
-  selectedActive(value: any){
+  selectedActive(value: any) {
     this.selectedActiveType = Number(value.id);
   }
 
-  onClearActive(){
+  onClearActive() {
     this.selectedActiveType = undefined;
-  }
-
-  onEdit(item : any){
-
-  }
-
-  addAircraft(){
-    this.modalVisible = true;
-    setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
   onChangeFilterFrm(event: any) {
@@ -129,46 +119,56 @@ export class AircraftListComponent implements OnInit {
     this.filterFormHasValue = false;
   }
 
-  closeAddAircraft(){
-    this.modalVisibleAnimate = false;
-    setTimeout(() => (this.modalVisible = false), 300);
-  }
-
-  GetAircraftType(type:number){
+  GetAircraftType(type: number) {
     return CoreExtensions.GetAircraftType(type);
   }
 
-  GetAircraftConfigType(type:number){
+  GetAircraftConfigType(type: number) {
     return CoreExtensions.GetAircraftConfigType(type);
   }
 
-  GetAircraftStaus(type:number){
+  GetAircraftStaus(type: number) {
     return CoreExtensions.GetAircraftStaus(type);
-  }
-
-  viewLayout(model:AircraftSubType){
-    this.selectedAircraftSubType = model;
-    this.layoutModalVisible = true;
-    setTimeout(() => (this.layoutModalVisibleAnimate = true));
-  }
-
-  closeAddLayout(){
-    this.layoutModalVisibleAnimate = false;
-    setTimeout(() => (this.layoutModalVisible = false), 300);
-  }
-
-  viewAircraftDetails(){
-    this.detailsModalVisible = true;
-    setTimeout(() => (this.detailsModalVisibleAnimate = true));
-  }
-
-  closeAircraftDetails(){
-    this.detailsModalVisibleAnimate = false;
-    setTimeout(() => (this.detailsModalVisible = false), 300);
   }
 
   onAircraftAdd() {
     this.getAircraftList();
   }
+
+  addAircraft() {
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  closeAddAircraft() {
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
+  }
+
+  viewLayout(model: AircraftSubType) {
+    this.selectedAircraftSubType = model;
+    this.layoutModalVisible = true;
+    setTimeout(() => (this.layoutModalVisibleAnimate = true));
+  }
+
+  closeAddLayout() {
+    this.layoutModalVisibleAnimate = false;
+    setTimeout(() => (this.layoutModalVisible = false), 300);
+  }
+
+  onEdit(item: any) {
+
+  }
+
+  viewAircraftDetails() {
+    this.detailsModalVisible = true;
+    setTimeout(() => (this.detailsModalVisibleAnimate = true));
+  }
+
+  closeAircraftDetails() {
+    this.detailsModalVisibleAnimate = false;
+    setTimeout(() => (this.detailsModalVisible = false), 300);
+  }
+
 
 }
