@@ -131,7 +131,7 @@ export class SectorCreateComponent implements OnInit {
           var editSector: SectorUpdateRM = this.sectorForm.value;
           this.sectorService.update(editSector).subscribe({
             next: (res) => {
-              this.toastr.success('Successfully update airport.');
+              this.toastr.success('Successfully update sector.');
               this.submitSuccess.emit();
               this.closeModal();
             },

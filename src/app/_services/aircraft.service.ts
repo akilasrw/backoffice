@@ -5,9 +5,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AircraftFilterQuery } from '../_models/queries/aircraft/aircraft-filter-query.model';
 import { IPagination } from '../shared/models/pagination.model';
-import { Aircaft } from '../_models/view-models/aircrafts/aircraft.model';
+import { Aircraft } from '../_models/view-models/aircrafts/aircraft.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { AircraftCreateRM } from '../_models/request-models/aircraft/aircraft-create-rm';
+import { AircraftUpdateRM } from '../_models/request-models/aircraft/aircraft-update-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class AircraftService extends BaseService {
     
     params = CoreExtensions.AsPaginate(params, query);
 
-    return this.getWithParams<IPagination<Aircaft>>(
+    return this.getWithParams<IPagination<Aircraft>>(
       this.getFilteredListEndpoint,
       params
     );
@@ -67,7 +68,8 @@ export class AircraftService extends BaseService {
     return this.post<any>(this.endpointEntityName, aircraftCreateRM);
   }
 
-
-
+  update(aircraftUpdateRM: AircraftUpdateRM){
+    return this.put<any>(this.endpointEntityName, aircraftUpdateRM);
+  }
 
 }

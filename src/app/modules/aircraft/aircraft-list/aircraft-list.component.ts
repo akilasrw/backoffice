@@ -1,6 +1,6 @@
 import { AircraftSubType } from './../../../_models/view-models/aircrafts/aircraft-sub-type.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
-import { Aircaft } from './../../../_models/view-models/aircrafts/aircraft.model';
+import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { AircraftFilterQuery } from './../../../_models/queries/aircraft/aircraft-filter-query.model';
 import { AircraftActiveTypes } from './../../../core/enums/common-enums';
 import { AircraftService } from './../../../_services/aircraft.service';
@@ -29,7 +29,8 @@ export class AircraftListComponent implements OnInit {
   activeTypes: SelectList[] = [];
   subscription?: Subscription;
   selectedAircraftSubType?: AircraftSubType;
-  aircrafts: Aircaft[] = [];
+  aircrafts: Aircraft[] = [];
+  selectedEditAircraft?: Aircraft;
   filterFormHasValue = false;
   aircraftFilterQuery: AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
@@ -141,6 +142,7 @@ export class AircraftListComponent implements OnInit {
   }
 
   closeAddAircraft() {
+    this.selectedEditAircraft = undefined;
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
@@ -156,8 +158,10 @@ export class AircraftListComponent implements OnInit {
     setTimeout(() => (this.layoutModalVisible = false), 300);
   }
 
-  onEdit(item: any) {
-
+  onEditAircraft(item: any) {
+    this.selectedEditAircraft = item;
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
   viewAircraftDetails() {

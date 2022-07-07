@@ -61,7 +61,7 @@
                             <td>{{(item.isActive)?"Active":"Inactive"}}</td>
 
                             <td>
-                                <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onEditAircraft(item)"></i>
                                 <i class="ca ca-icn-view" title="View" (click)="viewAircraftDetails()"></i>
                             </td>
                         </tr>
@@ -104,12 +104,12 @@
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Create New Aircraft</h2>
+                <h2 class="modal-title">{{(selectedEditAircraft != null)? 'Edit Aircraft' :'Create New Aircraft'}}</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddAircraft()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-create (viewLayout)="viewLayout($event)" (closePopup)="closeAddAircraft()"
+                <app-aircraft-create [editAircraft]="this.selectedEditAircraft" (viewLayout)="viewLayout($event)" (closePopup)="closeAddAircraft()"
                     (submitSuccess)="onAircraftAdd($event)" *ngIf="modalVisible"></app-aircraft-create>
             </div>
         </div>

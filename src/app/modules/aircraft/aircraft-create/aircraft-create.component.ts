@@ -1,7 +1,9 @@
+import { AircraftUpdateRM } from './../../../_models/request-models/aircraft/aircraft-update-rm';
+import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { AircraftCreateRM } from './../../../_models/request-models/aircraft/aircraft-create-rm';
 import { AircraftSubType } from 'src/app/_models/view-models/aircrafts/aircraft-sub-type.model';
 import { AircraftService } from './../../../_services/aircraft.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -27,11 +29,13 @@ export class AircraftCreateComponent implements OnInit {
   editAircraftTypeIndex?: number;
   editConfigTypeIndex?: number;
   editStatusTypeIndex?: number;
-  modalVisible = false;
-  modalVisibleAnimate = false;
+  modalVisible: boolean = false;
+  modalVisibleAnimate: boolean = false;
+  isEditAircraft:boolean = false;
   @Output() viewLayout = new EventEmitter<any>();
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
+  @Input() editAircraft : Aircraft= new Aircraft();
 
 
   constructor(private aircraftService: AircraftService, private toastr: ToastrService) { }
@@ -39,6 +43,10 @@ export class AircraftCreateComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.getFileredAircraftTypes();
+    if(this.editAircraft != null){
+      this.isEditAircraft = true;
+      this.editAircraftForm(this.editAircraft);
+    }
     this.loadConfigTypes();
     this.loadStatusTypes();
   }
@@ -51,8 +59,51 @@ export class AircraftCreateComponent implements OnInit {
       aircraftSubTypeId: new FormControl(null, [Validators.required]),
       configurationType: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
-      isActive: new FormControl(false)
+      isActive: new FormControl(true)
     });
+  }
+
+  editAircraftForm(aircraft: Aircraft){
+    console.log(aircraft);
+    this.aircraftForm.get('id')?.patchValue(aircraft.id);
+    this.aircraftForm.get('regNo')?.patchValue(aircraft.regNo);
+    var typeId= this.getAircraftTypeIdByType(aircraft.aircraftType);
+    this.aircraftForm.get('aircraftTypeId')?.patchValue(typeId);
+    if(this.isEditAircraft){
+      this.editAircraftTypeIndex = this.aircraftTypes?.findIndex(x => x.id == typeId);
+    }
+    this.getSelectedAircraftSubTypes(typeId);
+    this.aircraftForm.get('aircraftSubTypeId')?.patchValue(this.getAircraftSubTypeIdBySubType(aircraft.aircraftSubType));
+    this.aircraftForm.get('configurationType')?.patchValue(aircraft.configurationType);
+    this.aircraftForm.get('status')?.patchValue(aircraft.status);
+    this.aircraftForm.get('isActive')?.patchValue(aircraft.isActive);  
+  }
+
+  getAircraftTypeIdByType(aircraftType?: number):string{
+    var typeId:string | undefined="";
+    this.subscription = this.aircraftService.aircraftTypes$.subscribe(res => {
+      if (res != null) {
+        res.forEach(obj => {
+          if(obj.type == aircraftType){
+            typeId = obj.id
+          }
+        });
+      }
+    });
+    return typeId;
+  }
+
+  getAircraftSubTypeIdBySubType(aircraftSubType?: number):string{
+    var typeId:string | undefined="";
+    if(this.aircraftSubTypes != undefined){
+      this.aircraftSubTypes.forEach(element => {
+        if(element.type == aircraftSubType){
+          typeId = element.id
+          element.isSelected = true;
+        }  
+      });
+    }
+    return typeId;
   }
 
   getFileredAircraftTypes() {
@@ -69,12 +120,18 @@ export class AircraftCreateComponent implements OnInit {
     this.configTypes.push({ id: AircraftConfigType.P2C.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.P2C) },
       { id: AircraftConfigType.Freighter.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Freighter) },
       { id: AircraftConfigType.Passenger.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Passenger) });
+      if (this.isEditAircraft) {
+        this.editConfigTypeIndex = this.configTypes.findIndex(x => x.id == this.editAircraft.configurationType?.toString());
+      }
   }
 
   loadStatusTypes() {
     this.statusTypes.push({ id: AircraftStatus.Charter.toString(), value: CoreExtensions.GetAircraftStaus(AircraftStatus.Charter) },
       { id: AircraftStatus.Schedule.toString(), value: CoreExtensions.GetAircraftStaus(AircraftStatus.Schedule) },
       { id: AircraftStatus.Maintenance.toString(), value: CoreExtensions.GetAircraftStaus(AircraftStatus.Maintenance) });
+      if (this.isEditAircraft) {
+        this.editStatusTypeIndex = this.statusTypes.findIndex(x => x.id == this.editAircraft.status?.toString());
+      }
   }
 
   selectedAircraftType(item: SelectList) {
@@ -176,18 +233,29 @@ export class AircraftCreateComponent implements OnInit {
     }
 
     if (this.aircraftForm.valid) {
-
-      var aircraft: AircraftCreateRM = this.aircraftForm.value;
-      this.aircraftService.create(aircraft).subscribe({
-        next: (res) => {
-          this.toastr.success('Successfully create aircraft.');
-          this.submitSuccess.emit();
-          this.closeModal();
-        },
-        error: (err) => {
-        }
-      })
-
+      if(this.isEditAircraft){
+        var editAircraft: AircraftUpdateRM = this.aircraftForm.value;
+        this.aircraftService.update(editAircraft).subscribe({
+          next: (res) => {
+            this.toastr.success('Successfully update aircraft.');
+            this.submitSuccess.emit();
+            this.closeModal();
+          },
+          error: (err) => {
+          }
+        })
+      }else{
+        var aircraft: AircraftCreateRM = this.aircraftForm.value;
+        this.aircraftService.create(aircraft).subscribe({
+          next: (res) => {
+            this.toastr.success('Successfully create aircraft.');
+            this.submitSuccess.emit();
+            this.closeModal();
+          },
+          error: (err) => {
+          }
+        });
+      }
     } else {
       this.aircraftForm.markAllAsTouched();
     }
