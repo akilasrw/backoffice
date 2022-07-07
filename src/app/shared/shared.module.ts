@@ -26,7 +26,7 @@ import { AlA320200TypeOneComponent } from './Templates/aircraft-layout/al-a32020
     OverheadTemplateComponent,
     SeatTemplateComponent,
     AlB7879TypeOneComponent,
-    AlA320200TypeOneComponent
+    AlA320200TypeOneComponent    
   ],
   imports: [
     CommonModule,
@@ -52,7 +52,9 @@ import { AlA320200TypeOneComponent } from './Templates/aircraft-layout/al-a32020
     NgxPaginationModule,
     PaginationModule,
     OverheadTemplateComponent,
-    SeatTemplateComponent
+    SeatTemplateComponent,
+    AlB7879TypeOneComponent,
+    AlA320200TypeOneComponent   
   ]
 })
 export class SharedModule { }

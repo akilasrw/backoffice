@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AircraftSubTypes } from 'src/app/core/enums/common-enums';
 import { AircraftSubType } from 'src/app/_models/view-models/aircrafts/aircraft-sub-type.model';
 
 @Component({
@@ -28,4 +29,8 @@ export class AircraftSelectLayoutComponent implements OnInit {
     }
   }
 
+  get aircraftSubTypes(): typeof AircraftSubTypes {
+    return AircraftSubTypes;
+  }
+  
 }
