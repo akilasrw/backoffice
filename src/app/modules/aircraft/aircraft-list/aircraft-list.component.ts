@@ -32,6 +32,7 @@ export class AircraftListComponent implements OnInit {
   aircrafts: Aircraft[] = [];
   selectedEditAircraft?: Aircraft;
   filterFormHasValue = false;
+  selectedAircraftId?:string;
   aircraftFilterQuery: AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
 
@@ -164,7 +165,8 @@ export class AircraftListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
-  viewAircraftDetails() {
+  viewAircraftDetails(id:string) {
+    this.selectedAircraftId = id;
     this.detailsModalVisible = true;
     setTimeout(() => (this.detailsModalVisibleAnimate = true));
   }

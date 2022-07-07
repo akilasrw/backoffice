@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AircraftService } from 'src/app/_services/aircraft.service';
 
 @Component({
   selector: 'app-aircraft-details',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AircraftDetailsComponent implements OnInit {
 
-  constructor() { }
+  @Input() aircraftId?: string;
+
+  constructor(private aircraftService: AircraftService) { }
 
   ngOnInit(): void {
   }

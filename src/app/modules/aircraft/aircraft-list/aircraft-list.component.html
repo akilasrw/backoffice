@@ -62,7 +62,7 @@
 
                             <td>
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onEditAircraft(item)"></i>
-                                <i class="ca ca-icn-view" title="View" (click)="viewAircraftDetails()"></i>
+                                <i class="ca ca-icn-view" title="View" (click)="viewAircraftDetails(item.id)"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -92,7 +92,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-aircraft-details (closePopup)="closeAircraftDetails()" *ngIf="detailsModalVisible">
+                <app-aircraft-details [aircraftId]="selectedAircraftId" (closePopup)="closeAircraftDetails()" *ngIf="detailsModalVisible">
                 </app-aircraft-details>
             </div>
         </div>
