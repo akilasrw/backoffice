@@ -1,6 +1,6 @@
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
-import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftTypes, SectorType } from "../enums/common-enums";
+import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftSubTypes, AircraftTypes, SectorType } from "../enums/common-enums";
 
 export class CoreExtensions {
   public static AsPaginate(
@@ -56,6 +56,24 @@ export class CoreExtensions {
         break;
       case AircraftTypes.A320200:
         typeString = "A320-200";
+        break;
+      default:
+        break;
+    }
+    return typeString;
+  }
+
+  public static GetAircraftSubType(type: AircraftSubTypes): string {
+    let typeString = "None";
+    switch (type) {
+      case AircraftSubTypes.None:
+        typeString = "None";
+        break;
+      case AircraftSubTypes.B7879TypeOne:
+        typeString = "B787-9-TypeOne";
+        break;
+      case AircraftSubTypes.A320200TypeOne:
+        typeString = "A320-200-TypeOne";
         break;
       default:
         break;

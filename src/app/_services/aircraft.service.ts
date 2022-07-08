@@ -9,6 +9,7 @@ import { Aircraft } from '../_models/view-models/aircrafts/aircraft.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { AircraftCreateRM } from '../_models/request-models/aircraft/aircraft-create-rm';
 import { AircraftUpdateRM } from '../_models/request-models/aircraft/aircraft-update-rm';
+import { AircraftQuery } from '../_models/queries/aircraft/aircraft-query.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,14 @@ export class AircraftService extends BaseService {
   constructor(http: HttpClient) { super(http)
     this.aircraftTypeSource = new BehaviorSubject<AircraftType[]|null>(null);
     this.aircraftTypes$ = this.aircraftTypeSource.asObservable();
+  }
+
+  getAircraftDetail(query: AircraftQuery) {
+    var params = new HttpParams();
+    if (query.id) {
+      params = params.append("id", query.id);
+    }
+    return this.getWithParams<Aircraft>(this.endpointEntityName,params);
   }
 
   getAircraftTypes() {
