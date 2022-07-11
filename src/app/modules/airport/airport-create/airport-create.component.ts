@@ -102,7 +102,7 @@ export class AirportCreateComponent implements OnInit {
 
         this.airportService.update(editAirport).subscribe({
           next: (res) => {
-            this.toastr.success('Successfully update airport.');
+            this.toastr.success('Airport updated successfully.');
             this.submitSuccess.emit();
             this.closeModal();
           },
@@ -123,7 +123,7 @@ export class AirportCreateComponent implements OnInit {
 
         this.airportService.create(airport).subscribe({
           next: (res) => {
-            this.toastr.success('Successfully create airport.');
+            this.toastr.success('Airport created successfully.');
             this.submitSuccess.emit();
             this.closeModal();
           },
