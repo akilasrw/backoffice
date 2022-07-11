@@ -47,7 +47,7 @@ export class SectorCreateComponent implements OnInit {
   }
 
   loadSectorTypes(){
-    this.sectorTypes.push({id:SectorType.None.toString(),value:'All'},{id:SectorType.Domestic.toString(),value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:SectorType.International.toString(),value:CoreExtensions.GetSectorType(SectorType.International)});
+    this.sectorTypes.push({id:SectorType.Domestic.toString(),value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:SectorType.International.toString(),value:CoreExtensions.GetSectorType(SectorType.International)});
     if (this.isEditSector) {
       this.editSectorTypeIndex = this.sectorTypes.findIndex(x => x.id == this.sector.sectorType);
     }
