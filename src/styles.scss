@@ -863,15 +863,17 @@ a {
     .tab-content {
         background-color: $white-blue;
         padding: 1rem;
+        overflow-y: auto;
+        @include customScrollbar(10px);
         .flight-booking {
             .flight-body {
-                background-color: $default-white;
-                padding: 1.875rem;
-                border-radius: 6.25rem;
                 .flight-detail {
-                    display: flex;
+                    background-color: $default-white;
+                    border-radius: 6.25rem;
+                    display: inline-flex;
                     align-items: center;
                     justify-content: center;
+                    padding: 1.875rem;
                     .sr-number {
                         font-size: 0.625rem;
                         color: $default-black;
