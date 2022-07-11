@@ -80,7 +80,7 @@
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Create New Airport</h2>
+                <h2 class="modal-title">{{(selectedAirport != null)? 'Update Airport' :'Create New Airport'}}</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddAirport()" aria-label="Close"><span
                         class="ca ca-icn-close"></span></button>
             </div>
@@ -93,7 +93,7 @@
 
 <div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateDelete}"
     [ngStyle]="{'display': modalVisibleDelete ? 'block' : 'none', 'opacity': modalVisibleAnimateDelete ? 1 : 0}">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
               <h2 class="modal-title">Delete Airport</h2>

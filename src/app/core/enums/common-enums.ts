@@ -54,3 +54,10 @@ export enum AircraftActiveTypes {
   Active = 1,
   Inactive = 2
 }
+
+export enum LoaderImageSize 
+{
+    Small = 1,
+    Medium = 2,
+    Large = 3
+}

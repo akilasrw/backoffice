@@ -16,6 +16,7 @@ import { AlB7879TypeOneComponent } from './Templates/aircraft-layout/al-b7879-ty
 import { AlA320200TypeOneComponent } from './Templates/aircraft-layout/al-a320200-type-one/al-a320200-type-one.component';
 import { OverheadTemplateComponent } from './Templates/overhead-template/overhead-template.component';
 import { SeatTemplateComponent } from './Templates/seat-template/seat-template.component';
+import { LoaderFlightComponent } from './components/loader-flight/loader-flight.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SeatTemplateComponent } from './Templates/seat-template/seat-template.c
     OverheadTemplateComponent,
     SeatTemplateComponent,
     AlB7879TypeOneComponent,
-    AlA320200TypeOneComponent    
+    AlA320200TypeOneComponent,
+    LoaderFlightComponent    
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { SeatTemplateComponent } from './Templates/seat-template/seat-template.c
     OverheadTemplateComponent,
     SeatTemplateComponent,
     AlB7879TypeOneComponent,
-    AlA320200TypeOneComponent   
+    AlA320200TypeOneComponent,
+    LoaderFlightComponent       
   ]
 })
 export class SharedModule { }

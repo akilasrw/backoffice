@@ -47,7 +47,7 @@ export class SectorCreateComponent implements OnInit {
   }
 
   loadSectorTypes(){
-    this.sectorTypes.push({id:SectorType.None.toString(),value:'All'},{id:SectorType.Domestic.toString(),value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:SectorType.International.toString(),value:CoreExtensions.GetSectorType(SectorType.International)});
+    this.sectorTypes.push({id:SectorType.Domestic.toString(),value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:SectorType.International.toString(),value:CoreExtensions.GetSectorType(SectorType.International)});
     if (this.isEditSector) {
       this.editSectorTypeIndex = this.sectorTypes.findIndex(x => x.id == this.sector.sectorType);
     }
@@ -131,7 +131,7 @@ export class SectorCreateComponent implements OnInit {
           var editSector: SectorUpdateRM = this.sectorForm.value;
           this.sectorService.update(editSector).subscribe({
             next: (res) => {
-              this.toastr.success('Successfully update sector.');
+              this.toastr.success('Sector updated successfully.');
               this.submitSuccess.emit();
               this.closeModal();
             },
@@ -142,7 +142,7 @@ export class SectorCreateComponent implements OnInit {
           var sector: SectorCreateRM = this.sectorForm.value;
           this.sectorService.create(sector).subscribe({
             next: (res) => {
-              this.toastr.success('Successfully create sector.');
+              this.toastr.success('Sector created successfully.');
               this.submitSuccess.emit();
               this.closeModal();
             },

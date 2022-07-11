@@ -107,7 +107,6 @@ export class AirportCreateComponent implements OnInit {
             this.closeModal();
           },
           error: (err) => {
-            this.toastr.error('Unable to update airport.');
           }
         })
       } else {
@@ -128,7 +127,6 @@ export class AirportCreateComponent implements OnInit {
             this.closeModal();
           },
           error: (err) => {
-            this.toastr.error('Unable to create airport.');
           }
         })
       }

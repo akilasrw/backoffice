@@ -42,7 +42,7 @@ export class SectorListComponent implements OnInit {
   }
 
   loadSectorTypes(){
-    this.sectorTypes.push({id:'0',value:'All'},{id:'1',value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:'2',value:CoreExtensions.GetSectorType(SectorType.International)});
+    this.sectorTypes.push({id:'1',value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:'2',value:CoreExtensions.GetSectorType(SectorType.International)});
   }
 
   loadAirports() {
