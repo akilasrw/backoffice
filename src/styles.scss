@@ -867,6 +867,9 @@ a {
         @include customScrollbar(10px);
         .flight-booking {
             .flight-body {
+                .hide-seat {
+                    visibility: hidden;
+                }
                 .flight-detail {
                     background-color: $default-white;
                     border-radius: 6.25rem;
