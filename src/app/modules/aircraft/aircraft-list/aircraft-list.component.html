@@ -91,7 +91,7 @@
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeAircraftDetails()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
-            <div>
+            <div class="modal-body">
                 <app-aircraft-details [aircraftId]="selectedAircraftId" (closePopup)="closeAircraftDetails()" *ngIf="detailsModalVisible">
                 </app-aircraft-details>
             </div>
