@@ -39,7 +39,6 @@ export enum AircraftConfigType {
   None = 0,
   P2C = 1,
   Freighter = 2,
-  Passenger = 3,
 }
 
 export enum AircraftStatus {

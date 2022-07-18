@@ -93,9 +93,6 @@ export class CoreExtensions {
       case AircraftConfigType.Freighter:
         typeString = "Freighter";
         break;
-      case AircraftConfigType.Passenger:
-        typeString = "Passenger";
-        break;
       default:
         break;
     }

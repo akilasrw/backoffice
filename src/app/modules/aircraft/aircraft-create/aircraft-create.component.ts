@@ -118,8 +118,7 @@ export class AircraftCreateComponent implements OnInit {
 
   loadConfigTypes() {
     this.configTypes.push({ id: AircraftConfigType.P2C.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.P2C) },
-      { id: AircraftConfigType.Freighter.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Freighter) },
-      { id: AircraftConfigType.Passenger.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Passenger) });
+      { id: AircraftConfigType.Freighter.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Freighter) });
       if (this.isEditAircraft) {
         this.editConfigTypeIndex = this.configTypes.findIndex(x => x.id == this.editAircraft.configurationType?.toString());
       }
