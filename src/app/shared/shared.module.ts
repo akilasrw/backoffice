@@ -17,6 +17,7 @@ import { AlA320200TypeOneComponent } from './Templates/aircraft-layout/al-a32020
 import { OverheadTemplateComponent } from './Templates/overhead-template/overhead-template.component';
 import { SeatTemplateComponent } from './Templates/seat-template/seat-template.component';
 import { LoaderFlightComponent } from './components/loader-flight/loader-flight.component';
+import { AlB737400TypeOneComponent } from './Templates/aircraft-layout/al-b737400-type-one/al-b737400-type-one.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoaderFlightComponent } from './components/loader-flight/loader-flight.
     SeatTemplateComponent,
     AlB7879TypeOneComponent,
     AlA320200TypeOneComponent,
-    LoaderFlightComponent    
+    LoaderFlightComponent,
+    AlB737400TypeOneComponent    
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ import { LoaderFlightComponent } from './components/loader-flight/loader-flight.
     SeatTemplateComponent,
     AlB7879TypeOneComponent,
     AlA320200TypeOneComponent,
+    AlB737400TypeOneComponent,    
     LoaderFlightComponent       
   ]
 })
