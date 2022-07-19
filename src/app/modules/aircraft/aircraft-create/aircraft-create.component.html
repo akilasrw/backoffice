@@ -11,6 +11,15 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label class="form-label">Config</label>
+                    <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword"
+                        [selectedIndex]="editConfigTypeIndex" (selectFileOutput)="selectedConfigType($event)"
+                        (changeSearch)="onClearConfigType()" (clearSearch)="onClearConfigType()" [tabindex]="3">
+                    </app-auto-complete-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="this.selectedConfigurationType != aircraftConfigType.None">
+                <div class="form-group">
                     <label class="form-label">Aircraft Type</label>
                     <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword"
                         [selectedIndex]="editAircraftTypeIndex" (selectFileOutput)="selectedAircraftType($event)"
@@ -34,15 +43,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label">Config</label>
-                    <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword"
-                        [selectedIndex]="editConfigTypeIndex" (selectFileOutput)="selectedConfigType($event)"
-                        (changeSearch)="onClearConfigType()" (clearSearch)="onClearConfigType()" [tabindex]="3">
-                    </app-auto-complete-dropdown>
                 </div>
             </div>
             <div class="col-md-6">
