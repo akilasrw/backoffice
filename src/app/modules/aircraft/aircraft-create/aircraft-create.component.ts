@@ -111,7 +111,7 @@ export class AircraftCreateComponent implements OnInit {
   getFileredAircraftTypes(configType: AircraftConfigType) {
     this.subscription = this.aircraftService.aircraftTypes$.subscribe(res => {
       if (res != null) {
-        debugger;
+        this.aircraftTypes = []
         res.forEach(obj => {
           if (obj.configType == configType) {
             this.aircraftTypes?.push({ id: obj.id, value: obj.name });
@@ -166,6 +166,7 @@ export class AircraftCreateComponent implements OnInit {
   selectedConfigType(value: any) {
     this.aircraftForm.get('configurationType')?.patchValue(Number(value.id));
     this.selectedConfigurationType = Number(value.id);
+    this.onClearAircraftType(); 
     this.getFileredAircraftTypes(this.selectedConfigurationType);
   }
 
