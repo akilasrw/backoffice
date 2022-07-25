@@ -5,14 +5,14 @@
                 <div class="form-group">
                     <label class="form-label">Reg Number</label>
                     <app-text-input [formControl]='aircraftForm.controls["regNo"]' type="text"
-                        [label]='"registration number."' [tabindex]="1">
+                        [label]='"registration number."' [tabindex]="1" [textBoxDisabled]="isEditAircraft">
                     </app-text-input>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Config</label>
-                    <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword" [isEdit]="editAircraft"
+                    <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword" [isEdit]="isEditAircraft"
                         [selectedIndex]="editConfigTypeIndex" (selectFileOutput)="selectedConfigType($event)"
                         (changeSearch)="onClearConfigType()" (clearSearch)="onClearConfigType()" [tabindex]="3">
                     </app-auto-complete-dropdown>
@@ -21,7 +21,7 @@
             <div class="col-md-12" *ngIf="this.selectedConfigurationType != aircraftConfigType.None">
                 <div class="form-group">
                     <label class="form-label">Aircraft Type</label>
-                    <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword" [isEdit]="editAircraft"
+                    <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword" [isEdit]="isEditAircraft"
                         [selectedIndex]="editAircraftTypeIndex" (selectFileOutput)="selectedAircraftType($event)"
                         (changeSearch)="onClearAircraftType()" (clearSearch)="onClearAircraftType()" [tabindex]="2">
                     </app-auto-complete-dropdown>
@@ -50,7 +50,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Status </label>
-                            <app-auto-complete-dropdown [data]="statusTypes" [keyword]="keyword"  [isEdit]="editAircraft"
+                            <app-auto-complete-dropdown [data]="statusTypes" [keyword]="keyword"  [isEdit]="isEditAircraft"
                                 [selectedIndex]="editStatusTypeIndex" (selectFileOutput)="selectedStatusType($event)"
                                 (changeSearch)="onClearStatusType()" (clearSearch)="onClearStatusType()" [tabindex]="4">
                             </app-auto-complete-dropdown>
