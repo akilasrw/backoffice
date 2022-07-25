@@ -9,7 +9,6 @@ export class AutoCompleteDropdownComponent implements OnInit {
 
 
   @Input() keyword: string = '';
-  //@Input() placeholder: string = 'Select Airport';
   @Input() data: any = [];
   @Input() selectedIndex?: number;
   @Output() selectFileOutput = new EventEmitter<any>();
@@ -20,7 +19,7 @@ export class AutoCompleteDropdownComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.isLoading=true;
+    //this.isLoading=true;
     setTimeout(() => {
       //this.isLoading=false;
       if (this.selectedIndex != null && this.data.length > 0) {
