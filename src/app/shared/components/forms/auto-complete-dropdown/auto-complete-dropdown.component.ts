@@ -11,7 +11,6 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Input() keyword: string = '';
   @Input() data: any = [];
   @Input() selectedIndex?: number;
-  @Input() isEdit = false
   @Output() selectFileOutput = new EventEmitter<any>();
   @Output() clearSearch = new EventEmitter<any>();
   @Output() changeSearch = new EventEmitter<any>();
