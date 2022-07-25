@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-auto-complete-dropdown',
@@ -11,25 +11,20 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Input() keyword: string = '';
   @Input() data: any = [];
   @Input() selectedIndex?: number;
-  @Input() isEdit=false
+  @Input() isEdit = false
   @Output() selectFileOutput = new EventEmitter<any>();
   @Output() clearSearch = new EventEmitter<any>();
   @Output() changeSearch = new EventEmitter<any>();
   @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
-  isLoading:boolean=false;
 
 
   ngOnInit(): void {
-    if(this.isEdit){
-      this.isLoading=true;
-      setTimeout(() => {
-        this.isLoading=false;
-        if (this.selectedIndex != null && this.data.length > 0) {
-          this.autocompleteDropdown.initialValue = this.data[this.selectedIndex]?.value;
-          this.autocompleteDropdown.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;
-        }
-      }, 1000);
-    }
+    setTimeout(() => {
+      if (this.selectedIndex != null && this.data.length > 0) {
+        this.autocompleteDropdown.initialValue = this.data[this.selectedIndex]?.value;
+        this.autocompleteDropdown.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;
+      }
+    }, 1000);
   }
 
   selectEvent(item: any) {

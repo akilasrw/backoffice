@@ -19,6 +19,7 @@ import { SeatTemplateComponent } from './Templates/seat-template/seat-template.c
 import { LoaderFlightComponent } from './components/loader-flight/loader-flight.component';
 import { AlB737400TypeOneComponent } from './Templates/aircraft-layout/al-b737400-type-one/al-b737400-type-one.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
+import { TextInputLoaderComponent } from './components/text-input-loader/text-input-loader.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
     AlA320200TypeOneComponent,
     LoaderFlightComponent,
     AlB737400TypeOneComponent,
-    TableLoaderComponent    
+    TableLoaderComponent,
+    TextInputLoaderComponent    
   ],
   imports: [
     CommonModule,
@@ -63,7 +65,8 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
     AlA320200TypeOneComponent,
     AlB737400TypeOneComponent,    
     LoaderFlightComponent,
-    TableLoaderComponent        
+    TableLoaderComponent ,
+    TextInputLoaderComponent           
   ]
 })
 export class SharedModule { }

@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Config</label>
-                    <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword" [isEdit]="isEditAircraft"
+                    <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword"
                         [selectedIndex]="editConfigTypeIndex" (selectFileOutput)="selectedConfigType($event)"
                         (changeSearch)="onClearConfigType()" (clearSearch)="onClearConfigType()" [tabindex]="3">
                     </app-auto-complete-dropdown>
@@ -21,7 +21,7 @@
             <div class="col-md-12" *ngIf="this.selectedConfigurationType != aircraftConfigType.None">
                 <div class="form-group">
                     <label class="form-label">Aircraft Type</label>
-                    <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword" [isEdit]="isEditAircraft"
+                    <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword" 
                         [selectedIndex]="editAircraftTypeIndex" (selectFileOutput)="selectedAircraftType($event)"
                         (changeSearch)="onClearAircraftType()" (clearSearch)="onClearAircraftType()" [tabindex]="2">
                     </app-auto-complete-dropdown>
@@ -50,7 +50,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Status </label>
-                            <app-auto-complete-dropdown [data]="statusTypes" [keyword]="keyword"  [isEdit]="isEditAircraft"
+                            <app-auto-complete-dropdown [data]="statusTypes" [keyword]="keyword" 
                                 [selectedIndex]="editStatusTypeIndex" (selectFileOutput)="selectedStatusType($event)"
                                 (changeSearch)="onClearStatusType()" (clearSearch)="onClearStatusType()" [tabindex]="4">
                             </app-auto-complete-dropdown>

@@ -2,28 +2,31 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
-                    <label class="form-label"><span class="loading" *ngIf="isLoading"></span><span *ngIf="!isLoading">Sector Type</span></label>
-                    <app-auto-complete-dropdown [data]="sectorTypes" [keyword]="keyword" [isEdit]="isEditSector" [selectedIndex]="editSectorTypeIndex" [tabindex]="1"
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Sector Type</label>
+                    <app-auto-complete-dropdown [data]="sectorTypes" [keyword]="keyword" [selectedIndex]="editSectorTypeIndex" [tabindex]="1"
                         (selectFileOutput)="selectedSectorType($event)" (changeSearch)="onClearSectorType()"
                         (clearSearch)="onClearSectorType()"></app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label"><span class="loading" *ngIf="isLoading"></span><span *ngIf="!isLoading">Origin Airport</span></label>
-                    <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" [isEdit]="isEditSector"  [selectedIndex]="editOriginAirportIndex" [tabindex]="2"
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Origin Airport</label>
+                    <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" [selectedIndex]="editOriginAirportIndex" [tabindex]="2"
                         (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                         (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label"><span class="loading" *ngIf="isLoading"></span><span *ngIf="!isLoading">Destination Airport</span></label>
-                    <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" [isEdit]="isEditSector"  [selectedIndex]="editDestinationAirportIndex" [tabindex]="3"
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Destination Airport</label>
+                    <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" [selectedIndex]="editDestinationAirportIndex" [tabindex]="3"
                         (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
                         (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div  class="col-md-6" *ngIf="!isEditSector">
                 <div class="form-group">
