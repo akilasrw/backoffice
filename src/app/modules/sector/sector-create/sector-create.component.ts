@@ -30,6 +30,7 @@ export class SectorCreateComponent implements OnInit {
   public sectorForm!: FormGroup;
   isEditSector:boolean=false;
   keyword = 'value';
+  isLoading:boolean=false;
 
 
   constructor(private airportService:AirportService,
@@ -54,6 +55,7 @@ export class SectorCreateComponent implements OnInit {
   }
 
   loadAirports() {
+    this.isLoading=true;
     this.airportService.getSelectList()
       .subscribe(res => {
         if (res.length > 0) {
@@ -64,6 +66,7 @@ export class SectorCreateComponent implements OnInit {
             this.editDestinationAirportIndex = this.destinationAirpots.findIndex(x => x.id == this.sector.destinationAirportId);
           }
         }
+        this.isLoading=false;
       });
   }
 
@@ -126,7 +129,7 @@ export class SectorCreateComponent implements OnInit {
       }
 
       if (this.sectorForm.valid) {
-  
+        this.isLoading=true;
         if (this.isEditSector) {
           var editSector: SectorUpdateRM = this.sectorForm.value;
           this.sectorService.update(editSector).subscribe({
@@ -134,8 +137,10 @@ export class SectorCreateComponent implements OnInit {
               this.toastr.success('Sector updated successfully.');
               this.submitSuccess.emit();
               this.closeModal();
+              this.isLoading=false;
             },
             error: (err) => {
+              this.isLoading=false;
             }
           })
         } else {
@@ -145,8 +150,10 @@ export class SectorCreateComponent implements OnInit {
               this.toastr.success('Sector created successfully.');
               this.submitSuccess.emit();
               this.closeModal();
+              this.isLoading=false;
             },
             error: (err) => {
+              this.isLoading=false;
             }
           })
         }

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label class="form-label">Sector Type</label>
+                    <label class="form-label"><span class="loading" *ngIf="isLoading"></span>Sector Type</label>
                     <app-auto-complete-dropdown [data]="sectorTypes" [keyword]="keyword" [selectedIndex]="editSectorTypeIndex" [tabindex]="1"
                         (selectFileOutput)="selectedSectorType($event)" (changeSearch)="onClearSectorType()"
                         (clearSearch)="onClearSectorType()"></app-auto-complete-dropdown>
@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">Origin Airport</label>
+                    <label class="form-label"><span class="loading" *ngIf="isLoading"></span>Origin Airport</label>
                     <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" [selectedIndex]="editOriginAirportIndex" [tabindex]="2"
                         (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                         (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">Destination Airport</label>
+                    <label class="form-label"><span class="loading" *ngIf="isLoading"></span>Destination Airport</label>
                     <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" [selectedIndex]="editDestinationAirportIndex" [tabindex]="3"
                         (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
                         (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>

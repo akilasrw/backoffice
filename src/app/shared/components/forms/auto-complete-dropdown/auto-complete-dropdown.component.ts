@@ -16,10 +16,13 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Output() clearSearch = new EventEmitter<any>();
   @Output() changeSearch = new EventEmitter<any>();
   @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
+  isLoading:boolean=false;
 
 
   ngOnInit(): void {
+    this.isLoading=true;
     setTimeout(() => {
+      this.isLoading=false;
       if (this.selectedIndex != null && this.data.length > 0) {
         this.autocompleteDropdown.initialValue = this.data[this.selectedIndex]?.value;
         this.autocompleteDropdown.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;
