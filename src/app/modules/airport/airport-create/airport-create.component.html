@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label class="form-label">Country</label>
-                    <app-auto-complete-dropdown [data]="countryList" [keyword]="keyword" [selectedIndex]="editCountryIndex"
+                    <app-auto-complete-dropdown [data]="countryList" [keyword]="keyword" [selectedIndex]="editCountryIndex" [isEdit]="isEditAirport"
                         (selectFileOutput)="selectedCountry($event)" (clearSearch)="onClearCountry()" [tabindex]="1"></app-auto-complete-dropdown>
                 </div>
             </div>

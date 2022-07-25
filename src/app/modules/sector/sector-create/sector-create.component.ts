@@ -22,40 +22,43 @@ export class SectorCreateComponent implements OnInit {
   destinationAirpots: SelectList[] = [];
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
-  @Input() sector:Sector = new Sector();
-  editSectorTypeIndex?:number;
-  editOriginAirportIndex?:number;
-  editDestinationAirportIndex?:number;
-  createReturnSector:boolean=false;
+  @Input() sector: Sector = new Sector();
+  editSectorTypeIndex?: number;
+  editOriginAirportIndex?: number;
+  editDestinationAirportIndex?: number;
+  createReturnSector: boolean = false;
   public sectorForm!: FormGroup;
-  isEditSector:boolean=false;
+  isEditSector: boolean = false;
   keyword = 'value';
-  isLoading:boolean=false;
+  isLoading: boolean = false;
 
 
-  constructor(private airportService:AirportService,
-    private sectorService:SectorService,
-    private toastr:ToastrService) { }
+  constructor(private airportService: AirportService,
+    private sectorService: SectorService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm()
-    if(this.sector != null){
+    if (this.sector != null) {
       this.isEditSector = true;
       this.editSectorForm(this.sector);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     }
     this.loadSectorTypes();
     this.loadAirports();
   }
 
-  loadSectorTypes(){
-    this.sectorTypes.push({id:SectorType.Domestic.toString(),value:CoreExtensions.GetSectorType(SectorType.Domestic)},{id:SectorType.International.toString(),value:CoreExtensions.GetSectorType(SectorType.International)});
+  loadSectorTypes() {
+    this.sectorTypes.push({ id: SectorType.Domestic.toString(), value: CoreExtensions.GetSectorType(SectorType.Domestic) }, { id: SectorType.International.toString(), value: CoreExtensions.GetSectorType(SectorType.International) });
     if (this.isEditSector) {
       this.editSectorTypeIndex = this.sectorTypes.findIndex(x => x.id == this.sector.sectorType);
     }
   }
 
   loadAirports() {
-    this.isLoading=true;
     this.airportService.getSelectList()
       .subscribe(res => {
         if (res.length > 0) {
@@ -66,16 +69,15 @@ export class SectorCreateComponent implements OnInit {
             this.editDestinationAirportIndex = this.destinationAirpots.findIndex(x => x.id == this.sector.destinationAirportId);
           }
         }
-        this.isLoading=false;
       });
   }
 
-  initializeForm(){
-    this.sectorForm= new FormGroup({
+  initializeForm() {
+    this.sectorForm = new FormGroup({
       id: new FormControl(null),
       originAirportId: new FormControl(null, [Validators.required]),
       destinationAirportId: new FormControl(null, [Validators.required]),
-      sectorType : new FormControl(null, [Validators.required]),
+      sectorType: new FormControl(null, [Validators.required]),
       isCreateReturnSector: new FormControl(false)
     });
   }
@@ -87,11 +89,11 @@ export class SectorCreateComponent implements OnInit {
     this.sectorForm.get('sectorType')?.patchValue(sector.sectorType);
   }
 
-  selectedSectorType(value: any){
+  selectedSectorType(value: any) {
     this.sectorForm.get('sectorType')?.patchValue(Number(value.id));
   }
 
-  onClearSectorType(){
+  onClearSectorType() {
     this.sectorForm.get('sectorType')?.patchValue(null);
   }
 
@@ -99,7 +101,7 @@ export class SectorCreateComponent implements OnInit {
     this.sectorForm.get('originAirportId')?.patchValue(value.id);
   }
 
-  onClearOrigin(){
+  onClearOrigin() {
     this.sectorForm.get('originAirportId')?.patchValue(null);
   }
 
@@ -107,7 +109,7 @@ export class SectorCreateComponent implements OnInit {
     this.sectorForm.get('destinationAirportId')?.patchValue(value.id);
   }
 
-  onClearDestination(){
+  onClearDestination() {
     this.sectorForm.get('destinationAirportId')?.patchValue(null);
   }
 
@@ -116,52 +118,52 @@ export class SectorCreateComponent implements OnInit {
     this.closePopup.emit();
   }
 
-  saveSectorDetails(){
- 
-      if (this.sectorForm.get('sectorType')?.value === null || this.sectorForm.get('sectorType')?.value === "") {
-        this.toastr.error('Please select sector type.');
-      }
-      if (this.sectorForm.get('originAirportId')?.value === null || this.sectorForm.get('originAirportId')?.value === "") {
-        this.toastr.error('Please select origin airport.');
-      }
-      if (this.sectorForm.get('destinationAirportId')?.value === null || this.sectorForm.get('destinationAirportId')?.value === "") {
-        this.toastr.error('Please select destination airport.');
-      }
+  saveSectorDetails() {
 
-      if (this.sectorForm.valid) {
-        this.isLoading=true;
-        if (this.isEditSector) {
-          var editSector: SectorUpdateRM = this.sectorForm.value;
-          this.sectorService.update(editSector).subscribe({
-            next: (res) => {
-              this.toastr.success('Sector updated successfully.');
-              this.submitSuccess.emit();
-              this.closeModal();
-              this.isLoading=false;
-            },
-            error: (err) => {
-              this.isLoading=false;
-            }
-          })
-        } else {
-          var sector: SectorCreateRM = this.sectorForm.value;
-          this.sectorService.create(sector).subscribe({
-            next: (res) => {
-              this.toastr.success('Sector created successfully.');
-              this.submitSuccess.emit();
-              this.closeModal();
-              this.isLoading=false;
-            },
-            error: (err) => {
-              this.isLoading=false;
-            }
-          })
-        }
+    if (this.sectorForm.get('sectorType')?.value === null || this.sectorForm.get('sectorType')?.value === "") {
+      this.toastr.error('Please select sector type.');
+    }
+    if (this.sectorForm.get('originAirportId')?.value === null || this.sectorForm.get('originAirportId')?.value === "") {
+      this.toastr.error('Please select origin airport.');
+    }
+    if (this.sectorForm.get('destinationAirportId')?.value === null || this.sectorForm.get('destinationAirportId')?.value === "") {
+      this.toastr.error('Please select destination airport.');
+    }
+
+    if (this.sectorForm.valid) {
+      this.isLoading = true;
+      if (this.isEditSector) {
+        var editSector: SectorUpdateRM = this.sectorForm.value;
+        this.sectorService.update(editSector).subscribe({
+          next: (res) => {
+            this.toastr.success('Sector updated successfully.');
+            this.submitSuccess.emit();
+            this.closeModal();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+          }
+        })
       } else {
-        this.sectorForm.markAllAsTouched();
+        var sector: SectorCreateRM = this.sectorForm.value;
+        this.sectorService.create(sector).subscribe({
+          next: (res) => {
+            this.toastr.success('Sector created successfully.');
+            this.submitSuccess.emit();
+            this.closeModal();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+          }
+        })
       }
-    
-    
+    } else {
+      this.sectorForm.markAllAsTouched();
+    }
+
+
   }
 
 }
