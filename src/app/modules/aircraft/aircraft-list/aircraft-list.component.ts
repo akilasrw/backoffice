@@ -35,6 +35,7 @@ export class AircraftListComponent implements OnInit {
   selectedAircraftId?:string;
   aircraftFilterQuery: AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
+  isLoading :boolean= false;
 
 
   constructor(private aircraftService: AircraftService) { }
@@ -46,6 +47,7 @@ export class AircraftListComponent implements OnInit {
   }
 
   getAircraftList() {
+    this.isLoading=true;
     this.aircraftFilterQuery.regNo = this.regNumber;
     this.aircraftFilterQuery.aircraftType = this.selectedAircraftType;
     this.aircraftFilterQuery.activeType = this.selectedActiveType;
@@ -54,33 +56,39 @@ export class AircraftListComponent implements OnInit {
         next: (res) => {
           this.aircrafts = res.data
           this.totalCount = res.count
+          this.isLoading=false;
         },
         error: (error) => {
           this.totalCount = 0;
-          this.aircrafts = []
+          this.aircrafts = [];
+          this.isLoading=false;
         }
       }
     )
   }
 
   getAircraftTypes() {
+    this.isLoading=true;
     this.aircraftService.getAircraftTypes().subscribe({
       next: (res) => {
+        this.isLoading=false;
         this.getFileredAircraftTypes();
       },
       error: (err) => {
-
+        this.isLoading=false;
       }
     });
   }
 
   getFileredAircraftTypes() {
+    this.isLoading=true;
     this.subscription = this.aircraftService.aircraftTypes$.subscribe(res => {
       if (res != null) {
         res.forEach(obj => {
           this.aircraftTypes?.push({ id: obj.type?.toString(), value: obj.name });
         });
       }
+      this.isLoading=false;
     });
   }
 
