@@ -3,7 +3,7 @@ import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.mode
 import { AircraftCreateRM } from './../../../_models/request-models/aircraft/aircraft-create-rm';
 import { AircraftSubType } from 'src/app/_models/view-models/aircrafts/aircraft-sub-type.model';
 import { AircraftService } from './../../../_services/aircraft.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './aircraft-create.component.html',
   styleUrls: ['./aircraft-create.component.scss']
 })
-export class AircraftCreateComponent implements OnInit {
+export class AircraftCreateComponent implements OnInit, OnDestroy{
 
   keyword = 'value';
   subscription?: Subscription;
@@ -282,11 +282,15 @@ export class AircraftCreateComponent implements OnInit {
   }
 
   closeModal() {
-    this.aircraftForm.reset();
     this.closePopup.emit();
   }
 
   get aircraftConfigType(): typeof AircraftConfigType {
     return AircraftConfigType;
+  }
+
+  ngOnDestroy(): void {
+    this.aircraftForm.reset();
+    this.onClearAircraftType();
   }
 }
