@@ -33,6 +33,7 @@ export class AircraftCreateComponent implements OnInit {
   modalVisible: boolean = false;
   modalVisibleAnimate: boolean = false;
   isEditAircraft: boolean = false;
+  isLoading: boolean = false;
   @Output() viewLayout = new EventEmitter<any>();
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
@@ -46,6 +47,10 @@ export class AircraftCreateComponent implements OnInit {
     if (this.editAircraft != null) {
       this.isEditAircraft = true;
       this.editAircraftForm(this.editAircraft);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     }
     this.loadConfigTypes();
     this.loadStatusTypes();
@@ -243,6 +248,7 @@ export class AircraftCreateComponent implements OnInit {
     }
 
     if (this.aircraftForm.valid) {
+      this.isLoading=true;
       if (this.isEditAircraft) {
         var editAircraft: AircraftUpdateRM = this.aircraftForm.value;
         this.aircraftService.update(editAircraft).subscribe({
@@ -250,8 +256,10 @@ export class AircraftCreateComponent implements OnInit {
             this.toastr.success('Successfully update aircraft.');
             this.submitSuccess.emit();
             this.closeModal();
+            this.isLoading=false;
           },
           error: (err) => {
+            this.isLoading=false;
           }
         })
       } else {
@@ -261,8 +269,10 @@ export class AircraftCreateComponent implements OnInit {
             this.toastr.success('Successfully create aircraft.');
             this.submitSuccess.emit();
             this.closeModal();
+            this.isLoading=false;
           },
           error: (err) => {
+            this.isLoading=false;
           }
         });
       }

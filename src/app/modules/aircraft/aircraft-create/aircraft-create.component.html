@@ -2,33 +2,36 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Reg Number</label>
                     <app-text-input [formControl]='aircraftForm.controls["regNo"]' type="text"
                         [label]='"registration number."' [tabindex]="1" [textBoxDisabled]="isEditAircraft">
                     </app-text-input>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Config</label>
                     <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword"
                         [selectedIndex]="editConfigTypeIndex" (selectFileOutput)="selectedConfigType($event)"
                         (changeSearch)="onClearConfigType()" (clearSearch)="onClearConfigType()" [tabindex]="3">
                     </app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-12" *ngIf="this.selectedConfigurationType != aircraftConfigType.None">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Aircraft Type</label>
                     <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword" 
                         [selectedIndex]="editAircraftTypeIndex" (selectFileOutput)="selectedAircraftType($event)"
                         (changeSearch)="onClearAircraftType()" (clearSearch)="onClearAircraftType()" [tabindex]="2">
                     </app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-12" *ngIf="this.aircraftSubTypes?.length >0">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Select Aircraft Sub Type</label>
                     <div class="drawer-chip">
                         <div *ngFor="let subType of this.aircraftSubTypes">
@@ -44,20 +47,22 @@
                         </div>
                     </div>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-12">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="!isLoading">
                             <label class="form-label">Status </label>
                             <app-auto-complete-dropdown [data]="statusTypes" [keyword]="keyword" 
                                 [selectedIndex]="editStatusTypeIndex" (selectFileOutput)="selectedStatusType($event)"
                                 (changeSearch)="onClearStatusType()" (clearSearch)="onClearStatusType()" [tabindex]="4">
                             </app-auto-complete-dropdown>
                         </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group d-flex align-items-center justify-content-between mb-2">
+                        <div class="form-group d-flex align-items-center justify-content-between mb-2" *ngIf="!isLoading">
                             <div>Active</div>
                             <label class="switch">
                                 <input [formControl]='aircraftForm.controls["isActive"]' type="checkbox">
