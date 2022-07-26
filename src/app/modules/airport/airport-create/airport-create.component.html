@@ -2,28 +2,31 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Country</label>
                     <app-auto-complete-dropdown [data]="countryList" [keyword]="keyword" [selectedIndex]="editCountryIndex"
                         (selectFileOutput)="selectedCountry($event)" (clearSearch)="onClearCountry()" [tabindex]="1"></app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Airport Name</label>
                     <app-text-input [formControl]='airportForm.controls["name"]' type="text" [label]='"airport name."'[tabindex]="2">
                     </app-text-input>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Airport Code</label>
                     <app-text-input [formControl]='airportForm.controls["code"]' type="text" [label]='"airport code."'[tabindex]="3">
                     </app-text-input>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Latitude</label>
                     <div class="row">
                         <div class="col-md-6">
@@ -51,9 +54,10 @@
                         </div>
                     </div>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Longitude</label>
                     <div class="row">
                         <div class="col-md-6">
@@ -81,6 +85,7 @@
                         </div>
                     </div>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
         </div>
     </div>
