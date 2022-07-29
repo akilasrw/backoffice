@@ -1,0 +1,73 @@
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Flights</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Flight Number</label>
+                        <input [(ngModel)]="flightNumber" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Flight Date</label>
+                        <input [(ngModel)]="flightDate" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="button">
+                        <button (click)="getFlightList()" class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
+                            class="ca ca-icn-close" (click)="clearFilter()"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="!isLoading" class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Flight Number</th>
+                        <th>Aircraft Number</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Departure Date</th>
+                        <th>Aircraft Config</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.flights">
+                            <td>{{item.countryName}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.code}}</td>
+                            <td>{{item.lat}}</td>
+                            <td>{{item.lon}}</td>
+                            <td>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="not-available" *ngIf="totalCount == 0">
+                    <img src="./assets/images/no-data.png" alt="No Content Data">
+                    <div>Airport not available.</div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                    <app-pager [pageSize]="airportFilterQuery?.pageSize" [pageNumber]="airportFilterQuery?.pageIndex"
+                        [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                    <app-paging-header [totalCount]="totalCount" [pageSize]="airportFilterQuery?.pageSize"
+                        [pageNumber]="airportFilterQuery?.pageIndex"></app-paging-header>
+                </div>
+            </div>
+            <app-table-loader [columnCount]="6" [rowCount]="airportFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader>
+        </div>
+    </div>
+</div>
+
