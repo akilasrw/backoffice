@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
 import { BookingSummaryFilterQuery } from 'src/app/_models/queries/booking-summary/booking-summary-filter-query.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-summary-list',
@@ -19,7 +20,7 @@ export class BookingSummaryListComponent implements OnInit {
   bookingSummarys:CargoBookingSummary[]=[];
   bookingSummaryFilterQuery: BookingSummaryFilterQuery = new BookingSummaryFilterQuery();
 
-  constructor(private bookingSummaryService:BookingSummaryService) { }
+  constructor(private bookingSummaryService:BookingSummaryService,private router: Router) { }
 
   ngOnInit(): void {
     this.getFilteredList();
@@ -73,7 +74,7 @@ export class BookingSummaryListComponent implements OnInit {
   }
 
   onViewDetail(item:any){
-
+    this.router.navigate(['booking-summary/summaryDetails']);
   }
   
 }
