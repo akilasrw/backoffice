@@ -8,11 +8,14 @@ import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-s
 })
 export class FreighterBookingSummaryDetailsComponent implements OnInit {
 
-  cargoBookingSummary!: CargoBookingSummaryDetail;
+  cargoBookingSummary?: CargoBookingSummaryDetail;
+  modalVisible = false;
+  modalVisibleAnimate = false;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 
@@ -21,7 +24,13 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   }
 
   viewLIR(){
-    
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  closeLIR(){
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
   }
 
 }

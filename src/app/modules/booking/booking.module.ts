@@ -6,13 +6,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { BookingSummaryListComponent } from './booking-summary/booking-summary-list/booking-summary-list.component';
 import { P2cBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/p2c-booking-summary-details/p2c-booking-summary-details.component';
 import { FreighterBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/freighter-booking-summary-details/freighter-booking-summary-details.component';
+import { BookingSummaryLirComponent } from './booking-summary/booking-summary-details/booking-summary-lir/booking-summary-lir.component';
 
 
 @NgModule({
   declarations: [
     BookingSummaryListComponent,
     P2cBookingSummaryDetailsComponent,
-    FreighterBookingSummaryDetailsComponent
+    FreighterBookingSummaryDetailsComponent,
+    BookingSummaryLirComponent
   ],
   imports: [
     CommonModule,

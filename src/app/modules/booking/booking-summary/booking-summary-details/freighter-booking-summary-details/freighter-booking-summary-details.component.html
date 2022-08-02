@@ -24,10 +24,10 @@
             <div class="details-box-section">
                 <div class="details-box">
                     <h4>Total Booked Weight (Kg)</h4>
-                    <div class="value"><span class="">{{cargoBookingSummary.cargoPositionSummary.totalBookedWeight}}</span><span>/ {{cargoBookingSummary.cargoPositionSummary.totalWeight}}</span></div>
+                    <div class="value"><span class="">{{cargoBookingSummary?.cargoPositionSummary.totalBookedWeight}}</span><span>/ {{cargoBookingSummary?.cargoPositionSummary.totalWeight}}</span></div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary.cargoPositionSummary.weightPercentage| percent"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            {{cargoBookingSummary.cargoPositionSummary.weightPercentage | percent}}</div>
+                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary?.cargoPositionSummary.weightPercentage| percent"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            {{cargoBookingSummary?.cargoPositionSummary.weightPercentage | percent}}</div>
                     </div>
                 </div>
                 <div class="details-box" style="display: none">
@@ -39,27 +39,27 @@
                 </div>
                 <div class="details-box">
                     <h4>Total Occupied Seats</h4>
-                    <div class="value"><span class="">{{cargoBookingSummary.cargoPositionSummary.totalOccupiedOnSeats}}</span><span>/ {{cargoBookingSummary.cargoPositionSummary.totalOnSeats}}</span></div>
+                    <div class="value"><span class="">{{cargoBookingSummary?.cargoPositionSummary.totalOccupiedOnSeats}}</span><span>/ {{cargoBookingSummary?.cargoPositionSummary.totalOnSeats}}</span></div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary.cargoPositionSummary.onSeatsPercentage| percent"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            {{cargoBookingSummary.cargoPositionSummary.onSeatsPercentage | percent}}
+                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary?.cargoPositionSummary.onSeatsPercentage| percent"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            {{cargoBookingSummary?.cargoPositionSummary.onSeatsPercentage | percent}}
                         </div>
                     </div>
                 </div>
                 <div class="details-box">
                     <h4>Total Occupied Under Seats</h4>
-                    <div class="value"><span class="">{{cargoBookingSummary.cargoPositionSummary.totalOccupiedUnderSeats}}</span><span>/ {{cargoBookingSummary.cargoPositionSummary.totalUnderSeats}}</span></div>
+                    <div class="value"><span class="">{{cargoBookingSummary?.cargoPositionSummary.totalOccupiedUnderSeats}}</span><span>/ {{cargoBookingSummary?.cargoPositionSummary.totalUnderSeats}}</span></div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary.cargoPositionSummary.underSeatsPercentage| percent"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            {{cargoBookingSummary.cargoPositionSummary.underSeatsPercentage | percent}}</div>
+                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary?.cargoPositionSummary.underSeatsPercentage| percent"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            {{cargoBookingSummary?.cargoPositionSummary.underSeatsPercentage | percent}}</div>
                     </div>
                 </div>
                 <div class="details-box">
                     <h4>Total Occupied Overhead Bins</h4>
-                    <div class="value"><span class="">{{cargoBookingSummary.cargoPositionSummary.totalOccupiedOverheads}}</span><span>/ {{cargoBookingSummary.cargoPositionSummary.totalOverheads}}</span></div>
+                    <div class="value"><span class="">{{cargoBookingSummary?.cargoPositionSummary.totalOccupiedOverheads}}</span><span>/ {{cargoBookingSummary?.cargoPositionSummary.totalOverheads}}</span></div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary.cargoPositionSummary.overheadPercentage| percent" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            {{cargoBookingSummary.cargoPositionSummary.overheadPercentage | percent}}
+                        <div class="progress-bar" role="progressbar" [style.width]="cargoBookingSummary?.cargoPositionSummary.overheadPercentage| percent" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            {{cargoBookingSummary?.cargoPositionSummary.overheadPercentage | percent}}
                         </div>
                     </div>
                 </div>
@@ -78,4 +78,21 @@
         </div>
     </div>
    
+</div>
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">LIR</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeLIR()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-booking-summary-lir *ngIf="modalVisible"></app-booking-summary-lir>
+            </div>
+        </div>
+    </div>
 </div>
