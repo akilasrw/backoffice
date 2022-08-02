@@ -19,6 +19,7 @@ export class BookingSummaryDetailsComponent implements OnInit {
   constructor(private bookingSummaryService: BookingSummaryService) { }
 
   ngOnInit(): void {
+    this.find();
   }
 
 
