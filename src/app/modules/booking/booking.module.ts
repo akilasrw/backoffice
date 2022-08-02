@@ -4,13 +4,15 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BookingRoutingModule } from './booking-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BookingSummaryListComponent } from './booking-summary/booking-summary-list/booking-summary-list.component';
-import { BookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/booking-summary-details.component';
+import { P2cBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/p2c-booking-summary-details/p2c-booking-summary-details.component';
+import { FreighterBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/freighter-booking-summary-details/freighter-booking-summary-details.component';
 
 
 @NgModule({
   declarations: [
     BookingSummaryListComponent,
-    BookingSummaryDetailsComponent
+    P2cBookingSummaryDetailsComponent,
+    FreighterBookingSummaryDetailsComponent
   ],
   imports: [
     CommonModule,

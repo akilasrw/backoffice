@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/booking-summary-details.component';
+import { FreighterBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/freighter-booking-summary-details/freighter-booking-summary-details.component';
+import { P2cBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/p2c-booking-summary-details/p2c-booking-summary-details.component';
 import { BookingSummaryListComponent } from './booking-summary/booking-summary-list/booking-summary-list.component';
 
 const routes: Routes = [
   { path: '', component: BookingSummaryListComponent},
-  { path: 'summaryDetails', component: BookingSummaryDetailsComponent}
+  { path: 'p2cSummaryDetails', component: P2cBookingSummaryDetailsComponent},
+  { path: 'freighterSummaryDetails', component: FreighterBookingSummaryDetailsComponent}
 ];
 
 @NgModule({

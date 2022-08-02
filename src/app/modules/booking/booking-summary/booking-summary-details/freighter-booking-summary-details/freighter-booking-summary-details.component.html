@@ -1,12 +1,26 @@
 <div class="main-card">
     <div class="card-header px-0 pt-0">
         <div class="d-flex justify-content-between align-items-center">
-            <div><h1>Booking Summary Details</h1></div>
+            <div>
+                <h1>Booking Summary Details</h1>
+            </div>
+            <div class="back-icn"><i class="ca ca-icn-left-arrow-dash" title="Back" (click)="backToList()"></i>
+            </div>
         </div>
     </div>
     <div class="card-body without-footer">
-        <div class="booking-details" *ngIf="cargoBookingSummary">
-            <h3>View Booking Details</h3>
+        <div class="booking-details">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3> Flght Number</h3>
+                </div>
+                <div>
+                    <h3> Aircraft Number</h3>
+                </div>
+                <div>
+                    <h3> Origin</h3>
+                </div>
+            </div>
             <div class="details-box-section">
                 <div class="details-box">
                     <h4>Total Booked Weight (Kg)</h4>
@@ -50,18 +64,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3>View Freighter Details</h3>
+                </div>
+                <button class="btn btn-primary" type="button" (click)="viewLIR()">View LIR</button>
+            </div>
         </div>
         <div class="booking-summary">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" [ngClass]="{'active': bookingSummaryType == 1}" id="on-seat-tab" data-bs-toggle="tab" data-bs-target="#on-seat" type="button" role="tab" aria-controls="on-seat" aria-selected="true" (click)="bookingSummaryType=1">On Seat</button>
-                    <button class="nav-link" [ngClass]="{'active': bookingSummaryType == 2}" id="under-seat-tab" data-bs-toggle="tab" data-bs-target="#under-seat" type="button" role="tab" aria-controls="under-seat" aria-selected="false" (click)="bookingSummaryType=2">Under Seat</button>
-                    <button class="nav-link" [ngClass]="{'active': bookingSummaryType == 3}" id="overhead-bin-tab" data-bs-toggle="tab" data-bs-target="#overhead-bin" type="button" role="tab" aria-controls="overhead-bin" aria-selected="false" (click)="bookingSummaryType=3">Overhead</button>
-                </div>
-            </nav>
-            
-            <app-seat-template *ngIf="bookingSummaryType == 1 || bookingSummaryType == 2"></app-seat-template>
-            <app-overhead-template *ngIf="bookingSummaryType == 3"></app-overhead-template>
+            <app-seat-template></app-seat-template>
+
         </div>
     </div>
+   
 </div>

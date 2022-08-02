@@ -4,6 +4,7 @@ import { BookingSummaryService } from 'src/app/_services/booking-summary.service
 import { BookingSummaryFilterQuery } from 'src/app/_models/queries/booking-summary/booking-summary-filter-query.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { Router } from '@angular/router';
+import { AircraftConfigType } from 'src/app/core/enums/common-enums';
 
 @Component({
   selector: 'app-booking-summary-list',
@@ -73,8 +74,12 @@ export class BookingSummaryListComponent implements OnInit {
     return CoreExtensions.GetAircraftConfigType(type);
   }
 
-  onViewDetail(item:any){
-    this.router.navigate(['booking-summary/summaryDetails']);
+  onViewDetail(item:CargoBookingSummary){
+    if(item.aircraftConfigurationType === AircraftConfigType.P2C){
+      this.router.navigate(['booking-summary/p2cSummaryDetails']);
+    }else if(item.aircraftConfigurationType === AircraftConfigType.Freighter){
+      this.router.navigate(['booking-summary/freighterSummaryDetails']);
+    }
   }
   
 }

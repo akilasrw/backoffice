@@ -5,12 +5,11 @@ import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-s
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
 
 @Component({
-  selector: 'app-booking-summary-details',
-  templateUrl: './booking-summary-details.component.html',
-  styleUrls: ['./booking-summary-details.component.scss']
+  selector: 'app-p2c-booking-summary-details',
+  templateUrl: './p2c-booking-summary-details.component.html',
+  styleUrls: ['./p2c-booking-summary-details.component.scss']
 })
-export class BookingSummaryDetailsComponent implements OnInit {
-
+export class P2cBookingSummaryDetailsComponent implements OnInit {
 
   bookingSummaryQuery: BookingSummaryQuery = new BookingSummaryQuery();
   cargoBookingSummary!: CargoBookingSummaryDetail;
@@ -38,5 +37,4 @@ export class BookingSummaryDetailsComponent implements OnInit {
       }
     )
   }
-
 }
