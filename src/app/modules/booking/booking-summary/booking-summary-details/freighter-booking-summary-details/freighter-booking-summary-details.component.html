@@ -80,17 +80,16 @@
    
 </div>
 
-
-<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
     [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
-    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+    <div class="modal-dialog modal-xxl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">LIR</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeLIR()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
-            <div>
+            <div class="modal-body">
                 <app-booking-summary-lir *ngIf="modalVisible"></app-booking-summary-lir>
             </div>
         </div>
