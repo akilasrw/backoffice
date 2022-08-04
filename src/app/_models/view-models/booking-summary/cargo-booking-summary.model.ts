@@ -1,6 +1,7 @@
+import { BaseVM } from './../../../shared/models/base-vm.model';
 import { AircraftConfigType } from "src/app/core/enums/common-enums";
 
-export interface CargoBookingSummary {
+export interface CargoBookingSummary extends BaseVM {
     flightNumber:string;
     scheduledDepartureDateTime:Date;
     originAirportCode:string;

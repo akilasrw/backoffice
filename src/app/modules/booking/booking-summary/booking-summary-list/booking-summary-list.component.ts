@@ -76,9 +76,9 @@ export class BookingSummaryListComponent implements OnInit {
 
   onViewDetail(item:CargoBookingSummary){
     if(item.aircraftConfigurationType === AircraftConfigType.P2C){
-      this.router.navigate(['booking-summary/p2cSummaryDetails']);
+      this.router.navigate(['booking-summary/p2cSummaryDetails',item.id]);
     }else if(item.aircraftConfigurationType === AircraftConfigType.Freighter){
-      this.router.navigate(['booking-summary/freighterSummaryDetails']);
+      this.router.navigate(['booking-summary/freighterSummaryDetails',item.id]);
     }
   }
   

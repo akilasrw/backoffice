@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { BaseService } from '../core/services/base.service';
 import { IPagination } from '../shared/models/pagination.model';
+import { BookingSummaryDetailQuery } from '../_models/queries/booking-summary/booking-summary-detail-query.model';
 import { BookingSummaryFilterQuery } from '../_models/queries/booking-summary/booking-summary-filter-query.model';
 import { BookingSummaryQuery } from '../_models/queries/booking-summary/booking-summary-query.model';
 import { CargoBookingSummaryDetail } from '../_models/view-models/booking-summary/cargo-booking-summary-detail.model';
@@ -50,6 +51,23 @@ export class BookingSummaryService extends BaseService {
       this.getFilteredListEndpoint,
       params
     );
+  }
+
+  getBookingSummaryDetail(query: BookingSummaryDetailQuery) {
+    var params = new HttpParams();
+    if (query.id) {
+      params = params.append("id", query.id);
+    }
+
+    if (query.isIncludeAircraft) {
+      params = params.append("isIncludeAircraft", query.isIncludeAircraft);
+    }
+
+    if (query.isIncludeFlightScheduleSectors) {
+      params = params.append("isIncludeFlightScheduleSectors", query.isIncludeFlightScheduleSectors);
+    }
+    
+    return this.getWithParams<CargoBookingSummaryDetail>(`${this.endpointCargoBookingSummary}`, params);
   }
 
 }

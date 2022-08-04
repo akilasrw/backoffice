@@ -6,8 +6,8 @@ import { BookingSummaryListComponent } from './booking-summary/booking-summary-l
 
 const routes: Routes = [
   { path: '', component: BookingSummaryListComponent},
-  { path: 'p2cSummaryDetails', component: P2cBookingSummaryDetailsComponent},
-  { path: 'freighterSummaryDetails', component: FreighterBookingSummaryDetailsComponent}
+  { path: 'p2cSummaryDetails/:id', component: P2cBookingSummaryDetailsComponent},
+  { path: 'freighterSummaryDetails/:id', component: FreighterBookingSummaryDetailsComponent}
 ];
 
 @NgModule({

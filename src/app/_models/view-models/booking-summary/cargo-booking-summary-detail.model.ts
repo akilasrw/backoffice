@@ -1,4 +1,4 @@
-import { AircraftConfigType } from "src/app/core/enums/common-enums";
+import { AircraftConfigType, AircraftSubTypes } from "src/app/core/enums/common-enums";
 import { CargoPositionDetail } from "./cargo-position-detail.model";
 import { CargoPositionSummary } from "./cargo-position-summary.model";
 
@@ -12,5 +12,6 @@ export interface CargoBookingSummaryDetail {
     destinationAirportName:string;
     aircraftRegNo:string;
     aircraftConfigurationType: AircraftConfigType;
+    aircraftSubType:AircraftSubTypes;
     cargoPositions?:CargoPositionDetail[];
 }
