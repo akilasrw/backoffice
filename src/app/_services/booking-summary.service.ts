@@ -11,6 +11,7 @@ export class BookingSummaryService extends BaseService {
 
   private readonly endpointEntityName = 'CargoBooking';
   private readonly getSummaryEndpoint = `${this.endpointEntityName}/getSummary`;
+  private readonly getSeatSummaryEndpoint = `${this.endpointEntityName}/getSeatSummary`;
 
 
   constructor(http: HttpClient){super(http)}
@@ -26,5 +27,18 @@ export class BookingSummaryService extends BaseService {
     }
 
     return this.getWithParams<CargoBookingSummary>(`${this.getSummaryEndpoint}`, params);
+  }
+
+  getSeatSummary(query: BookingSummaryQuery) {
+    var params = new HttpParams();
+    if (query.flightDate) {
+      params = params.append("flightDate", query.flightDate.toDateString());
+    }
+
+    if (query.flightNumber) {
+      params = params.append("flightNumber", query.flightNumber);
+    }
+
+    return this.getWithParams<CargoBookingSummary>(`${this.getSeatSummaryEndpoint}`, params);
   }
 }
