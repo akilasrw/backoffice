@@ -3,6 +3,9 @@ export interface CargoPositionSummary {
     totalBookedWeight: number;
     totalWeight: number;
     weightPercentage: number;
+    totalBookedVolume:number;
+    totalVolume:number;
+    volumePercentage:number;
     totalOccupiedOnSeats: number;
     totalOnSeats: number;
     onSeatsPercentage: number;
