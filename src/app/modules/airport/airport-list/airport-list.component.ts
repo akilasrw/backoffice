@@ -23,6 +23,7 @@ export class AirportListComponent implements OnInit {
   filterFormHasValue = false;
   modalVisibleDelete = false;
   modalVisibleAnimateDelete = false;
+  isLoading :boolean= false;
   selectedDeletedID?: string;
   selectedAirport?:Airport;
 
@@ -34,6 +35,7 @@ export class AirportListComponent implements OnInit {
   }
 
   getAirportList() {
+    this.isLoading=true;
     this.airportFilterQuery.airportName = this.airportName;
     this.airportFilterQuery.airportCode = this.airportCode;
     this.airportFilterQuery.countryName = this.countryName;
@@ -43,10 +45,12 @@ export class AirportListComponent implements OnInit {
         next: (res) => {
           this.airports = res.data
           this.totalCount = res.count
+          this.isLoading=false;
         },
         error: (error) => {
           this.totalCount = 0;
-          this.airports = []
+          this.airports = [];
+          this.isLoading=false;
         }
       }
     )

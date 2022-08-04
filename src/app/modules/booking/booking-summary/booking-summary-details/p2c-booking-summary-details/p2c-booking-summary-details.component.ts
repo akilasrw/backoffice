@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingSummaryType } from 'src/app/core/enums/common-enums';
 import { BookingSummaryQuery } from 'src/app/_models/queries/booking-summary/booking-summary-query.model';
-import { CargoBookingSummary } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary.model';
+import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary-detail.model';
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
 
 @Component({
-  selector: 'app-booking-summary',
-  templateUrl: './booking-summary.component.html',
-  styleUrls: ['./booking-summary.component.scss']
+  selector: 'app-p2c-booking-summary-details',
+  templateUrl: './p2c-booking-summary-details.component.html',
+  styleUrls: ['./p2c-booking-summary-details.component.scss']
 })
-export class BookingSummaryComponent implements OnInit {
+export class P2cBookingSummaryDetailsComponent implements OnInit {
 
   bookingSummaryQuery: BookingSummaryQuery = new BookingSummaryQuery();
-  cargoBookingSummary!: CargoBookingSummary;
+  cargoBookingSummary!: CargoBookingSummaryDetail;
   bookingSummaryType : BookingSummaryType = BookingSummaryType.OnSeat;
 
   constructor(private bookingSummaryService: BookingSummaryService) { }
 
   ngOnInit(): void {
+    this.find();
   }
 
 

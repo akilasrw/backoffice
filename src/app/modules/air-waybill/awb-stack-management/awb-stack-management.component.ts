@@ -26,7 +26,8 @@ export class AwbStackManagementComponent implements OnInit {
   awbStackFilterQuery: AWBStackFilterQuery = new AWBStackFilterQuery();
   awbStackList: AWBStack[] = []
   totalCount: number = 0;
-  filterFormHasValue = false
+  filterFormHasValue = false;
+  isLoading :boolean= false;
 
   constructor(
     private awbSerice: AwbService,
@@ -41,36 +42,41 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   loadCargoAgents() {
+    this.isLoading=true;
     this.cargoAgentService.getAgentList()
       .subscribe({
         next: (res) => {
           if (res.length > 0) {
             this.cargoAgents = res;
           }
+          this.isLoading=false;
         },
         error: (error) => {
-
+          this.isLoading=false;
         }
       }
       );
   }
 
   getLastAWBStack() {
+    this.isLoading=true;
     this.awbSerice.getLastStackItem()
       .subscribe(
         {
           next: (res) => {
             this.lastAWBStackNumber = res.endSequenceNumber + 1;
             this.startSequenceNumber = this.lastAWBStackNumber;
+            this.isLoading=false;
           },
           error: (error) => {
-
+            this.isLoading=false;
           }
         }
       );
   }
 
   getAWBStackList() {
+    this.isLoading=true;
     this.awbStackFilterQuery.cargoAgentName = this.cargoAgentName;
     this.awbStackFilterQuery.isAgentInclude = true;
     this.awbSerice.getFilteredAWBStackList(this.awbStackFilterQuery).subscribe(
@@ -78,10 +84,12 @@ export class AwbStackManagementComponent implements OnInit {
         next: (res) => {
           this.awbStackList = res.data
           this.totalCount = res.count
+          this.isLoading=false;
         },
         error: (error) => {
           this.totalCount = 0;
-          this.awbStackList = []
+          this.awbStackList = [];
+          this.isLoading=false;
         }
       }
     )
@@ -92,19 +100,21 @@ export class AwbStackManagementComponent implements OnInit {
   }
 
   addAWBStack() {
-    debugger
     if (this.isValid()) {
+      this.isLoading=true;
       this.awbStackRequest.cargoAgentId = this.cargoAgentId;
       this.awbStackRequest.startSequenceNumber = this.startSequenceNumber;
       this.awbStackRequest.endSequenceNumber = this.endSequenceNumber;
       this.awbSerice.create(this.awbStackRequest).subscribe({
         next: (res) => {
+          this.isLoading=false;
           this.toastr.success('AWB number stack added successfully.');
           this.getLastAWBStack();
           this.endSequenceNumber = undefined;
           this.getAWBStackList();
         },
         error: (error) => {
+          this.isLoading=false;
           this.toastr.error('Unable to add AWB number stack.');
         }
       });

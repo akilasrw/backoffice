@@ -23,6 +23,7 @@ export class AirportCreateComponent implements OnInit {
   @Output() submitSuccess = new EventEmitter<any>();
   @Input() airport: Airport = new Airport();
   isEditAirport: boolean = false;
+  isLoading:boolean=false;
 
 
 
@@ -36,6 +37,10 @@ export class AirportCreateComponent implements OnInit {
     if (this.airport != null) {
       this.isEditAirport = true;
       this.editAirportForm(this.airport);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     }
   }
 
@@ -88,7 +93,7 @@ export class AirportCreateComponent implements OnInit {
       this.toastr.error('Please select country.');
     }
     if (this.airportForm.valid) {
-
+      this.isLoading = true;
       if (this.isEditAirport) {
         var editAirport: AirportUpdateRM = this.airportForm.value;
 
@@ -105,8 +110,10 @@ export class AirportCreateComponent implements OnInit {
             this.toastr.success('Airport updated successfully.');
             this.submitSuccess.emit();
             this.closeModal();
+            this.isLoading = false;
           },
           error: (err) => {
+            this.isLoading = false;
           }
         })
       } else {
@@ -125,8 +132,10 @@ export class AirportCreateComponent implements OnInit {
             this.toastr.success('Airport created successfully.');
             this.submitSuccess.emit();
             this.closeModal();
+            this.isLoading = false;
           },
           error: (err) => {
+            this.isLoading = false;
           }
         })
       }

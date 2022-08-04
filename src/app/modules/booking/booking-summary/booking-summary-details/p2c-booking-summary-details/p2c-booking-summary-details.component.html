@@ -1,27 +1,10 @@
 <div class="main-card">
     <div class="card-header px-0 pt-0">
         <div class="d-flex justify-content-between align-items-center">
-            <div><h1>Booking Summary</h1></div>
+            <div><h1>Booking Summary Details</h1></div>
         </div>
     </div>
     <div class="card-body without-footer">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label class="form-label">Flight Number</label>
-                    <input type="text"  class="form-control" [(ngModel)]="bookingSummaryQuery.flightNumber">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label class="form-label">Flight Date</label>
-                    <input type="text"  class="form-control" [(ngModel)]="bookingSummaryQuery.flightDate" bsDatepicker>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div><button type="submit" class="btn btn-primary-outline ms-5 mb-2" (click)="find()">Find</button></div>
-            </div>
-        </div>
         <div class="booking-details" *ngIf="cargoBookingSummary">
             <h3>View Booking Details</h3>
             <div class="details-box-section">

@@ -3,7 +3,7 @@ import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.mode
 import { AircraftCreateRM } from './../../../_models/request-models/aircraft/aircraft-create-rm';
 import { AircraftSubType } from 'src/app/_models/view-models/aircrafts/aircraft-sub-type.model';
 import { AircraftService } from './../../../_services/aircraft.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './aircraft-create.component.html',
   styleUrls: ['./aircraft-create.component.scss']
 })
-export class AircraftCreateComponent implements OnInit {
+export class AircraftCreateComponent implements OnInit, OnDestroy{
 
   keyword = 'value';
   subscription?: Subscription;
@@ -33,6 +33,7 @@ export class AircraftCreateComponent implements OnInit {
   modalVisible: boolean = false;
   modalVisibleAnimate: boolean = false;
   isEditAircraft: boolean = false;
+  isLoading: boolean = false;
   @Output() viewLayout = new EventEmitter<any>();
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
@@ -46,6 +47,10 @@ export class AircraftCreateComponent implements OnInit {
     if (this.editAircraft != null) {
       this.isEditAircraft = true;
       this.editAircraftForm(this.editAircraft);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     }
     this.loadConfigTypes();
     this.loadStatusTypes();
@@ -243,6 +248,7 @@ export class AircraftCreateComponent implements OnInit {
     }
 
     if (this.aircraftForm.valid) {
+      this.isLoading=true;
       if (this.isEditAircraft) {
         var editAircraft: AircraftUpdateRM = this.aircraftForm.value;
         this.aircraftService.update(editAircraft).subscribe({
@@ -250,8 +256,10 @@ export class AircraftCreateComponent implements OnInit {
             this.toastr.success('Successfully update aircraft.');
             this.submitSuccess.emit();
             this.closeModal();
+            this.isLoading=false;
           },
           error: (err) => {
+            this.isLoading=false;
           }
         })
       } else {
@@ -261,8 +269,10 @@ export class AircraftCreateComponent implements OnInit {
             this.toastr.success('Successfully create aircraft.');
             this.submitSuccess.emit();
             this.closeModal();
+            this.isLoading=false;
           },
           error: (err) => {
+            this.isLoading=false;
           }
         });
       }
@@ -272,11 +282,15 @@ export class AircraftCreateComponent implements OnInit {
   }
 
   closeModal() {
-    this.aircraftForm.reset();
     this.closePopup.emit();
   }
 
   get aircraftConfigType(): typeof AircraftConfigType {
     return AircraftConfigType;
+  }
+
+  ngOnDestroy(): void {
+    this.aircraftForm.reset();
+    this.onClearAircraftType();
   }
 }

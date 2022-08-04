@@ -31,6 +31,7 @@ export class SectorListComponent implements OnInit {
   modalVisibleDelete = false;
   modalVisibleAnimateDelete = false;
   selectedSector?:Sector;
+  isLoading :boolean= false;
   keyword = 'value';
 
   constructor(private sectorService : SectorService,private airportService: AirportService,private toastr: ToastrService) { }
@@ -46,28 +47,33 @@ export class SectorListComponent implements OnInit {
   }
 
   loadAirports() {
+    this.isLoading=true;
     this.airportService.getSelectList()
       .subscribe(res => {
         if (res.length > 0) {
           this.originAirpots = res;
           Object.assign(this.destinationAirpots, res);
         }
+        this.isLoading=false;
       });
   }
 
   getSectorList() {
+    this.isLoading=true;
     this.sectorFilterQuery.sectorType = this.sectorType;
     this.sectorFilterQuery.originAirportId = this.originAirportId;
     this.sectorFilterQuery.destinationAirportId = this.destinationAirportId;
     this.sectorService.getFilteredList(this.sectorFilterQuery).subscribe(
       {
         next: (res) => {
-          this.sectors = res.data
-          this.totalCount = res.count
+          this.sectors = res.data;
+          this.totalCount = res.count;
+          this.isLoading=false;
         },
         error: (error) => {
           this.totalCount = 0;
-          this.sectors = []
+          this.sectors = [];
+          this.isLoading=false;
         }
       }
     );
@@ -93,17 +99,20 @@ export class SectorListComponent implements OnInit {
 
   deleteSector() {
     if (this.selectedDeletedID) {
+      this.isLoading=true;
       this.sectorService.deleteSector(this.selectedDeletedID)
         .subscribe({
           next: (res) => {
             this.toastr.success(CommonMessages.DeletedSuccessMsg);
             this.cancelDelete();
             this.sectors = [];
+            this.isLoading=false;
             this.getSectorList();
           },
           error: (error) => {
             this.toastr.error(CommonMessages.DeleteFailMsg);
             this.cancelDelete();
+            this.isLoading=false;
           }
         });
     }
