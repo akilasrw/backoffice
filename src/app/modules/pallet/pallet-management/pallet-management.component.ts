@@ -1,4 +1,7 @@
+import { PalletPositionSearchQuery } from './../../../_models/queries/pallet-management/pallet-position-search-query.model';
 import { Component, OnInit } from '@angular/core';
+import { PalletPosition } from 'src/app/_models/view-models/pallet-management/pallet-position.model';
+import { PalletManagementService } from 'src/app/_services/pallet-management.service';
 
 @Component({
   selector: 'app-pallet-management',
@@ -7,9 +10,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PalletManagementComponent implements OnInit {
 
-  constructor() { }
+  isLoading:boolean=false;
+  filterFormHasValue:boolean=false;
+  palletPositions:PalletPosition[]=[];
+  palletPositionSearchQuery: PalletPositionSearchQuery = new PalletPositionSearchQuery();
+  flightNumber?: string;
+  flightDate?: Date;
+
+  constructor(private palletManagementService:PalletManagementService) { }
 
   ngOnInit(): void {
+  }
+
+  getFilteredList(){
+    this.isLoading=true;
+    this.palletPositionSearchQuery.flightNumber=this.flightNumber;
+    this.palletPositionSearchQuery.flightDate=this.flightDate;
+
+    this.palletManagementService.getFilteredList(this.palletPositionSearchQuery).subscribe(
+      {
+        next:(res)=>{
+          this.palletPositions = res;
+          this.isLoading=false;
+        },
+        error:()=>{
+          this.palletPositions = [];
+          this.isLoading=false;
+        }
+      }
+    )
+  }
+
+  onChangeFilterFrm(event: any) {
+    if ((this.flightNumber !== undefined && this.flightNumber !== "") || (this.flightDate !== null))
+    {
+      this.filterFormHasValue = true;
+    } else {
+      this.filterFormHasValue = false;
+    }
+  }
+
+  clearFilter(){
+    this.flightNumber=undefined;
+    this.flightDate=undefined;
+    this.filterFormHasValue = false;
   }
 
 }

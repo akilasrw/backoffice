@@ -7,6 +7,43 @@
         </div>
     </div>
     <div class="card-body without-footer">
-        
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Flight Number</label>
+                        <input [(ngModel)]="flightNumber" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Flight Date</label>
+                        <input [(ngModel)]="flightDate" type="text" class="form-control" bsDatepicker
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="button">
+                        <button (click)="getFilteredList()" class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
+                            class="ca ca-icn-close" (click)="clearFilter()"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="!isLoading" class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>MaxWeight</th>
+                        <th>CurrentWeight</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.palletPositions">
+                            <td>{{item.maxWeight}}</td>
+                            <td>{{item.currentWeight}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
     </div>
 </div>

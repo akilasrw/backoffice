@@ -23,6 +23,15 @@ export enum BookingSummaryType {
   Overhead = 3
 }
 
+export enum CargoPositionType
+{
+    None = 0,
+    OnFloor = 1,
+    OnSeat = 2,
+    UnderSeat = 3,
+    Overhead = 4
+}
+
 export enum AircraftTypes {
   None = 0,
   B7879 = 1,
