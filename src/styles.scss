@@ -924,6 +924,11 @@ a {
         }
     }
 }
+.booking-details {
+    .label {
+        color: $gray;
+    }
+}
 .booking-summary {
     padding: 1rem 0 0;
     .nav-tabs {
@@ -1018,6 +1023,32 @@ a {
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.lir {
+    .table-content {
+        .table {
+            thead {
+                th {
+                    border: 1px solid $default-white;
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        border: 1px solid $off-white;
+                    }
+                    &:first-child {
+                        td {
+                            color: red;
+                        }
+                        .lable {
+                            color: $default-black;
                         }
                     }
                 }
