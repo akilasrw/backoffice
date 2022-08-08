@@ -33,7 +33,7 @@
                 <div><h3>Pallet Potions</h3></div>
                 <div class="potions">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3" (click)="addPallet()">
                             <div class="pallet added">
                                 <div class="details-group pt-0">
                                     <div class="lable">Pallet Potions</div>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3"(click)="addPallet()">
                             <div class="pallet">
                                 <div class="details-group pt-0">
                                     <div class="lable">Pallet Potions</div>
@@ -203,6 +203,22 @@
                     </tbody>
                 </table>
             </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Pallet</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddPallet()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-pallet-create  *ngIf="modalVisible"></app-pallet-create>
+            </div>
         </div>
     </div>
 </div>
