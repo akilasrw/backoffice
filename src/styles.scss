@@ -1237,12 +1237,8 @@ a {
                 color: $default-white;
             }
             &.added {
-                .lable, i {
-                    color: $default-white;
-                }
-                background-color: $green;
-                border-color: $green;
-                color: $default-white;
+                background-color: $white-blue;
+                border-color: $off-white;
             }
         }
     }
