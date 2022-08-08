@@ -16,6 +16,8 @@ export class PalletManagementComponent implements OnInit {
   palletPositionSearchQuery: PalletPositionSearchQuery = new PalletPositionSearchQuery();
   flightNumber?: string;
   flightDate?: Date;
+  modalVisible = false;
+  modalVisibleAnimate = false;
 
   constructor(private palletManagementService:PalletManagementService) { }
 
@@ -54,6 +56,16 @@ export class PalletManagementComponent implements OnInit {
     this.flightNumber=undefined;
     this.flightDate=undefined;
     this.filterFormHasValue = false;
+  }
+
+  addPallet() {
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  closeAddPallet(){
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
   }
 
 }
