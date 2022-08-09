@@ -28,121 +28,36 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="this.palletPositions.length >0">
             <div class="pallet-potions">
-                <div><h3>Pallet Potions</h3></div>
+                <div><h3>Pallet Positions</h3></div>
                 <div class="potions">
                     <div class="row">
-                        <div class="col-md-3" (click)="addPallet()">
-                            <div class="pallet added">
+                        <div *ngFor="let item of this.palletPositions ;let indexOfelement=index;" class="col-md-3" >
+                            <div class="pallet" [ngClass]="{'added': item.isPalletAssigned}" (click)="addPallet(item)">
                                 <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P1</div>
+                                    <div class="lable">Pallet Position</div>
+                                    <div>{{indexOfelement+1}}</div>
                                 </div>
-                                <div class="details-group">
-                                    <div class="lable">Dimension</div>
-                                    <div>25cm, 40cm, 50cm</div>
-                                </div>
-                                <div class="details-group">
-                                    <div class="lable">Weight</div>
-                                    <div>50Kg</div>
-                                </div>
-                                <div class="details-group">
-                                    <div class="lable">Action</div>
-                                    <div><i class="ca ca-icn-edit pe-0"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3"(click)="addPallet()">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P2</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P3</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P4</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P5</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P6</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P7</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P8</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P9</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="pallet">
-                                <div class="details-group pt-0">
-                                    <div class="lable">Pallet Potions</div>
-                                    <div>P10</div>
+                                <div *ngIf="item.isPalletAssigned">
+                                    <div class="details-group">
+                                        <div class="lable">Serial Number</div>
+                                        <div>{{item.serialNumber}}</div>
+                                    </div>
+                                    <div class="details-group">
+                                        <div class="lable">Dimension</div>
+                                        <div>{{item.length+" cm "+item.width+" cm "+item.height+" cm"}}</div>
+                                    </div>
+                                    <div class="details-group">
+                                        <div class="lable">Weight</div>
+                                        <div>{{item.weight+" Kg"}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- <div *ngIf="!isLoading" class="table-content">
-                <table class="table table-responsive">
-                    <thead>
-                        <th>MaxWeight</th>
-                        <th>CurrentWeight</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of this.palletPositions">
-                            <td>{{item.maxWeight}}</td>
-                            <td>{{item.currentWeight}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
         </div>
     </div>
 </div>

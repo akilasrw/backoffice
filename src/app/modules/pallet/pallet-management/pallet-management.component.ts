@@ -1,6 +1,6 @@
+import { PalletDetail } from './../../../_models/view-models/pallet-management/pallet-detail.model';
 import { PalletPositionSearchQuery } from './../../../_models/queries/pallet-management/pallet-position-search-query.model';
 import { Component, OnInit } from '@angular/core';
-import { PalletPosition } from 'src/app/_models/view-models/pallet-management/pallet-position.model';
 import { PalletManagementService } from 'src/app/_services/pallet-management.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class PalletManagementComponent implements OnInit {
 
   isLoading:boolean=false;
   filterFormHasValue:boolean=false;
-  palletPositions:PalletPosition[]=[];
+  palletPositions:PalletDetail[]=[];
   palletPositionSearchQuery: PalletPositionSearchQuery = new PalletPositionSearchQuery();
   flightNumber?: string;
   flightDate?: Date;
@@ -58,9 +58,11 @@ export class PalletManagementComponent implements OnInit {
     this.filterFormHasValue = false;
   }
 
-  addPallet() {
-    this.modalVisible = true;
-    setTimeout(() => (this.modalVisibleAnimate = true));
+  addPallet(pallet: PalletDetail) {
+    if(!pallet.isPalletAssigned){
+      this.modalVisible = true;
+      setTimeout(() => (this.modalVisibleAnimate = true)); 
+    }
   }
 
   closeAddPallet(){
