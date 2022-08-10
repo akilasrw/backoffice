@@ -19,7 +19,7 @@ export class PalletManagementComponent implements OnInit {
   flightDate?: Date;
   modalVisible = false;
   modalVisibleAnimate = false;
-
+  selectedPositionId? :string;
   constructor(private palletManagementService:PalletManagementService,
     private toastr:ToastrService) { }
 
@@ -47,7 +47,6 @@ export class PalletManagementComponent implements OnInit {
     this.palletManagementService.getFilteredList(this.palletPositionSearchQuery).subscribe(
       {
         next:(res)=>{
-          debugger;
           this.palletPositions = res;
           if(this.palletPositions.length==0){
             this.toastr.warning('No record found.');
@@ -79,11 +78,16 @@ export class PalletManagementComponent implements OnInit {
 
   addPallet(pallet: PalletDetail) {
     if(!pallet.isPalletAssigned){
+      this.selectedPositionId=pallet.cargoPositionId;
       this.modalVisible = true;
       setTimeout(() => (this.modalVisibleAnimate = true)); 
     }
   }
 
+  onPallettAdd(){
+    this.getFilteredList();
+  }
+  
   closeAddPallet(){
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);

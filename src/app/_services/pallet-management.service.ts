@@ -1,3 +1,4 @@
+import { PalletCreateRM } from './../_models/request-models/pallet-management/pallet-create-rm';
 import { PalletPositionSearchQuery } from './../_models/queries/pallet-management/pallet-position-search-query.model';
 import { BaseService } from './../core/services/base.service';
 import { Injectable } from '@angular/core';
@@ -30,6 +31,8 @@ export class PalletManagementService extends BaseService{
     );
   }
 
-
+  create(palletCreateRM: PalletCreateRM){
+    return this.post<any>(this.endpointEntityName, palletCreateRM);
+  }
 
 }

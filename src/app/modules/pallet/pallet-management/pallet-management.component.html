@@ -45,7 +45,7 @@
                                         <div>{{item.serialNumber}}</div>
                                     </div>
                                     <div class="details-group">
-                                        <div class="lable">Dimension</div>
+                                        <div class="lable">Dimension (LxWxH)</div>
                                         <div>{{item.length+" cm "+item.width+" cm "+item.height+" cm"}}</div>
                                     </div>
                                     <div class="details-group">
@@ -72,7 +72,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-pallet-create  *ngIf="modalVisible"></app-pallet-create>
+                <app-pallet-create [positionId]="this.selectedPositionId" (submitSuccess)="onPallettAdd()" (closePopup)="closeAddPallet()"  *ngIf="modalVisible"></app-pallet-create>
             </div>
         </div>
     </div>

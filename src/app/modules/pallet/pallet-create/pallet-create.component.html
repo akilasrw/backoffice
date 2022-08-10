@@ -1,58 +1,84 @@
-<div class="modal-body">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="form-label">Pallet Number</label>
-                <input type="text" class="form-control">
+<form [formGroup]='palletForm' (ngSubmit)="savePalletDetails()">
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Pallet Number</label>
+                    <app-text-input [formControl]='palletForm.controls["serialNumber"]' type="text"
+                        [label]='"pallet number"' [tabindex]="1">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Length</label>
-                        <input type="text" class="form-control">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Length</label>
+                            <app-text-input [formControl]='palletForm.controls["length"]' type="number"
+                                [label]='"length."' [tabindex]="2">
+                            </app-text-input>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Width</label>
-                        <input type="text" class="form-control">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Width</label>
+                            <app-text-input [formControl]='palletForm.controls["width"]' type="number"
+                                [label]='"width."' [tabindex]="3">
+                            </app-text-input>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Height</label>
-                        <input type="text" class="form-control">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Height</label>
+                            <app-text-input [formControl]='palletForm.controls["height"]' type="number"
+                                [label]='"height."' [tabindex]="4">
+                            </app-text-input>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Unit</label>
-                        <input type="text" class="form-control">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Unit</label>
+                            <select name="unit" class="form-control" formControlName="volumeUnitId">
+                                <option *ngFor="let unit of volumeUnits" [ngValue]="unit.id">
+                                    {{unit.name}}</option>
+                            </select>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Weight</label>
-                        <input type="text" class="form-control">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Weight</label>
+                            <app-text-input [formControl]='palletForm.controls["weight"]' type="number"
+                                [label]='"weight."' [tabindex]="5">
+                            </app-text-input>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">unit</label>
-                        <input type="text" class="form-control">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Unit</label>
+                            <select name="unit" class="form-control" formControlName="weightUnitId">
+                                <option *ngFor="let unit of weightUnits" [ngValue]="unit.id">
+                                    {{unit.name}}</option>
+                            </select>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary me-3">Cancel</button>
-    <button type="button" class="btn btn-primary">Save</button>
-</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>

@@ -72,3 +72,9 @@ export enum LoaderImageSize
     Medium = 2,
     Large = 3
 }
+
+export enum UnitType {
+  None = 0,
+  Length = 1,
+  Mass = 2
+}
