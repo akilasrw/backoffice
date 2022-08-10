@@ -2,6 +2,7 @@ import { PalletDetail } from './../../../_models/view-models/pallet-management/p
 import { PalletPositionSearchQuery } from './../../../_models/queries/pallet-management/pallet-position-search-query.model';
 import { Component, OnInit } from '@angular/core';
 import { PalletManagementService } from 'src/app/_services/pallet-management.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pallet-management',
@@ -19,12 +20,26 @@ export class PalletManagementComponent implements OnInit {
   modalVisible = false;
   modalVisibleAnimate = false;
 
-  constructor(private palletManagementService:PalletManagementService) { }
+  constructor(private palletManagementService:PalletManagementService,
+    private toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
 
   getFilteredList(){
+    if(this.flightNumber === undefined || this.flightNumber === "" && this.flightDate === undefined){
+      this.toastr.error('Please enter flight number and flight date.');
+      return;
+    }
+    if(this.flightNumber === undefined || this.flightNumber === ""){
+      this.toastr.error('Please enter flight number.');
+      return;
+    }
+    if(this.flightDate === undefined){
+      this.toastr.error('Please select flight date.');
+      return;
+    }
+
     this.isLoading=true;
     this.palletPositionSearchQuery.flightNumber=this.flightNumber;
     this.palletPositionSearchQuery.flightDate=this.flightDate;
@@ -32,7 +47,11 @@ export class PalletManagementComponent implements OnInit {
     this.palletManagementService.getFilteredList(this.palletPositionSearchQuery).subscribe(
       {
         next:(res)=>{
+          debugger;
           this.palletPositions = res;
+          if(this.palletPositions.length==0){
+            this.toastr.warning('No record found.');
+          }
           this.isLoading=false;
         },
         error:()=>{
