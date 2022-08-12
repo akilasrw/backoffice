@@ -7,6 +7,7 @@ import { BookingSummaryListComponent } from './booking-summary/booking-summary-l
 import { P2cBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/p2c-booking-summary-details/p2c-booking-summary-details.component';
 import { FreighterBookingSummaryDetailsComponent } from './booking-summary/booking-summary-details/freighter-booking-summary-details/freighter-booking-summary-details.component';
 import { BookingSummaryLirComponent } from './booking-summary/booking-summary-details/booking-summary-lir/booking-summary-lir.component';
+import { FreighterUldDetailsComponent } from './booking-summary/booking-summary-details/freighter-uld-details/freighter-uld-details.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { BookingSummaryLirComponent } from './booking-summary/booking-summary-de
     BookingSummaryListComponent,
     P2cBookingSummaryDetailsComponent,
     FreighterBookingSummaryDetailsComponent,
-    BookingSummaryLirComponent
+    BookingSummaryLirComponent,
+    FreighterUldDetailsComponent
   ],
   imports: [
     CommonModule,

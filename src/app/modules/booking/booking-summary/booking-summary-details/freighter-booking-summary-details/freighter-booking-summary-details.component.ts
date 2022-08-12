@@ -16,6 +16,8 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   cargoBookingSummary?: CargoBookingSummaryDetail;
   modalVisible = false;
   modalVisibleAnimate = false;
+  uldDetailModalVisible = false;
+  uldDetailModalVisibleAnimate = false;
   flightScheduleId?: string;
 
   constructor(private activatedRoute: ActivatedRoute, private bookingSummaryService: BookingSummaryService) { }
@@ -69,6 +71,20 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   closeLIR() {
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
+  }
+
+  closeULDDetail() {
+    this.uldDetailModalVisibleAnimate = false;
+    setTimeout(() => (this.uldDetailModalVisible = false), 300);
+  }
+
+  openULDDetail(){
+    this.uldDetailModalVisible = true;
+    setTimeout(() => (this.uldDetailModalVisibleAnimate = true));
+  }
+
+  onULDClick(position:number){
+    this.openULDDetail();
   }
   
   convertcm3Tom3(volume: number): number {

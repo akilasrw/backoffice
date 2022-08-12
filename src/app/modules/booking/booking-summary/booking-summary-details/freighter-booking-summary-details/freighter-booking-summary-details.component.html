@@ -12,7 +12,7 @@
         <div class="booking-details">
             <div class="row">
                 <div class="col-md-2">
-                    <div class="label">Flght Number</div>
+                    <div class="label">Flight Number</div>
                     <div>{{cargoBookingSummary?.flightNumber}}</div>
                 </div>
                 <div class="col-md-2">
@@ -62,7 +62,7 @@
             <button class="btn btn-primary" type="button" (click)="viewLIR()">View LIR</button>
         </div>
         <div class="booking-summary">
-            <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"></app-al-b737400-type-one>
+            <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
         </div>
     </div>
    
@@ -79,6 +79,22 @@
             </div>
             <div class="modal-body">
                 <app-booking-summary-lir *ngIf="modalVisible"></app-booking-summary-lir>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': uldDetailModalVisibleAnimate}"
+    [ngStyle]="{'display': uldDetailModalVisible ? 'block' : 'none', 'opacity': uldDetailModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">ULD Details</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeULDDetail()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                <app-freighter-uld-details *ngIf="uldDetailModalVisible"></app-freighter-uld-details>
             </div>
         </div>
     </div>
