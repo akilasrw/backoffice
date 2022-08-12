@@ -1,9 +1,10 @@
-export interface CargoPositionDetail {
-    isPalletAssigned:boolean;
-    uldNumber:string;
-    maxWeight: number;
-    weight: number;
-    volume: number;
-    maxVolume: number;
-    destination: string;
+export class CargoPositionDetail {
+    isPalletAssigned?:boolean;
+    uldNumber?:string;
+    maxWeight?: number;
+    weight?: number;
+    volume?: number;
+    maxVolume?: number;
+    destinationAirportCode?: string;
+    uldPosition?:number;
 }

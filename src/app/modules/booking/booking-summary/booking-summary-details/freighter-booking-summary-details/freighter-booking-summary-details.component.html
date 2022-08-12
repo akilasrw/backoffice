@@ -89,12 +89,12 @@
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">ULD Details</h2>
+                <h2 class="modal-title">ULD Details - P {{selectedPositionNumber}}</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeULDDetail()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div class="modal-body">
-                <app-freighter-uld-details *ngIf="uldDetailModalVisible"></app-freighter-uld-details>
+                <app-freighter-uld-details [positionDetail]="this.selectedCargoPosition" *ngIf="uldDetailModalVisible"></app-freighter-uld-details>
             </div>
         </div>
     </div>

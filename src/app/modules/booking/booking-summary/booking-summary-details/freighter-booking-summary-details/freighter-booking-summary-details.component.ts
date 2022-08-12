@@ -1,3 +1,4 @@
+import { CargoPositionDetail } from './../../../../../_models/view-models/booking-summary/cargo-position-detail.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AircraftSubTypes } from 'src/app/core/enums/common-enums';
@@ -14,6 +15,8 @@ import { BookingSummaryService } from 'src/app/_services/booking-summary.service
 export class FreighterBookingSummaryDetailsComponent implements OnInit {
 
   cargoBookingSummary?: CargoBookingSummaryDetail;
+  selectedCargoPosition?: CargoPositionDetail;
+  selectedPositionNumber:number=0;
   modalVisible = false;
   modalVisibleAnimate = false;
   uldDetailModalVisible = false;
@@ -74,6 +77,7 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   }
 
   closeULDDetail() {
+    this.selectedCargoPosition=undefined;
     this.uldDetailModalVisibleAnimate = false;
     setTimeout(() => (this.uldDetailModalVisible = false), 300);
   }
@@ -84,6 +88,10 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   }
 
   onULDClick(position:number){
+    this.selectedPositionNumber= position;
+    this.selectedCargoPosition = this.cargoBookingSummary?.cargoPositions?.[position-1];
+    this.selectedCargoPosition!.destinationAirportCode = this.cargoBookingSummary?.destinationAirportCode;
+    this.selectedCargoPosition!.uldPosition = position;
     this.openULDDetail();
   }
   

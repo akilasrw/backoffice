@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CargoPositionDetail } from 'src/app/_models/view-models/booking-summary/cargo-position-detail.model';
 
 @Component({
   selector: 'app-freighter-uld-details',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FreighterUldDetailsComponent implements OnInit {
 
+  @Input() positionDetail: CargoPositionDetail = new CargoPositionDetail();
+
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

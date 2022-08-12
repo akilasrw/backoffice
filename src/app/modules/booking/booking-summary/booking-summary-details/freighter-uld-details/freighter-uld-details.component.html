@@ -1,1 +1,28 @@
-<p>freighter-uld-details works!</p>
+<div class="details" *ngIf="positionDetail.isPalletAssigned">
+        <div class="card-details">
+            <div class="details-group">
+                <div class="lable">ULD Number</div>
+                <div>{{positionDetail.uldNumber}}</div>
+            </div>
+            <div class="details-group">
+                <div class="lable">Max Weight</div>
+                <div>{{positionDetail.maxWeight + " Kg"}}</div>
+            </div>
+            <div class="details-group">
+                <div class="lable">Weight</div>
+                <div>{{positionDetail.weight + " Kg"}}</div>
+            </div>
+            <div class="details-group">
+                <div class="lable">Volume</div>
+                <div>{{positionDetail.volume + " cm3"}}</div>
+            </div>
+            <div class="details-group">
+                <div class="lable">Destination</div>
+                <div>{{positionDetail.destinationAirportCode}}</div>
+            </div>
+        </div>
+</div>
+<div class="not-available" *ngIf="!positionDetail.isPalletAssigned">
+    <img src="./assets/images/no-data.png" alt="No Content Data">
+    <div>ULD not assigned.</div>
+</div>
