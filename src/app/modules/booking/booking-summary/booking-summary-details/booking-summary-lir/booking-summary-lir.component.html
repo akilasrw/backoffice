@@ -6,82 +6,29 @@
         <table class="table table-responsive">
             <thead>
                 <th></th>
-                <th>P1</th>
-                <th>P2</th>
-                <th>P3</th>
-                <th>P4</th>
-                <th>P5</th>
-                <th>P6</th>
-                <th>P7</th>
-                <th>P8</th>
-                <th>P9</th>
-                <th>P10</th>
+                <th *ngFor="let position of cargoBookingSummary.cargoPositions;let indexOfelement=index;">{{"P" +(indexOfelement+1)}}</th>
             </thead>
             <tbody>
                 <tr>
                     <td class="lable">Max Weight Limit</td>
-                    <td>1914 Kgs</td>
-                    <td>2914 Kgs</td>
-                    <td>2914 Kgs</td>
-                    <td>3914 Kgs</td>
-                    <td>1414 Kgs</td>
-                    <td>2914 Kgs</td>
-                    <td>2914 Kgs</td>
-                    <td>3914 Kgs</td>
-                    <td>2914 Kgs</td>
-                    <td>3914 Kgs</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{ position.maxWeight +" Kgs"}}</td>
                 </tr>
                 <tr>
                     <td>ULD Number</td>
-                    <td></td>
-                    <td></td>
-                    <td>PA6 0285 MYI</td>
-                    <td>PA6 0433 MYI</td>
-                    <td>PA6 30160 MYI</td>
-                    <td>PA6 3014 MYI</td>
-                    <td>PA6 0472 MYI</td>
-                    <td>PA6 36053 UPS</td>
-                    <td>PA6 1572 UPS</td>
-                    <td>PA6 8206 N7</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{(position.palletId != "")?position.uldNumber:""}}</td>
                 </tr>
                 <tr>
                     <td>Gross Weight In Kgs</td>
-                    <td></td>
-                    <td></td>
-                    <td>489</td>
-                    <td>493</td>
-                    <td>530</td>
-                    <td>470</td>
-                    <td>489</td>
-                    <td>500</td>
-                    <td>863</td>
-                    <td>1665</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{ (position.weight>0)?position.weight +" Kgs":""}}</td>
                 </tr>
                 <tr>
                     <td>Destination</td>
-                    <td></td>
-                    <td></td>
-                    <td>CBM</td>
-                    <td>CBM</td>
-                    <td>CBM</td>
-                    <td>CBM</td>
-                    <td>CBM</td>
-                    <td>CBM</td>
-                    <td>CBM</td>
-                    <td>CBM</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{ (position.isPalletAssigned)? cargoBookingSummary.destinationAirportCode:""}}</td>
+                   
                 </tr>
                 <tr>
                     <td>Remarks</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions"></td>
                 </tr>
             </tbody>
         </table>
@@ -138,7 +85,7 @@
     </div>
     <div class="col-md-6">
         <div class="pt-3">
-            <h3>Afthold</h3>
+            <h3>AFT Hold</h3>
         </div>
         <div class="table-content">
             <table class="table table-responsive">

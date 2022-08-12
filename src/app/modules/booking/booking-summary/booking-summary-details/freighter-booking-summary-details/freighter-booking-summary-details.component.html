@@ -78,7 +78,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div class="modal-body">
-                <app-booking-summary-lir *ngIf="modalVisible"></app-booking-summary-lir>
+                <app-booking-summary-lir [cargoBookingSummary]="this.cargoBookingSummary" *ngIf="modalVisible"></app-booking-summary-lir>
             </div>
         </div>
     </div>

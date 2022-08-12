@@ -1,5 +1,6 @@
 export interface CargoPositionDetail {
-    palletId: string;
+    isPalletAssigned:boolean;
+    uldNumber:string;
     maxWeight: number;
     weight: number;
     volume: number;
