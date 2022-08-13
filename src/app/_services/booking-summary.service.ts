@@ -25,12 +25,8 @@ export class BookingSummaryService extends BaseService {
 
   getSummary(query: BookingSummaryQuery) {
     var params = new HttpParams();
-    if (query.flightDate) {
-      params = params.append("flightDate", query.flightDate.toDateString());
-    }
-
-    if (query.flightNumber) {
-      params = params.append("flightNumber", query.flightNumber);
+    if (query.flightScheduleId) {
+      params = params.append("flightScheduleId", query.flightScheduleId);
     }
 
     return this.getWithParams<CargoBookingSummaryDetail>(`${this.getSummaryEndpoint}`, params);
@@ -38,9 +34,6 @@ export class BookingSummaryService extends BaseService {
 
   getSeatSummary(query: BookingSummaryQuery) {
     var params = new HttpParams();
-    if (query.flightDate) {
-      params = params.append("flightDate", query.flightDate.toDateString());
-    }
   }
   
   getFilteredList(query: BookingSummaryFilterQuery){
@@ -77,5 +70,7 @@ export class BookingSummaryService extends BaseService {
     
     return this.getWithParams<CargoBookingSummaryDetail>(`${this.endpointCargoBookingSummary}`, params);
   }
+
+  
 
 }

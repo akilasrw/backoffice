@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BookingSummaryType } from 'src/app/core/enums/common-enums';
 import { BookingSummaryQuery } from 'src/app/_models/queries/booking-summary/booking-summary-query.model';
 import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary-detail.model';
@@ -15,14 +16,25 @@ export class P2cBookingSummaryDetailsComponent implements OnInit {
   cargoBookingSummary!: CargoBookingSummaryDetail;
   bookingSummaryType : BookingSummaryType = BookingSummaryType.OnSeat;
 
-  constructor(private bookingSummaryService: BookingSummaryService) { }
+  constructor(private bookingSummaryService: BookingSummaryService,
+    private activatedRoute: ActivatedRoute) { }
+
 
   ngOnInit(): void {
-    this.find();
+    this.getId();
   }
 
+  getId() {
+    this.activatedRoute.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.bookingSummaryQuery.flightScheduleId = id;
+        this.getSummary();
+      }
+    });
+  }
 
-  find() {
+  getSummary() {
     this.bookingSummaryService
     .getSummary(this.bookingSummaryQuery)
     .subscribe({
