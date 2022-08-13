@@ -29,23 +29,23 @@ export class TextInputComponent implements ControlValueAccessor  {
 
   getErrorText() {
     if (this.ngControl.control?.errors?.['required'])
-      return 'Please enter ' + this.label;
+      return 'Please enter ' + this.label+'.';
     if (this.ngControl.control?.errors?.['email'])
-      return 'Please Enter Email';
+      return 'Invalid format.';
     if (this.ngControl.control?.errors?.['minlength'])
-      return `${this.label} must be at least ${this.ngControl.control.errors['minlength']['requiredLength']}`;
+      return `${this.label} must be at least ${this.ngControl.control.errors['minlength']['requiredLength']} characters.`;
     if (this.ngControl.control?.errors?.['maxlength'])
-      return `${this.label} must be at most ${this.ngControl.control.errors['maxlength']['requiredLength']}`;
+      return `${this.label} must be at most ${this.ngControl.control.errors['maxlength']['requiredLength']} characters.`;
     if (this.ngControl.control?.errors?.['isMatching'])
-      return 'Passwords do not match';
+      return 'Passwords do not match.';
     if (this.ngControl.control?.errors?.['min'])
-      return 'Invalid range';
+      return 'Invalid range.';
     if (this.ngControl.control?.errors?.['max'])
-      return 'Invalid range';
+      return 'Invalid range.';
     if (this.ngControl.control?.errors?.['pattern'])
-      return 'Invalid format';
+      return 'Invalid format.';
     if (this.ngControl.control?.errors?.['whitespace'])
-      return 'Required';
+      return 'Required.';
     return '';
   }
 

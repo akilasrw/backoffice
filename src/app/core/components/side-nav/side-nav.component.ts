@@ -80,6 +80,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.AWBStackManagement:
         this.router.navigate([RouteConstants.AirWaybillRoute])
       break;
+      case MenuType.PalletManagement:
+        this.router.navigate([RouteConstants.PalletRoute])
+      break;
       case MenuType.Airport:
         this.router.navigate([RouteConstants.AirportRoute])
       break;

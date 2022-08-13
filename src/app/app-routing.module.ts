@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: RouteConstants.AirportRoute, loadChildren: ()=> import('./modules/airport/airport.module').then(mod => mod.AirportModule), canActivate: [AuthGuard]},
   { path: RouteConstants.SectorRoute, loadChildren: ()=> import('./modules/sector/sector.module').then(mod => mod.SectorModule), canActivate: [AuthGuard]},
   { path: RouteConstants.AircraftRoute, loadChildren: ()=> import('./modules/aircraft/aircraft.module').then(mod => mod.AircraftModule), canActivate: [AuthGuard]},
+  { path: RouteConstants.PalletRoute, loadChildren: ()=> import('./modules/pallet/pallet.module').then(mod => mod.PalletModule), canActivate: [AuthGuard]},
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
 ];

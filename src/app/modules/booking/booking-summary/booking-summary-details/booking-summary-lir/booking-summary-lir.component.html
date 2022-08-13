@@ -1,1 +1,133 @@
-<p>booking-summary-lir works!</p>
+<div class="row lir">
+    <div class="text-center">
+        <h2>Load Distribution Main Deck Compartment</h2>
+    </div>
+    <div class="table-content">
+        <table class="table table-responsive">
+            <thead>
+                <th></th>
+                <th *ngFor="let position of cargoBookingSummary.cargoPositions;let indexOfelement=index;">{{"P" +(indexOfelement+1)}}</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="lable">Max Weight Limit</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{ position.maxWeight +" Kgs"}}</td>
+                </tr>
+                <tr>
+                    <td>ULD Number</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{(position.palletId != "")?position.uldNumber:""}}</td>
+                </tr>
+                <tr>
+                    <td>Gross Weight In Kgs</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{ (position.weight>0)?position.weight +" Kgs":""}}</td>
+                </tr>
+                <tr>
+                    <td>Destination</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions">{{ (position.isPalletAssigned)? cargoBookingSummary.destinationAirportCode:""}}</td>
+                   
+                </tr>
+                <tr>
+                    <td>Remarks</td>
+                    <td *ngFor="let position of cargoBookingSummary.cargoPositions"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center pt-5">
+        <h2>Load Distribution Lower Hold</h2>
+    </div>
+    <div class="col-md-6">
+        <div class="pt-3">
+            <h3>Forward Hold</h3>
+        </div>
+        <div class="table-content">
+            <table class="table table-responsive">
+                <thead>
+                    <th></th>
+                    <th>B1</th>
+                    <th>B1B</th>
+                    <th>B2</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="lable">Max Weight Limit</td>
+                        <td>762 Kgs</td>
+                        <td>483 Kgs</td>
+                        <td>2059 Kgs</td>
+                    </tr>
+                    <tr>
+                        <td>Cart No.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Weight Kgs</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Destination</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Remarks</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="pt-3">
+            <h3>AFT Hold</h3>
+        </div>
+        <div class="table-content">
+            <table class="table table-responsive">
+                <thead>
+                    <th></th>
+                    <th>B3</th>
+                    <th>B4</th>
+                    <th>B5</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="lable">Max Weight Limit</td>
+                        <td>3062 Kgs</td>
+                        <td>414 Kgs</td>
+                        <td>735 Kgs</td>
+                    </tr>
+                    <tr>
+                        <td>Cart No.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Weight Kgs</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Destination</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Remarks</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

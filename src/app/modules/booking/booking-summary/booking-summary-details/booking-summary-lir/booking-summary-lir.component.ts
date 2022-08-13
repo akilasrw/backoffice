@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CargoBookingSummaryDetail } from './../../../../../_models/view-models/booking-summary/cargo-booking-summary-detail.model';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-booking-summary-lir',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./booking-summary-lir.component.scss']
 })
 export class BookingSummaryLirComponent implements OnInit {
+
+  @Input() cargoBookingSummary: CargoBookingSummaryDetail = new CargoBookingSummaryDetail();
 
   constructor() {
 

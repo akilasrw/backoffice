@@ -10,44 +10,30 @@
     </div>
     <div class="card-body without-footer">
         <div class="booking-details">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3> Flght Number</h3>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="label">Flight Number</div>
+                    <div>{{cargoBookingSummary?.flightNumber}}</div>
                 </div>
-                <div>
-                    <h3> Aircraft Number</h3>
+                <div class="col-md-2">
+                    <div class="label">Aircraft Number</div>
+                    <div>{{cargoBookingSummary?.aircraftRegNo}}</div>
                 </div>
-                <div>
-                    <h3> Origin</h3>
+                <div class="col-md-3">
+                    <div class="label">Origin</div>
+                    <div>{{cargoBookingSummary?.originAirportName}}</div>
                 </div>
-                <div>
-                    <h3>Destination</h3>
+                <div class="col-md-3">
+                    <div class="label">Destination</div>
+                    <div>{{cargoBookingSummary?.destinationAirportName}}</div>
                 </div>
-                <div>
-                    <h3>Departure Date</h3>
+                <div class="col-md-2">
+                    <div class="label">Departure Date</div>
+                    <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date}}</div>
                 </div>
-                <div>
-                    <h3>Aircraft Config</h3>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3>{{cargoBookingSummary?.flightNumber}}</h3>
-                </div>
-                <div>
-                    <h3>{{cargoBookingSummary?.aircraftRegNo}}</h3>
-                </div>
-                <div>
-                    <h3>{{cargoBookingSummary?.originAirportName}}</h3>
-                </div>
-                <div>
-                    <h3>{{cargoBookingSummary?.destinationAirportName}}</h3>
-                </div>
-                <div>
-                    <h3>{{cargoBookingSummary?.scheduledDepartureDateTime| date}}</h3>
-                </div>
-                <div>
-                    <h3>{{GetAircraftConfigType(cargoBookingSummary?.aircraftConfigurationType)}}</h3>
+                <div class="col-md-2">
+                    <div class="label pt-4">Aircraft Config</div>
+                    <div>{{GetAircraftConfigType(cargoBookingSummary?.aircraftConfigurationType)}}</div>
                 </div>
             </div>
             <div class="details-box-section">
@@ -68,16 +54,15 @@
                     </div>
                 </div>
             </div>
-
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3>View Freighter Details</h3>
-                </div>
-                <button class="btn btn-primary" type="button" (click)="viewLIR()">View LIR</button>
+        </div>
+        <div class="d-flex justify-content-between align-items-center pt-4">
+            <div>
+                <h3>View Freighter Details</h3>
             </div>
+            <button class="btn btn-primary" type="button" (click)="viewLIR()">View LIR</button>
         </div>
         <div class="booking-summary">
-            <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"></app-al-b737400-type-one>
+            <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
         </div>
     </div>
    
@@ -93,7 +78,23 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div class="modal-body">
-                <app-booking-summary-lir *ngIf="modalVisible"></app-booking-summary-lir>
+                <app-booking-summary-lir [cargoBookingSummary]="this.cargoBookingSummary" *ngIf="modalVisible"></app-booking-summary-lir>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': uldDetailModalVisibleAnimate}"
+    [ngStyle]="{'display': uldDetailModalVisible ? 'block' : 'none', 'opacity': uldDetailModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">ULD Details - P {{selectedPositionNumber}}</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeULDDetail()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                <app-freighter-uld-details [positionDetail]="this.selectedCargoPosition" *ngIf="uldDetailModalVisible"></app-freighter-uld-details>
             </div>
         </div>
     </div>
