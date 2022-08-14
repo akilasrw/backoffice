@@ -16,6 +16,7 @@ export class PalletManagementComponent implements OnInit {
   palletPositions:PalletDetail[]=[];
   palletPositionSearchQuery: PalletPositionSearchQuery = new PalletPositionSearchQuery();
   flightNumber?: string;
+  aircraftNumber?:string;
   flightDate?: Date;
   modalVisible = false;
   modalVisibleAnimate = false;
@@ -27,12 +28,18 @@ export class PalletManagementComponent implements OnInit {
   }
 
   getFilteredList(){
-    if(this.flightNumber === undefined || this.flightNumber === "" && this.flightDate === undefined){
-      this.toastr.error('Please enter flight number and flight date.');
+    if(this.flightNumber === undefined || this.flightNumber === "" && 
+    this.aircraftNumber === undefined || this.aircraftNumber === "" &&
+    this.flightDate === undefined){
+      this.toastr.error('Please enter flight number, aircraft number and flight date.');
       return;
     }
     if(this.flightNumber === undefined || this.flightNumber === ""){
       this.toastr.error('Please enter flight number.');
+      return;
+    }
+    if(this.aircraftNumber === undefined || this.aircraftNumber === ""){
+      this.toastr.error('Please enter aircraft number.');
       return;
     }
     if(this.flightDate === undefined){
@@ -43,6 +50,7 @@ export class PalletManagementComponent implements OnInit {
     this.isLoading=true;
     this.palletPositionSearchQuery.flightNumber=this.flightNumber;
     this.palletPositionSearchQuery.flightDate=this.flightDate;
+    this.palletPositionSearchQuery.aircraftNumber=this.aircraftNumber;
 
     this.palletManagementService.getFilteredList(this.palletPositionSearchQuery).subscribe(
       {

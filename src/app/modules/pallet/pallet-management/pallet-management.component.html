@@ -16,6 +16,11 @@
                             (change)="onChangeFilterFrm($event)">
                     </div>
                     <div class="filter-group">
+                        <label class="form-label">Aircraft Number</label>
+                        <input [(ngModel)]="aircraftNumber" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
                         <label class="form-label">Flight Date</label>
                         <input [(ngModel)]="flightDate" type="text" class="form-control" bsDatepicker
                             (change)="onChangeFilterFrm($event)">

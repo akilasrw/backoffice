@@ -20,6 +20,10 @@ export class PalletManagementService extends BaseService{
     if (query.flightNumber) {
       params = params.append("flightNumber", query.flightNumber);
     }
+
+    if (query.aircraftNumber) {
+      params = params.append("aircraftNumber", query.aircraftNumber);
+    }
     
     if (query.flightDate) {
       params = params.append("flightDate", query.flightDate.toDateString());
