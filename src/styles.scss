@@ -1273,6 +1273,12 @@ a {
             &.added {
                 background-color: $white-blue;
                 border-color: $off-white;
+                &:hover {
+                    .lable {
+                        color: $gray;
+                    }
+                    color: $default-black;
+                }
             }
         }
     }
