@@ -727,6 +727,11 @@ a {
             }
         }
     }
+    .modal-body {
+        height: calc(100vh - 136px);
+        overflow: auto;
+        @include customScrollbar(10px)
+    }
 }
 
 // Details
@@ -1031,6 +1036,30 @@ a {
     }
 }
 .lir {
+    .lir-header {
+        padding-bottom: 40px;
+        .lir-logo {
+            max-width: 130px;
+        }
+        .heding {
+            text-align: center;
+            h2, span {
+                text-transform: uppercase;
+            }
+        }
+    }
+    .lir-info {
+        padding-bottom: 30px;
+        .table-content {
+            tbody {
+                tr{
+                    td {
+                        color: $default-black !important;
+                    }
+                }
+            }
+        }
+    }
     .table-content {
         .table {
             thead {
@@ -1054,6 +1083,11 @@ a {
                 }
             }
         }
+    }
+    .disclaimer {
+        margin-top: 30px;
+        border: 1px solid $light-gray;
+        padding: 1rem;
     }
 }
 
