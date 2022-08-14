@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ca-icn-pallet:before {
+  content: "\e921";
+}
 .ca-icn-add:before {
   content: "\e900";
 }
