@@ -1,6 +1,6 @@
 import { CargoPositionDetail } from './../../../../../_models/view-models/booking-summary/cargo-position-detail.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AircraftSubTypes } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { BookingSummaryDetailQuery } from 'src/app/_models/queries/booking-summary/booking-summary-detail-query.model';
@@ -23,7 +23,7 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   uldDetailModalVisibleAnimate = false;
   flightScheduleId?: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private bookingSummaryService: BookingSummaryService) { }
+  constructor(private activatedRoute: ActivatedRoute, private bookingSummaryService: BookingSummaryService,private router: Router) { }
 
   ngOnInit(): void {
     this.getId();
@@ -63,7 +63,7 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   }
 
   backToList() {
-
+    this.router.navigate(['booking-summary']);
   }
 
   viewLIR() {

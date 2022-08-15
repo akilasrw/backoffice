@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookingSummaryType } from 'src/app/core/enums/common-enums';
 import { BookingSummaryQuery } from 'src/app/_models/queries/booking-summary/booking-summary-query.model';
 import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary-detail.model';
@@ -17,6 +17,7 @@ export class P2cBookingSummaryDetailsComponent implements OnInit {
   bookingSummaryType : BookingSummaryType = BookingSummaryType.OnSeat;
 
   constructor(private bookingSummaryService: BookingSummaryService,
+    private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
 
@@ -49,4 +50,9 @@ export class P2cBookingSummaryDetailsComponent implements OnInit {
       }
     )
   }
+
+  backToList() {
+    this.router.navigate(['booking-summary']);
+  }
+
 }
