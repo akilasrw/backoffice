@@ -1,4 +1,4 @@
-<div class="modal-body">
+<div class="modal-body" id="lir" #lir>
     <div class="row lir">
         <div class="lir-header">
             <div class="row">
@@ -10,7 +10,7 @@
                 <div class="col-md-4">
                     <div class="heding">
                         <h2>Loading Instruction Report</h2>
-                        <span>Boeing 737-400 / PK-MYV</span>
+                        <span>{{GetAircraftType(cargoBookingSummary.aircraftType)}} / PK-MYV</span>
                     </div>
                 </div>
             </div>
@@ -24,18 +24,18 @@
                                 <table class="table table-responsive m-0">
                                     <tbody>
                                         <tr>
-                                            <td style="text-transform: uppercase;">Flight Number: 2Y4421</td>
-                                            <td style="text-transform: uppercase;">Date: 03 Luly 2022</td>
+                                            <td style="text-transform: uppercase;">Flight Number: {{cargoBookingSummary.flightNumber}}</td>
+                                            <td style="text-transform: uppercase;">Date: {{currentDate | date}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-transform: uppercase;">Station: SZX</td>
-                                            <td style="text-transform: uppercase;">Destination: KNO</td>
+                                            <td style="text-transform: uppercase;">Station: {{cargoBookingSummary.originAirportCode}}</td>
+                                            <td style="text-transform: uppercase;">Destination: {{cargoBookingSummary.destinationAirportCode}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </td>
                             <td>
-                                <div style="text-transform: uppercase;">Prepared By: Nurchous</div>
+                                <div style="text-transform: uppercase;">Prepared By: {{this.currentUser?.firstName}}</div>
                                 <div>Signature of Load Master / Load Planner</div>
                             </td>
                             <td>
@@ -194,6 +194,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary me-3">Cancel</button>
-    <button type="button" class="btn btn-primary">Print or Download</button>
+    <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="printData()">Print or Download</button>
 </div>

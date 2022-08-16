@@ -52,13 +52,13 @@ export class CoreExtensions {
         typeString = "None";
         break;
       case AircraftTypes.B7879:
-        typeString = "B787-9";
+        typeString = "Boeing 787-9";
         break;
       case AircraftTypes.A320200:
-        typeString = "A320-200";
+        typeString = "Airbus 320-200";
         break;
       case AircraftTypes.B737400:
-        typeString = "B737-400";
+        typeString = "Boeing 737-400";
         break;
       default:
         break;
