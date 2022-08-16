@@ -44,21 +44,21 @@ export class BookingSummaryLirComponent implements OnInit {
     if(data != null)
     html2canvas(data, { scale: 3 }).then((canvas) => {
       const imageGeneratedFromTemplate = canvas.toDataURL('image/png');
-      var margin = 3;
-      const imgWidth  = 210 - 2*margin;
+      var margin = 10;
+      const imgWidth  = 300 - 2*margin;
       var pageHeight = 295;  
       var imgHeight = (canvas.height * imgWidth ) / canvas.width;
       var heightLeft = imgHeight;
       
       let PDF = new jsPDF('l', 'mm','a4',true);
-      var position = 5;
-      PDF.addImage(imageGeneratedFromTemplate, 'PNG', margin, position, imgWidth , imgHeight,);
+      var position = 10;
+      PDF.addImage(imageGeneratedFromTemplate, 'PNG', margin, position, imgWidth , imgHeight-50,);
       heightLeft -= pageHeight;
 
       while (heightLeft >= 0) {
         position = heightLeft - imgHeight;
         PDF.addPage();
-        PDF.addImage(imageGeneratedFromTemplate, 'PNG', margin, position, imgWidth, imgHeight);
+        PDF.addImage(imageGeneratedFromTemplate, 'PNG', margin, position, imgWidth, imgHeight-50);
         heightLeft -= pageHeight;
       }
       PDF.html(this.lirElement.nativeElement.innerHTML)
