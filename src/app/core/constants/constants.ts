@@ -12,4 +12,5 @@ export class RouteConstants{
     public static AirportRoute : string = "airport";
     public static SectorRoute : string = "sector";
     public static AircraftRoute : string = "aircraft";
+    public static FlightRoute : string = "flight";
   }

@@ -50,6 +50,12 @@
                         <span class="menu-title">Aircraft</span>
                     </div>
                 </li>
+                <li>
+                    <div class="menu-item" (click)="menuClickEvent(8)" [ngClass]="{'selected': selectedMenu == 8}">
+                        <span class="menu-icn ca ca-icn-aircraft tool-tip"><span class="tooltiptext">Flight</span></span>
+                        <span class="menu-title">Flight</span>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

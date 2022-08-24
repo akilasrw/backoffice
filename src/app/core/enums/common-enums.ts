@@ -6,8 +6,8 @@ export enum MenuType {
   PalletManagement =4,
   Airport = 5,
   Sector = 6,
-  Aircraft = 7
-
+  Aircraft = 7,
+  Flight = 8
 }
 
 export enum SectorType {
