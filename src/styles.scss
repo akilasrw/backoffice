@@ -482,6 +482,9 @@ a {
             display: none;
         }
         .menu-scroller {
+            height: calc(100vh - 320px);
+            overflow: auto;
+            @include customScrollbar(3px);
             .main-menu {
                 margin: 0;
                 padding: 0;
@@ -528,6 +531,9 @@ a {
         }
     }
     &.collapseActive {
+        .menu-scroller {
+            height: calc(100vh - 170px);
+        }
         width: 3.75rem;
         .logo-wrapper {
             display: none;
