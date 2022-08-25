@@ -1302,3 +1302,72 @@ a {
     color: $brand-primary;
     cursor: pointer;
 }
+
+// Flight Creation
+.create-flight-sector {
+    background-color: $white-blue;
+    padding: 1rem;
+    border-radius: 0.625rem;
+    margin-bottom: 30px;
+}
+
+// Sector Wrapper
+.sector-scroller {
+    overflow-y: auto;
+    padding: 0 0 25px;
+    @include customScrollbar(5px);
+    .bg-box {
+        display: table;
+        background-color: $white-blue;
+        border-radius: 5px;
+        .sector-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            font-size: 14px;
+            .sector-set {
+                margin-bottom: 10px;
+                display: inline-flex;
+                align-items: flex-end;
+                .base {
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
+                    height: 30px;
+                    color: $default-black;
+                    border: 1px solid $default-black;
+                    background-color: $default-white;
+                    padding: 0 20px;
+                    font-weight: 600;
+                }
+                .sector-data {
+                    text-align: center;
+                    .time-box {
+                        border-style: solid;
+                        border-width: 1px;
+                        width: 130px;
+                        -webkit-box-pack: justify;
+                        justify-content: space-between;
+                        padding: 0 10px;
+                        margin: 0 1px;
+                        position: relative;
+                        background-color: #dfd2fe;
+                        border-color: #c9b9ef;
+                        display: flex;
+                        border-radius: 4px;
+                        height: 30px;
+                        -webkit-box-align: center;
+                        align-items: center;
+                    }
+                }
+                .sector-action {
+                    text-align: end;
+                    color: $brand-primary;
+                    cursor: pointer;
+                    i {
+                        padding-left: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
