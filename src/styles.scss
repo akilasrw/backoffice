@@ -1371,3 +1371,53 @@ a {
         }
     }
 }
+
+// Chip style
+.chek-chip {
+    padding-top: 1rem;
+    .chip-button {
+        background-color: $off-white;
+        border: 1px solid $off-white;
+        border-radius: 50px;
+        padding: 6px 42px 10px 15px;;
+        width: fit-content;
+        &.checked {
+            background-color: $brand-primary;
+            color: $default-white;
+        }
+    }
+    .cu-check {
+        display: flex;
+        label {
+            margin-right: 10px;
+        }
+        .cu-checkbox {
+            input {
+                position: relative;
+                &:checked ~ .checkmark {
+                    background-color: $default-white;
+                }
+            }
+            .checkmark {
+                &:after {
+                    left: 10px;
+                    top: 7px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid $brand-primary;
+                    border-width: 0 3px 3px 0;
+                }
+            }
+        }
+        .checkmark {
+            top: auto;
+            left: auto;
+            background-color: $default-white;
+            border-radius: 50px;
+            margin-left: 12px;
+            border: 0;
+        }
+    }
+    
+}
+

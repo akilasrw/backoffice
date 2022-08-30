@@ -1,7 +1,72 @@
-<p>                <button class="btn btn-primary" type="button" (click)="openAddFlightSchedule()">Create Flight Schedule</button>
-</p>
-
-
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Flight Schedule Management</h1>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="openAddFlightSchedule()">Create Flight Schedule</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Flight Number</label>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Origin</label>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Destination</label>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Flight Reg Number</th>
+                        <th>Flight Number</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Flight Time</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Days of the Week</th>
+                        <th class="text-center">Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>C-AFVS</td>
+                            <td>XX100</td>
+                            <td>YYC</td>
+                            <td>YCG</td>
+                            <td>10:20 pm</td>
+                            <td>7/29/2022</td>
+                            <td>7/31/2022</td>
+                            <td>1, 2, 3, 4, 5, 6, 7</td>
+                            <td class="text-center">
+                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-bin" title="Delete"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
