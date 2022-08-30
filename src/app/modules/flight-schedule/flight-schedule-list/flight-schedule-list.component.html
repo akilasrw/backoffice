@@ -1,0 +1,24 @@
+<p>                <button class="btn btn-primary" type="button" (click)="openAddFlightSchedule()">Create Flight Schedule</button>
+</p>
+
+
+
+
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create Flight Schedule</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddFlightSchedule()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-flight-schedule-create
+                    (closePopup)="closeAddFlightSchedule()" *ngIf="modalVisible"></app-flight-schedule-create>
+            </div>
+        </div>
+    </div>
+</div>

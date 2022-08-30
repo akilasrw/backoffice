@@ -7,7 +7,8 @@ export enum MenuType {
   Airport = 5,
   Sector = 6,
   Aircraft = 7,
-  Flight = 8
+  Flight = 8,
+  FlightSchedule = 9
 }
 
 export enum SectorType {

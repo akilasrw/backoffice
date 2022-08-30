@@ -56,6 +56,12 @@
                         <span class="menu-title">Flight Creation</span>
                     </div>
                 </li>
+                <li>
+                    <div class="menu-item" (click)="menuClickEvent(9)" [ngClass]="{'selected': selectedMenu == 9}">
+                        <span class="menu-icn ca ca-icn-route tool-tip"><span class="tooltiptext">Flight Schedule</span></span>
+                        <span class="menu-title">Flight Schedule</span>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
