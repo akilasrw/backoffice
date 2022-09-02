@@ -1,0 +1,49 @@
+<p>rate-list works!</p>
+
+<div>
+    <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
+</div>
+
+
+<div>
+    <button class="btn btn-primary" type="button" (click)="openRateDetail()">Add Detail</button>
+</div>
+
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': addRateModalVisibleAnimate}"
+    [ngStyle]="{'display': addRatemodalVisible ? 'block' : 'none', 'opacity': addRateModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Rate</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddRate()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-rate-create
+                    (closePopup)="closeAddRate()" *ngIf="addRatemodalVisible"></app-rate-create>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': rateDetailModalVisibleAnimate}"
+    [ngStyle]="{'display': rateDetailmodalVisible ? 'block' : 'none', 'opacity': rateDetailModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Rate Detail</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeRateDetail()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-rate-detail
+                    (closePopup)="closeRateDetail()" *ngIf="rateDetailmodalVisible"></app-rate-detail>
+            </div>
+        </div>
+    </div>
+</div>
