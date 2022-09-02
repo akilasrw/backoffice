@@ -1,7 +1,62 @@
-<p>rate-list works!</p>
-
-<div>
-    <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Rate Management</h1>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Agent</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Origin</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Destination</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Agent</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th class="text-center">Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FedEx</td>
+                            <td>YYC</td>
+                            <td>YCG</td>
+                            <td class="text-center">
+                                <i class="ca ca-icn-view" title="View"></i>
+                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-bin" title="Delete"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 
