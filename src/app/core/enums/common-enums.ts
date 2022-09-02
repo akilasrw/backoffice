@@ -80,3 +80,9 @@ export enum UnitType {
   Length = 1,
   Mass = 2
 }
+
+export enum FlightScheduleStatus{
+  None = 0,
+  OnTime = 1,
+  Delayed = 2
+}
