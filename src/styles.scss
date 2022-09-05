@@ -714,7 +714,7 @@ a {
             border: 0;
         }
         .modal-body {
-            height: calc(100vh - 136px);
+            max-height: calc(100vh - 136px);
             overflow: auto;
             @include customScrollbar(10px)
         }
@@ -734,7 +734,7 @@ a {
         }
     }
     .modal-body {
-        height: calc(100vh - 136px);
+        max-height: calc(100vh - 136px);
         overflow: auto;
         @include customScrollbar(10px)
     }
