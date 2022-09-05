@@ -14,4 +14,5 @@ export class RouteConstants{
     public static AircraftRoute : string = "aircraft";
     public static FlightRoute : string = "flight";
     public static FlightSchedule : string = "flight-schedule";
+    public static Rate : string = "rate";
   }

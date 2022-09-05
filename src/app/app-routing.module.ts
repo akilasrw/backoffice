@@ -1,5 +1,3 @@
-import { AirWaybillModule } from './modules/air-waybill/air-waybill.module';
-import { BookingModule } from './modules/booking/booking.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
@@ -20,6 +18,7 @@ const routes: Routes = [
   { path: RouteConstants.PalletRoute, loadChildren: ()=> import('./modules/pallet/pallet.module').then(mod => mod.PalletModule), canActivate: [AuthGuard]},
   { path: RouteConstants.FlightRoute, loadChildren: ()=> import('./modules/flight/flight.module').then(mod => mod.FlightModule), canActivate: [AuthGuard]},
   { path: RouteConstants.FlightSchedule, loadChildren: ()=> import('./modules/flight-schedule/flight-schedule.module').then(mod => mod.FlightScheduleModule), canActivate: [AuthGuard]},
+  { path: RouteConstants.Rate, loadChildren: ()=> import('./modules/rate/rate.module').then(mod => mod.RateModule), canActivate: [AuthGuard]},
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
 ];

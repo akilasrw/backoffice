@@ -8,7 +8,8 @@ export enum MenuType {
   Sector = 6,
   Aircraft = 7,
   Flight = 8,
-  FlightSchedule = 9
+  FlightSchedule = 9,
+  Rate = 10
 }
 
 export enum SectorType {
@@ -78,4 +79,10 @@ export enum UnitType {
   None = 0,
   Length = 1,
   Mass = 2
+}
+
+export enum FlightScheduleStatus{
+  None = 0,
+  OnTime = 1,
+  Delayed = 2
 }
