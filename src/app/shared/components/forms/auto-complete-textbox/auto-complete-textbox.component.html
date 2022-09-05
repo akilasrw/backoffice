@@ -1,0 +1,21 @@
+<div class="input-group" [formGroup]="form">
+  <input class="form-control" type="text" [disabled]="isDisabled"  [formControl]="control" autocomplete="off" (keyup)="this.searchTextUpdate.next(this.control?.value)"
+  [ngClass]="{ 'is-invalid' : control?.errors && (control?.touched || control?.dirty) }">
+  <div class="input-group-append">
+      <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
+  </div>
+  <div *ngIf="control?.errors?.required" class="invalid-feedback">Required.</div>
+</div>
+
+<div class="search-result-container">
+  <div class="search-results" *ngIf="displayDropdown">
+      <div class="result-item" title="{{item.value}}" *ngFor="let item of objectList" (click)="itemSelectEvent(item)">
+          <div class="text-truncate">{{item.value}}</div>
+      </div>
+  </div>
+  <div class="search-results" *ngIf="objectList && objectList.length == 0 && displayDropdown">
+      <div class="result-item">
+          <div class="text-truncate">not found</div>
+      </div>
+  </div>
+</div>
