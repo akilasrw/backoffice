@@ -569,7 +569,7 @@ a {
                     display: block !important;
                 }
             }
-            
+
             .menu-title {
                 display: none;
             }
@@ -951,7 +951,7 @@ a {
                 background-color: $brand-primary;
                 color: $default-white;
             }
-            
+
         }
     }
     .tab-content {
@@ -1098,7 +1098,7 @@ a {
 }
 
 
-// AWB Stack Managemnt 
+// AWB Stack Managemnt
 .list-item {
     background-color: $default-white;
     border-radius: 0 0 0.313rem 0.313rem;
@@ -1152,7 +1152,7 @@ a {
 .page-count {
 	font-size: 12px;
 	padding-left: 15px;
-	
+
 }
 
 // Pagination
@@ -1176,7 +1176,7 @@ a {
 // Drawer chip
 .drawer-chip {
     display: flex;
-    
+
     .chip:last-child {
         margin-right: 0;
     }
@@ -1418,7 +1418,7 @@ a {
             border: 0;
         }
     }
-    
+
 }
 
 // Add rate
@@ -1461,7 +1461,7 @@ a {
             .checkmark {
                 position: relative;
             }
-            
+
         }
     }
 }
@@ -1485,4 +1485,37 @@ a {
         }
     }
 }
+
+// .search-result-container {
+// 	position: relative;
+// 	.search-results {
+// 		position: absolute;
+// 		top: 0;
+// 		left: 0;
+// 		min-width: 100%;
+// 		width: auto;
+// 		max-width: 300px;
+// 		background: #fff;
+// 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+// 		border-radius: 4px;
+// 		overflow: hidden;
+// 		z-index: 50;
+// 		.result-item {
+// 			padding: 10px 15px;
+// 			font-size: 12px;
+// 			border-width: 1px;
+// 			border-style: solid;
+// 			// @include theme((
+// 			// 	border-color: light-brd,
+// 			// ));
+// 			&:last-child {
+// 				border-bottom: none;
+// 			}
+// 			&:hover {
+// 				background: lightblue;
+// 				cursor: pointer;
+// 			}
+// 		}
+// 	}
+// }
 

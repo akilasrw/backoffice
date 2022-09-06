@@ -15,37 +15,19 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Origin</label>
-                            <!-- <app-auto-complete-dropdown [data]="originAirports" [keyword]="keyword" (clearSearch)="onClearOrigin()" (changeSearch)="onClearOrigin()"
-                              (selectFileOutput)="selectedOriginAirport($event)"></app-auto-complete-dropdown> -->
-                              <ng-autocomplete #originAriportDropdown class="select-input" [data]="originAirports" [searchKeyword]="keyword" placeholder="Select"
-                              (selected)='selectedOriginAirport($event)' (inputChanged)='onClearOrigin($event)'
-                              [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (inputCleared)="onClearOrigin($event)">
-                            </ng-autocomplete>
-
-                            <ng-template #itemTemplate let-item>
-                              <a [innerHTML]="item.value"></a>
-                            </ng-template>
-
-                            <ng-template #notFoundTemplate let-notFound>
-                              <div [innerHTML]="notFound"></div>
-                            </ng-template>
+                            <app-auto-complete-textbox #originAirportTextBox [SelectedList]="originAirports"
+                              [form]="flightForm" [control] ="flightForm.get('flightSector')?.get('originAirportCode')"
+                                (searchedText)="originAirportTextChange($event)"
+                                (selectedObject)="originAirportSelectEvent($event)">
+                            </app-auto-complete-textbox>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Destination</label>
-                            <!-- <app-auto-complete-dropdown [data]="desAirports" [keyword]="keyword" [clearInput]="isClearDesInput"
-                            (selectFileOutput)="selectedDesAirport($event)" ></app-auto-complete-dropdown> -->
-                            <ng-autocomplete #desAriportDropdown class="select-input" [data]="desAirports" [searchKeyword]="keyword" placeholder="Select"
-                              (selected)='selectedDesAirport($event)'
-                              [itemTemplate]="itemTemplate1" [notFoundTemplate]="notFoundTemplate1">
-                            </ng-autocomplete>
-
-                            <ng-template #itemTemplate1 let-item>
-                              <a [innerHTML]="item.value"></a>
-                            </ng-template>
-
-                            <ng-template #notFoundTemplate1 let-notFound>
-                              <div [innerHTML]="notFound"></div>
-                            </ng-template>
+                            <app-auto-complete-textbox #destinationAirportTextBox [SelectedList]="desAirports"
+                              [form]="flightForm" [control] ="flightForm.get('flightSector')?.get('desAirportCode')"
+                                (searchedText)="destinationAirportTextChange($event)"
+                                (selectedObject)="destinationAirportSelectEvent($event)">
+                            </app-auto-complete-textbox>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -87,51 +69,23 @@
         </div>
         <div class="col-md-12">
             <div class="sector-scroller">
-                <div class="bg-box px-3 pt-2 pb-1">
+                <div class="bg-box px-3 pt-2 pb-1" *ngIf="flightSectorList?.length > 0">
                     <div class="sector-wrapper">
                         <div class="sector-set">
-                            <div class="base">SUB</div>
+                            <div class="base">{{initialAirportCode}}</div>
                         </div>
-                        <div class="sector-set">
+                        <div class="sector-set" *ngFor="let item of flightSectorList">
                             <div class="sector-data">
                                 <div class="time-box">
-                                    10:30
+                                    {{item.departureDateDisplayTime}}
                                     <i class="ca ca-icn-aircraft"></i>
-                                    12:30
+                                    {{item.arrivalDateDisplayTime}}
                                 </div>
                             </div>
                             <div class="sector-action">
                                 <i class="ca ca-icn-edit" title="Edit"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
-                                <div class="base">KOE</div>
-                            </div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    15:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    16:30
-                                </div>
-                            </div>
-                            <div class="sector-action">
-                                <i class="ca ca-icn-edit" title="Edit"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
-                                <div class="base">SUB</div>
-                            </div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    20:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    24:30
-                                </div>
-                            </div>
-                            <div class="sector-action">
-                                <i class="ca ca-icn-edit" title="Edit"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
-                                <div class="base">YYC</div>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="removeflightSector()" ></i>
+                                <div class="base">{{item.destinationAirportCode}}</div>
                             </div>
                         </div>
                     </div>
