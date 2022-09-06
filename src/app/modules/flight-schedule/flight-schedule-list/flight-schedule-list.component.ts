@@ -1,9 +1,9 @@
-import { FlightSchedule } from './../../../_models/view-models/flight-schedules/flight-schedule';
-import { FlightScheduleService } from './../../../_services/flight-schedule.service';
 import { AirportService } from './../../../_services/airport.service';
 import { Component, OnInit } from '@angular/core';
 import { SelectList } from 'src/app/shared/models/select-list.model';
-import { FlightScheduleFilterQuery } from 'src/app/_models/queries/flight-schedule/flight-schedule-filter-query.model';
+import { FlightScheduleManagement } from 'src/app/_models/view-models/flight-schedules-management/flight-schedule-management';
+import { FlightScheduleManagementService } from 'src/app/_services/flight-schedule-management.service';
+import { FlightScheduleManagementFilterQuery } from 'src/app/_models/queries/flight-schedules-management/flight-schedule-management-filter-query.model';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -22,13 +22,13 @@ export class FlightScheduleListComponent implements OnInit {
   destinationAirportId?: string;
   keyword = 'value';
   isLoading:boolean=false;
-  flightScheduleFilterQuery: FlightScheduleFilterQuery = new FlightScheduleFilterQuery();
+  flightScheduleFilterQuery: FlightScheduleManagementFilterQuery = new FlightScheduleManagementFilterQuery();
   totalCount: number = 0;
-  flightSchedule: FlightSchedule[] = [];
+  flightSchedule: FlightScheduleManagement[] = [];
 
 
   constructor(private airportService:AirportService,
-    private flightScheduleService:FlightScheduleService) { }
+    private flightScheduleService:FlightScheduleManagementService) { }
 
   ngOnInit(): void {
     this.loadAirports();
