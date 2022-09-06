@@ -1,23 +1,23 @@
-import { BaseService } from './../core/services/base.service';
+import { BaseService } from '../core/services/base.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { FlightScheduleFilterQuery } from '../_models/queries/flight-schedule/flight-schedule-filter-query.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
-import { FlightSchedule } from '../_models/view-models/flight-schedules/flight-schedule';
 import { IPagination } from '../shared/models/pagination.model';
+import { FlightScheduleManagementFilterQuery } from '../_models/queries/flight-schedules-management/flight-schedule-management-filter-query.model';
+import { FlightScheduleManagement } from '../_models/view-models/flight-schedules-management/flight-schedule-management';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FlightScheduleService extends BaseService {
+export class FlightScheduleManagementService extends BaseService {
 
-  private readonly endpointEntityName = 'FlightSchedule';
+  private readonly endpointEntityName = 'FlightScheduleManagement';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
 
 
   constructor(http: HttpClient) { super(http)}
 
-  getFilteredList(query: FlightScheduleFilterQuery){
+  getFilteredList(query: FlightScheduleManagementFilterQuery){
     var params = new HttpParams();
     if (query.flightNumber) {
       params = params.append("flightNumber", query.flightNumber);
@@ -33,7 +33,7 @@ export class FlightScheduleService extends BaseService {
     
     params = CoreExtensions.AsPaginate(params, query);
 
-    return this.getWithParams<IPagination<FlightSchedule>>(
+    return this.getWithParams<IPagination<FlightScheduleManagement>>(
       this.getFilteredListEndpoint,
       params
     );
