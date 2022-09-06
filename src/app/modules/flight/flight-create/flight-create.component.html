@@ -1,23 +1,51 @@
+<form [formGroup]='flightForm'>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Flight Number</label>
-                <input class="form-control" type="text">
+                <app-text-input [formControl]='flightForm.controls["flightNumber"]' type="text" [label]='"flight Number"'[tabindex]="1">
+                </app-text-input>
             </div>
         </div>
         <h3>Add Your Sector List</h3>
         <div class="col-md-12">
-            <div class="create-flight-sector">
-                <div class="row">
+            <div class="create-flight-sector" formGroupName="flightSector">
+                <div class="row" >
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Origin</label>
-                            <input class="form-control" type="text">
+                            <!-- <app-auto-complete-dropdown [data]="originAirports" [keyword]="keyword" (clearSearch)="onClearOrigin()" (changeSearch)="onClearOrigin()"
+                              (selectFileOutput)="selectedOriginAirport($event)"></app-auto-complete-dropdown> -->
+                              <ng-autocomplete #originAriportDropdown class="select-input" [data]="originAirports" [searchKeyword]="keyword" placeholder="Select"
+                              (selected)='selectedOriginAirport($event)' (inputChanged)='onClearOrigin($event)'
+                              [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (inputCleared)="onClearOrigin($event)">
+                            </ng-autocomplete>
+
+                            <ng-template #itemTemplate let-item>
+                              <a [innerHTML]="item.value"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                              <div [innerHTML]="notFound"></div>
+                            </ng-template>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Destination</label>
-                            <input class="form-control" type="text">
+                            <!-- <app-auto-complete-dropdown [data]="desAirports" [keyword]="keyword" [clearInput]="isClearDesInput"
+                            (selectFileOutput)="selectedDesAirport($event)" ></app-auto-complete-dropdown> -->
+                            <ng-autocomplete #desAriportDropdown class="select-input" [data]="desAirports" [searchKeyword]="keyword" placeholder="Select"
+                              (selected)='selectedDesAirport($event)'
+                              [itemTemplate]="itemTemplate1" [notFoundTemplate]="notFoundTemplate1">
+                            </ng-autocomplete>
+
+                            <ng-template #itemTemplate1 let-item>
+                              <a [innerHTML]="item.value"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate1 let-notFound>
+                              <div [innerHTML]="notFound"></div>
+                            </ng-template>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -26,9 +54,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="d-flex align-items-center">
-                                        <input class="form-control" type="text">
+                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeHr"]' type="number" [tabindex]="3">
+                                        </app-text-input>
                                         <span class="px-2">:</span>
-                                        <input class="form-control" type="text">
+                                        <!-- <app-text-input [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeMin"]' type="number" [tabindex]="3">
+                                        </app-text-input> -->
+                                        <input type="number" class="form-control" formControlName="departureDateDisplayTimeMin" name="departureDateDisplayTimeMin">
                                     </div>
                                 </div>
                             </div>
@@ -38,16 +69,18 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="d-flex align-items-center">
-                                        <input class="form-control" type="text">
+                                      <app-text-input [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeHr"]' type="number" [tabindex]="4">
+                                      </app-text-input>
                                         <span class="px-2">:</span>
-                                        <input class="form-control" type="text">
+                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeMin"]' type="number" [tabindex]="5">
+                                        </app-text-input>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 text-end">
-                        <button class="btn btn-primary-outline" type="submit">Add Sector</button>
+                        <button class="btn btn-primary-outline" type="button" (click)="addSector()" >Add Sector</button> <!--[disabled]="!flightForm.valid"-->
                     </div>
                 </div>
             </div>
@@ -108,6 +141,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-secondary me-3">Cancel</button>
-    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-secondary me-3" type="button">Cancel</button>
+    <button class="btn btn-primary" type="button">Save</button>
 </div>
+</form>

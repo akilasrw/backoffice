@@ -16,6 +16,11 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Output() changeSearch = new EventEmitter<any>();
   @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
 
+  // @Input() set clearInput(value: boolean) {
+  //   if(value)
+  //     this.clear();
+  // }
+
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -41,4 +46,9 @@ export class AutoCompleteDropdownComponent implements OnInit {
   onClearSearch() {
     this.clearSearch.emit();
   }
+
+  // clear(): void {console.log('clear-Auto');
+  //   //this.autocompleteDropdown.stopPropagation();
+  //   this.autocompleteDropdown.clear();
+  // }
 }

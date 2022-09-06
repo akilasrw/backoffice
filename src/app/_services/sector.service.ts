@@ -15,6 +15,7 @@ export class SectorService extends BaseService{
 
   private readonly endpointEntityName = 'Sector';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
+  private readonly getListEndpoint = `${this.endpointEntityName}/GetList`;
 
   constructor(http: HttpClient) { super(http)}
 
@@ -35,17 +36,25 @@ export class SectorService extends BaseService{
     if (query.originAirportId) {
       params = params.append("originAirportId", query.originAirportId);
     }
-    
+
     if (query.destinationAirportId) {
       params = params.append("destinationAirportId", query.destinationAirportId);
     }
-    
+
     params = CoreExtensions.AsPaginate(params, query);
 
     return this.getWithParams<IPagination<Sector>>(
       this.getFilteredListEndpoint,
       params
     );
+  }
+
+  getList(sectorType: number = 0) {
+    var params = new HttpParams();
+    if (sectorType) {
+      params = params.append("sectorType", sectorType);
+    }
+    return this.getWithParams<Sector[]>(this.getListEndpoint, params);
   }
 
   deleteSector(id:string){

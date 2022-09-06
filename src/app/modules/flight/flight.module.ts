@@ -5,6 +5,7 @@ import { FlightRoutingModule } from './flight-routing.module';
 import { FlightCreateComponent } from './flight-create/flight-create.component';
 import { FlightListComponent } from './flight-list/flight-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     FlightRoutingModule,
-    SharedModule
+    SharedModule,
+    AutocompleteLibModule
   ]
 })
 export class FlightModule { }

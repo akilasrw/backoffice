@@ -25,8 +25,6 @@ export class AirportCreateComponent implements OnInit {
   isEditAirport: boolean = false;
   isLoading:boolean=false;
 
-
-
   constructor(private countryService: CountryService,
     private airportService: AirportService,
     private toastr: ToastrService) { }

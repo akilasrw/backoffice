@@ -1,6 +1,117 @@
 <div class="modal-body">
     <div class="row">
-        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Cargo Agent</label>
+                <input class="form-control">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="add-rate-section">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Origin</label>
+                            <input class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Destination</label>
+                            <input class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div>Add rate classes and rates</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="check-and-input">
+                            <div class="chek-chip form-group">
+                                <div class="cu-check">
+                                    <div class="check-and-input-chip selected">
+                                        <label class="cu-checkbox">
+                                            <div>M</div>
+                                            <input type="checkbox" checked="checked">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
+                                    </div>
+                                    <div class="check-and-input-chip">
+                                        <label class="cu-checkbox">
+                                            <div>-45K</div>
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="check-and-input-chip">
+                                        <label class="cu-checkbox">
+                                            <div>+45K</div>
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="check-and-input-chip">
+                                        <label class="cu-checkbox">
+                                            <div>+100K</div>
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary-outline">Add Rate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="add-rate-table table-content form-group">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>M</th>
+                        <th>-45K</th>
+                        <th>+45K</th>
+                        <th>+100K</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>YYC</td>
+                            <td>YCG</td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                            <td>
+                                <i class="ca ca-icn-verify" title="Save"></i>
+                                <i class="ca ca-icn-bin" title="Delete"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>YYC</td>
+                            <td>YCG</td>
+                            <td>20.00</td>
+                            <td>24.50</td>
+                            <td>25.30</td>
+                            <td>26.75</td>
+                            <td>
+                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-bin" title="Delete"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-secondary me-3" type="button">Cancel</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
 </div>
 

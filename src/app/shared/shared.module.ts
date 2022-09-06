@@ -20,6 +20,7 @@ import { LoaderFlightComponent } from './components/loader-flight/loader-flight.
 import { AlB737400TypeOneComponent } from './Templates/aircraft-layout/al-b737400-type-one/al-b737400-type-one.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 import { TextInputLoaderComponent } from './components/text-input-loader/text-input-loader.component';
+import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-textbox/auto-complete-textbox.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TextInputLoaderComponent } from './components/text-input-loader/text-in
     LoaderFlightComponent,
     AlB737400TypeOneComponent,
     TableLoaderComponent,
-    TextInputLoaderComponent    
+    TextInputLoaderComponent,
+    AutoCompleteTextboxComponent    
   ],
   imports: [
     CommonModule,
