@@ -40,16 +40,16 @@ export class BookingSummaryLirComponent implements OnInit {
   }
 
   generatePDF(): void {
-    let data: any = this.lirElement?.nativeElement; 
+    let data: any = this.lirElement?.nativeElement;
     if(data != null)
     html2canvas(data, { scale: 3 }).then((canvas) => {
       const imageGeneratedFromTemplate = canvas.toDataURL('image/png');
       var margin = 10;
       const imgWidth  = 300 - 2*margin;
-      var pageHeight = 295;  
+      var pageHeight = 295;
       var imgHeight = (canvas.height * imgWidth ) / canvas.width;
       var heightLeft = imgHeight;
-      
+
       let PDF = new jsPDF('l', 'mm','a4',true);
       var position = 10;
       PDF.addImage(imageGeneratedFromTemplate, 'PNG', margin, position, imgWidth , imgHeight-50,);
@@ -72,11 +72,10 @@ export class BookingSummaryLirComponent implements OnInit {
 
   async getCurrentUser() {
     this.subscription = await this.accountService.currentUser$.subscribe(res => {
-      debugger;
       this.currentUser = res;
     });
   }
-  
+
   closeModal(){
     this.closePopup.emit();
   }

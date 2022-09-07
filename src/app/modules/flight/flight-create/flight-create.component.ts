@@ -1,6 +1,7 @@
+import { ToastrService } from 'ngx-toastr';
 import { SectorService } from './../../../_services/sector.service';
 import { Sector } from 'src/app/_models/view-models/sector/sector.model';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { SectorFilterQuery } from 'src/app/_models/queries/sector/sector-filter-query.model';
@@ -8,6 +9,8 @@ import { FlightCreateRM } from 'src/app/_models/request-models/flight/flight-cre
 import { FlightSectorRM } from 'src/app/_models/request-models/flight/flight-sector-rm';
 import { formatNumber } from '@angular/common';
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { FlightService } from 'src/app/_services/flight.service';
+import { AutoCompleteTextboxComponent } from 'src/app/shared/components/forms/auto-complete-textbox/auto-complete-textbox.component';
 
 @Component({
   selector: 'app-flight-create',
@@ -27,13 +30,17 @@ export class FlightCreateComponent implements OnInit {
   selectedDesAirportId: string ='';
   initialAirportCode?: string;
   flightSectorList: FlightSectorRM[] = [];
+  isLoading: boolean = false;
+  @Output() closePopup = new EventEmitter<any>();
 
-  @ViewChild('originAirportTextBox') originAirportTextBox: any;
-  @ViewChild('destinationAirportTextBox') destinationAirportTextBox: any;
+  @ViewChild('originAirportTextBox') originAirportTextBox!: AutoCompleteTextboxComponent;
+  @ViewChild('destinationAirportTextBox') destinationAirportTextBox!: AutoCompleteTextboxComponent;
 
   constructor(@Inject(LOCALE_ID) private locale: string,
     private fb: FormBuilder,
-    private sectorService: SectorService) { }
+    private sectorService: SectorService,
+    private flightService: FlightService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -98,54 +105,64 @@ export class FlightCreateComponent implements OnInit {
     if(this.flightForm.valid) {
       let form = this.flightForm.value;
       this.flightCreateRM.flightNumber = form.flightNumber;
+      if(this.validateSectorform(form)) {
+        let flightSector = new FlightSectorRM();
+        flightSector.sequence = 1;
+        if(this.flightCreateRM.flightSectors)
+        flightSector.sequence = this.flightCreateRM.flightSectors?.length + 1;
 
-      let flightSector = new FlightSectorRM();
-      flightSector.sequence = 1;
-      if(this.flightCreateRM.flightSectors)
-      flightSector.sequence = this.flightCreateRM.flightSectors?.length + 1;
+        let selectedSector = this.sectors
+        .filter(x=> x.originAirportId == this.selectedOriginAirportId &&
+          x.destinationAirportId == this.selectedDesAirportId)
 
-      let selectedSector = this.sectors
-      .filter(x=> x.originAirportId == this.selectedOriginAirportId &&
-        x.destinationAirportId == this.selectedDesAirportId)
+        if (selectedSector.length> 0) {
+          flightSector.sectorId = selectedSector[0].id;
+          flightSector.originAirportCode = selectedSector[0].originAirportCode;
+          flightSector.destinationAirportCode = selectedSector[0].destinationAirportCode;
+        }
 
-      if (selectedSector.length> 0) {
-        flightSector.sectorId = selectedSector[0].id;
-        flightSector.originAirportCode = selectedSector[0].originAirportCode;
-        flightSector.destinationAirportCode = selectedSector[0].destinationAirportCode;
-      }
+        let today =  new Date();
+        let departureTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.departureDateDisplayTimeHr,form.flightSector.departureDateDisplayTimeMin,0).toString();
+        let arrivalTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.arrivalDateDisplayTimeHr,form.flightSector.arrivalDateDisplayTimeMin,0).toString();
 
-      let today =  new Date();
-      let departureTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.departureDateDisplayTimeHr,form.flightSector.departureDateDisplayTimeMin,0).toString();
-      let arrivalTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.arrivalDateDisplayTimeHr,form.flightSector.arrivalDateDisplayTimeMin,0).toString();
+        flightSector.departureDateDisplayTime = this.timeFormat(departureTime);
+        flightSector.arrivalDateDisplayTime = this.timeFormat(arrivalTime);
 
-      flightSector.departureDateDisplayTime = this.timeFormat(departureTime);
-      flightSector.arrivalDateDisplayTime = this.timeFormat(arrivalTime);
-
-      if(this.flightCreateRM.flightSectors){
-        this.flightCreateRM.flightSectors?.push(flightSector);
-        this.flightSectorList.push(flightSector);
-      }
-      else {
         this.flightSectorList.push(flightSector);
         this.flightCreateRM.flightSectors = this.flightSectorList;
-        this.initialAirportCode = flightSector?.originAirportCode;
-      }
 
-      this.flightForm.controls['flightSector'].reset();
-      console.log(this.flightCreateRM);
-      if(selectedSector[0]){
-        this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
-        this.originAirportTextBox.objectList = this.originAirports;
-        this.desAirports=[];
-        this.originAirportTextBox.selectedText = selectedSector[0].destinationAirportCode;
-        this.originAirportTextBox.isDisabled = true;
-        this.flightForm.controls?.['flightSector']?.get('originAirportCode')?.disable();
-        this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(selectedSector[0]?.destinationAirportCode);
-        this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
+        if(this.flightSectorList.length == 1)
+            this.initialAirportCode = flightSector?.originAirportCode;
+
+        this.flightForm.controls['flightSector'].reset();
+        console.log(this.flightCreateRM);
+        if(selectedSector[0]) {
+          this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
+          this.originAirportTextBox.objectList = this.originAirports;
+          this.desAirports=[];
+          this.originAirportTextBox.selectedText = selectedSector[0].destinationAirportCode;
+          this.originAirportTextBox.isDisabled = true;
+          this.flightForm.controls?.['flightSector']?.get('originAirportCode')?.disable();
+          this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(selectedSector[0]?.destinationAirportCode);
+          this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
+          this.loadDesAirport(selectedSector[0]?.destinationAirportId);
+        }
       }
     } else {
       this.flightForm.markAllAsTouched();
     }
+  }
+
+  validateSectorform(form: any): boolean {
+    if(form.departureDateDisplayTime > form.arrivalDateDisplayTime) {
+      this.toastr.warning('Arrival time should be greater than Departure time');
+      return false;
+    }
+    return true;
+  }
+
+  validateSubmit(): boolean {
+    return true;
   }
 
   timeFormat(value: string){
@@ -167,7 +184,7 @@ export class FlightCreateComponent implements OnInit {
       this.destinationAirportTextBox.objectList = this.desAirports.filter(x=> x.value?.includes($searchText.toUpperCase()));
   }
 
-  originAirportSelectEvent($airportValue: SelectList) { 
+  originAirportSelectEvent($airportValue: SelectList) {
     this.originAirportTextBox.selectedText = $airportValue.value;
     this.flightForm?.get('flightSector')?.get('originAirportId')?.patchValue($airportValue.id);
     this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(this.originAirportTextBox.selectedText);
@@ -199,5 +216,24 @@ export class FlightCreateComponent implements OnInit {
       this.flightForm?.controls['flightSector'].get('originAirportCode')?.enable();
       this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
     }
+  }
+
+  save() {
+    this.isLoading = true;
+    this.flightService.create(this.flightCreateRM).subscribe({
+      next: (res) => {
+        this.toastr.success('Flight created successfully.');
+        //this.submitSuccess.emit();
+        this.closeModal();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  closeModal() {
+    this.closePopup.emit();
   }
 }
