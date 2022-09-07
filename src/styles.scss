@@ -1486,6 +1486,50 @@ a {
     }
 }
 
+// Input search result value
+.input-group-text {
+    display: none;
+}
+.search-result-container {
+    position: relative;
+    .search-results {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        width: auto;
+        max-width: 300px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 50;
+        .result-item {
+            padding: 10px 15px;
+            font-size: 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #f1f1f1;
+            .text-truncate {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            &:hover {
+                background: $light-blue;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.time-field {
+    .form-group {
+        margin-bottom: 0;
+    }
+}
+
+
 // .search-result-container {
 // 	position: relative;
 // 	.search-results {
