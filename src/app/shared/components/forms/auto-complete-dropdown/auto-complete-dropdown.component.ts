@@ -47,8 +47,8 @@ export class AutoCompleteDropdownComponent implements OnInit {
     this.clearSearch.emit();
   }
 
-  // clear(): void {console.log('clear-Auto');
-  //   //this.autocompleteDropdown.stopPropagation();
-  //   this.autocompleteDropdown.clear();
-  // }
+  clear(): void {
+    this.autocompleteDropdown.clear();
+    this.autocompleteDropdown.close();
+  }
 }
