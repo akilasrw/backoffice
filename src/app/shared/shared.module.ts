@@ -36,7 +36,7 @@ import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-t
     AlB737400TypeOneComponent,
     TableLoaderComponent,
     TextInputLoaderComponent,
-    AutoCompleteTextboxComponent    
+    AutoCompleteTextboxComponent
   ],
   imports: [
     CommonModule,
@@ -65,10 +65,11 @@ import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-t
     SeatTemplateComponent,
     AlB7879TypeOneComponent,
     AlA320200TypeOneComponent,
-    AlB737400TypeOneComponent,    
+    AlB737400TypeOneComponent,
     LoaderFlightComponent,
     TableLoaderComponent ,
-    TextInputLoaderComponent           
+    TextInputLoaderComponent    ,
+    AutoCompleteTextboxComponent
   ]
 })
 export class SharedModule { }

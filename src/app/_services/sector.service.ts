@@ -27,7 +27,7 @@ export class SectorService extends BaseService{
     return this.put<any>(this.endpointEntityName, sectorUpdateRM);
   }
 
-  getFilteredList(query: SectorFilterQuery){
+  getFilteredList(query: SectorFilterQuery) {
     var params = new HttpParams();
     if (query.sectorType) {
       params = params.append("sectorType", query.sectorType);

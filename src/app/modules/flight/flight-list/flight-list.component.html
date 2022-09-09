@@ -15,25 +15,29 @@
                 <div class="filter-wrapper">
                     <div class="filter-group">
                         <label class="form-label">Flight Number</label>
-                        <input class="form-control" type="text">
+                        <input [(ngModel)]="flightFilterQuery.flightNumber" type="text" class="form-control" (change)="onChangeFilter()">
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Origin</label>
-                        <input class="form-control" type="text">
+                        <app-auto-complete-dropdown #originAirportAutoComplete [data]="originAirpots" [keyword]="keyword"
+                            (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                            (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Destination</label>
-                        <input class="form-control" type="text">
+                        <app-auto-complete-dropdown #destinationAirportAutoComplete [data]="destinationAirpots" [keyword]="keyword"
+                            (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
+                            (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                     </div>
                     <div class="button">
-                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                        <button class="btn sm btn-primary-outline" (click)="getFlightList()">Add Filter</button>
                     </div>
-                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                    <div class="filter-clear" title="Filter Clear" *ngIf="isFiltered"><i class="ca ca-icn-close" (click)="clearFiltered()"></i></div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="table-content">
+            <div class="table-content" *ngIf="!isLoading">
                 <table class="table table-responsive">
                     <thead>
                         <th>Flight Number</th>
@@ -43,7 +47,17 @@
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        <tr>
+                      <tr *ngFor="let flight of this.flights">
+                        <td>{{flight.flightNumber}}</td>
+                        <td>{{flight.originAirportCode +" - "+flight.originAirportName}}</td>
+                        <td>{{flight.destinationAirportCode +" - "+flight.destinationAirportName}}</td>
+                        <td>{{flight.sectorCount}}</td>
+                        <td>
+                            <i class="ca ca-icn-edit" title="Edit"></i>
+                            <i class="ca ca-icn-bin" title="Delete"></i>
+                        </td>
+                      </tr>
+                        <!-- <tr>
                             <td>AC-101</td>
                             <td>CGK - Soekarno Hatta International Airport</td>
                             <td>DJJ - Dortheys Hiyo Eluay International Airport</td>
@@ -52,10 +66,22 @@
                                 <i class="ca ca-icn-edit" title="Edit"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
+                <div class="not-available" *ngIf="totalCount == 0">
+                  <img src="./assets/images/no-data.png" alt="No Content Data">
+                  <div>Flight not available.</div>
+              </div>
+              <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                  <app-pager [pageSize]="flightFilterQuery?.pageSize" [pageNumber]="flightFilterQuery?.pageIndex"
+                      [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                  <app-paging-header [totalCount]="totalCount" [pageSize]="flightFilterQuery?.pageSize"
+                      [pageNumber]="flightFilterQuery?.pageIndex"></app-paging-header>
+              </div>
             </div>
+            <app-table-loader [columnCount]="4" [rowCount]="flightFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader>
         </div>
     </div>
 </div>
