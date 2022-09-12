@@ -58,7 +58,7 @@
                             <td>{{item.flightNumber}}</td>
                             <td>{{item.originAirportCode+" - "+item.originAirportName}}</td>
                             <td>{{item.destinationAirportCode+" - "+item.destinationAirportName}}</td>
-                            <td></td>
+                            <td>{{item.scheduledTime | date :'shortTime'}}</td>
                             <td>{{item.scheduleStartDate| date}}</td>
                             <td>{{item.scheduleEndDate| date}}</td>
                             <td>{{item.daysOfWeek}}</td>
