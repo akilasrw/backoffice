@@ -32,6 +32,7 @@ export class FlightCreateComponent implements OnInit {
   flightSectorList: FlightSectorRM[] = [];
   isLoading: boolean = false;
   @Output() closePopup = new EventEmitter<any>();
+  @Output() submitSuccess = new EventEmitter<any>();
 
   @ViewChild('originAirportTextBox') originAirportTextBox!: AutoCompleteTextboxComponent;
   @ViewChild('destinationAirportTextBox') destinationAirportTextBox!: AutoCompleteTextboxComponent;
@@ -153,6 +154,21 @@ export class FlightCreateComponent implements OnInit {
     }
   }
 
+  save() {
+    this.isLoading = true;
+    this.flightService.create(this.flightCreateRM).subscribe({
+      next: (res) => {
+        this.toastr.success('Flight created successfully.');
+        this.submitSuccess.emit();
+        this.closeModal();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+      }
+    });
+  }
+
   validateSectorform(form: any): boolean {
     if(form.departureDateDisplayTime > form.arrivalDateDisplayTime) {
       this.toastr.warning('Arrival time should be greater than Departure time');
@@ -216,21 +232,6 @@ export class FlightCreateComponent implements OnInit {
       this.flightForm?.controls['flightSector'].get('originAirportCode')?.enable();
       this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
     }
-  }
-
-  save() {
-    this.isLoading = true;
-    this.flightService.create(this.flightCreateRM).subscribe({
-      next: (res) => {
-        this.toastr.success('Flight created successfully.');
-        //this.submitSuccess.emit();
-        this.closeModal();
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-      }
-    });
   }
 
   closeModal() {

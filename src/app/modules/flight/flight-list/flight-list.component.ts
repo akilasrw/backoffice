@@ -112,4 +112,8 @@ export class FlightListComponent implements OnInit {
     this.flightFilterQuery.destinationAirportId = undefined;
   }
 
+  onFlightAdd() {
+    this.getFlightList();
+  }
+
 }
