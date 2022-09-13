@@ -10,6 +10,7 @@ import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { AircraftCreateRM } from '../_models/request-models/aircraft/aircraft-create-rm';
 import { AircraftUpdateRM } from '../_models/request-models/aircraft/aircraft-update-rm';
 import { AircraftQuery } from '../_models/queries/aircraft/aircraft-query.model';
+import { SelectList } from '../shared/models/select-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class AircraftService extends BaseService {
   private readonly endpointEntityName = 'Aircraft';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
   private readonly getAircraftTypesEndpoint = `${this.endpointEntityName}/GetAircraftTypes`;
+  private readonly getSelectListEndpoint: string = `${this.endpointEntityName}/getSelectList`;
 
   aircraftTypes$: Observable<AircraftType[]| null>;
   private aircraftTypeSource: BehaviorSubject<AircraftType[]|null>;
@@ -49,6 +51,10 @@ export class AircraftService extends BaseService {
         }
       })
     )
+  }
+
+  getSelectList() {
+    return this.get<SelectList[]>(`${this.getSelectListEndpoint}`);
   }
 
   getFilteredList(query: AircraftFilterQuery){

@@ -2,14 +2,16 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label class="form-label">Flight Reg Number</label>
-                <input class="form-control" type="text">
+                <label class="form-label">Aircraft Reg Number</label>
+                <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
+                (selectFileOutput)="selectedAircraft($event)" (clearSearch)="onClearAircraft()" [tabindex]="1"></app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Flight Number</label>
-                <input class="form-control" type="text">
+                <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword"
+                (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2"></app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-12 form-group">
@@ -20,7 +22,7 @@
                         <div class="sector-set">
                             <div class="base">SUB</div>
                         </div>
-                        <div class="sector-set">
+                        <div class="sector-set" *ngFor="let flightSector of flightSectors">
                             <div class="sector-data">
                                 <div class="time-box">
                                     10:30
@@ -29,33 +31,9 @@
                                 </div>
                             </div>
                             <div class="sector-action">
-                                <div class="base">KOE</div>
+                                <div class="base">{{flightSector.sector.destinationAirportCode}}</div>
                             </div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    15:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    16:30
-                                </div>
-                            </div>
-                            <div class="sector-action">
-                                <div class="base">SUB</div>
-                            </div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    20:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    24:30
-                                </div>
-                            </div>
-                            <div class="sector-action">
-                                <div class="base">YYC</div>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
                 </div>
             </div>
