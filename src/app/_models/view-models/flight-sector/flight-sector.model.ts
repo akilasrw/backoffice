@@ -5,7 +5,7 @@ export class FlightSector extends BaseVM{
   flightId?: string;
   sectorId?: string;
   sequence?: number;
-  departureDateTime?: string;
-  arrivalDateTime?: string;
+  departureDateTime?: Date;
+  arrivalDateTime?: Date;
   sector?:Sector;
 }

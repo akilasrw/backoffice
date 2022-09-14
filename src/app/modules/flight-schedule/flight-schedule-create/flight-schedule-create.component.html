@@ -14,20 +14,20 @@
                 (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2"></app-auto-complete-dropdown>
             </div>
         </div>
-        <div class="col-md-12 form-group">
+        <div class="col-md-12 form-group" *ngIf="flight != null">
             <h3>Sector List</h3>
             <div class="sector-scroller">
                 <div class="bg-box px-3 pt-2 pb-1">
                     <div class="sector-wrapper">
                         <div class="sector-set">
-                            <div class="base">SUB</div>
+                            <div class="base">{{flight.originAirportCode}}</div>
                         </div>
-                        <div class="sector-set" *ngFor="let flightSector of flightSectors">
+                        <div class="sector-set" *ngFor="let flightSector of flight.flightSectors">
                             <div class="sector-data">
                                 <div class="time-box">
-                                    10:30
+                                    {{flightSector.arrivalDateTime| date :'HH:mm'}}
                                     <i class="ca ca-icn-aircraft"></i>
-                                    12:30
+                                    {{flightSector.departureDateTime| date :'HH:mm'}}
                                 </div>
                             </div>
                             <div class="sector-action">

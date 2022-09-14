@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { FlightDetailQuery } from 'src/app/_models/queries/flight/flight-detail-query.model';
 import { FlightSector } from 'src/app/_models/view-models/flight-sector/flight-sector.model';
+import { Flight } from 'src/app/_models/view-models/flight/flight.model';
 import { AircraftService } from 'src/app/_services/aircraft.service';
 import { FlightService } from 'src/app/_services/flight.service';
 
@@ -15,7 +16,7 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   aircraftList: SelectList[] = [];
   flightList: SelectList[] = [];
-  flightSectors: FlightSector[] = [];
+  flight?: Flight;
   public flightScheduleForm!: FormGroup;
   keyword = 'value';
 
@@ -63,7 +64,7 @@ export class FlightScheduleCreateComponent implements OnInit {
     this.flightService.getDetails(query)
       .subscribe(res => {
         if (res != null && res.flightSectors != null) {
-          this.flightSectors = res.flightSectors;
+          this.flight = res;
         }
       });
   }
@@ -92,7 +93,7 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   onClearFlight(){
     this.flightScheduleForm.get('flightId')?.patchValue(null);
-    this.flightSectors= [];
+    this.flight = undefined;
   }
 
 }
