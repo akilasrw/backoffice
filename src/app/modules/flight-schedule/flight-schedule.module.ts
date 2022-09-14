@@ -4,6 +4,7 @@ import { FlightScheduleRoutingModule } from './flight-schedule-routing.module';
 import { FlightScheduleListComponent } from './flight-schedule-list/flight-schedule-list.component';
 import { FlightScheduleCreateComponent } from './flight-schedule-create/flight-schedule-create.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     FlightScheduleRoutingModule,
-    SharedModule
+    SharedModule,
+    BsDatepickerModule
   ]
 })
 export class FlightScheduleModule { }
