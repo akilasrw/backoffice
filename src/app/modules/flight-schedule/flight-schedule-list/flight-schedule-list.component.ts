@@ -78,6 +78,9 @@ export class FlightScheduleListComponent implements OnInit {
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
+  onAddFlightSchedule(){
+    this.getFlightScheduleList();
+  }
 
   clearFilter() {
     this.flightNumber = undefined;

@@ -98,7 +98,7 @@
             </div>
             <div>
                 <app-flight-schedule-create
-                    (closePopup)="closeAddFlightSchedule()" *ngIf="modalVisible"></app-flight-schedule-create>
+                    (closePopup)="closeAddFlightSchedule()" (submitSuccess)="onAddFlightSchedule()" *ngIf="modalVisible"></app-flight-schedule-create>
             </div>
         </div>
     </div>
