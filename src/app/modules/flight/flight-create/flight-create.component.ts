@@ -79,8 +79,10 @@ export class FlightCreateComponent implements OnInit {
       flightSector.flightId = val.flightId;
       flightSector.sectorId = val.sectorId;
       flightSector.sequence = val.sequence;
-      flightSector.departureDateDisplayTime = val.departureDateTime?.split(':', 2).join(':');
-      flightSector.arrivalDateDisplayTime = val.arrivalDateTime?.split(':', 2).join(':');
+      if(val.departureDateTime)
+        flightSector.departureDateDisplayTime = this.timeFormat(val.departureDateTime);
+      if(val.arrivalDateTime)
+        flightSector.arrivalDateDisplayTime = this.timeFormat(val.arrivalDateTime);
       flightSector.destinationAirportCode = val.sector?.destinationAirportCode;
       flightSector.originAirportCode = val.sector?.originAirportCode;
       this.flightSectorList.push(flightSector);
@@ -224,6 +226,7 @@ export class FlightCreateComponent implements OnInit {
             this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
             this.loadDesAirport(selectedSector[0]?.destinationAirportId);
           }
+          this.flightCreateRM.flightSectors = this.flightSectorList;
       }
       console.log( this.flightSectorList);
 

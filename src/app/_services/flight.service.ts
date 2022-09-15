@@ -8,6 +8,7 @@ import { IPagination } from '../shared/models/pagination.model';
 import { Flight } from '../_models/view-models/flight/flight.model';
 import { SelectList } from '../shared/models/select-list.model';
 import { FlightDetailQuery } from '../_models/queries/flight/flight-detail-query.model';
+import { FlightUpdateRM } from '../_models/request-models/flight/flight-update-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class FlightService extends BaseService {
   private readonly getSelectListEndpoint: string = `${this.endpointEntityName}/getSelectList`;
   private readonly getDetailEndpoint: string = `${this.endpointEntityName}/getDetail`;
 
-  
+
 
   constructor(http: HttpClient) { super(http)}
 
@@ -39,7 +40,7 @@ export class FlightService extends BaseService {
 
     if (query.isIncludeFlightSectors) {
       params = params.append("isIncludeFlightSectors", query.isIncludeFlightSectors);
-    }    
+    }
     return this.getWithParams<Flight>(`${this.getDetailEndpoint}`, params);
   }
 
@@ -87,7 +88,7 @@ export class FlightService extends BaseService {
       params = params.append("includeSectors", query.includeSectors);
     }
 
-    return this.getWithParams<Flight>(
+    return this.getWithParams<FlightUpdateRM>(
       this.endpointEntityName,
       params
     );
