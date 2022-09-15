@@ -1,8 +1,8 @@
 export class FlightScheduleManagementCreateRM{
     flightId?:string;
     aircraftId?:string;
-    scheduleStartDate?:Date;
-    scheduleEndDate?:Date;
+    scheduleStartDate?:string;
+    scheduleEndDate?:string;
     daysOfWeek?:string;
     isFlightScheduleGenerated?:boolean;      
 }
