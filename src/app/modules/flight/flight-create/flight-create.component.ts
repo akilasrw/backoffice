@@ -3,17 +3,15 @@ import { ToastrService } from 'ngx-toastr';
 import { SectorService } from './../../../_services/sector.service';
 import { Sector } from 'src/app/_models/view-models/sector/sector.model';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SelectList } from 'src/app/shared/models/select-list.model';
-import { SectorFilterQuery } from 'src/app/_models/queries/sector/sector-filter-query.model';
 import { FlightCreateRM } from 'src/app/_models/request-models/flight/flight-create-rm';
 import { FlightSectorRM } from 'src/app/_models/request-models/flight/flight-sector-rm';
 import { formatNumber } from '@angular/common';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID} from '@angular/core';
 import { FlightService } from 'src/app/_services/flight.service';
 import { AutoCompleteTextboxComponent } from 'src/app/shared/components/forms/auto-complete-textbox/auto-complete-textbox.component';
 import { FlightQuery } from 'src/app/_models/queries/flight/flight-query.model';
-import { Flight } from 'src/app/_models/view-models/flight/flight.model';
 
 @Component({
   selector: 'app-flight-create',
