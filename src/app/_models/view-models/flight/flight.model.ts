@@ -1,5 +1,7 @@
-export class Flight {
-  id?: string;
+import { BaseVM } from "src/app/shared/models/base-vm.model";
+import { FlightSector } from "../flight-sector/flight-sector.model";
+
+export class Flight extends BaseVM{
   flightNumber?: string;
   originAirportId?: string;
   destinationAirportId?: string;
@@ -8,4 +10,5 @@ export class Flight {
   originAirportName?: string;
   destinationAirportName?: string;
   sectorCount?: number;
+  flightSectors?:FlightSector[];
 }

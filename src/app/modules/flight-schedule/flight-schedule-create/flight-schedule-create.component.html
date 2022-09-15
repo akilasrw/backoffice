@@ -1,115 +1,114 @@
-<div class="modal-body">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Flight Reg Number</label>
-                <input class="form-control" type="text">
+<form [formGroup]='flightScheduleForm' (ngSubmit)="saveScheduleDetails()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Aircraft Reg Number</label>
+                    <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
+                        (selectFileOutput)="selectedAircraft($event)" (clearSearch)="onClearAircraft()" [tabindex]="1">
+                    </app-auto-complete-dropdown>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Flight Number</label>
-                <input class="form-control" type="text">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Flight Number</label>
+                    <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword"
+                        (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
+                    </app-auto-complete-dropdown>
+                </div>
             </div>
-        </div>
-        <div class="col-md-12 form-group">
-            <h3>Sector List</h3>
-            <div class="sector-scroller">
-                <div class="bg-box px-3 pt-2 pb-1">
-                    <div class="sector-wrapper">
-                        <div class="sector-set">
-                            <div class="base">SUB</div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    10:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    12:30
+            <div class="col-md-12 form-group" *ngIf="aircraft != null">
+                <h3>Aircraft Details</h3>
+                <div class="details-group">
+                    <div class="lable">Reg Number</div>
+                    <div>{{aircraft.regNo}}</div>
+                </div>
+                <div class="details-group">
+                    <div class="lable">Aircraft Type</div>
+                    <div>{{GetAircraftType(aircraft.aircraftType)}}</div>
+                </div>
+                <div class="details-group">
+                    <div class="lable">Config</div>
+                    <div>{{GetAircraftConfigType(aircraft.configurationType)}}</div>
+                </div>
+            </div>
+            <div class="col-md-12 form-group" *ngIf="flight != null">
+                <h3>Sector List</h3>
+                <div class="sector-scroller">
+                    <div class="bg-box px-3 pt-2 pb-1">
+                        <div class="sector-wrapper">
+                            <div class="sector-set">
+                                <div class="base">{{flight.originAirportCode}}</div>
+                            </div>
+                            <div class="sector-set" *ngFor="let flightSector of flight.flightSectors">
+                                <div class="sector-data">
+                                    <div class="time-box">
+                                        {{flightSector.arrivalDateTime| date :'HH:mm'}}
+                                        <i class="ca ca-icn-aircraft"></i>
+                                        {{flightSector.departureDateTime| date :'HH:mm'}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="sector-action">
-                                <div class="base">KOE</div>
-                            </div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    15:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    16:30
+                                <div class="sector-action">
+                                    <div class="base">{{flightSector.sector.destinationAirportCode}}</div>
                                 </div>
-                            </div>
-                            <div class="sector-action">
-                                <div class="base">SUB</div>
-                            </div>
-                        </div>
-                        <div class="sector-set">
-                            <div class="sector-data">
-                                <div class="time-box">
-                                    20:30
-                                    <i class="ca ca-icn-aircraft"></i>
-                                    24:30
-                                </div>
-                            </div>
-                            <div class="sector-action">
-                                <div class="base">YYC</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Start Date</label>
-                <input class="form-control" type="text">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Start Date</label>
+                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]' 
+                        class="form-control" bsDatepicker [minDate]="startMinDate"  >
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">End Date</label>
-                <input class="form-control" type="text">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">End Date</label>
+                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]' (click)="onChangeStartDate()"
+                        class="form-control" bsDatepicker [minDate]="endMinDate">
+                </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <h3>Day(s) of Week</h3>
-            <div class="chek-chip">
-                <div class="cu-check">
-                    <label class="chip-button cu-checkbox">1
-                        <input type="checkbox" checked="checked">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="chip-button cu-checkbox">2
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="chip-button cu-checkbox">3
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="chip-button cu-checkbox">4
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="chip-button cu-checkbox">5
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="chip-button cu-checkbox">6
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="chip-button cu-checkbox">7
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
+            <div class="col-md-12">
+                <h3>Day(s) of Week</h3>
+                <div class="chek-chip">
+                    <div class="cu-check">
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(1)}">1
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,1)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(2)}">2
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,2)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox " [ngClass]="{'checked': daysList.includes(3)}">3
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,3)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(4)}">4
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,4)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(5)}">5
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,5)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(6)}">6
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,6)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(7)}">7
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,7)">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-secondary me-3">Cancel</button>
-    <button class="btn btn-primary" type="submit">Save</button>
-</div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary me-3" type="button" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+</form>
