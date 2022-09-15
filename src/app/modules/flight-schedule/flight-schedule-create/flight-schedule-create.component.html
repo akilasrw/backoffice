@@ -17,6 +17,21 @@
                     </app-auto-complete-dropdown>
                 </div>
             </div>
+            <div class="col-md-12 form-group" *ngIf="aircraft != null">
+                <h3>Aircraft Details</h3>
+                <div class="details-group">
+                    <div class="lable">Reg Number</div>
+                    <div>{{aircraft.regNo}}</div>
+                </div>
+                <div class="details-group">
+                    <div class="lable">Aircraft Type</div>
+                    <div>{{GetAircraftType(aircraft.aircraftType)}}</div>
+                </div>
+                <div class="details-group">
+                    <div class="lable">Config</div>
+                    <div>{{GetAircraftConfigType(aircraft.configurationType)}}</div>
+                </div>
+            </div>
             <div class="col-md-12 form-group" *ngIf="flight != null">
                 <h3>Sector List</h3>
                 <div class="sector-scroller">
@@ -44,46 +59,46 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Start Date</label>
-                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]'
-                        class="form-control" bsDatepicker>
+                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]' 
+                        class="form-control" bsDatepicker [minDate]="startMinDate"  >
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">End Date</label>
-                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]'
-                        class="form-control" bsDatepicker>
+                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]' (click)="onChangeStartDate()"
+                        class="form-control" bsDatepicker [minDate]="endMinDate">
                 </div>
             </div>
             <div class="col-md-12">
                 <h3>Day(s) of Week</h3>
                 <div class="chek-chip">
                     <div class="cu-check">
-                        <label class="chip-button cu-checkbox">1
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(1)}">1
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,1)">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="chip-button cu-checkbox">2
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(2)}">2
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,2)">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="chip-button cu-checkbox">3
+                        <label class="chip-button cu-checkbox " [ngClass]="{'checked': daysList.includes(3)}">3
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,3)">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="chip-button cu-checkbox">4
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(4)}">4
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,4)">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="chip-button cu-checkbox">5
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(5)}">5
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,5)">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="chip-button cu-checkbox">6
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(6)}">6
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,6)">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="chip-button cu-checkbox">7
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(7)}">7
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,7)">
                             <span class="checkmark"></span>
                         </label>

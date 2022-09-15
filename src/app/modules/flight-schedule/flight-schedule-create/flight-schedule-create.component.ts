@@ -1,3 +1,4 @@
+import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { FlightScheduleManagementService } from 'src/app/_services/flight-schedule-management.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +9,7 @@ import { Flight } from 'src/app/_models/view-models/flight/flight.model';
 import { AircraftService } from 'src/app/_services/aircraft.service';
 import { FlightService } from 'src/app/_services/flight.service';
 import { FlightScheduleManagementCreateRM } from 'src/app/_models/request-models/flight-schedule-management/flight-schedule-management-create-rm';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 
 @Component({
   selector: 'app-flight-schedule-create',
@@ -20,6 +22,9 @@ export class FlightScheduleCreateComponent implements OnInit {
   flightList: SelectList[] = [];
   daysList: number[] = [];
   flight?: Flight;
+  aircraft?: Aircraft;
+  startMinDate = new Date();
+  endMinDate = new Date();
   isLoading: boolean = false;
   public flightScheduleForm!: FormGroup;
   keyword = 'value';
@@ -30,7 +35,9 @@ export class FlightScheduleCreateComponent implements OnInit {
     private flightService: FlightService,
     private flightScheduleManagementService: FlightScheduleManagementService,
     private toastr: ToastrService
-  ) { }
+  ) { 
+    this.endMinDate.setDate(this.startMinDate.getDate() + 6);
+  }
 
   ngOnInit(): void {
     this.initializeFlightScheduleForm();
@@ -79,6 +86,17 @@ export class FlightScheduleCreateComponent implements OnInit {
       });
   }
 
+  getAircraftDetails(aircraftId: string) {
+    this.aircraftService.getAircraftDetail({ id: aircraftId }).subscribe({
+      next: (res) => {
+        this.aircraft = res
+      },
+      error: (error) => {
+
+      }
+    });
+  }
+
   load() {
     this.aircraftService.getSelectList()
       .subscribe(res => {
@@ -90,10 +108,12 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   selectedAircraft(value: any) {
     this.flightScheduleForm.get('aircraftId')?.patchValue(value.id);
+    this.getAircraftDetails(value.id);
   }
 
   onClearAircraft() {
     this.flightScheduleForm.get('aircraftId')?.patchValue(null);
+    this.aircraft = undefined;
   }
 
   selectedFlight(value: any) {
@@ -106,20 +126,47 @@ export class FlightScheduleCreateComponent implements OnInit {
     this.flight = undefined;
   }
 
+  onChangeStartDate(){
+    var selectedStartDate = this.flightScheduleForm.get('scheduleStartDate')?.value;
+    this.endMinDate.setDate(selectedStartDate.getDate() + 6);
+  }
+
   saveScheduleDetails() {
-
-    if (this.flightScheduleForm.get('daysOfWeek')?.value === null || this.flightScheduleForm.get('daysOfWeek')?.value === "") {
-      this.toastr.error('Please select day(s) Of week.');
-    }
-
     if (this.flightScheduleForm.get('aircraftId')?.value === null || this.flightScheduleForm.get('aircraftId')?.value === "") {
       this.toastr.error('Please select aircraft.');
+      return;
     }
 
     if (this.flightScheduleForm.get('flightId')?.value === null || this.flightScheduleForm.get('flightId')?.value === "") {
       this.toastr.error('Please select flight.');
+      return;
     }
 
+    if(this.flightScheduleForm.get('scheduleStartDate')?.value == null){
+      this.toastr.error('Please select start date.');
+      return;
+    }
+
+    if(this.flightScheduleForm.get('scheduleEndDate')?.value == null){
+      this.toastr.error('Please select end date.');
+      return;
+    }
+
+    if(this.flightScheduleForm.get('scheduleStartDate')?.value >= this.flightScheduleForm.get('scheduleEndDate')?.value){
+      this.toastr.error('The schedule end date needs to be greater than the start date.');
+      return;
+    }
+
+    if((this.flightScheduleForm.get('scheduleEndDate')?.value.getDate() - this.flightScheduleForm.get('scheduleStartDate')?.value.getDate()) < 6){
+      this.toastr.error('Please select 7 days date range.');
+      return;
+    }
+
+    if (this.flightScheduleForm.get('daysOfWeek')?.value === null || this.flightScheduleForm.get('daysOfWeek')?.value === "") {
+      this.toastr.error('Please select day(s) Of week.');
+      return;
+    }
+    
     if (this.flightScheduleForm.valid) {
       this.isLoading = true;
       var flightSchedule: FlightScheduleManagementCreateRM = this.flightScheduleForm.value;
@@ -155,6 +202,14 @@ export class FlightScheduleCreateComponent implements OnInit {
   closeModal() {
     this.flightScheduleForm.reset();
     this.closePopup.emit();
+  }
+
+  GetAircraftType(type: number) {
+    return CoreExtensions.GetAircraftType(type);
+  }
+
+  GetAircraftConfigType(type: number) {
+    return CoreExtensions.GetAircraftConfigType(type);
   }
 
 }
