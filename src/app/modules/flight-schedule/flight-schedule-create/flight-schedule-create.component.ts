@@ -10,6 +10,7 @@ import { AircraftService } from 'src/app/_services/aircraft.service';
 import { FlightService } from 'src/app/_services/flight.service';
 import { FlightScheduleManagementCreateRM } from 'src/app/_models/request-models/flight-schedule-management/flight-schedule-management-create-rm';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-flight-schedule-create',
@@ -30,6 +31,7 @@ export class FlightScheduleCreateComponent implements OnInit {
   keyword = 'value';
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
+
 
   constructor(private aircraftService: AircraftService,
     private flightService: FlightService,
@@ -129,6 +131,7 @@ export class FlightScheduleCreateComponent implements OnInit {
   onChangeStartDate(){
     var selectedStartDate = this.flightScheduleForm.get('scheduleStartDate')?.value;
     this.endMinDate.setDate(selectedStartDate.getDate() + 6);
+    console.log(selectedStartDate);
   }
 
   saveScheduleDetails() {
@@ -170,6 +173,9 @@ export class FlightScheduleCreateComponent implements OnInit {
     if (this.flightScheduleForm.valid) {
       this.isLoading = true;
       var flightSchedule: FlightScheduleManagementCreateRM = this.flightScheduleForm.value;
+      flightSchedule.scheduleStartDate = moment(this.flightScheduleForm.get('scheduleStartDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+      flightSchedule.scheduleEndDate = moment(this.flightScheduleForm.get('scheduleEndDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+      
       this.flightScheduleManagementService.create(flightSchedule).subscribe({
         next: (res) => {
           this.toastr.success('Flight schedules created successfully.');
