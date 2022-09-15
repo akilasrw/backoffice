@@ -1,4 +1,5 @@
-export class FlightSectorRM{
+export class FlightSectorRM {
+  id?: string;
   flightId?: string;
   sectorId?: string;
   sequence?: number;

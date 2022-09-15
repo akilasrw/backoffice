@@ -42,4 +42,32 @@ export class FlightService extends BaseService {
       params
     );
   }
+
+  getFlight(query: any) {
+    var params = new HttpParams();
+    if (query.id) {
+      params = params.append("id", query.id);
+    }
+
+    if (query.flightNumber) {
+      params = params.append("flightNumber", query.flightNumber);
+    }
+
+    if (query.originAirportId) {
+      params = params.append("originAirportId", query.originAirportId);
+    }
+
+    if (query.destinationAirportId) {
+      params = params.append("destinationAirportId", query.destinationAirportId);
+    }
+
+    if (query.includeSectors) {
+      params = params.append("includeSectors", query.includeSectors);
+    }
+
+    return this.getWithParams<Flight>(
+      this.endpointEntityName,
+      params
+    );
+  }
 }

@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 text-end">
-                        <button class="btn btn-primary-outline" type="button" (click)="addSector()" >Add Sector</button> <!--[disabled]="!flightForm.valid"-->
+                        <button class="btn btn-primary-outline" type="button" (click)="addSector()" >{{flightForm.get("flightSector")?.value.isEdit? 'Update ':'Add '}}Sector</button> <!--[disabled]="!flightForm.valid"-->
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="sector-action">
-                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="editFlightSector(item)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="removeflightSector()" ></i>
                                 <div class="base">{{item.destinationAirportCode}}</div>
                             </div>
@@ -96,6 +96,6 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-secondary me-3" type="button" (click)="closeModal()">Cancel</button>
-    <button class="btn btn-primary" type="button" (click)="save()">Save</button>
+    <button class="btn btn-primary" type="button" (click)="save()">{{selectedFlghtId =='' || selectedFlghtId == undefined?'Save':'Update'}}</button>
 </div>
 </form>

@@ -23,6 +23,10 @@ export class FlightListComponent implements OnInit {
   keyword = 'value';
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
+  modalVisibleDelete = false;
+  modalVisibleAnimateDelete = false;
+  selectedFlight?:string;
+  selectedDeletedID?:string;
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
@@ -48,6 +52,7 @@ export class FlightListComponent implements OnInit {
   }
 
   openAddFlight() {
+    this.selectedFlight = undefined;
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
   }
@@ -114,6 +119,45 @@ export class FlightListComponent implements OnInit {
 
   onFlightAdd() {
     this.getFlightList();
+  }
+
+  onEdit(flight:Flight){
+    this.selectedFlight = flight.id;
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  onDelete(id:string){
+    this.selectedDeletedID = id;
+    this.modalVisibleDelete = true;
+    setTimeout(() => (this.modalVisibleAnimateDelete = true));
+  }
+
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDelete = false;
+    setTimeout(() => (this.modalVisibleDelete = false), 300);
+  }
+
+  deleteSector() {
+    // if (this.selectedDeletedID) {
+    //   this.isLoading=true;
+    //   this.flightService.deleteSector(this.selectedDeletedID)
+    //     .subscribe({
+    //       next: (res) => {
+    //         this.toastr.success(CommonMessages.DeletedSuccessMsg);
+    //         this.cancelDelete();
+    //         this.sectors = [];
+    //         this.isLoading=false;
+    //         this.getSectorList();
+    //       },
+    //       error: (error) => {
+    //         this.toastr.error(CommonMessages.DeleteFailMsg);
+    //         this.cancelDelete();
+    //         this.isLoading=false;
+    //       }
+    //     });
+    // }
   }
 
 }

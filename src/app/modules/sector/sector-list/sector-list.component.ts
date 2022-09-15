@@ -160,5 +160,5 @@ export class SectorListComponent implements OnInit {
   onSectorAdd() {
     this.getSectorList();
   }
- 
+
 }
