@@ -38,7 +38,6 @@ export class FlightScheduleCreateComponent implements OnInit {
     private flightScheduleManagementService: FlightScheduleManagementService,
     private toastr: ToastrService
   ) { 
-    this.endMinDate.setDate(this.startMinDate.getDate() + 6);
   }
 
   ngOnInit(): void {
@@ -128,12 +127,6 @@ export class FlightScheduleCreateComponent implements OnInit {
     this.flight = undefined;
   }
 
-  onChangeStartDate(){
-    var selectedStartDate = this.flightScheduleForm.get('scheduleStartDate')?.value;
-    this.endMinDate.setDate(selectedStartDate.getDate() + 6);
-    console.log(selectedStartDate);
-  }
-
   saveScheduleDetails() {
     if (this.flightScheduleForm.get('aircraftId')?.value === null || this.flightScheduleForm.get('aircraftId')?.value === "") {
       this.toastr.error('Please select aircraft.');
@@ -160,7 +153,10 @@ export class FlightScheduleCreateComponent implements OnInit {
       return;
     }
 
-    if((this.flightScheduleForm.get('scheduleEndDate')?.value.getDate() - this.flightScheduleForm.get('scheduleStartDate')?.value.getDate()) < 6){
+    var time = this.flightScheduleForm.get('scheduleEndDate')?.value.getTime() - this.flightScheduleForm.get('scheduleStartDate')?.value.getTime(); 
+    var days = time / (1000 * 3600 * 24);
+
+    if(days < 5){
       this.toastr.error('Please select 7 days date range.');
       return;
     }
