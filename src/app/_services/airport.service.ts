@@ -30,11 +30,11 @@ export class AirportService extends BaseService {
     if (query.airportName) {
       params = params.append("airportName", query.airportName);
     }
-    
+
     if (query.airportCode) {
       params = params.append("airportCode", query.airportCode);
     }
-    
+
     if (query.isCountryInclude) {
       params = params.append("isCountryInclude", query.isCountryInclude);
     }
@@ -56,10 +56,10 @@ export class AirportService extends BaseService {
   }
 
   update(airportUpdateRM: AirportUpdateRM){
-    return this.put<any>(this.endpointEntityName, airportUpdateRM);
+    return this.put<any>(`${this.endpointEntityName}/${airportUpdateRM.id}`, airportUpdateRM);
   }
-  
+
   deleteAirport(id:string){
-    return this.delete<boolean>(`${this.endpointEntityName}?id=${id}`, null);
+    return this.delete<boolean>(`${this.endpointEntityName}/${id}`, null);
   }
 }

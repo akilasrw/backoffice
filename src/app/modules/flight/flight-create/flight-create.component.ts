@@ -67,14 +67,14 @@ export class FlightCreateComponent implements OnInit {
     }
   }
 
-  editForm(flight: FlightUpdateRM) {debugger;
+  editForm(flight: FlightUpdateRM) {
     this.flightForm.get('id')?.patchValue(flight.id);
     this.flightForm.get('flightNumber')?.patchValue(flight.flightNumber);
     this.initialAirportCode = flight?.originAirportCode;
     console.log(flight);
 
     if(flight?.flightSectors)
-    flight?.flightSectors.forEach(val => {debugger
+    flight?.flightSectors.forEach(val => {
       let flightSector = new FlightSectorRM();
       flightSector.flightId = val.flightId;
       flightSector.sectorId = val.sectorId;
@@ -152,92 +152,92 @@ export class FlightCreateComponent implements OnInit {
     if(this.flightForm.valid) {
       let form = this.flightForm.value;
       this.flightCreateRM.flightNumber = form.flightNumber;
-      if(this.selectedFlghtId == undefined || this.selectedFlghtId =='') {
-        if(this.validateSectorform(form)) {
-          let flightSector = new FlightSectorRM();
-          flightSector.sequence = 1;
-          if(this.flightCreateRM.flightSectors)
-          flightSector.sequence = this.flightCreateRM.flightSectors?.length + 1;
-
-          let selectedSector = this.sectors
-          .filter(x=> x.originAirportId == this.selectedOriginAirportId &&
-            x.destinationAirportId == this.selectedDesAirportId)
-
-          if (selectedSector.length > 0) {
-            flightSector.sectorId = selectedSector[0].id;
-            flightSector.originAirportCode = selectedSector[0].originAirportCode;
-            flightSector.destinationAirportCode = selectedSector[0].destinationAirportCode;
+      if(this.validateSectorform(form)) {
+        if(this.selectedFlghtId == undefined || this.selectedFlghtId =='') { // new
+            if(form.flightSector.isEdit) {
+              let index = this.flightSectorList.findIndex(x=>x.sequence == form.flightSector.sequence);
+              if(index > -1) {
+                this.flightSectorList.splice(index,1); // remove from the list newly created one if it is edited.
+              }
+            }
+            let flightSector = new FlightSectorRM();
+            flightSector.sequence = this.setSequence();
+            flightSector = this.bindFlightSector(flightSector);
+            this.flightSectorList.push(flightSector);
+            this.flightCreateRM.flightSectors = this.flightSectorList;
+        } else { // edit
+          this.flightCreateRM.id = this.selectedFlghtId;
+          let index = this.flightSectorList.findIndex(x=>x.id == form.flightSector.id);
+          if(index > -1) {
+            let flightSector = this.bindFlightSector(this.flightSectorList[index]);
+            this.flightSectorList[index] = flightSector;
           }
-
-          let today =  new Date();
-          let departureTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.departureDateDisplayTimeHr, form.flightSector.departureDateDisplayTimeMin,0).toString();
-          let arrivalTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.arrivalDateDisplayTimeHr, form.flightSector.arrivalDateDisplayTimeMin,0).toString();
-
-          flightSector.departureDateDisplayTime = this.timeFormat(departureTime);
-          flightSector.arrivalDateDisplayTime = this.timeFormat(arrivalTime);
-
-          this.flightSectorList.push(flightSector);
           this.flightCreateRM.flightSectors = this.flightSectorList;
-
-          if(this.flightSectorList.length == 1)
-              this.initialAirportCode = flightSector?.originAirportCode;
-
-          this.flightForm.controls['flightSector'].reset();
-          if(selectedSector[0]) {
-            this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
-            this.originAirportTextBox.objectList = this.originAirports;
-            this.desAirports=[];
-            this.originAirportTextBox.selectedText = selectedSector[0].destinationAirportCode;
-            this.originAirportTextBox.isDisabled = true;
-            this.flightForm.controls?.['flightSector']?.get('originAirportCode')?.disable();
-            this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(selectedSector[0]?.destinationAirportCode);
-            this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
-            this.loadDesAirport(selectedSector[0]?.destinationAirportId);
-          }
         }
-      } else {
-        let flightSector = this.flightSectorList.filter(x=> x.id == form.flightSector.id)[0];
-        let selectedSector = this.sectors
-          .filter(x=> x.originAirportId == this.selectedOriginAirportId &&
-            x.destinationAirportId == this.selectedDesAirportId)
 
-          if (selectedSector.length > 0) {
-            flightSector.sectorId = selectedSector[0].id;
-            flightSector.originAirportCode = selectedSector[0].originAirportCode;
-            flightSector.destinationAirportCode = selectedSector[0].destinationAirportCode;
-          }
-
-          let today =  new Date();
-          let departureTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.departureDateDisplayTimeHr, form.flightSector.departureDateDisplayTimeMin,0).toString();
-          let arrivalTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.arrivalDateDisplayTimeHr, form.flightSector.arrivalDateDisplayTimeMin,0).toString();
-
-          flightSector.departureDateDisplayTime = this.timeFormat(departureTime);
-          flightSector.arrivalDateDisplayTime = this.timeFormat(arrivalTime);
-
-          this.flightForm.controls['flightSector'].reset();
-          if(selectedSector[0]) {
-            this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
-            this.originAirportTextBox.objectList = this.originAirports;
-            this.desAirports=[];
-            this.originAirportTextBox.selectedText = selectedSector[0].destinationAirportCode;
-            this.originAirportTextBox.isDisabled = true;
-            this.flightForm.controls?.['flightSector']?.get('originAirportCode')?.disable();
-            this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(selectedSector[0]?.destinationAirportCode);
-            this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
-            this.loadDesAirport(selectedSector[0]?.destinationAirportId);
-          }
-          this.flightCreateRM.flightSectors = this.flightSectorList;
+        if(this.flightSectorList.length == 1)
+          this.initialAirportCode = this.flightSectorList[0]?.originAirportCode;
       }
-      console.log( this.flightSectorList);
-
     } else {
       this.flightForm.markAllAsTouched();
     }
   }
 
+  setSequence() {
+    let sequence = 1;
+    if(this.flightCreateRM.flightSectors)
+      sequence = this.flightCreateRM.flightSectors?.length + 1;
+    return sequence;
+  }
+
+  bindFlightSector(flightSector: FlightSectorRM) {
+    let form = this.flightForm.value;
+    let selectedSector = this.sectors
+    .filter(x=> x.originAirportId == this.selectedOriginAirportId &&
+      x.destinationAirportId == this.selectedDesAirportId)
+
+    if (selectedSector.length > 0) {
+      flightSector.sectorId = selectedSector[0].id;
+      flightSector.originAirportCode = selectedSector[0].originAirportCode;
+      flightSector.destinationAirportCode = selectedSector[0].destinationAirportCode;
+    }
+
+    let today =  new Date();
+    let departureTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.departureDateDisplayTimeHr, form.flightSector.departureDateDisplayTimeMin,0).toString();
+    let arrivalTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), form.flightSector.arrivalDateDisplayTimeHr, form.flightSector.arrivalDateDisplayTimeMin,0).toString();
+
+    flightSector.departureDateDisplayTime = this.timeFormat(departureTime);
+    flightSector.arrivalDateDisplayTime = this.timeFormat(arrivalTime);
+
+    this.flightForm.controls['flightSector'].reset();
+    if(selectedSector[0]) {
+      this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(null);
+      this.originAirportTextBox.objectList = this.originAirports;
+      this.desAirports=[];
+      this.originAirportTextBox.selectedText = selectedSector[0].destinationAirportCode;
+      this.originAirportTextBox.isDisabled = true;
+      this.flightForm.controls?.['flightSector']?.get('originAirportCode')?.disable();
+      this.flightForm?.get('flightSector')?.get('originAirportCode')?.patchValue(selectedSector[0]?.destinationAirportCode);
+      this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
+      this.loadDesAirport(selectedSector[0]?.destinationAirportId);
+    }
+    return flightSector;
+  }
+
   save() {
     if(this.selectedFlghtId && this.selectedFlghtId != '') {
-
+      this.isLoading = true;
+      this.flightService.update(this.flightCreateRM).subscribe({
+        next: (res) => {
+          this.toastr.success('Flight updated successfully.');
+          this.submitSuccess.emit();
+          this.closeModal();
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.isLoading = false;
+        }
+      })
     } else {
         if(this.validateSubmit() == true) {
         this.isLoading = true;
@@ -318,6 +318,8 @@ export class FlightCreateComponent implements OnInit {
 
   loadDesAirport(id: any) {
       this.desAirports=[];
+      this.flightForm?.get('flightSector')?.get('desAirportId')?.patchValue(null);
+      this.flightForm?.get('flightSector')?.get('desAirportCode')?.patchValue(null);
       let filteredSectors = this.sectors.filter(x=> x.originAirportId == id);
       filteredSectors.forEach((value, index) => {
         if(this.desAirports.findIndex(x=>x.value == value.destinationAirportCode) < 0)
@@ -339,11 +341,17 @@ export class FlightCreateComponent implements OnInit {
     this.flightForm.get('flightSector')?.get('originAirportCode')?.patchValue(sector.originAirportCode);
     this.originAirportTextChange(sector.originAirportCode);
     let sec = this.sectors.filter(x=> x.originAirportCode == sector.originAirportCode);
-    if(sec.length>0)
-     this.loadDesAirport(sec[0].originAirportId);
+    if(sec.length>0){
+      this.loadDesAirport(sec[0].originAirportId);
+    }
+
     if(sector.sequence ==1) {
       this.flightForm.controls?.['flightSector']?.get('originAirportCode')?.enable();
     }
+
+    sec = this.sectors.filter(x=> x.destinationAirportCode == sector.destinationAirportCode);
+    if(sec.length > 0 && sec[0].destinationAirportId)
+      this.selectedDesAirportId = sec[0].destinationAirportId;
 
     this.flightForm.get('flightSector')?.get('id')?.patchValue(sector.id);
     this.flightForm.get('flightSector')?.get('desAirportCode')?.patchValue(sector.destinationAirportCode);

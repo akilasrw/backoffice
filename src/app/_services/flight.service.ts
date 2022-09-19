@@ -20,12 +20,14 @@ export class FlightService extends BaseService {
   private readonly getSelectListEndpoint: string = `${this.endpointEntityName}/getSelectList`;
   private readonly getDetailEndpoint: string = `${this.endpointEntityName}/getDetail`;
 
-
-
   constructor(http: HttpClient) { super(http)}
 
   create(flightCreateRM: FlightCreateRM){
     return this.post<any>(this.endpointEntityName, flightCreateRM);
+  }
+
+  update(flightCreateRM: FlightCreateRM){
+    return this.put<any>(`${this.endpointEntityName}/${flightCreateRM.id}`, flightCreateRM);
   }
 
   getSelectList() {
