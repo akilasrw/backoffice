@@ -21,7 +21,6 @@ export class AircraftService extends BaseService {
   private readonly endpointEntityName = 'Aircraft';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
   private readonly getAircraftTypesEndpoint = `${this.endpointEntityName}/GetAircraftTypes`;
-  private readonly getSelectListEndpoint: string = `${this.endpointEntityName}/getSelectList`;
 
   aircraftTypes$: Observable<AircraftType[]| null>;
   private aircraftTypeSource: BehaviorSubject<AircraftType[]|null>;
@@ -51,10 +50,6 @@ export class AircraftService extends BaseService {
         }
       })
     )
-  }
-
-  getSelectList() {
-    return this.get<SelectList[]>(`${this.getSelectListEndpoint}`);
   }
 
   getFilteredList(query: AircraftFilterQuery){

@@ -42,7 +42,7 @@
             <div class="table-content">
                 <table class="table table-responsive">
                     <thead>
-                        <th>Aircraft Reg Number</th>
+                        <th>Aircraft Type</th>
                         <th>Flight Number</th>
                         <th>Origin</th>
                         <th>Destination</th>
@@ -54,7 +54,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.flightSchedule">
-                            <td>{{item.aircraftRegNo}}</td>
+                            <td>{{GetAircraftSubType(item.aircraftSubType)}}</td>
                             <td>{{item.flightNumber}}</td>
                             <td>{{item.originAirportCode+" - "+item.originAirportName}}</td>
                             <td>{{item.destinationAirportCode+" - "+item.destinationAirportName}}</td>

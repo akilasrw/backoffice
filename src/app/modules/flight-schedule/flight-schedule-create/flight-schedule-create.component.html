@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">Aircraft Reg Number</label>
-                    <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
-                        (selectFileOutput)="selectedAircraft($event)" (clearSearch)="onClearAircraft()" [tabindex]="1">
+                    <label class="form-label">Aircraft Type</label>
+                    <app-auto-complete-dropdown [data]="aircraftSubTypes" [keyword]="keyword" 
+                        (selectFileOutput)="selectedAircraftSubType($event)" (clearSearch)="onClearAircraftSubType()" [tabindex]="1">
                     </app-auto-complete-dropdown>
                 </div>
             </div>
@@ -15,21 +15,6 @@
                     <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword"
                         (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
                     </app-auto-complete-dropdown>
-                </div>
-            </div>
-            <div class="col-md-12 form-group" *ngIf="aircraft != null">
-                <h3>Aircraft Details</h3>
-                <div class="details-group">
-                    <div class="lable">Reg Number</div>
-                    <div>{{aircraft.regNo}}</div>
-                </div>
-                <div class="details-group">
-                    <div class="lable">Aircraft Type</div>
-                    <div>{{GetAircraftType(aircraft.aircraftType)}}</div>
-                </div>
-                <div class="details-group">
-                    <div class="lable">Config</div>
-                    <div>{{GetAircraftConfigType(aircraft.configurationType)}}</div>
                 </div>
             </div>
             <div class="col-md-12 form-group" *ngIf="flight != null">

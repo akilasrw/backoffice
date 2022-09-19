@@ -1,4 +1,3 @@
-import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { FlightScheduleManagementService } from 'src/app/_services/flight-schedule-management.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -19,11 +18,10 @@ import * as moment from 'moment';
 })
 export class FlightScheduleCreateComponent implements OnInit {
 
-  aircraftList: SelectList[] = [];
   flightList: SelectList[] = [];
+  aircraftSubTypes: SelectList[] = [];
   daysList: number[] = [];
   flight?: Flight;
-  aircraft?: Aircraft;
   startMinDate = new Date();
   endMinDate = new Date();
   isLoading: boolean = false;
@@ -42,28 +40,19 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeFlightScheduleForm();
-    this.loadAircrafts();
     this.loadFlights();
+    this.getAircraftTypes();
   }
 
   initializeFlightScheduleForm() {
     this.flightScheduleForm = new FormGroup({
       id: new FormControl(null),
       flightId: new FormControl(null, [Validators.required]),
-      aircraftId: new FormControl(null, [Validators.required]),
+      aircraftSubType: new FormControl(null, [Validators.required]),
       scheduleStartDate: new FormControl(null, [Validators.required]),
       scheduleEndDate: new FormControl(null, [Validators.required]),
       daysOfWeek: new FormControl(null, [Validators.required]),
     });
-  }
-
-  loadAircrafts() {
-    this.aircraftService.getSelectList()
-      .subscribe(res => {
-        if (res.length > 0) {
-          this.aircraftList = res;
-        }
-      });
   }
 
   loadFlights() {
@@ -73,6 +62,33 @@ export class FlightScheduleCreateComponent implements OnInit {
           this.flightList = res;
         }
       });
+  }
+
+  getAircraftTypes() {
+    this.isLoading=true;
+    this.aircraftService.getAircraftTypes().subscribe({
+      next: (res) => {
+        this.isLoading=false;
+        this.getFileredAircraftSubTypes();
+      },
+      error: (err) => {
+        this.isLoading=false;
+      }
+    });
+  }
+
+  getFileredAircraftSubTypes() {
+    this.isLoading=true;
+    this.aircraftService.aircraftTypes$.subscribe(res => {
+      if (res != null) {
+        res.forEach(obj => {
+          obj.aircraftSubTypes?.forEach(subObj =>{
+            this.aircraftSubTypes?.push({ id: subObj.type?.toString(), value: subObj.name });
+          })
+        });
+      }
+      this.isLoading=false;
+    });
   }
 
   getFlightDetails(flightId: string) {
@@ -87,34 +103,12 @@ export class FlightScheduleCreateComponent implements OnInit {
       });
   }
 
-  getAircraftDetails(aircraftId: string) {
-    this.aircraftService.getAircraftDetail({ id: aircraftId }).subscribe({
-      next: (res) => {
-        this.aircraft = res
-      },
-      error: (error) => {
-
-      }
-    });
+  selectedAircraftSubType(value: any) {
+    this.flightScheduleForm.get('aircraftSubType')?.patchValue(Number(value.id));
   }
 
-  load() {
-    this.aircraftService.getSelectList()
-      .subscribe(res => {
-        if (res.length > 0) {
-          this.aircraftList = res;
-        }
-      });
-  }
-
-  selectedAircraft(value: any) {
-    this.flightScheduleForm.get('aircraftId')?.patchValue(value.id);
-    this.getAircraftDetails(value.id);
-  }
-
-  onClearAircraft() {
-    this.flightScheduleForm.get('aircraftId')?.patchValue(null);
-    this.aircraft = undefined;
+  onClearAircraftSubType(){
+    this.flightScheduleForm.get('aircraftSubType')?.patchValue(null);
   }
 
   selectedFlight(value: any) {
@@ -128,8 +122,8 @@ export class FlightScheduleCreateComponent implements OnInit {
   }
 
   saveScheduleDetails() {
-    if (this.flightScheduleForm.get('aircraftId')?.value === null || this.flightScheduleForm.get('aircraftId')?.value === "") {
-      this.toastr.error('Please select aircraft.');
+    if (this.flightScheduleForm.get('aircraftSubType')?.value === null || this.flightScheduleForm.get('aircraftSubType')?.value === "") {
+      this.toastr.error('Please select aircraft type.');
       return;
     }
 
