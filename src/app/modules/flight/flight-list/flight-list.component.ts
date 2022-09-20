@@ -5,6 +5,8 @@ import { FlightService } from 'src/app/_services/flight.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FlightFilterQuery } from 'src/app/_models/queries/flight/flight-filter-query.model';
 import { AirportService } from 'src/app/_services/airport.service';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-flight-list',
@@ -32,7 +34,8 @@ export class FlightListComponent implements OnInit {
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
 
   constructor(private flightService: FlightService,
-    private airportService: AirportService) { }
+    private airportService: AirportService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadAirports();
@@ -139,25 +142,25 @@ export class FlightListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleDelete = false), 300);
   }
 
-  deleteSector() {
-    // if (this.selectedDeletedID) {
-    //   this.isLoading=true;
-    //   this.flightService.deleteSector(this.selectedDeletedID)
-    //     .subscribe({
-    //       next: (res) => {
-    //         this.toastr.success(CommonMessages.DeletedSuccessMsg);
-    //         this.cancelDelete();
-    //         this.sectors = [];
-    //         this.isLoading=false;
-    //         this.getSectorList();
-    //       },
-    //       error: (error) => {
-    //         this.toastr.error(CommonMessages.DeleteFailMsg);
-    //         this.cancelDelete();
-    //         this.isLoading=false;
-    //       }
-    //     });
-    // }
+  deleteFlight() {
+    if (this.selectedDeletedID) {
+      this.isLoading=true;
+      this.flightService.deleteFlight(this.selectedDeletedID)
+        .subscribe({
+          next: (res) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.flights = [];
+            this.isLoading=false;
+            this.getFlightList();
+          },
+          error: (error) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+            this.isLoading=false;
+          }
+        });
+    }
   }
 
 }
