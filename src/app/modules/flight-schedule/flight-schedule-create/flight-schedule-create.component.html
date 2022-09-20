@@ -35,7 +35,7 @@
                     <img src="/assets/images/b787-9-type-one.svg" alt="B787-9-Type One" class="img-fluid">
                 </div>
             </div>
-            <div class="col-md-12 form-group" *ngIf="flight != null">
+            <div class="col-md-12 form-group mb-0" *ngIf="flight != null">
                 <h3>Sector List</h3>
                 <div class="sector-scroller">
                     <div class="bg-box px-3 pt-2 pb-1">
@@ -63,7 +63,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Start Date</label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]'
-                        class="form-control" bsDatepicker [minDate]="startMinDate">
+                        class="form-control" bsDatepicker auto [minDate]="startMinDate">
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
@@ -71,7 +71,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">End Date</label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]'
-                        class="form-control" bsDatepicker [minDate]="endMinDate">
+                        class="form-control" bsDatepicker auto [minDate]="endMinDate">
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
