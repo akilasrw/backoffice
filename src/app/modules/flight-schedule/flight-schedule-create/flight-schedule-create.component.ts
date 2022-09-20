@@ -56,8 +56,10 @@ export class FlightScheduleCreateComponent implements OnInit {
   }
 
   loadFlights() {
+    this.isLoading=true;
     this.flightService.getSelectList()
       .subscribe(res => {
+        this.isLoading=false;
         if (res.length > 0) {
           this.flightList = res;
         }
