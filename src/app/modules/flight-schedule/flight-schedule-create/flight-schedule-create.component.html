@@ -63,7 +63,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Start Date</label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]'
-                        class="form-control" bsDatepicker [minDate]="startMinDate">
+                        class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
@@ -71,7 +71,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">End Date</label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]'
-                        class="form-control" bsDatepicker [minDate]="endMinDate">
+                        class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
