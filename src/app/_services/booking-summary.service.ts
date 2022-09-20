@@ -60,8 +60,8 @@ export class BookingSummaryService extends BaseService {
       params = params.append("id", query.id);
     }
 
-    if (query.isIncludeAircraft) {
-      params = params.append("isIncludeAircraft", query.isIncludeAircraft);
+    if (query.isIncludeAircraftType) {
+      params = params.append("isIncludeAircraftType", query.isIncludeAircraftType);
     }
 
     if (query.isIncludeFlightScheduleSectors) {
