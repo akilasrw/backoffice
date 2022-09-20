@@ -41,7 +41,7 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
 
   getSummaryDetail() {
     var bookingSummaryQuery: BookingSummaryDetailQuery = new BookingSummaryDetailQuery();
-    bookingSummaryQuery.isIncludeAircraft = true;
+    bookingSummaryQuery.isIncludeAircraftType = true;
     bookingSummaryQuery.isIncludeFlightScheduleSectors = true;
     bookingSummaryQuery.id = this.flightScheduleId;
     this.bookingSummaryService.getBookingSummaryDetail(bookingSummaryQuery).subscribe({

@@ -30,6 +30,10 @@ export class FlightService extends BaseService {
     return this.put<any>(`${this.endpointEntityName}/${flightCreateRM.id}`, flightCreateRM);
   }
 
+  deleteFlight(id:string){
+    return this.delete<any>(`${this.endpointEntityName}/${id}`, null);
+ }
+
   getSelectList() {
     return this.get<SelectList[]>(`${this.getSelectListEndpoint}`);
   }
