@@ -53,7 +53,7 @@ export class FlightCreateComponent implements OnInit {
 
   }
 
-  getFlightData() { debugger
+  getFlightData() {
     if(this.selectedFlghtId) {
       var query = new FlightQuery();
       query.id = this.selectedFlghtId;
@@ -132,8 +132,8 @@ export class FlightCreateComponent implements OnInit {
         id:[null],
         originAirportId:[''],
         desAirportId:[''],
-        originAirportCode:[''],
-        desAirportCode:[''],
+        originAirportCode:['',[Validators.required]],
+        desAirportCode:['',[Validators.required]],
         flightId: [''],
         sectorId: [''],
         sequence: [0],
@@ -223,7 +223,8 @@ export class FlightCreateComponent implements OnInit {
   }
 
   save() {
-    if(this.selectedFlghtId && this.selectedFlghtId != '') {
+    if(this.validateSubmit() == true) {
+      if(this.selectedFlghtId && this.selectedFlghtId != '') {
       this.isLoading = true;
       this.flightService.update(this.flightCreateRM).subscribe({
         next: (res) => {
@@ -235,24 +236,24 @@ export class FlightCreateComponent implements OnInit {
         error: (err) => {
           this.isLoading = false;
         }
-      })
-    } else {
-        if(this.validateSubmit() == true) {
-        this.isLoading = true;
-        this.flightService.create(this.flightCreateRM).subscribe({
-          next: (res) => {
-            this.toastr.success('Flight created successfully.');
-            this.submitSuccess.emit();
-            this.closeModal();
-            this.isLoading = false;
-            this.clear();
-          },
-          error: (err) => {
-            this.isLoading = false;
-          }
-        });
+        })
+      } else {
+          this.isLoading = true;
+          this.flightService.create(this.flightCreateRM).subscribe({
+            next: (res) => {
+              this.toastr.success('Flight created successfully.');
+              this.submitSuccess.emit();
+              this.closeModal();
+              this.isLoading = false;
+              this.clear();
+            },
+            error: (err) => {
+              this.isLoading = false;
+            }
+          });
       }
     }
+
   }
 
   clear() {
@@ -268,6 +269,12 @@ export class FlightCreateComponent implements OnInit {
   }
 
   validateSubmit(): boolean {
+
+    if(!this.flightCreateRM.flightNumber || this.flightCreateRM.flightNumber == '') {
+      this.toastr.warning('Flight Number is required.')
+      return false
+    }
+
     if(this.flightCreateRM == undefined ||
       this.flightCreateRM?.flightSectors == undefined ||
       this.flightCreateRM?.flightSectors?.length<1) {
@@ -275,10 +282,7 @@ export class FlightCreateComponent implements OnInit {
         return false
     }
 
-    if(!this.flightCreateRM.flightNumber || this.flightCreateRM.flightNumber == '') {
-      this.toastr.warning('Flight Number is required.')
-      return false
-    }
+
     return true;
   }
 

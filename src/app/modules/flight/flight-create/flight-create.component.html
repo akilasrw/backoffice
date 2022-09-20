@@ -4,7 +4,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Flight Number</label>
-                <app-text-input [formControl]='flightForm.controls["flightNumber"]' type="text" [label]='"flight Number"'[tabindex]="1">
+                <app-text-input [formControl]='flightForm.controls["flightNumber"]' type="text" [label]='"Flight Number"'[tabindex]="1">
                 </app-text-input>
             </div>
         </div>
@@ -36,12 +36,11 @@
                             <div class="row">
                                 <div class="col-md-12 time-field">
                                     <div class="d-flex align-items-center">
-                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeHr"]' type="number" [tabindex]="3">
+                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeHr"]' [label]='"Departure Time (Hr)"' type="number" [tabindex]="3">
                                         </app-text-input>
                                         <span class="px-2">:</span>
-                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeMin"]' type="number" [tabindex]="4">
+                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeMin"]' [label]='"Departure Time (Min)"'type="number" [tabindex]="4">
                                         </app-text-input>
-                                        <!-- <input type="number" class="form-control" formControlName="departureDateDisplayTimeMin" name="departureDateDisplayTimeMin"> -->
                                     </div>
                                 </div>
                             </div>
@@ -51,10 +50,10 @@
                             <div class="row">
                                 <div class="col-md-12 time-field">
                                     <div class="d-flex align-items-center">
-                                      <app-text-input class="mb-0" [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeHr"]' type="number" [tabindex]="5">
+                                      <app-text-input class="mb-0" [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeHr"]' [label]='"Arrival Time (Hr)"' type="number" [tabindex]="5">
                                       </app-text-input>
                                         <span class="px-2">:</span>
-                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeMin"]' type="number" [tabindex]="6">
+                                        <app-text-input [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeMin"]' [label]='"Arrival Time (Min)"' type="number" [tabindex]="6">
                                         </app-text-input>
                                     </div>
                                 </div>
