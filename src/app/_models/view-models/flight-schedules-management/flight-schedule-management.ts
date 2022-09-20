@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { AircraftSubTypes } from "src/app/core/enums/common-enums";
 import { BaseVM } from "src/app/shared/models/base-vm.model";
 
 export class FlightScheduleManagement extends BaseVM{
@@ -11,5 +12,5 @@ export class FlightScheduleManagement extends BaseVM{
     destinationAirportCode?:string;
     originAirportName?:string;
     destinationAirportName?:string;
-    aircraftRegNo?:string;
+    aircraftSubType?:AircraftSubTypes;
 }

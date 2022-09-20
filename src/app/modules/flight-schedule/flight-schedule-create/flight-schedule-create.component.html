@@ -2,34 +2,37 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label">Aircraft Reg Number</label>
-                    <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
-                        (selectFileOutput)="selectedAircraft($event)" (clearSearch)="onClearAircraft()" [tabindex]="1">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Aircraft Type</label>
+                    <app-auto-complete-dropdown [data]="aircraftSubTypes" [keyword]="keyword"
+                        (selectFileOutput)="selectAircraftSubType($event)" (clearSearch)="onClearAircraftSubType()"
+                        [tabindex]="1">
                     </app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Flight Number</label>
                     <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword"
                         (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
                     </app-auto-complete-dropdown>
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
-            <div class="col-md-12 form-group" *ngIf="aircraft != null">
-                <h3>Aircraft Details</h3>
-                <div class="details-group">
-                    <div class="lable">Reg Number</div>
-                    <div>{{aircraft.regNo}}</div>
+            <div class="flight-layout" *ngIf="this.selectedAircraftSubType != aircraftSubTypesEnum.None">
+                <h3>Aircraft Layuot</h3>
+                <div class="layout" *ngIf="this.selectedAircraftSubType == aircraftSubTypesEnum.B737400TypeOne">
+                    <div>B737-400-Type One</div>
+                    <img src="/assets/images/b737-400-type-one.svg" alt="B737-400-Type One" class="img-fluid">
                 </div>
-                <div class="details-group">
-                    <div class="lable">Aircraft Type</div>
-                    <div>{{GetAircraftType(aircraft.aircraftType)}}</div>
+                <div class="layout" *ngIf="this.selectedAircraftSubType == aircraftSubTypesEnum.A320200TypeOne">
+                    <div>A320-200-Type One</div>
+                    <img src="/assets/images/a320-200-type-one.svg" alt="A320-200-Type One" class="img-fluid">
                 </div>
-                <div class="details-group">
-                    <div class="lable">Config</div>
-                    <div>{{GetAircraftConfigType(aircraft.configurationType)}}</div>
+                <div class="layout" *ngIf="this.selectedAircraftSubType == aircraftSubTypesEnum.B7879TypeOne">
+                    <div>B787-9-Type One</div>
+                    <img src="/assets/images/b787-9-type-one.svg" alt="B787-9-Type One" class="img-fluid">
                 </div>
             </div>
             <div class="col-md-12 form-group" *ngIf="flight != null">
@@ -57,23 +60,25 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Start Date</label>
-                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]' 
-                        class="form-control" bsDatepicker [minDate]="startMinDate"  >
+                    <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]'
+                        class="form-control" bsDatepicker [minDate]="startMinDate">
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">End Date</label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]'
                         class="form-control" bsDatepicker [minDate]="endMinDate">
                 </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
             <div class="col-md-12">
                 <h3>Day(s) of Week</h3>
                 <div class="chek-chip">
-                    <div class="cu-check">
+                    <div class="cu-check" *ngIf="!isLoading">
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(1)}">1
                             <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,1)">
                             <span class="checkmark"></span>
@@ -103,6 +108,7 @@
                             <span class="checkmark"></span>
                         </label>
                     </div>
+                    <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                 </div>
             </div>
         </div>

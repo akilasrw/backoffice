@@ -4,6 +4,7 @@ import { SelectList } from 'src/app/shared/models/select-list.model';
 import { FlightScheduleManagement } from 'src/app/_models/view-models/flight-schedules-management/flight-schedule-management';
 import { FlightScheduleManagementService } from 'src/app/_services/flight-schedule-management.service';
 import { FlightScheduleManagementFilterQuery } from 'src/app/_models/queries/flight-schedules-management/flight-schedule-management-filter-query.model';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -112,5 +113,8 @@ export class FlightScheduleListComponent implements OnInit {
   onClearDestination(){
     this.destinationAirportId = undefined;
   }
-
+  
+  GetAircraftSubType(type: number) {
+    return CoreExtensions.GetAircraftSubType(type);
+  }
 }
