@@ -6,5 +6,4 @@ export class FlightScheduleManagementCreateRM{
     scheduleStartDate?:string;
     scheduleEndDate?:string;
     daysOfWeek?:string;
-    isFlightScheduleGenerated?:boolean;      
 }
