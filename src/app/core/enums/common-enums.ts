@@ -3,7 +3,7 @@ export enum MenuType {
   DashBoard = 1,
   BookingSummay = 2,
   AWBStackManagement = 3,
-  PalletManagement =4,
+  PalletManagement = 4,
   Airport = 5,
   Sector = 6,
   Aircraft = 7,
@@ -25,13 +25,12 @@ export enum BookingSummaryType {
   Overhead = 3
 }
 
-export enum CargoPositionType
-{
-    None = 0,
-    OnFloor = 1,
-    OnSeat = 2,
-    UnderSeat = 3,
-    Overhead = 4
+export enum CargoPositionType {
+  None = 0,
+  OnFloor = 1,
+  OnSeat = 2,
+  UnderSeat = 3,
+  Overhead = 4
 }
 
 export enum AircraftTypes {
@@ -68,11 +67,10 @@ export enum AircraftActiveTypes {
   Inactive = 2
 }
 
-export enum LoaderImageSize 
-{
-    Small = 1,
-    Medium = 2,
-    Large = 3
+export enum LoaderImageSize {
+  Small = 1,
+  Medium = 2,
+  Large = 3
 }
 
 export enum UnitType {
@@ -81,8 +79,19 @@ export enum UnitType {
   Mass = 2
 }
 
-export enum FlightScheduleStatus{
+export enum FlightScheduleStatus {
   None = 0,
   OnTime = 1,
   Delayed = 2
+}
+
+export enum WeightType {
+  None = 0,
+  M = 1,
+  Minus45K = 2,
+  Plus45K = 3,
+  Plus100K = 4,
+  Plus300K = 5,
+  Plus500K = 6,
+  Plus1000K = 7
 }

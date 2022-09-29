@@ -117,4 +117,11 @@ export class FlightScheduleListComponent implements OnInit {
   GetAircraftSubType(type: number) {
     return CoreExtensions.GetAircraftSubType(type);
   }
+
+  public onPageChanged(event: any) {
+    if (this.flightScheduleFilterQuery?.pageIndex !== event) {
+      this.flightScheduleFilterQuery.pageIndex = event;
+      this.getFlightScheduleList();
+    }
+  }
 }

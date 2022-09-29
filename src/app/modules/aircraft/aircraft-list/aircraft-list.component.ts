@@ -184,5 +184,11 @@ export class AircraftListComponent implements OnInit {
     setTimeout(() => (this.detailsModalVisible = false), 300);
   }
 
+  public onPageChanged(event: any) {
+    if (this.aircraftFilterQuery?.pageIndex !== event) {
+      this.aircraftFilterQuery.pageIndex = event;
+      this.getAircraftList();
+    }
+  }
 
 }

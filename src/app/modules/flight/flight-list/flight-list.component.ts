@@ -163,4 +163,11 @@ export class FlightListComponent implements OnInit {
     }
   }
 
+  public onPageChanged(event: any) {
+    if (this.flightFilterQuery?.pageIndex !== event) {
+      this.flightFilterQuery.pageIndex = event;
+      this.getFlightList();
+    }
+  }
+
 }

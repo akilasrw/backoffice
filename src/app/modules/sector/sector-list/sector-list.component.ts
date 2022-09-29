@@ -161,4 +161,10 @@ export class SectorListComponent implements OnInit {
     this.getSectorList();
   }
 
+  public onPageChanged(event: any) {
+    if (this.sectorFilterQuery?.pageIndex !== event) {
+      this.sectorFilterQuery.pageIndex = event;
+      this.getSectorList();
+    }
+  }
 }
