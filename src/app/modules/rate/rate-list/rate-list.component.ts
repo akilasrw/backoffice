@@ -30,9 +30,6 @@ export class RateListComponent implements OnInit {
   destinationAirportId?: string;
   isLoading :boolean= false;
 
-
-
-
   constructor(
     private cargoAgentService: CargoAgentService,
     private airportService: AirportService,
@@ -96,6 +93,10 @@ export class RateListComponent implements OnInit {
 
   selectedCargoAgent(value: any) {
     this.cargoAgentId = value.id;
+  }
+  
+  onClearCargoAgent() {
+    this.cargoAgentId = undefined;
   }
 
   selectedOrigin(value: any) {

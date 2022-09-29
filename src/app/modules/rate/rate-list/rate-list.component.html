@@ -14,9 +14,9 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="filter-wrapper">
                     <div class="filter-group">
-                        <label class="form-label">Agent</label>
+                        <label class="form-label">Cargo Agent</label>
                         <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
-                        (selectFileOutput)="selectedCargoAgent($event)"></app-auto-complete-dropdown>
+                        (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()"></app-auto-complete-dropdown>
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Origin</label>

@@ -3,7 +3,9 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Cargo Agent</label>
-                <input class="form-control">
+                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                    (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
+                </app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-12">
@@ -12,13 +14,17 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Origin</label>
-                            <input class="form-control">
+                            <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                                (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                                (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Destination</label>
-                            <input class="form-control">
+                            <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
+                                (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                         </div>
                     </div>
                 </div>
@@ -36,26 +42,55 @@
                                         </label>
                                         <input class="form-control" type="number" placeholder="00.00">
                                     </div>
-                                    <div class="check-and-input-chip">
+                                    <div class="check-and-input-chip selected">
                                         <label class="cu-checkbox">
                                             <div>-45K</div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" checked="checked">
                                             <span class="checkmark"></span>
                                         </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
                                     </div>
-                                    <div class="check-and-input-chip">
+                                    <div class="check-and-input-chip selected">
                                         <label class="cu-checkbox">
                                             <div>+45K</div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" checked="checked">
                                             <span class="checkmark"></span>
                                         </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
                                     </div>
-                                    <div class="check-and-input-chip">
+                                    <div class="check-and-input-chip selected">
                                         <label class="cu-checkbox">
                                             <div>+100K</div>
-                                            <input type="checkbox">
+                                            <input type="checkbox" checked="checked">
                                             <span class="checkmark"></span>
                                         </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
+                                    </div>                                   
+                                </div>
+                                <div class="cu-check">
+                                    <div class="check-and-input-chip selected">
+                                        <label class="cu-checkbox">
+                                            <div>+300K</div>
+                                            <input type="checkbox" checked="checked">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
+                                    </div>
+                                    <div class="check-and-input-chip selected">
+                                        <label class="cu-checkbox">
+                                            <div>+500K</div>
+                                            <input type="checkbox" checked="checked">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
+                                    </div>
+                                    <div class="check-and-input-chip selected">
+                                        <label class="cu-checkbox">
+                                            <div>+1000K</div>
+                                            <input type="checkbox" checked="checked">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <input class="form-control" type="number" placeholder="00.00">
                                     </div>
                                 </div>
                                 <div class="text-end">
@@ -77,12 +112,18 @@
                         <th>-45K</th>
                         <th>+45K</th>
                         <th>+100K</th>
+                        <th>+300K</th>
+                        <th>+500K</th>
+                        <th>+1000K</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
                         <tr>
                             <td>YYC</td>
                             <td>YCG</td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                            <td><input class="form-control" type="number" placeholder="00.00"></td>
                             <td><input class="form-control" type="number" placeholder="00.00"></td>
                             <td><input class="form-control" type="number" placeholder="00.00"></td>
                             <td><input class="form-control" type="number" placeholder="00.00"></td>
@@ -99,6 +140,9 @@
                             <td>24.50</td>
                             <td>25.30</td>
                             <td>26.75</td>
+                            <td>27.75</td>
+                            <td>28.75</td>
+                            <td>29.75</td>
                             <td>
                                 <i class="ca ca-icn-edit" title="Edit"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
@@ -114,4 +158,3 @@
     <button class="btn btn-secondary me-3" type="button">Cancel</button>
     <button class="btn btn-primary" type="submit">Submit</button>
 </div>
-
