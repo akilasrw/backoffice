@@ -83,7 +83,6 @@ export class RateCreateComponent implements OnInit {
       agentRates: this.fb.array([]),
     });
 
-
     this.agentRates.push(this.fb.group({
       rate: [0, [Validators.required, Validators.min(1)]],
       weightType: [WeightType.M],
@@ -144,6 +143,7 @@ export class RateCreateComponent implements OnInit {
       console.log(this.rateForm.value);
       this.agentRateManagements.push(this.rateForm.value);
       this.rateForm.reset();
+      this.initializeForm();
     }
   }
 
