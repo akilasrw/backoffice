@@ -4,6 +4,7 @@ import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { BaseService } from '../core/services/base.service';
 import { IPagination } from '../shared/models/pagination.model';
 import { AgentRateFilterQuery } from '../_models/queries/rate/agent-rate-filter-query.model';
+import { AgentRateManagementListRM } from '../_models/request-models/rate/agent-rate-management-list-rm';
 import { AgentRateManagement } from '../_models/view-models/rate/agent-rate-management';
 
 @Injectable({
@@ -15,6 +16,10 @@ export class RateService extends BaseService{
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
 
   constructor(http: HttpClient) { super(http)}
+
+  create(agentRateManagementListRM: AgentRateManagementListRM){
+    return this.post<any>(this.endpointEntityName, agentRateManagementListRM);
+  }
 
   getFilteredList(query: AgentRateFilterQuery) {
     var params = new HttpParams();

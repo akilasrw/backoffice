@@ -89,7 +89,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-rate-create
+                <app-rate-create (submitSuccess)="onRateAdd()"
                     (closePopup)="closeAddRate()" *ngIf="addRatemodalVisible"></app-rate-create>
             </div>
         </div>

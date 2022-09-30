@@ -39,6 +39,7 @@ export class RateListComponent implements OnInit {
   ngOnInit(): void {
     this.loadCargoAgents();
     this.loadAirports();
+    this.getRateList();
   }
 
   getRateList(){
@@ -142,5 +143,9 @@ export class RateListComponent implements OnInit {
       this.agentRateFilterQuery.pageIndex = event;
       this.getRateList();
     }
+  }
+
+  onRateAdd(){
+    this.getRateList();
   }
 }
