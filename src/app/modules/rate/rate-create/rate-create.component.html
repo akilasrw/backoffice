@@ -36,7 +36,22 @@
                     <div>Add rate classes and rates</div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="check-and-input">
+                            <div class="row pt-3">
+                                <div class="col-md-1" *ngFor="let rateItem of agentRates.controls; let i = index">
+                                    <div [formGroup]="rateItem">
+                                        <div class="form-group">
+                                            <label class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
+                                            <app-text-input formControlName="rate" type="number" [label]='"rate"'>
+                                            </app-text-input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary-outline">Add Rate</button>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="check-and-input">
                                 <div class="chek-chip form-group">
                                     <div class="cu-check">
                                         <div class="check-and-input-chip selected"
@@ -56,7 +71,7 @@
                                         <button type="submit" class="btn btn-primary-outline">Add Rate</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
