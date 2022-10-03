@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { WeightType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { AgentRateManagementListRM } from 'src/app/_models/request-models/rate/agent-rate-management-list-rm';
 import { AgentRateManagementRM } from 'src/app/_models/request-models/rate/agent-rate-management-rm';
@@ -27,6 +28,7 @@ export class RateCreateComponent implements OnInit {
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
+  @ViewChild('autoCompleteDestination') autoCompleteDestination!: AutoCompleteDropdownComponent;
 
 
   constructor(
@@ -119,7 +121,7 @@ export class RateCreateComponent implements OnInit {
   }
 
 
-  addRate() {
+  addRate(event: any) {
     if (this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "") {
       this.toastr.error('Please select cargo agent.');
       return;
@@ -139,12 +141,14 @@ export class RateCreateComponent implements OnInit {
       this.toastr.error('Please add rates.');
       return;
     }
+
     if (this.rateForm.valid) {
       console.log(this.rateForm.value);
       this.agentRateManagements.push(this.rateForm.value);
       this.rateForm.reset();
       this.rateForm.markAsUntouched();
       this.initializeForm();
+      this.clearDestination(event);
     } else {
       this.rateForm.markAllAsTouched();
     }
@@ -214,6 +218,11 @@ export class RateCreateComponent implements OnInit {
     if (index !== -1) {
       this.agentRateManagements?.splice(Number(index), 1);
     }
+  }
+
+  clearDestination(e:any): void {
+    e.stopPropagation();
+    this.autoCompleteDestination.clear();
   }
 
 }
