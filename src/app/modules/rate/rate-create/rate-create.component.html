@@ -3,20 +3,20 @@
         <div class="col-md-6">
             <div class="form-group" *ngIf="!isLoading">
                 <label class="form-label">Cargo Agent</label>
-                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
                     (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
                 </app-auto-complete-dropdown>
             </div>
             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
-        <form [formGroup]='rateForm' (submit)="addRate()">
+        <form [formGroup]='rateForm' (submit)="addRate($event)">
             <div class="col-md-12">
                 <div class="add-rate-section">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Origin</label>
-                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" #autoCompleteOrigin
                                     (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                                     (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                             </div>
@@ -25,10 +25,9 @@
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Destination</label>
-                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" #autoCompleteDestination
                                     (selectFileOutput)="selectedDestination($event)"
-                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
-                                </app-auto-complete-dropdown>
+                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                             </div>
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
