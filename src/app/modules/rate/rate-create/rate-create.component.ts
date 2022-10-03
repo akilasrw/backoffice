@@ -28,8 +28,9 @@ export class RateCreateComponent implements OnInit {
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
+  @ViewChild('autoCompleteCargoAgent') autoCompleteCargoAgent!: AutoCompleteDropdownComponent;
+  @ViewChild('autoCompleteOrigin') autoCompleteOrigin!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteDestination') autoCompleteDestination!: AutoCompleteDropdownComponent;
-
 
   constructor(
     private cargoAgentService: CargoAgentService,
@@ -148,7 +149,7 @@ export class RateCreateComponent implements OnInit {
       this.rateForm.reset();
       this.rateForm.markAsUntouched();
       this.initializeForm();
-      this.clearDestination(event);
+      this.clearDropdowns(event);
     } else {
       this.rateForm.markAllAsTouched();
     }
@@ -220,9 +221,11 @@ export class RateCreateComponent implements OnInit {
     }
   }
 
-  clearDestination(e:any): void {
+  clearDropdowns(e:any): void {
     e.stopPropagation();
+    this.autoCompleteCargoAgent.clear();
     this.autoCompleteDestination.clear();
+    this.autoCompleteOrigin.clear();
   }
 
 }
