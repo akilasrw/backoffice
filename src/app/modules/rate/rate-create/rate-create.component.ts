@@ -23,7 +23,7 @@ export class RateCreateComponent implements OnInit {
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   agentRateManagementListRM = new AgentRateManagementListRM();
-  agentRateManagements:AgentRateManagementRM[]=[];
+  agentRateManagements: AgentRateManagementRM[] = [];
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
@@ -34,7 +34,7 @@ export class RateCreateComponent implements OnInit {
     private airportService: AirportService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private rateService:RateService
+    private rateService: RateService
 
   ) { }
 
@@ -78,8 +78,8 @@ export class RateCreateComponent implements OnInit {
       cargoAgentId: new FormControl(null, [Validators.required]),
       originAirportId: new FormControl(null, [Validators.required]),
       destinationAirportId: new FormControl(null, [Validators.required]),
-      originAirportCode:new FormControl(null),
-      destinationAirportCode:new FormControl(null),
+      originAirportCode: new FormControl(null),
+      destinationAirportCode: new FormControl(null),
       agentRates: this.fb.array([]),
     });
 
@@ -111,15 +111,15 @@ export class RateCreateComponent implements OnInit {
       rate: [0, [Validators.required, Validators.min(1)]],
       weightType: [WeightType.Plus1000K],
     }));
-   
+
   }
 
-  get agentRates(){
+  get agentRates() {
     return this.rateForm.controls["agentRates"] as FormArray;
   }
 
 
-  addRate(){
+  addRate() {
     if (this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "") {
       this.toastr.error('Please select cargo agent.');
       return;
@@ -139,16 +139,19 @@ export class RateCreateComponent implements OnInit {
       this.toastr.error('Please add rates.');
       return;
     }
-    if(this.rateForm.valid){
+    if (this.rateForm.valid) {
       console.log(this.rateForm.value);
       this.agentRateManagements.push(this.rateForm.value);
       this.rateForm.reset();
+      this.rateForm.markAsUntouched();
       this.initializeForm();
+    } else {
+      this.rateForm.markAllAsTouched();
     }
   }
 
-  saveRate(){
-    if(this.agentRateManagements === undefined || this.agentRateManagements!.length<1){
+  saveRate() {
+    if (this.agentRateManagements === undefined || this.agentRateManagements!.length < 1) {
       this.toastr.error('Please add rates before save.');
       return;
     }
@@ -179,7 +182,7 @@ export class RateCreateComponent implements OnInit {
 
   selectedOrigin(value: any) {
     this.rateForm.get('originAirportId')?.patchValue(value.id);
-    this.rateForm.get('originAirportCode')?.patchValue(value.value.substring(0,3));
+    this.rateForm.get('originAirportCode')?.patchValue(value.value.substring(0, 3));
   }
 
   onClearOrigin() {
@@ -189,7 +192,7 @@ export class RateCreateComponent implements OnInit {
 
   selectedDestination(value: any) {
     this.rateForm.get('destinationAirportId')?.patchValue(value.id);
-    this.rateForm.get('destinationAirportCode')?.patchValue(value.value.substring(0,3));
+    this.rateForm.get('destinationAirportCode')?.patchValue(value.value.substring(0, 3));
   }
 
   onClearDestination() {
@@ -204,6 +207,13 @@ export class RateCreateComponent implements OnInit {
 
   GetWeightType(type: number) {
     return CoreExtensions.GetWeightType(type);
+  }
+
+  onDelete(agentRateManagement: AgentRateManagementRM) {
+    const index = this.agentRateManagements?.indexOf(agentRateManagement);
+    if (index !== -1) {
+      this.agentRateManagements?.splice(Number(index), 1);
+    }
   }
 
 }

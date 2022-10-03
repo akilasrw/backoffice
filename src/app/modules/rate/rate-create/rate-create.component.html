@@ -1,33 +1,36 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" *ngIf="!isLoading">
                 <label class="form-label">Cargo Agent</label>
                 <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
                     (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
                 </app-auto-complete-dropdown>
             </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
         <form [formGroup]='rateForm' (submit)="addRate()">
             <div class="col-md-12">
                 <div class="add-rate-section">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Origin</label>
                                 <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
                                     (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                                     (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                             </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Destination</label>
                                 <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
                                     (selectFileOutput)="selectedDestination($event)"
                                     (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
                                 </app-auto-complete-dropdown>
                             </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
                     </div>
                     <div>Add rate classes and rates</div>
@@ -44,8 +47,8 @@
                                                     <input type="checkbox" checked="checked">
                                                     <span class="checkmark"></span>
                                                 </label>
-                                                <input class="form-control" type="number" formControlName="rate"
-                                                    placeholder="00.00">
+                                                <app-text-input formControlName="rate" type="number" [label]='"rate"'>
+                                                </app-text-input>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +83,7 @@
                             <td>{{item.destinationAirportCode}}</td>
                             <td *ngFor="let rateItem of item.agentRates">{{rateItem.rate}}</td>
                             <td>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
                             </td>
                         </tr>
                     </tbody>
