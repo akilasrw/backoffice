@@ -16,18 +16,20 @@
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Origin</label>
-                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" #autoCompleteOrigin
-                                    (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
-                                    (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
+                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                                    #autoCompleteOrigin (selectFileOutput)="selectedOrigin($event)"
+                                    (changeSearch)="onClearOrigin()" (clearSearch)="onClearOrigin()">
+                                </app-auto-complete-dropdown>
                             </div>
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Destination</label>
-                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" #autoCompleteDestination
-                                    (selectFileOutput)="selectedDestination($event)"
-                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
+                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                    #autoCompleteDestination (selectFileOutput)="selectedDestination($event)"
+                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
+                                </app-auto-complete-dropdown>
                             </div>
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
@@ -39,7 +41,8 @@
                                 <div class="col-md-1" *ngFor="let rateItem of agentRates.controls; let i = index">
                                     <div [formGroup]="rateItem">
                                         <div class="form-group">
-                                            <label class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
+                                            <label
+                                                class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
                                             <app-text-input formControlName="rate" type="number" [label]='"rate"'>
                                             </app-text-input>
                                         </div>
@@ -49,28 +52,6 @@
                                     <button type="submit" class="btn btn-primary-outline">Add Rate</button>
                                 </div>
                             </div>
-                            
-                            <!-- <div class="check-and-input">
-                                <div class="chek-chip form-group">
-                                    <div class="cu-check">
-                                        <div class="check-and-input-chip selected"
-                                            *ngFor="let rateItem of agentRates.controls; let i = index">
-                                            <div [formGroup]="rateItem">
-                                                <label class="cu-checkbox">
-                                                    <div>{{GetWeightType(rateItem.controls['weightType'].value)}}</div>
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <app-text-input formControlName="rate" type="number" [label]='"rate"'>
-                                                </app-text-input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary-outline">Add Rate</button>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>

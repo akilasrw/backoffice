@@ -138,13 +138,22 @@ export class RateCreateComponent implements OnInit {
       return;
     }
 
+    if (this.rateForm.get('originAirportId')?.value === this.rateForm.get('destinationAirportId')?.value) {
+      this.toastr.error('Origin and destination same.');
+      return;
+    }
+
     if (this.rateForm.get('agentRates')?.value === null) {
       this.toastr.error('Please add rates.');
       return;
     }
 
+    if(this.isFlightExist()){
+      this.toastr.error('Selected flight(origin and destination) already exist.');
+      return;
+    }
+    
     if (this.rateForm.valid) {
-      console.log(this.rateForm.value);
       this.agentRateManagements.push(this.rateForm.value);
       this.rateForm.reset();
       this.rateForm.markAsUntouched();
@@ -153,6 +162,19 @@ export class RateCreateComponent implements OnInit {
     } else {
       this.rateForm.markAllAsTouched();
     }
+  }
+
+  isFlightExist():boolean{
+    var isExist = false;
+    this.agentRateManagements.forEach(obj =>{
+      if(obj.cargoAgentId === this.rateForm.get('cargoAgentId')?.value &&
+        obj.originAirportId === this.rateForm.get('originAirportId')?.value &&
+      obj.destinationAirportId === this.rateForm.get('destinationAirportId')?.value){
+        isExist = true
+        return;
+      }
+    });
+    return isExist;
   }
 
   saveRate() {
@@ -221,7 +243,7 @@ export class RateCreateComponent implements OnInit {
     }
   }
 
-  clearDropdowns(e:any): void {
+  clearDropdowns(e: any): void {
     e.stopPropagation();
     this.autoCompleteCargoAgent.clear();
     this.autoCompleteDestination.clear();
