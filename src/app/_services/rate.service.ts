@@ -18,6 +18,10 @@ export class RateService extends BaseService{
 
   constructor(http: HttpClient) { super(http)}
 
+  deleteRate(id:string){
+    return this.delete<any>(`${this.endpointEntityName}/${id}`, null);
+ }
+
   getDetail(query: AgentRateQuery) {
     var params = new HttpParams();
     if (query.id) {

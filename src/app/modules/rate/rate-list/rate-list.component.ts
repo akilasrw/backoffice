@@ -5,6 +5,8 @@ import { AgentRateFilterQuery } from 'src/app/_models/queries/rate/agent-rate-fi
 import { AirportService } from 'src/app/_services/airport.service';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 import { RateService } from 'src/app/_services/rate.service';
+import { ToastrService } from 'ngx-toastr';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
 
 @Component({
   selector: 'app-rate-list',
@@ -15,7 +17,8 @@ export class RateListComponent implements OnInit {
 
   addRatemodalVisible = false;
   addRateModalVisibleAnimate = false;
-
+  modalVisibleAnimateDelete=false;
+  modalVisibleDelete=false;
   rateDetailmodalVisible = false;
   rateDetailModalVisibleAnimate = false;
   cargoAgents: SelectList[] = [];
@@ -30,11 +33,13 @@ export class RateListComponent implements OnInit {
   destinationAirportId?: string;
   isLoading :boolean= false;
   selectedRateId?:string;
+  selectedDeletedID?:string;
 
   constructor(
     private cargoAgentService: CargoAgentService,
     private airportService: AirportService,
-    private rateService:RateService
+    private rateService:RateService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -149,5 +154,38 @@ export class RateListComponent implements OnInit {
 
   onRateAdd(){
     this.getRateList();
+  }
+
+  deleteRate(){
+    if (this.selectedDeletedID) {
+      this.isLoading=true;
+      this.rateService.deleteRate(this.selectedDeletedID)
+        .subscribe({
+          next: (res) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.rates = [];
+            this.isLoading=false;
+            this.getRateList();
+          },
+          error: (error) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+            this.isLoading=false;
+          }
+        });
+    }
+  }
+
+  onDelete(airportId: string) {
+    this.selectedDeletedID = airportId;
+    this.modalVisibleDelete = true;
+    setTimeout(() => (this.modalVisibleAnimateDelete = true));
+  }
+
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDelete = false;
+    setTimeout(() => (this.modalVisibleDelete = false), 300);
   }
 }

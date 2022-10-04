@@ -24,10 +24,7 @@ export class RateDetailComponent implements OnInit {
   getDetail(){
     if(this.rateId != null){
       this.isLoading=true;
-      var agentRateQuery: AgentRateQuery = new AgentRateQuery();
-      agentRateQuery.id = this.rateId;
-      agentRateQuery.includeCargoAgent=true;
-      this.rateService.getDetail(agentRateQuery).subscribe(
+      this.rateService.getDetail({id : this.rateId,includeCargoAgent : true}).subscribe(
         {
           next: (res) => {
             this.rateDetail = res;
