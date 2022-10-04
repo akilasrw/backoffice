@@ -51,7 +51,7 @@
                             <td>{{item.originAirportCode}}</td>
                             <td>{{item.destinationAirportCode}}</td>
                             <td class="text-center">
-                                <i class="ca ca-icn-view" title="View" (click)="openRateDetail()"></i>
+                                <i class="ca ca-icn-view" title="View" (click)="openRateDetail(item.id)"></i>
                                 <i class="ca ca-icn-edit" title="Edit"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
                             </td>
@@ -71,11 +71,6 @@
             </div>
         </div>
     </div>
-</div>
-
-
-<div>
-    <button class="btn btn-primary" type="button" (click)="openRateDetail()">Add Detail</button>
 </div>
 
 
@@ -107,7 +102,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-rate-detail
+                <app-rate-detail [rateId]="selectedRateId"
                     (closePopup)="closeRateDetail()" *ngIf="rateDetailmodalVisible"></app-rate-detail>
             </div>
         </div>

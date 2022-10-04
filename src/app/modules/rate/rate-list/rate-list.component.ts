@@ -29,6 +29,7 @@ export class RateListComponent implements OnInit {
   originAirportId?: string;
   destinationAirportId?: string;
   isLoading :boolean= false;
+  selectedRateId?:string;
 
   constructor(
     private cargoAgentService: CargoAgentService,
@@ -127,7 +128,8 @@ export class RateListComponent implements OnInit {
     setTimeout(() => (this.addRatemodalVisible = false), 300);
   }
 
-  openRateDetail() {
+  openRateDetail(rateId:string) {
+    this.selectedRateId = rateId;
     this.rateDetailmodalVisible = true;
     setTimeout(() => (this.rateDetailModalVisibleAnimate = true));
   }
