@@ -17,10 +17,12 @@ export class RateListComponent implements OnInit {
 
   addRatemodalVisible = false;
   addRateModalVisibleAnimate = false;
-  modalVisibleAnimateDelete=false;
-  modalVisibleDelete=false;
-  rateDetailmodalVisible = false;
+  modalVisibleAnimateDelete = false;
+  modalVisibleDelete = false;
+  rateDetailModalVisible = false;
   rateDetailModalVisibleAnimate = false;
+  rateUpdateModalVisible = false;
+  rateUpdateModalVisibleAnimate = false;
   cargoAgents: SelectList[] = [];
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
@@ -31,16 +33,16 @@ export class RateListComponent implements OnInit {
   cargoAgentId?: string;
   originAirportId?: string;
   destinationAirportId?: string;
-  isLoading :boolean= false;
-  selectedRateId?:string;
-  selectedDeletedID?:string;
+  isLoading: boolean = false;
+  selectedRateId?: string;
+  selectedDeletedID?: string;
 
   constructor(
     private cargoAgentService: CargoAgentService,
     private airportService: AirportService,
-    private rateService:RateService,
+    private rateService: RateService,
     private toastr: ToastrService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.loadCargoAgents();
@@ -48,8 +50,8 @@ export class RateListComponent implements OnInit {
     this.getRateList();
   }
 
-  getRateList(){
-    this.isLoading=true;
+  getRateList() {
+    this.isLoading = true;
     this.agentRateFilterQuery.cargoAgentId = this.cargoAgentId;
     this.agentRateFilterQuery.originAirportId = this.originAirportId;
     this.agentRateFilterQuery.destinationAirportId = this.destinationAirportId;
@@ -58,41 +60,41 @@ export class RateListComponent implements OnInit {
         next: (res) => {
           this.rates = res.data;
           this.totalCount = res.count;
-          this.isLoading=false;
+          this.isLoading = false;
         },
         error: (error) => {
           this.totalCount = 0;
           this.rates = [];
-          this.isLoading=false;
+          this.isLoading = false;
         }
       }
     );
   }
 
   loadAirports() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.airportService.getSelectList()
       .subscribe(res => {
         if (res.length > 0) {
           this.originAirpots = res;
           Object.assign(this.destinationAirpots, res);
         }
-        this.isLoading=false;
+        this.isLoading = false;
       });
   }
 
   loadCargoAgents() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.cargoAgentService.getAgentList()
       .subscribe({
         next: (res) => {
           if (res.length > 0) {
             this.cargoAgents = res;
           }
-          this.isLoading=false;
+          this.isLoading = false;
         },
         error: (error) => {
-          this.isLoading=false;
+          this.isLoading = false;
         }
       }
       );
@@ -101,7 +103,7 @@ export class RateListComponent implements OnInit {
   selectedCargoAgent(value: any) {
     this.cargoAgentId = value.id;
   }
-  
+
   onClearCargoAgent() {
     this.cargoAgentId = undefined;
   }
@@ -110,7 +112,7 @@ export class RateListComponent implements OnInit {
     this.originAirportId = value.id;
   }
 
-  onClearOrigin(){
+  onClearOrigin() {
     this.originAirportId = undefined;
   }
 
@@ -118,7 +120,7 @@ export class RateListComponent implements OnInit {
     this.destinationAirportId = value.id;
   }
 
-  onClearDestination(){
+  onClearDestination() {
     this.destinationAirportId = undefined;
   }
 
@@ -127,22 +129,31 @@ export class RateListComponent implements OnInit {
     setTimeout(() => (this.addRateModalVisibleAnimate = true));
   }
 
-
   closeAddRate() {
     this.addRateModalVisibleAnimate = false;
     setTimeout(() => (this.addRatemodalVisible = false), 300);
   }
 
-  openRateDetail(rateId:string) {
+  openRateDetail(rateId: string) {
     this.selectedRateId = rateId;
-    this.rateDetailmodalVisible = true;
+    this.rateDetailModalVisible = true;
     setTimeout(() => (this.rateDetailModalVisibleAnimate = true));
   }
 
-
   closeRateDetail() {
     this.rateDetailModalVisibleAnimate = false;
-    setTimeout(() => (this.rateDetailmodalVisible = false), 300);
+    setTimeout(() => (this.rateDetailModalVisible = false), 300);
+  }
+
+  onUpdate(rateId: string) {
+    this.selectedRateId = rateId;
+    this.rateUpdateModalVisible = true;
+    setTimeout(() => (this.rateUpdateModalVisibleAnimate = true));
+  }
+
+  closeRateUpdate() {
+    this.rateUpdateModalVisibleAnimate = false;
+    setTimeout(() => (this.rateUpdateModalVisible = false), 300);
   }
 
   public onPageChanged(event: any) {
@@ -152,26 +163,30 @@ export class RateListComponent implements OnInit {
     }
   }
 
-  onRateAdd(){
+  onRateAdd() {
     this.getRateList();
   }
 
-  deleteRate(){
+  onRateUpdate() {
+    this.getRateList();
+  }
+
+  deleteRate() {
     if (this.selectedDeletedID) {
-      this.isLoading=true;
+      this.isLoading = true;
       this.rateService.deleteRate(this.selectedDeletedID)
         .subscribe({
           next: (res) => {
             this.toastr.success(CommonMessages.DeletedSuccessMsg);
             this.cancelDelete();
             this.rates = [];
-            this.isLoading=false;
+            this.isLoading = false;
             this.getRateList();
           },
           error: (error) => {
             this.toastr.error(CommonMessages.DeleteFailMsg);
             this.cancelDelete();
-            this.isLoading=false;
+            this.isLoading = false;
           }
         });
     }

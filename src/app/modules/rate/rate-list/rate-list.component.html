@@ -16,19 +16,20 @@
                     <div class="filter-group">
                         <label class="form-label">Cargo Agent</label>
                         <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
-                        (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()"></app-auto-complete-dropdown>
+                            (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
+                        </app-auto-complete-dropdown>
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Origin</label>
                         <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
-                        (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
-                        (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
+                            (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                            (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Destination</label>
                         <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
-                        (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
-                        (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
+                            (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
+                            (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                     </div>
                     <div class="button">
                         <button class="btn sm btn-primary-outline" (click)="getRateList()">Add Filter</button>
@@ -52,7 +53,7 @@
                             <td>{{item.destinationAirportCode}}</td>
                             <td class="text-center">
                                 <i class="ca ca-icn-view" title="View" (click)="openRateDetail(item.id)"></i>
-                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onUpdate(item.id)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
                             </td>
                         </tr>
@@ -63,8 +64,9 @@
                     <div>Rates not available.</div>
                 </div>
                 <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
-                    <app-pager [pageSize]="agentRateFilterQuery?.pageSize" [pageNumber]="agentRateFilterQuery?.pageIndex"
-                        [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                    <app-pager [pageSize]="agentRateFilterQuery?.pageSize"
+                        [pageNumber]="agentRateFilterQuery?.pageIndex" [totalCount]="totalCount"
+                        (pageChanged)="onPageChanged($event)"></app-pager>
                     <app-paging-header [totalCount]="totalCount" [pageSize]="agentRateFilterQuery?.pageSize"
                         [pageNumber]="agentRateFilterQuery?.pageIndex"></app-paging-header>
                 </div>
@@ -84,8 +86,8 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-rate-create (submitSuccess)="onRateAdd()"
-                    (closePopup)="closeAddRate()" *ngIf="addRatemodalVisible"></app-rate-create>
+                <app-rate-create (submitSuccess)="onRateAdd()" (closePopup)="closeAddRate()"
+                    *ngIf="addRatemodalVisible"></app-rate-create>
             </div>
         </div>
     </div>
@@ -93,7 +95,7 @@
 
 
 <div class="modal fade" tabindex="-1" [ngClass]="{'in': rateDetailModalVisibleAnimate}"
-    [ngStyle]="{'display': rateDetailmodalVisible ? 'block' : 'none', 'opacity': rateDetailModalVisibleAnimate ? 1 : 0}">
+    [ngStyle]="{'display': rateDetailModalVisible ? 'block' : 'none', 'opacity': rateDetailModalVisibleAnimate ? 1 : 0}">
     <div class="modal-dialog modal-xxl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,8 +104,25 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-rate-detail [rateId]="selectedRateId"
-                    (closePopup)="closeRateDetail()" *ngIf="rateDetailmodalVisible"></app-rate-detail>
+                <app-rate-detail [rateId]="selectedRateId" (closePopup)="closeRateDetail()"
+                    *ngIf="rateDetailModalVisible"></app-rate-detail>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': rateUpdateModalVisibleAnimate}"
+    [ngStyle]="{'display': rateUpdateModalVisible ? 'block' : 'none', 'opacity': rateUpdateModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-xxl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Rate Update</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeRateUpdate()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-rate-update [rateId]="selectedRateId" (submitSuccess)="onRateUpdate()"
+                    (closePopup)="closeRateUpdate()" *ngIf="rateUpdateModalVisible"></app-rate-update>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ import { IPagination } from '../shared/models/pagination.model';
 import { AgentRateFilterQuery } from '../_models/queries/rate/agent-rate-filter-query.model';
 import { AgentRateQuery } from '../_models/queries/rate/agent-rate-query.model';
 import { AgentRateManagementListRM } from '../_models/request-models/rate/agent-rate-management-list-rm';
+import { AgentRateManagementRM } from '../_models/request-models/rate/agent-rate-management-rm';
 import { AgentRateManagement } from '../_models/view-models/rate/agent-rate-management';
 
 @Injectable({
@@ -35,6 +36,10 @@ export class RateService extends BaseService{
 
   create(agentRateManagementListRM: AgentRateManagementListRM){
     return this.post<any>(this.endpointEntityName, agentRateManagementListRM);
+  }
+
+  update(agentRateManagementRM: AgentRateManagementRM){
+    return this.put<any>(this.endpointEntityName, agentRateManagementRM);
   }
 
   getFilteredList(query: AgentRateFilterQuery) {
