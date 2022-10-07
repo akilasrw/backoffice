@@ -21,6 +21,8 @@ import { AlB737400TypeOneComponent } from './Templates/aircraft-layout/al-b73740
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 import { TextInputLoaderComponent } from './components/text-input-loader/text-input-loader.component';
 import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-textbox/auto-complete-textbox.component';
+import { TwodecimalpointsDirective } from '../directives/twodecimalpoints.directive';
+import { ValueInputComponent } from './components/forms/value-input/value-input.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-t
     AlB737400TypeOneComponent,
     TableLoaderComponent,
     TextInputLoaderComponent,
-    AutoCompleteTextboxComponent
+    AutoCompleteTextboxComponent,
+    TwodecimalpointsDirective,
+    ValueInputComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +59,7 @@ import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-t
     FormsModule,
     ReactiveFormsModule,
     TextInputComponent,
+    ValueInputComponent,
     AutoCompleteDropdownComponent,
     PagerComponent,
     PagingHeaderComponent,
@@ -69,7 +74,8 @@ import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-t
     LoaderFlightComponent,
     TableLoaderComponent ,
     TextInputLoaderComponent    ,
-    AutoCompleteTextboxComponent
+    AutoCompleteTextboxComponent,
+    TwodecimalpointsDirective
   ]
 })
 export class SharedModule { }
