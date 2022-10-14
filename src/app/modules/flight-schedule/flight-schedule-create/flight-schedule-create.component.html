@@ -46,9 +46,9 @@
                             <div class="sector-set" *ngFor="let flightSector of flight.flightSectors">
                                 <div class="sector-data">
                                     <div class="time-box">
-                                        {{flightSector.arrivalDateTime| date :'HH:mm'}}
-                                        <i class="ca ca-icn-aircraft"></i>
                                         {{flightSector.departureDateTime| date :'HH:mm'}}
+                                        <i class="ca ca-icn-aircraft"></i>
+                                        {{flightSector.arrivalDateTime| date :'HH:mm'}}
                                     </div>
                                 </div>
                                 <div class="sector-action">
