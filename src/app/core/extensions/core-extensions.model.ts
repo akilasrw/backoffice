@@ -1,3 +1,4 @@
+import { WeightType } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
 import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftSubTypes, AircraftTypes, SectorType } from "../enums/common-enums";
@@ -21,8 +22,8 @@ export class CoreExtensions {
     return word[0].toUpperCase() + word.substr(1).toLowerCase();
   }
 
-  public static PadLeadingZeros(num:number, size:number) {
-    var s = num+"";
+  public static PadLeadingZeros(num: number, size: number) {
+    var s = num + "";
     while (s.length < size) s = "0" + s;
     return s;
   }
@@ -105,7 +106,7 @@ export class CoreExtensions {
     return typeString;
   }
 
-  
+
   public static GetAircraftStaus(type: AircraftStatus): string {
     let statusString = "None";
     switch (type) {
@@ -145,7 +146,43 @@ export class CoreExtensions {
     }
     return statusString;
   }
+
+  public static GetWeightType(type: WeightType): string {
+    let statusString = "None";
+    switch (type) {
+      case WeightType.None:
+        statusString = "None";
+        break;
+      case WeightType.M:
+        statusString = "M";
+        break;
+      case WeightType.Minus45K:
+        statusString = "-45K";
+        break;
+      case WeightType.Plus45K:
+        statusString = "+45K";
+        break;
+      case WeightType.Plus100K:
+        statusString = "+100K";
+        break;
+      case WeightType.Plus300K:
+        statusString = "+300K";
+        break;
+      case WeightType.Plus500K:
+        statusString = "+500K";
+        break;
+      case WeightType.Plus1000K:
+        statusString = "+1000K";
+        break;
+      default:
+        break;
+    }
+    return statusString;
+  }
+
 }
+
+
 
 
 

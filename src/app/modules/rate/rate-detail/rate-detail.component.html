@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <div class="booking-details">
                 <div class="label">Cargo Agent</div>
-                <div>FedEx</div>
+                <div>{{rateDetail?.cargoAgentName}}</div>
             </div>
         </div>
     </div>
@@ -13,27 +13,13 @@
                 <thead>
                     <th>Origin</th>
                         <th>Destination</th>
-                        <th>M</th>
-                        <th>-45K</th>
-                        <th>+45K</th>
-                        <th>+100K</th>
+                        <th *ngFor="let rateItem of rateDetail?.agentRates">{{GetWeightType(rateItem.weightType)}}</th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>YYC</td>
-                        <td>YCG</td>
-                        <td>20.00</td>
-                        <td>24.50</td>
-                        <td>25.30</td>
-                        <td>26.75</td>
-                    </tr>
-                    <tr>
-                        <td>YYC</td>
-                        <td>YCG</td>
-                        <td>20.00</td>
-                        <td>24.50</td>
-                        <td>25.30</td>
-                        <td>26.75</td>
+                        <td>{{rateDetail?.originAirportCode}}</td>
+                        <td>{{rateDetail?.destinationAirportCode}}</td>
+                        <td *ngFor="let rateItem of rateDetail?.agentRates">{{rateItem.rate}}</td>
                     </tr>
                 </tbody>
             </table>

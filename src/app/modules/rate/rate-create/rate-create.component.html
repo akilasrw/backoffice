@@ -1,61 +1,51 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" *ngIf="!isLoading">
                 <label class="form-label">Cargo Agent</label>
-                <input class="form-control">
+                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
+                    (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
+                </app-auto-complete-dropdown>
             </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
-        <div class="col-md-12">
-            <div class="add-rate-section">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label">Origin</label>
-                            <input class="form-control">
+        <form [formGroup]='rateForm' (submit)="addRate($event)">
+            <div class="col-md-12">
+                <div class="add-rate-section">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Origin</label>
+                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                                    #autoCompleteOrigin (selectFileOutput)="selectedOrigin($event)"
+                                    (changeSearch)="onClearOrigin()" (clearSearch)="onClearOrigin()">
+                                </app-auto-complete-dropdown>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Destination</label>
+                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                    #autoCompleteDestination (selectFileOutput)="selectedDestination($event)"
+                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
+                                </app-auto-complete-dropdown>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label">Destination</label>
-                            <input class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div>Add rate classes and rates</div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="check-and-input">
-                            <div class="chek-chip form-group">
-                                <div class="cu-check">
-                                    <div class="check-and-input-chip selected">
-                                        <label class="cu-checkbox">
-                                            <div>M</div>
-                                            <input type="checkbox" checked="checked">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <input class="form-control" type="number" placeholder="00.00">
-                                    </div>
-                                    <div class="check-and-input-chip">
-                                        <label class="cu-checkbox">
-                                            <div>-45K</div>
-                                            <input type="checkbox">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="check-and-input-chip">
-                                        <label class="cu-checkbox">
-                                            <div>+45K</div>
-                                            <input type="checkbox">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="check-and-input-chip">
-                                        <label class="cu-checkbox">
-                                            <div>+100K</div>
-                                            <input type="checkbox">
-                                            <span class="checkmark"></span>
-                                        </label>
+                    <div>Add rate classes and rates</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row pt-3">
+                                <div class="col-md-1" *ngFor="let rateItem of agentRates.controls">
+                                    <div [formGroup]="rateItem">
+                                        <div class="form-group">
+                                            <label
+                                                class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
+                                            <app-value-input formControlName="rate" [label]='"rate"' >
+                                            </app-value-input>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="text-end">
@@ -66,7 +56,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="row">
             <div class="add-rate-table table-content form-group">
                 <table class="table table-responsive">
@@ -77,31 +67,18 @@
                         <th>-45K</th>
                         <th>+45K</th>
                         <th>+100K</th>
+                        <th>+300K</th>
+                        <th>+500K</th>
+                        <th>+1000K</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>YYC</td>
-                            <td>YCG</td>
-                            <td><input class="form-control" type="number" placeholder="00.00"></td>
-                            <td><input class="form-control" type="number" placeholder="00.00"></td>
-                            <td><input class="form-control" type="number" placeholder="00.00"></td>
-                            <td><input class="form-control" type="number" placeholder="00.00"></td>
+                        <tr *ngFor="let item of this.agentRateManagements">
+                            <td>{{item.originAirportCode}}</td>
+                            <td>{{item.destinationAirportCode}}</td>
+                            <td *ngFor="let rateItem of item.agentRates">{{rateItem.rate}}</td>
                             <td>
-                                <i class="ca ca-icn-verify" title="Save"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>YYC</td>
-                            <td>YCG</td>
-                            <td>20.00</td>
-                            <td>24.50</td>
-                            <td>25.30</td>
-                            <td>26.75</td>
-                            <td>
-                                <i class="ca ca-icn-edit" title="Edit"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -111,7 +88,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-secondary me-3" type="button">Cancel</button>
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-secondary me-3" type="button" (click)="closeModal()">Cancel</button>
+    <button class="btn btn-primary" type="button" (click)="saveRate()">Submit</button>
 </div>
-

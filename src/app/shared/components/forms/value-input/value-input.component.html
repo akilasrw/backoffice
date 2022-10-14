@@ -1,0 +1,7 @@
+<div class="form-group">
+    <input [class.is-invalid]="ngControl.touched && ngControl.invalid" [tabindex]="tabindex" type="textbox"
+        class="form-control" [formControl]="ngControl.control" placeholder="{{showPlaceHolder ? label: ''}}"
+        [attr.disabled]="textBoxDisabled? true: null" appTwoDigitDecimaNumber>
+
+    <div *ngIf="ngControl.touched" [ngClass]="validationErrorMessageClass">{{(getErrorText())}}</div>
+</div>

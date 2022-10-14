@@ -1,0 +1,65 @@
+<form [formGroup]='rateForm' (submit)="updateRate()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Cargo Agent</label>
+                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
+                        [selectedIndex]="editAgentIndex" (selectFileOutput)="selectedCargoAgent($event)"
+                        (clearSearch)="onClearCargoAgent()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-12">
+                <div class="add-rate-section">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Origin</label>
+                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                                    [selectedIndex]="editOriginIndex" #autoCompleteOrigin
+                                    (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                                    (clearSearch)="onClearOrigin()">
+                                </app-auto-complete-dropdown>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Destination</label>
+                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                    [selectedIndex]="editDestinationIndex" #autoCompleteDestination
+                                    (selectFileOutput)="selectedDestination($event)"
+                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
+                                </app-auto-complete-dropdown>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                    </div>
+                    <div>Update rate classes and rates</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row pt-3">
+                                <div class="col-md-1" *ngFor="let rateItem of agentRates.controls">
+                                    <div [formGroup]="rateItem">
+                                        <div class="form-group">
+                                            <label
+                                                class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
+                                            <app-value-input formControlName="rate"  [label]='"rate"'>
+                                            </app-value-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary me-3" type="button" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>
