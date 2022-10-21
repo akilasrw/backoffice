@@ -40,8 +40,11 @@ export class AccountService  extends BaseService {
     )
   }
 
-  refreshToken() {
-    return this.http.post(this.baseUrl + 'user/refresh-token', {}, { withCredentials: true }).pipe(
+  refreshToken(token?: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.baseUrl + 'user/refresh-token', '"' + token + '"', httpOptions).pipe(
       map((response: any) => {
         const user = response;
         if (user) {
@@ -59,7 +62,7 @@ export class AccountService  extends BaseService {
   }
 
   setCurrentUser(user: User) {
-    this.startRefreshTokenTimer(user.jwtToken);
+    this.startRefreshTokenTimer(user);
     var enriptedUser = this.cryptoService.encrypt(JSON.stringify(user));
     localStorage.setItem('user', enriptedUser);
     this.currentUserSource.next(user);
@@ -78,14 +81,14 @@ export class AccountService  extends BaseService {
 
  private refreshTokenTimeout: any;
 
-  private startRefreshTokenTimer(token:string) { 
+  private startRefreshTokenTimer(user: User) {debugger
       // parse json object from base64 encoded jwt token
-      const jwtToken = JSON.parse(atob(token.split('.')[1]));
+      const jwtToken = JSON.parse(atob(user.jwtToken.split('.')[1]));
 
       // set a timeout to refresh the token a minute before it expires
       const expires = new Date(jwtToken.exp * 1000);
       const timeout = expires.getTime() - Date.now() - (60 * 1000);
-      this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+      this.refreshTokenTimeout = setTimeout(() => this.refreshToken(user.refreshToken).subscribe(), timeout);
   }
 
   saveUserCredential(model: AuthenticateRM){
