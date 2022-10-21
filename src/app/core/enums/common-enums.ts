@@ -95,3 +95,13 @@ export enum WeightType {
   Plus500K = 6,
   Plus1000K = 7
 }
+
+export enum BookingStatus {
+  None = 0,
+  Pending = 10,
+  Accepted = 20,
+  Loading = 30,
+  Invoiced = 40,
+  Dispatched = 50,
+  Exported = 60
+}

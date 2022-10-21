@@ -10,6 +10,9 @@
     </div>
     <div class="card-body without-footer">
         <div class="booking-details">
+          <div class="d-flex flex-row-reverse">
+            <button  [disabled]="cargoBookingSummary?.cargoPositionSummary.totalBookedWeight==0" class="btn btn-info p-2" type="button" (click)="viewBookingdetail()">View Booking</button>
+          </div>
             <div class="row">
                 <div class="col-md-2">
                     <div class="label">Flight Number</div>
@@ -65,7 +68,7 @@
             <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
         </div>
     </div>
-   
+
 </div>
 
 <div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
@@ -95,6 +98,22 @@
             </div>
             <div class="modal-body">
                 <app-freighter-uld-details [positionDetail]="this.selectedCargoPosition" *ngIf="uldDetailModalVisible"></app-freighter-uld-details>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': bookingDetailModalVisibleAnimate}"
+    [ngStyle]="{'display': bookingDetailModalVisible ? 'block' : 'none', 'opacity': bookingDetailModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Booking Details</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closebookingDetail()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                <app-booking-detail [bookingDetail]="this.cargoBookingSummary" *ngIf="bookingDetailModalVisible"></app-booking-detail>
             </div>
         </div>
     </div>

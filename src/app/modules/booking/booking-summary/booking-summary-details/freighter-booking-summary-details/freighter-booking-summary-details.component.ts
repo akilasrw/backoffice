@@ -21,6 +21,8 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   modalVisibleAnimate = false;
   uldDetailModalVisible = false;
   uldDetailModalVisibleAnimate = false;
+  bookingDetailModalVisible = false;
+  bookingDetailModalVisibleAnimate = false;
   flightScheduleId?: string;
 
   constructor(private activatedRoute: ActivatedRoute, private bookingSummaryService: BookingSummaryService,private router: Router) { }
@@ -82,6 +84,11 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
     setTimeout(() => (this.uldDetailModalVisible = false), 300);
   }
 
+  closebookingDetail(){
+    this.bookingDetailModalVisibleAnimate = false;
+    setTimeout(() => (this.bookingDetailModalVisible = false), 300);
+  }
+
   openULDDetail(){
     this.uldDetailModalVisible = true;
     setTimeout(() => (this.uldDetailModalVisibleAnimate = true));
@@ -94,9 +101,14 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
     this.selectedCargoPosition!.uldPosition = position;
     this.openULDDetail();
   }
-  
+
   convertcm3Tom3(volume: number): number {
     return volume / 1000000;
+  }
+
+  viewBookingdetail() {
+    this.bookingDetailModalVisible = true;
+    setTimeout(() => (this.bookingDetailModalVisibleAnimate = true));
   }
 
 }

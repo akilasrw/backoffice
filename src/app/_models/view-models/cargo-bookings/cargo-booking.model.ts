@@ -1,0 +1,14 @@
+import { BookingStatus } from "src/app/core/enums/common-enums";
+
+export interface CargoBooking {
+  id:string;
+  bookingNumber: string;
+  bookingDate: Date;
+  awbNumber: string;
+  bookingAgent: string;
+  numberOfBoxes:number;
+  totalWeight:number;
+  bookingStatus: BookingStatus;
+
+
+}

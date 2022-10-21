@@ -81,7 +81,7 @@ export class AccountService  extends BaseService {
 
  private refreshTokenTimeout: any;
 
-  private startRefreshTokenTimer(user: User) {debugger
+  private startRefreshTokenTimer(user: User) {
       // parse json object from base64 encoded jwt token
       const jwtToken = JSON.parse(atob(user.jwtToken.split('.')[1]));
 

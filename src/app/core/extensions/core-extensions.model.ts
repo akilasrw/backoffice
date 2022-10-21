@@ -1,4 +1,4 @@
-import { WeightType } from './../enums/common-enums';
+import { BookingStatus, WeightType } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
 import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftSubTypes, AircraftTypes, SectorType } from "../enums/common-enums";
@@ -173,6 +173,36 @@ export class CoreExtensions {
         break;
       case WeightType.Plus1000K:
         statusString = "+1000K";
+        break;
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetBookingStatus(bookingStatus: BookingStatus): string {
+    let statusString = "None";
+    switch (bookingStatus) {
+      case BookingStatus.None:
+        statusString = "None";
+        break;
+      case BookingStatus.Pending:
+        statusString = "Booked";
+        break;
+      case BookingStatus.Accepted:
+        statusString = "Accepted";
+        break;
+      case BookingStatus.Dispatched:
+        statusString = "Dispatched";
+        break;
+      case BookingStatus.Exported:
+        statusString = "Exported";
+        break;
+      case BookingStatus.Invoiced:
+        statusString = "Invoiced";
+        break;
+      case BookingStatus.Loading:
+        statusString = "Loading";
         break;
       default:
         break;

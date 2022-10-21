@@ -1,0 +1,34 @@
+<table class="table table-responsive"  *ngIf="this.cargoBookingList.length > 0">
+  <thead>
+      <th>Booking ID</th>
+      <th>AWB Number</th>
+      <th>Booking agent</th>
+      <th>Booking Date</th>
+      <th>Booking Status</th>
+      <th>Number of Boxes</th>
+      <th>Total Weight (kg)</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let booking of this.cargoBookingList">
+          <td>{{booking.bookingNumber}}</td>
+          <td>{{booking.awbNumber}}</td>
+          <td>{{booking.bookingAgent}}</td>
+          <td>{{booking.bookingDate | date}}</td>
+          <td><span class="status-chip" [ngClass]="{
+            'none':booking?.bookingStatus == bookingStatus.None,
+            'pending': booking?.bookingStatus == bookingStatus.Pending,
+            'dispatch':booking?.bookingStatus == bookingStatus.Dispatched,
+            'invoiced':booking?.bookingStatus == bookingStatus.Invoiced,
+            'accepted':booking?.bookingStatus == bookingStatus.Accepted,
+            'loading':booking?.bookingStatus == bookingStatus.Loading,
+            'exported':booking?.bookingStatus == bookingStatus.Exported
+        }">{{getBookingStatus(booking?.bookingStatus)}}</span></td>
+          <td>{{booking.numberOfBoxes}}</td>
+          <td>{{booking.totalWeight}}</td>
+      </tr>
+  </tbody>
+</table>
+<div class="not-available" *ngIf="this.cargoBookingList.length == 0">
+  <img src="./assets/images/no-data.png" alt="No Content Data">
+  <div>Data not found.</div>
+</div>
