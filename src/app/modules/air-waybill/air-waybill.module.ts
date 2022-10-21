@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 
 import { AirWaybillRoutingModule } from './air-waybill-routing.module';
 import { AwbStackManagementComponent } from './awb-stack-management/awb-stack-management.component';
+import { AwbStackManagementManualComponent } from './awb-stack-management-manual/awb-stack-management-manual.component';
 
 
 @NgModule({
   declarations: [
-    AwbStackManagementComponent
+    AwbStackManagementComponent,
+    AwbStackManagementManualComponent
   ],
   imports: [
     CommonModule,
