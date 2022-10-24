@@ -1,0 +1,22 @@
+<form [formGroup]='awbForm' (ngSubmit)="addAWBNumber()">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="form-label">Booking Agent Name(s)</label>
+                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                    (selectFileOutput)="selectedCargoAgent($event)"></app-auto-complete-dropdown>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="form-label">AWB Number</label>
+                <app-text-input [formControl]='awbForm.controls["aWBTrackingNumber"]' type="number"
+                    [label]='"AWB number"' [tabindex]="1">
+                </app-text-input>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="button"><button type="submit" class="btn  btn-primary-outline">Add</button></div>
+        </div>
+    </div>
+</form>
