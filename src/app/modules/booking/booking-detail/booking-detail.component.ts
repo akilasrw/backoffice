@@ -31,8 +31,8 @@ export class BookingDetailComponent implements OnInit {
     this.bookingService.getBookingList(this.query).subscribe(
       {
         next: (res) => {
-          this.cargoBookingList = res; console.log(res);
-
+          this.cargoBookingList = res;
+          console.log(res);
         },
         error: () => {
           this.cargoBookingList = [];
@@ -43,5 +43,9 @@ export class BookingDetailComponent implements OnInit {
 
   getBookingStatus(status: number): string {
     return CoreExtensions.GetBookingStatus(status)
+  }
+
+  convertcm3Tom3(volume: number): number {
+    return volume / 1000000;
   }
 }

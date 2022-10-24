@@ -2,11 +2,12 @@
   <thead>
       <th>Booking ID</th>
       <th>AWB Number</th>
-      <th>Booking agent</th>
+      <th>Booking Agent</th>
       <th>Booking Date</th>
       <th>Booking Status</th>
       <th>Number of Boxes</th>
       <th>Total Weight (kg)</th>
+      <th>Total Volume (m3)</th>
   </thead>
   <tbody>
       <tr *ngFor="let booking of this.cargoBookingList">
@@ -25,6 +26,7 @@
         }">{{getBookingStatus(booking?.bookingStatus)}}</span></td>
           <td>{{booking.numberOfBoxes}}</td>
           <td>{{booking.totalWeight}}</td>
+          <td>{{convertcm3Tom3(booking.totalVolume)}}</td>
       </tr>
   </tbody>
 </table>
