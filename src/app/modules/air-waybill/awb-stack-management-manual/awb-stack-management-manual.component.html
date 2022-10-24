@@ -8,25 +8,67 @@
     </div>
     <div class="card-body without-footer">
         <form [formGroup]='awbForm' (ngSubmit)="addAWBNumber()">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label class="form-label">Booking Agent Name(s)</label>
-                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
-                        (selectFileOutput)="selectedCargoAgent($event)"></app-auto-complete-dropdown>
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Booking Agent Name(s)</label>
+                        <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                            (selectFileOutput)="selectedCargoAgent($event)"></app-auto-complete-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">AWB Number</label>
+                        <app-text-input [formControl]='awbForm.controls["awbNumber"]' type="number"
+                            [label]='"AWB number"' [tabindex]="1">
+                        </app-text-input>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="button"><button type="submit" class="btn  btn-primary-outline">Add</button></div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label class="form-label">AWB Number</label>
-                    <app-text-input [formControl]='awbForm.controls["awbNumber"]' type="number" [label]='"AWB number"'[tabindex]="1">
-                    </app-text-input>
+        </form>
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Booking Agent Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Status</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="button"><button type="submit" class="btn  btn-primary-outline">Add</button></div>
+            <div class="table-content">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <th>Booking Agent</th>
+                            <th>AWB Number</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DHL</td>
+                                <td>01234567896532</td>
+                                <td>-</td>
+                                <td class="text-center">
+                                    <i class="ca ca-icn-edit" title="Edit"></i>
+                                    <i class="ca ca-icn-bin" title="Delete"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        </form>
     </div>
 </div>
