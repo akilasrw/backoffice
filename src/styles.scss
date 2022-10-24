@@ -706,6 +706,9 @@ a {
             &-m {
                 @include modalwidth(37.5rem)
             }
+            &-xl {
+                max-width: 1000px;
+            }
         }
         .modal-content {
             height: 100%;

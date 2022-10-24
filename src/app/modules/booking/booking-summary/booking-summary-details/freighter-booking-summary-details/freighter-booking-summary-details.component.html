@@ -4,14 +4,20 @@
             <div>
                 <h1>Booking Summary Details</h1>
             </div>
-            <div class="back-icn"><i class="ca ca-icn-left-arrow-dash" title="Back" (click)="backToList()"></i>
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <button  [disabled]="cargoBookingSummary?.cargoPositionSummary.totalBookedWeight==0" class="btn btn btn-primary p-2" type="button" (click)="viewBookingdetail()">View Booking</button>
+                </div>
+                <div class="back-icn"><i class="ca ca-icn-left-arrow-dash" title="Back" (click)="backToList()"></i>
+                </div>
             </div>
+            
         </div>
     </div>
     <div class="card-body without-footer">
         <div class="booking-details">
           <div class="d-flex flex-row-reverse">
-            <button  [disabled]="cargoBookingSummary?.cargoPositionSummary.totalBookedWeight==0" class="btn btn-info p-2" type="button" (click)="viewBookingdetail()">View Booking</button>
+            
           </div>
             <div class="row">
                 <div class="col-md-2">
@@ -105,7 +111,7 @@
 
 <div class="modal fade right" tabindex="-1" [ngClass]="{'in': bookingDetailModalVisibleAnimate}"
     [ngStyle]="{'display': bookingDetailModalVisible ? 'block' : 'none', 'opacity': bookingDetailModalVisibleAnimate ? 1 : 0}">
-    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Booking Details</h2>
