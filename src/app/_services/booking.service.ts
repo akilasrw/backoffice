@@ -19,7 +19,7 @@ export class BookingService extends BaseService {
     super(http);
   }
 
-  getBookingList(query: CargoBookingListQuery) { debugger
+  getBookingList(query: CargoBookingListQuery) {
     var params = new HttpParams();
 
     if (query.flightDate) {

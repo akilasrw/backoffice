@@ -8,6 +8,7 @@ export interface CargoBooking {
   bookingAgent: string;
   numberOfBoxes:number;
   totalWeight:number;
+  totalVolume:number;
   bookingStatus: BookingStatus;
 
 
