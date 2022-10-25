@@ -106,10 +106,9 @@ export enum BookingStatus {
   Exported = 60
 }
 
-export enum AWBNumberStatus
-{
-    None = 0,
-    All = 1,
-    Avilable = 2,
-    Used = 3
+export enum AWBNumberStatus {
+  None = 0,
+  All = 1,
+  Avilable = 2,
+  Used = 3
 }

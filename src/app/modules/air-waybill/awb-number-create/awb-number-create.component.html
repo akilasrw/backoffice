@@ -4,7 +4,8 @@
             <div class="form-group">
                 <label class="form-label">Booking Agent Name(s)</label>
                 <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
-                    (selectFileOutput)="selectedCargoAgent($event)"></app-auto-complete-dropdown>
+                    (selectFileOutput)="selectedCargoAgent($event)" (changeSearch)="onClearCargoAgent()"
+                    (clearSearch)="onClearCargoAgent()"></app-auto-complete-dropdown>
             </div>
         </div>
         <div class="col-md-3">
@@ -17,6 +18,6 @@
         </div>
         <div class="col-md-3">
             <div class="button"><button type="submit" class="btn  btn-primary-outline">Add</button></div>
-        </div>
+        </div>        
     </div>
 </form>

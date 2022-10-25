@@ -43,4 +43,8 @@ export class AwbNumberStackService extends BaseService {
     );
   }
 
+  deleteAWBNumber(id:string){
+    return this.delete<boolean>(`${this.endpointEntityName}/${id}`, null);
+  }
+
 }

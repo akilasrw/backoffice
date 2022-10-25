@@ -1,4 +1,4 @@
-import { BookingStatus, WeightType } from './../enums/common-enums';
+import { BookingStatus, WeightType, AWBNumberStatus } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
 import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftSubTypes, AircraftTypes, SectorType } from "../enums/common-enums";
@@ -203,6 +203,24 @@ export class CoreExtensions {
         break;
       case BookingStatus.Loading:
         statusString = "Loading";
+        break;
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetAWBStaus(type: AWBNumberStatus): string {
+    let statusString = "None";
+    switch (type) {
+      case AWBNumberStatus.All:
+        statusString = "All";
+        break;
+      case AWBNumberStatus.Avilable:
+        statusString = "Avilable";
+        break;
+      case AWBNumberStatus.Used:
+        statusString = "Used";
         break;
       default:
         break;

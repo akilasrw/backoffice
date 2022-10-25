@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -16,6 +16,7 @@ export class AwbNumberCreateComponent implements OnInit {
   cargoAgents: SelectList[] = [];
   isLoading :boolean= false;
   awbForm!:FormGroup;
+  @Output() submitSuccess = new EventEmitter<any>();
   
   constructor(
     private awbSerice: AwbNumberStackService,
@@ -65,6 +66,9 @@ export class AwbNumberCreateComponent implements OnInit {
       this.isLoading=true;
       this.awbSerice.create(this.awbForm.value).subscribe({
         next: (res) => {
+          this.awbForm.markAsUntouched();
+          this.awbForm.get('aWBTrackingNumber')?.patchValue(null);
+          this.submitSuccess.emit();
           this.isLoading=false;
           this.toastr.success('AWB number added successfully.');
         },
@@ -72,9 +76,14 @@ export class AwbNumberCreateComponent implements OnInit {
           this.isLoading=false;
         }
       });
+    }else{
+      this.awbForm.markAsTouched();
     }
   }
-
+  
+  onClearCargoAgent(){
+    this.awbForm.get('cargoAgentId')?.patchValue(null);
+  }
 
 
 }
