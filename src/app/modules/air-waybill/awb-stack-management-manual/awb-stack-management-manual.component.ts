@@ -31,6 +31,7 @@ export class AwbStackManagementManualComponent implements OnInit {
   selectedDeletedID?:string;
   modalVisibleAnimateDelete:boolean = false;
   modalVisibleDelete:boolean = false;
+  selectedAWBNumber?:AWBNumberStack;
 
   constructor(
     private awbSerice: AwbNumberStackService,
@@ -137,6 +138,10 @@ export class AwbStackManagementManualComponent implements OnInit {
           }
         });
     }
+  }
+
+  onEdit(item:AWBNumberStack){
+    this.selectedAWBNumber = item;
   }
 
 }

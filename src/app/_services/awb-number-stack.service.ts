@@ -43,6 +43,10 @@ export class AwbNumberStackService extends BaseService {
     );
   }
 
+  update(awbNumberStackRequest: AWBNumberStackRequest){
+    return this.put<any>(this.endpointEntityName, awbNumberStackRequest);
+  }
+
   deleteAWBNumber(id:string){
     return this.delete<boolean>(`${this.endpointEntityName}/${id}`, null);
   }

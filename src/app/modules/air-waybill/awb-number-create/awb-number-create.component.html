@@ -1,23 +1,28 @@
 <form [formGroup]='awbForm' (ngSubmit)="addAWBNumber()">
     <div class="row align-items-center">
         <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group" *ngIf="!isLoading">
                 <label class="form-label">Booking Agent Name(s)</label>
-                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" [selectedIndex]="editCargoAgentIndex"
                     (selectFileOutput)="selectedCargoAgent($event)" (changeSearch)="onClearCargoAgent()"
                     (clearSearch)="onClearCargoAgent()"></app-auto-complete-dropdown>
             </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
         <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group" *ngIf="!isLoading">
                 <label class="form-label">AWB Number</label>
                 <app-text-input [formControl]='awbForm.controls["aWBTrackingNumber"]' type="number"
                     [label]='"AWB number"' [tabindex]="1">
                 </app-text-input>
             </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
         <div class="col-md-3">
-            <div class="button"><button type="submit" class="btn  btn-primary-outline">Add</button></div>
+            <div class="button"><button type="submit" class="btn  btn-primary-outline">{{this.isEditAWBNumber?"Update":"Add"}}</button></div>
+        </div> 
+        <div class="col-md-3" [hidden]="!this.isEditAWBNumber">
+            <i class="ca ca-icn-close" (click)="clearAWBForm()"></i>
         </div>        
     </div>
 </form>
