@@ -17,6 +17,11 @@
                             (change)="onChangeFilterFrm($event)">
                     </div>
                     <div class="filter-group">
+                        <label class="form-label">AWB Number</label>
+                        <input [(ngModel)]="awbNumber" type="number" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
                         <label class="form-label">Status</label>
                         <app-auto-complete-dropdown [data]="awbStatus" [keyword]="keyword"
                             (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"

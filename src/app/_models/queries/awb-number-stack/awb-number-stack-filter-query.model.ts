@@ -3,6 +3,7 @@ import { BasePaginationQuery } from 'src/app/shared/models/base-pagination-query
 
 export class AWBNumberStackFilterQuery extends BasePaginationQuery {
   cargoAgentName?: string;
+  awbNumber?:number;
   isAgentInclude?: boolean;
   aWBNumberStatus?: AWBNumberStatus;
 }

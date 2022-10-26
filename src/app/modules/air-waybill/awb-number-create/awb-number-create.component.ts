@@ -100,21 +100,21 @@ export class AwbNumberCreateComponent implements OnInit {
             this.isLoading = false;
           }
         })
-
       }else{
         this.awbSerice.create(this.awbForm.value).subscribe({
           next: (res) => {
-            this.awbForm.markAsUntouched();
             this.awbForm.get('aWBTrackingNumber')?.patchValue(null);
             this.submitSuccess.emit();
             this.isLoading=false;
             this.toastr.success('AWB number added successfully.');
           },
           error: (error) => {
+            this.awbForm.get('aWBTrackingNumber')?.patchValue(null);
             this.isLoading=false;
           }
         });
       }  
+      this.awbForm.markAsUntouched();
     }else{
       this.awbForm.markAsTouched();
     }
@@ -123,6 +123,7 @@ export class AwbNumberCreateComponent implements OnInit {
   onClearCargoAgent(){
     this.awbForm.get('cargoAgentId')?.patchValue(null);
   }
+  
   clearAWBForm(){
     this.isEditAWBNumber = false;
     this.editAWBNumber=undefined;
