@@ -1,0 +1,82 @@
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Cargo Agent Management</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Name</label>
+                        <input [(ngModel)]="cargoAgentName" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Status</label>
+                        <app-auto-complete-dropdown [data]="agentStatus" [keyword]="keyword"
+                            (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
+                            (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline" (click)="getCargoAgentList()">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
+                        class="ca ca-icn-close" (click)="clearFilter()"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-content" *ngIf="!isLoading">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Telephone Number</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Base Airport</th>
+                        <th>Agent IATA Code</th>
+                        <th>Status</th>
+                        <th class="text-center">Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.cargoAgents">
+                            <td>{{item.agentName}}</td>
+                            <td>{{item.userName}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.primaryTelephoneNumber}}</td>
+                            <td>{{item.countryName}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.baseAirportName}}</td>
+                            <td>{{item.agentIATACode}}</td>
+                            <td>Active</td>
+                            <td class="text-center">
+                                <i class="ca ca-icn-view" title="View" ></i>
+                                <i class="ca ca-icn-edit" title="Edit" ></i>
+                                <i class="ca ca-icn-bin" title="Delete"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="not-available" *ngIf="totalCount == 0">
+                    <img src="./assets/images/no-data.png" alt="No Content Data">
+                    <div>Agents not available.</div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                    <app-pager [pageSize]="cargoAgentFilterQuery?.pageSize"
+                        [pageNumber]="cargoAgentFilterQuery?.pageIndex" [totalCount]="totalCount"
+                        (pageChanged)="onPageChanged($event)"></app-pager>
+                    <app-paging-header [totalCount]="totalCount" [pageSize]="cargoAgentFilterQuery?.pageSize"
+                        [pageNumber]="cargoAgentFilterQuery?.pageIndex"></app-paging-header>
+                </div>
+            </div>
+            <app-table-loader [columnCount]="10" [rowCount]="cargoAgentFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader>
+        </div>
+    </div>
+</div>

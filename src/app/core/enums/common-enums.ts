@@ -9,7 +9,8 @@ export enum MenuType {
   Aircraft = 7,
   Flight = 8,
   FlightSchedule = 9,
-  Rate = 10
+  Rate = 10,
+  UserManagement = 11
 }
 
 export enum SectorType {
@@ -111,4 +112,11 @@ export enum AWBNumberStatus {
   All = 1,
   Avilable = 2,
   Used = 3
+}
+
+export enum CargoAgentStatus {
+  None = 0,
+  Pending = 1,
+  Active = 2,
+  Suspended = 3
 }

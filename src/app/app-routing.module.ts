@@ -19,6 +19,8 @@ const routes: Routes = [
   { path: RouteConstants.FlightRoute, loadChildren: ()=> import('./modules/flight/flight.module').then(mod => mod.FlightModule), canActivate: [AuthGuard]},
   { path: RouteConstants.FlightSchedule, loadChildren: ()=> import('./modules/flight-schedule/flight-schedule.module').then(mod => mod.FlightScheduleModule), canActivate: [AuthGuard]},
   { path: RouteConstants.Rate, loadChildren: ()=> import('./modules/rate/rate.module').then(mod => mod.RateModule), canActivate: [AuthGuard]},
+  { path: RouteConstants.UserManagement, loadChildren: ()=> import('./modules/user-management/user-management.module').then(mod => mod.UserManagementModule), canActivate: [AuthGuard]},
+
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
 ];

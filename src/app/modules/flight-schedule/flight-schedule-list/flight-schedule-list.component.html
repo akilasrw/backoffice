@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="table-content">
+            <div class="table-content" *ngIf="!isLoading">
                 <table class="table table-responsive">
                     <thead>
                         <th>Aircraft Type</th>
@@ -80,6 +80,8 @@
                         [pageNumber]="flightScheduleFilterQuery?.pageIndex"></app-paging-header>
                 </div>
             </div>
+            <app-table-loader [columnCount]="9" [rowCount]="flightScheduleFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader>
         </div>
     </div>
 </div>

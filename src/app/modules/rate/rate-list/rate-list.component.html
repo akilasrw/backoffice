@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="table-content">
+            <div class="table-content" *ngIf="!isLoading">
                 <table class="table table-responsive">
                     <thead>
                         <th>Agent</th>
@@ -71,6 +71,8 @@
                         [pageNumber]="agentRateFilterQuery?.pageIndex"></app-paging-header>
                 </div>
             </div>
+            <app-table-loader [columnCount]="4" [rowCount]="agentRateFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader>
         </div>
     </div>
 </div>
