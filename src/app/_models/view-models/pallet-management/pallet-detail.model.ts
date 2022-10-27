@@ -6,4 +6,5 @@ export interface PalletDetail {
     width: number;
     height: number;
     length: number;
+    sequence: number;
 }

@@ -39,7 +39,7 @@
                 <div class="potions">
                     <div class="row">
                         <div *ngFor="let item of this.palletPositions ;let indexOfelement=index;" class="col-md-3" >
-                            <div class="pallet" [ngClass]="{'added': item.isPalletAssigned}" (click)="addPallet(item)">
+                            <div class="pallet" [ngClass]="{'added': item.isPalletAssigned}" (click)="addPallet(item, indexOfelement)">
                                 <div class="details-group pt-0">
                                     <div class="lable">Pallet Position</div>
                                     <div>{{indexOfelement+1}}</div>
@@ -77,7 +77,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-pallet-create [positionId]="this.selectedPositionId" (submitSuccess)="onPallettAdd()" (closePopup)="closeAddPallet()"  *ngIf="modalVisible"></app-pallet-create>
+                <app-pallet-create [position]="this.selectedPosition" (submitSuccess)="onPallettAdd()" (closePopup)="closeAddPallet()"  *ngIf="modalVisible"></app-pallet-create>
             </div>
         </div>
     </div>

@@ -32,7 +32,7 @@ export class BookingDetailComponent implements OnInit {
       {
         next: (res) => {
           this.cargoBookingList = res;
-          console.log(res);
+          console.log('Booking Detail',res);
         },
         error: () => {
           this.cargoBookingList = [];

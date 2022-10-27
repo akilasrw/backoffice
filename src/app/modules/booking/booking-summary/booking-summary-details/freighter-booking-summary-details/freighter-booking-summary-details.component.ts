@@ -19,6 +19,8 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   selectedPositionNumber:number=0;
   modalVisible = false;
   modalVisibleAnimate = false;
+  assignBookingModalVisible = false;
+  assignBookingModalVisibleAnimate = false;
   uldDetailModalVisible = false;
   uldDetailModalVisibleAnimate = false;
   bookingDetailModalVisible = false;
@@ -89,6 +91,11 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
     setTimeout(() => (this.bookingDetailModalVisible = false), 300);
   }
 
+  closeAssginBooking(){
+    this.assignBookingModalVisibleAnimate = false;
+    setTimeout(() => (this.assignBookingModalVisible = false), 300);
+  }
+
   openULDDetail(){
     this.uldDetailModalVisible = true;
     setTimeout(() => (this.uldDetailModalVisibleAnimate = true));
@@ -109,6 +116,11 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   viewBookingdetail() {
     this.bookingDetailModalVisible = true;
     setTimeout(() => (this.bookingDetailModalVisibleAnimate = true));
+  }
+
+  viewAssignBooking(){
+    this.assignBookingModalVisible = true;
+    setTimeout(() => (this.assignBookingModalVisibleAnimate = true));
   }
 
 }
