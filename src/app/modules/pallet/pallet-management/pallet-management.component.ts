@@ -20,7 +20,7 @@ export class PalletManagementComponent implements OnInit {
   flightDate?: Date;
   modalVisible = false;
   modalVisibleAnimate = false;
-  selectedPositionId? :string;
+  selectedPosition? :PalletDetail;
   constructor(private palletManagementService:PalletManagementService,
     private toastr:ToastrService) { }
 
@@ -28,7 +28,7 @@ export class PalletManagementComponent implements OnInit {
   }
 
   getFilteredList(){
-    if(this.flightNumber === undefined || this.flightNumber === "" && 
+    if(this.flightNumber === undefined || this.flightNumber === "" &&
     this.aircraftNumber === undefined || this.aircraftNumber === "" &&
     this.flightDate === undefined){
       this.toastr.error('Please enter flight number, aircraft number and flight date.');
@@ -84,18 +84,19 @@ export class PalletManagementComponent implements OnInit {
     this.filterFormHasValue = false;
   }
 
-  addPallet(pallet: PalletDetail) {
-    if(!pallet.isPalletAssigned){
-      this.selectedPositionId=pallet.cargoPositionId;
+  addPallet(pallet: PalletDetail, sequence: number) {
+    if(!pallet.isPalletAssigned) {
+      pallet.sequence = sequence+1;
+      this.selectedPosition=pallet;
       this.modalVisible = true;
-      setTimeout(() => (this.modalVisibleAnimate = true)); 
+      setTimeout(() => (this.modalVisibleAnimate = true));
     }
   }
 
   onPallettAdd(){
     this.getFilteredList();
   }
-  
+
   closeAddPallet(){
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);

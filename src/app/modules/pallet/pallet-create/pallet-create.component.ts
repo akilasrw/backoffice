@@ -6,6 +6,7 @@ import { Unit } from 'src/app/_models/view-models/unit/unit.model';
 import { PalletManagementService } from 'src/app/_services/pallet-management.service';
 import { UnitService } from 'src/app/_services/unit.service';
 import { ToastrService } from 'ngx-toastr';
+import { PalletDetail } from 'src/app/_models/view-models/pallet-management/pallet-detail.model';
 
 @Component({
   selector: 'app-pallet-create',
@@ -17,7 +18,7 @@ export class PalletCreateComponent implements OnInit {
   keyword = 'value';
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
-  @Input() positionId?: string;
+  @Input() position?: PalletDetail;
 
   public palletForm!: FormGroup;
   volumeUnits: Unit[] = [];
@@ -37,7 +38,7 @@ export class PalletCreateComponent implements OnInit {
 
   initializePalletForm() {
     this.palletForm = new FormGroup({
-      positionId: new FormControl(this.positionId),
+      positionId: new FormControl(this.position?.cargoPositionId),
       serialNumber: new FormControl(null, [Validators.required]),
       width: new FormControl(0, [Validators.required, Validators.min(1)]),
       length: new FormControl(0, [Validators.required, Validators.min(1)]),
@@ -45,6 +46,7 @@ export class PalletCreateComponent implements OnInit {
       weight: new FormControl(0, [Validators.required, Validators.min(1)]),
       volumeUnitId: new FormControl('9f0928df-5d33-4e5d-affc-f7e2e2b72680', [Validators.required]),
       weightUnitId: new FormControl('bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c', [Validators.required]),
+      sequence: new FormControl(this.position?.sequence),
     });
   }
 

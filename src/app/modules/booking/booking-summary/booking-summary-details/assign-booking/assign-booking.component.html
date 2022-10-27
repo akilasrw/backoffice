@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <div *ngFor="let booking of cargoBookings">
+      <div class="row" style="background-color: #e9e9e9;">
+        <div class="col-3"><b>Booking Id  :</b> <br/>{{booking.bookingNumber}}</div>
+        <div class="col-3"><b>Total Weight(Kg) :</b> <br/>{{booking.totalWeight}}</div>
+        <div class="col-3"><b>Total Volume(m3) : </b><br/>{{booking.totalVolume != 0 ? (booking.totalVolume)/1000000 : 0}}</div>
+        <div class="col-3"><b>AWB Number : </b><br/>{{booking.awbTrackingNumber==0?' n/a ': booking.awbTrackingNumber}}</div>
+      </div>
+    <div class="table-responsive" style="margin-top:20px">
+      <table class="table">
+        <thead>
+          <th>Package ID</th>
+          <th>Weight (kg)</th>
+          <th>Dimensions(L x W x H) cm</th>
+          <th>Select Pallet</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let package of booking?.packageItems">
+              <td>{{package.packageRefNumber}}</td>
+              <td>{{package.weight}}</td>
+              <td>{{package.length +' x '+ package.width +' x '+ package.height}}</td>
+              <td>
+                <select>
+                  <option>P1</option>
+                  <option>P2</option>
+                </select>
+              </td>
+              <td>
+                <button (click)="save()">Save</button>
+              </td>
+          </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+</div>

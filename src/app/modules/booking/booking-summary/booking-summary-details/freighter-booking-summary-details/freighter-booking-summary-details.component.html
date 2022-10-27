@@ -11,13 +11,13 @@
                 <div class="back-icn"><i class="ca ca-icn-left-arrow-dash" title="Back" (click)="backToList()"></i>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <div class="card-body without-footer">
         <div class="booking-details">
           <div class="d-flex flex-row-reverse">
-            
+
           </div>
             <div class="row">
                 <div class="col-md-2">
@@ -69,6 +69,7 @@
                 <h3>View Freighter Details</h3>
             </div>
             <button class="btn btn-primary" type="button" (click)="viewLIR()">View LIR</button>
+            <button class="btn btn-primary" type="button" (click)="viewAssignBooking()">Assgin Bookings</button>
         </div>
         <div class="booking-summary">
             <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
@@ -104,6 +105,22 @@
             </div>
             <div class="modal-body">
                 <app-freighter-uld-details [positionDetail]="this.selectedCargoPosition" *ngIf="uldDetailModalVisible"></app-freighter-uld-details>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': assignBookingModalVisibleAnimate}"
+    [ngStyle]="{'display': assignBookingModalVisible ? 'block' : 'none', 'opacity': assignBookingModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Pallet Assignment</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAssginBooking()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                <app-assign-booking [bookingDetail]="this.cargoBookingSummary" *ngIf="assignBookingModalVisible"></app-assign-booking>
             </div>
         </div>
     </div>
