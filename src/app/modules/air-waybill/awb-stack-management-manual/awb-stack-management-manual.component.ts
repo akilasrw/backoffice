@@ -22,7 +22,8 @@ export class AwbStackManagementManualComponent implements OnInit {
   cargoAgentId?: string;
   awbForm!: FormGroup;
   cargoAgentName?: string;
-  aWBNumberStatus?: AWBNumberStatus;
+  awbNumber?: number;
+  aWBNumberStatus?: AWBNumberStatus=AWBNumberStatus.All;
   awbStackFilterQuery: AWBNumberStackFilterQuery = new AWBNumberStackFilterQuery();
   awbNumberStackList: AWBNumberStack[] = []
   totalCount: number = 0;
@@ -31,6 +32,7 @@ export class AwbStackManagementManualComponent implements OnInit {
   selectedDeletedID?:string;
   modalVisibleAnimateDelete:boolean = false;
   modalVisibleDelete:boolean = false;
+  selectedAWBNumber?:AWBNumberStack;
 
   constructor(
     private awbSerice: AwbNumberStackService,
@@ -51,6 +53,7 @@ export class AwbStackManagementManualComponent implements OnInit {
   loadAWBNumbers() {
     this.isLoading = true;
     this.awbStackFilterQuery.cargoAgentName = this.cargoAgentName;
+    this.awbStackFilterQuery.awbNumber = this.awbNumber;
     this.awbStackFilterQuery.isAgentInclude = true;
     this.awbStackFilterQuery.aWBNumberStatus = this.aWBNumberStatus;
     this.awbSerice.getFilteredList(this.awbStackFilterQuery)
@@ -82,11 +85,12 @@ export class AwbStackManagementManualComponent implements OnInit {
   }
 
   onClearStatus() {
-    this.aWBNumberStatus = undefined;
+    this.aWBNumberStatus = AWBNumberStatus.All;;
   }
 
   onChangeFilterFrm(event: any) {
-    if (this.cargoAgentName !== undefined && this.cargoAgentName !== "") {
+    if ((this.cargoAgentName !== undefined && this.cargoAgentName !== "") ||
+    this.awbNumber !== undefined) {
       this.filterFormHasValue = true;
     } else {
       this.filterFormHasValue = false;
@@ -95,6 +99,7 @@ export class AwbStackManagementManualComponent implements OnInit {
 
   clearFilter() {
     this.cargoAgentName = undefined;
+    this.awbNumber = undefined;
     this.filterFormHasValue = false;
   }
 
@@ -132,11 +137,14 @@ export class AwbStackManagementManualComponent implements OnInit {
             this.loadAWBNumbers();
           },
           error: (error) => {
-            this.toastr.error(CommonMessages.DeleteFailMsg);
             this.cancelDelete();
           }
         });
     }
+  }
+
+  onEdit(item:AWBNumberStack){
+    this.selectedAWBNumber = item;
   }
 
 }

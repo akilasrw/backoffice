@@ -23,6 +23,9 @@ export class AwbNumberStackService extends BaseService {
 
   getFilteredList(query: AWBNumberStackFilterQuery){
     var params = new HttpParams();
+    if(query.awbNumber){
+      params = params.append("awbNumber", query.awbNumber);
+    }
     if (query.cargoAgentName) {
       params = params.append("cargoAgentName", query.cargoAgentName);
     }
@@ -41,6 +44,10 @@ export class AwbNumberStackService extends BaseService {
       this.getFilteredListEndpoint,
       params
     );
+  }
+
+  update(awbNumberStackRequest: AWBNumberStackRequest){
+    return this.put<any>(this.endpointEntityName, awbNumberStackRequest);
   }
 
   deleteAWBNumber(id:string){

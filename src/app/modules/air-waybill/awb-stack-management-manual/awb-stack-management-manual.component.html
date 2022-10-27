@@ -7,13 +7,18 @@
         </div>
     </div>
     <div class="card-body without-footer">
-        <app-awb-number-create  (submitSuccess)="onAWBNumberAdd($event)" ></app-awb-number-create>
+        <app-awb-number-create [awbNumber]="this.selectedAWBNumber"   (submitSuccess)="onAWBNumberAdd($event)" ></app-awb-number-create>
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="filter-wrapper">
                     <div class="filter-group">
                         <label class="form-label">Booking Agent Name</label>
                         <input [(ngModel)]="cargoAgentName" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">AWB Number</label>
+                        <input [(ngModel)]="awbNumber" type="number" class="form-control"
                             (change)="onChangeFilterFrm($event)">
                     </div>
                     <div class="filter-group">
@@ -44,7 +49,7 @@
                                 <td>{{item.awbTrackingNumber}}</td>
                                 <td>{{(item.isUsed)?"Used":"Available"}}</td>
                                 <td class="text-center">
-                                    <i class="ca ca-icn-edit" title="Edit"></i>
+                                    <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
                                     <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
                                 </td>
                             </tr>
