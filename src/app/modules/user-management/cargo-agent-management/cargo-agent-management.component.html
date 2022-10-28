@@ -25,7 +25,7 @@
                         <button class="btn sm btn-primary-outline" (click)="getCargoAgentList()">Add Filter</button>
                     </div>
                     <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
-                        class="ca ca-icn-close" (click)="clearFilter()"></i></div>
+                            class="ca ca-icn-close" (click)="clearFilter()"></i></div>
                 </div>
             </div>
         </div>
@@ -54,10 +54,22 @@
                             <td>{{item.city}}</td>
                             <td>{{item.baseAirportName}}</td>
                             <td>{{item.agentIATACode}}</td>
-                            <td>{{GetCargoAgentStaus(item.status)}}</td>
+                            <td>
+                                <span class="agent-status-chip" [ngClass]="{
+                                    'none':item?.status == CagentStatus.None,
+                                    'active':item?.status == CagentStatus.Active,
+                                    'pending':item?.status == CagentStatus.Pending,
+                                    'suspended':item?.status == CagentStatus.Suspended
+                                    }">{{(GetCargoAgentStaus(item.status))}}
+                                </span>
+                            </td>
                             <td class="text-center">
-                                <button *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending" (click)="onActive(item.id)" class="btn sm btn-primary-outline">Active</button>
-                                <button *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending" (click)="onSuspend(item.id)" class="btn sm btn-primary-outline">Suspend</button>
+                                <button
+                                    *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending"
+                                    (click)="onActive(item.id)" class="btn sm btn-primary-outline">Active</button>
+                                <button
+                                    *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending"
+                                    (click)="onSuspend(item.id)" class="btn sm btn-primary-outline">Suspend</button>
                             </td>
                         </tr>
                     </tbody>
