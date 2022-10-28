@@ -23,6 +23,12 @@ export class CargoAgentManagementComponent implements OnInit {
   cargoAgents: CargoAgent[]=[];
   totalCount: number = 0;
   keyword = 'value';
+  modalVisibleAnimateAcceptAgent:boolean=false;
+  modalVisibleAcceptAgent:boolean=false;
+  selectedAgent?:CargoAgent =new CargoAgent();
+  modalVisibleAnimateSuspendAgent:boolean=false;
+  modalVisibleSuspendAgent:boolean=false;
+
 
   constructor(private cargoAgentService: CargoAgentService, private toastr: ToastrService) { }
 
@@ -32,7 +38,7 @@ export class CargoAgentManagementComponent implements OnInit {
   }
 
   loadStatusTypes() {
-    this.agentStatus.push({ id: CargoAgentStatus.None.toString(), value: CoreExtensions.GetCargoAgentStaus(CargoAgentStatus.None) },
+    this.agentStatus.push({ id: CargoAgentStatus.None.toString(), value: "All" },
       { id: CargoAgentStatus.Pending.toString(), value: CoreExtensions.GetCargoAgentStaus(CargoAgentStatus.Pending) },
       { id: CargoAgentStatus.Active.toString(), value: CoreExtensions.GetCargoAgentStaus(CargoAgentStatus.Active) },
       { id: CargoAgentStatus.Suspended.toString(), value: CoreExtensions.GetCargoAgentStaus(CargoAgentStatus.Suspended) });
@@ -77,9 +83,68 @@ export class CargoAgentManagementComponent implements OnInit {
     }
   }
 
+  GetCargoAgentStaus(type: number) {
+    return CoreExtensions.GetCargoAgentStaus(type);
+  }
+
+  get CagentStatus(): typeof CargoAgentStatus {
+    return CargoAgentStatus;
+  }
+
   clearFilter() {
     this.cargoAgentName = undefined;
     this.filterFormHasValue = false;
+  }
+
+  onActive(id:string){
+    var agent = new CargoAgent();
+    agent.id=id;
+    agent.status=CargoAgentStatus.Active;
+    this.selectedAgent = agent;
+    this.modalVisibleAcceptAgent = true;
+    setTimeout(() => (this.modalVisibleAnimateAcceptAgent = true));
+  }
+
+  onSuspend(id:string){
+    var agent = new CargoAgent();
+    agent.id=id;
+    agent.status=CargoAgentStatus.Suspended;
+    this.selectedAgent = agent;
+    this.modalVisibleSuspendAgent = true;
+    setTimeout(() => (this.modalVisibleAnimateSuspendAgent = true));
+  }
+
+  cancelActive() {
+    this.selectedAgent = undefined;
+    this.modalVisibleAnimateAcceptAgent = false;
+    setTimeout(() => (this.modalVisibleAcceptAgent = false), 300);
+  }
+
+  cancelSuspend() {
+    this.selectedAgent = undefined;
+    this.modalVisibleAnimateSuspendAgent = false;
+    setTimeout(() => (this.modalVisibleSuspendAgent = false), 300);
+  }
+
+  onAction(){
+    if (this.selectedAgent != undefined) {
+      this.isLoading=true;
+      this.cargoAgentService.statusUpdate({id:this.selectedAgent.id,status:this.selectedAgent.status})
+        .subscribe({
+          next: (res) => {
+            this.toastr.success((this.selectedAgent!.status == CargoAgentStatus.Active)?"Cargo agent successfully active.":"Cargo agent successfully suspend.");
+            (this.selectedAgent!.status == CargoAgentStatus.Active)? this.cancelActive() : this.cancelSuspend();
+            this.cargoAgents = [];
+            this.isLoading=false;
+            this.getCargoAgentList();
+          },
+          error: (error) => {
+            this.toastr.error((this.selectedAgent!.status == CargoAgentStatus.Active)?"Cargo agent unable to active.":"Cargo agent unable to suspend.");
+            (this.selectedAgent!.status == CargoAgentStatus.Active)? this.cancelActive() : this.cancelSuspend();
+            this.isLoading=false;
+          }
+        });
+    }
   }
 
   public onPageChanged(event: any) {

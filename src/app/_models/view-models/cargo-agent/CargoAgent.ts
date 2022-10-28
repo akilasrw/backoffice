@@ -1,3 +1,4 @@
+import { CargoAgentStatus } from "src/app/core/enums/common-enums";
 import { BaseVM } from "src/app/shared/models/base-vm.model";
 
 export class CargoAgent extends BaseVM {
@@ -11,5 +12,6 @@ export class CargoAgent extends BaseVM {
     countryName?:string;
     city?:string;
     agentIATACode?:string;  
-    baseAirportName?:string   
+    baseAirportName?:string;
+    status?:CargoAgentStatus; 
 }
