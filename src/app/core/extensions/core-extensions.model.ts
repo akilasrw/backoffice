@@ -232,7 +232,7 @@ export class CoreExtensions {
     let statusString = "None";
     switch (type) {
       case CargoAgentStatus.None:
-        statusString = "All";
+        statusString = "None";
         break;
       case CargoAgentStatus.Pending:
         statusString = "Pending";

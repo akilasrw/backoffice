@@ -93,7 +93,25 @@
   }
 }
 
-
+@mixin agent-lable-color {
+  @include status-lable;
+  &.active { 
+    border-color: $green;
+    color: $green;
+  }
+  &.pending  {
+    border-color: $brand-primary;
+    color: $brand-primary;
+  }
+  &.suspended  {
+    border-color: $red;
+    color: $red;
+  }
+  &.none  {
+    border-color: $gray;
+    color: $gray;
+  }
+}
 
 
 

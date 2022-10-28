@@ -25,7 +25,7 @@
                         <button class="btn sm btn-primary-outline" (click)="getCargoAgentList()">Add Filter</button>
                     </div>
                     <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
-                        class="ca ca-icn-close" (click)="clearFilter()"></i></div>
+                            class="ca ca-icn-close" (click)="clearFilter()"></i></div>
                 </div>
             </div>
         </div>
@@ -54,11 +54,22 @@
                             <td>{{item.city}}</td>
                             <td>{{item.baseAirportName}}</td>
                             <td>{{item.agentIATACode}}</td>
-                            <td>Active</td>
+                            <td>
+                                <span class="agent-status-chip" [ngClass]="{
+                                    'none':item?.status == CagentStatus.None,
+                                    'active':item?.status == CagentStatus.Active,
+                                    'pending':item?.status == CagentStatus.Pending,
+                                    'suspended':item?.status == CagentStatus.Suspended
+                                    }">{{(GetCargoAgentStaus(item.status))}}
+                                </span>
+                            </td>
                             <td class="text-center">
-                                <i class="ca ca-icn-view" title="View" ></i>
-                                <i class="ca ca-icn-edit" title="Edit" ></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
+                                <button
+                                    *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending"
+                                    (click)="onActive(item.id)" class="btn sm btn-primary-outline">Active</button>
+                                <button
+                                    *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending"
+                                    (click)="onSuspend(item.id)" class="btn sm btn-primary-outline">Suspend</button>
                             </td>
                         </tr>
                     </tbody>
@@ -77,6 +88,46 @@
             </div>
             <app-table-loader [columnCount]="10" [rowCount]="cargoAgentFilterQuery.pageSize" *ngIf="isLoading">
             </app-table-loader>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateAcceptAgent}"
+    [ngStyle]="{'display': modalVisibleAcceptAgent ? 'block' : 'none', 'opacity': modalVisibleAnimateAcceptAgent ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Active Cargo Agent</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelActive()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to active this user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelActive()">Cancel</button>
+                <button class="btn btn-primary" (click)="onAction()" type="button">Active</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateSuspendAgent}"
+    [ngStyle]="{'display': modalVisibleSuspendAgent ? 'block' : 'none', 'opacity': modalVisibleAnimateSuspendAgent ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Suspend Cargo Agent</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelSuspend()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to suspend this user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelSuspend()">Cancel</button>
+                <button class="btn btn-primary" (click)="onAction()" type="button">Suspend</button>
+            </div>
         </div>
     </div>
 </div>

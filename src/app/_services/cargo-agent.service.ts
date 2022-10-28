@@ -6,6 +6,7 @@ import { CargoAgentFilterQuery } from '../_models/queries/cargo-agent/cargo-agen
 import { CargoAgent } from '../_models/view-models/cargo-agent/CargoAgent';
 import { IPagination } from '../shared/models/pagination.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
+import { CargoAgentStatusUpdateRM } from '../_models/request-models/cargo-agent/cargo-agent-status-update-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class CargoAgentService extends BaseService {
   private readonly endpointEntityName = 'CargoAgent';
   private readonly getSelectListEndpoint = `${this.endpointEntityName}/getSelectList`;
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
+  private readonly statusUpdateEndpoint = `${this.endpointEntityName}/StatusUpdate`;
 
 
   constructor(http: HttpClient){super(http)}
@@ -25,6 +27,9 @@ export class CargoAgentService extends BaseService {
 
   getFilteredList(query: CargoAgentFilterQuery){
     var params = new HttpParams();
+    if(query.status){
+      params = params.append("status", query.status);
+    }
     if (query.cargoAgentName) {
       params = params.append("cargoAgentName", query.cargoAgentName);
     }
@@ -40,6 +45,10 @@ export class CargoAgentService extends BaseService {
       this.getFilteredListEndpoint,
       params
     );
+  }
+
+  statusUpdate(statusUpdateRM: CargoAgentStatusUpdateRM){
+    return this.put<any>(this.statusUpdateEndpoint, statusUpdateRM);
   }
 
 }
