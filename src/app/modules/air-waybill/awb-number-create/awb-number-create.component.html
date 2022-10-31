@@ -18,11 +18,21 @@
             </div>
             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 d-flex align-items-center">
             <div class="button"><button type="submit" class="btn  btn-primary-outline">{{this.isEditAWBNumber?"Update":"Add"}}</button></div>
+            <div class="filter-wrapper ms-3" [hidden]="!this.isEditAWBNumber">
+                <div class="filter-clear m-0">
+                 <i class="ca ca-icn-close" title="Filter Clear" (click)="clearAWBForm()"></i>
+                </div>
+             </div>
         </div> 
-        <div class="col-md-3" [hidden]="!this.isEditAWBNumber">
-            <i class="ca ca-icn-close" (click)="clearAWBForm()"></i>
+        <div class="col-md-3">
+            <!-- <div class="filter-wrapper">
+               <div class="filter-clear">
+                <i class="ca ca-icn-close" title="Filter Clear" (click)="clearAWBForm()"></i>
+               </div>
+            </div> -->
+            
         </div>        
     </div>
 </form>
