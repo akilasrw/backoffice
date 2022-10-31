@@ -64,12 +64,16 @@
                                 </span>
                             </td>
                             <td class="text-center">
-                                <button
+                                <!-- <button
                                     *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending"
                                     (click)="onActive(item.id)" class="btn sm btn-primary-outline">Active</button>
                                 <button
                                     *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending"
-                                    (click)="onSuspend(item.id)" class="btn sm btn-primary-outline">Suspend</button>
+                                    (click)="onSuspend(item.id)" class="btn sm btn-primary-outline">Suspend</button> -->
+                                <i class="ca ca-icn-active-user" title="Active" *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending"
+                                (click)="onActive(item.id)"></i>
+                                <i class="ca ca-icn-suspend text-red" title="Suspend" *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending"
+                                (click)="onSuspend(item.id)"></i>
                             </td>
                         </tr>
                     </tbody>
