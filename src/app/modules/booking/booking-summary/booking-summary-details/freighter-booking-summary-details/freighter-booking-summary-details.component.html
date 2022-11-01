@@ -120,7 +120,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div class="modal-body">
-                <app-assign-booking [bookingDetail]="this.cargoBookingSummary" *ngIf="assignBookingModalVisible"></app-assign-booking>
+                <app-assign-booking (submitSuccess)="getSummaryDetail()" [bookingDetail]="this.cargoBookingSummary" *ngIf="assignBookingModalVisible"></app-assign-booking>
             </div>
         </div>
     </div>

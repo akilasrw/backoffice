@@ -10,4 +10,5 @@ export class PackageItem extends BaseVM {
   weightUnitId?: string;
   uLDContainerId?: string;
   cargoBookingId?: string;
+  cargoPositionId?: string;
 }

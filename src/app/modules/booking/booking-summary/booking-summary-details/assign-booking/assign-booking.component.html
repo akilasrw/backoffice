@@ -79,14 +79,14 @@
                       <td>{{package.length +' x '+ package.width +' x '+ package.height}}</td>
                       <td>
                         <div class="form-group mb-0">
-                          <select class="form-control">
-                            <option>P1</option>
-                            <option>P2</option>
+                          <select class="form-control" [(ngModel)]="package.cargoPositionId">
+                            <option disable></option>
+                            <option [ngValue]="pos.id" *ngFor="let pos of (bookingDetail.cargoPositions | position)">P{{pos.position}}</option>
                           </select>
                         </div>
                       </td>
                       <td>
-                        <i class="ca ca-icn-verify" (click)="save()" title="Save"></i>
+                        <i class="ca ca-icn-verify" (click)="save(package)" title="Save"></i>
                       </td>
                     </tr>
                   </tbody>

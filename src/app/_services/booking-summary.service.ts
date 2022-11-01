@@ -8,6 +8,7 @@ import { BookingSummaryFilterQuery } from '../_models/queries/booking-summary/bo
 import { BookingSummaryQuery } from '../_models/queries/booking-summary/booking-summary-query.model';
 import { CargoBookingSummaryDetail } from '../_models/view-models/booking-summary/cargo-booking-summary-detail.model';
 import { CargoBookingSummary } from '../_models/view-models/booking-summary/cargo-booking-summary.model';
+import { UldContainerCargoPosition } from '../_models/view-models/booking-summary/uld-container-cargo-position.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,11 @@ export class BookingSummaryService extends BaseService {
 
   private readonly endpointEntityName = 'CargoBooking';
   private readonly endpointCargoBookingSummary = 'CargoBookingSummary';
+  private readonly endpointULDCargoBookingSummary = 'ULDCargoBooking';
   private readonly getSummaryEndpoint = `${this.endpointEntityName}/getSummary`;
   private readonly getSeatSummaryEndpoint = `${this.endpointEntityName}/getSeatSummary`;
   private readonly getFilteredListEndpoint = `${this.endpointCargoBookingSummary}/GetFilteredList`;
+  private readonly assignCargoToULDEndpoint = `${this.endpointULDCargoBookingSummary}/AssignCargoToULD`;
 
 
   constructor(http: HttpClient){super(http)}
@@ -35,17 +38,17 @@ export class BookingSummaryService extends BaseService {
   getSeatSummary(query: BookingSummaryQuery) {
     var params = new HttpParams();
   }
-  
+
   getFilteredList(query: BookingSummaryFilterQuery){
     var params = new HttpParams();
     if (query.flightNumber) {
       params = params.append("flightNumber", query.flightNumber);
     }
-    
+
     if (query.flightDate) {
       params = params.append("flightDate", query.flightDate.toDateString());
     }
-      
+
     params = CoreExtensions.AsPaginate(params, query);
 
     return this.getWithParams<IPagination<CargoBookingSummary>>(
@@ -67,10 +70,13 @@ export class BookingSummaryService extends BaseService {
     if (query.isIncludeFlightScheduleSectors) {
       params = params.append("isIncludeFlightScheduleSectors", query.isIncludeFlightScheduleSectors);
     }
-    
+
     return this.getWithParams<CargoBookingSummaryDetail>(`${this.endpointCargoBookingSummary}`, params);
   }
 
-  
+  assignCargoToUld(uldContainerCargoPosition: UldContainerCargoPosition){
+    return this.post<any>(this.assignCargoToULDEndpoint, uldContainerCargoPosition);
+  }
+
 
 }

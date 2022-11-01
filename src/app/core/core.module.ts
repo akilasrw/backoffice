@@ -1,3 +1,4 @@
+import { PositionPipe } from './pipes/position.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -10,13 +11,15 @@ import { ServerErrorComponent } from './components/server-error/server-error.com
   declarations: [
     NotFoundComponent,
     SideNavComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    PositionPipe
   ],
   imports: [
     CommonModule
   ],
   exports:[
-    SideNavComponent
+    SideNavComponent,
+    PositionPipe
   ]
 })
 export class CoreModule { }

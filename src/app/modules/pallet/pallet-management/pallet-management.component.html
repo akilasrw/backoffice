@@ -39,10 +39,10 @@
                 <div class="potions">
                     <div class="row">
                         <div *ngFor="let item of this.palletPositions ;let indexOfelement=index;" class="col-md-3" >
-                            <div class="pallet" [ngClass]="{'added': item.isPalletAssigned}" (click)="addPallet(item, indexOfelement)">
+                            <div class="pallet" [ngClass]="{'added': item.isPalletAssigned}" (click)="addPallet(item)">
                                 <div class="details-group pt-0">
                                     <div class="lable">Pallet Position</div>
-                                    <div>{{indexOfelement+1}}</div>
+                                    <div>P{{item.position}}</div>
                                 </div>
                                 <div *ngIf="item.isPalletAssigned">
                                     <div class="details-group">

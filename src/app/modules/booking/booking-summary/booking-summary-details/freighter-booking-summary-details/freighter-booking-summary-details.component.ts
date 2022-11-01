@@ -91,7 +91,7 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
     setTimeout(() => (this.bookingDetailModalVisible = false), 300);
   }
 
-  closeAssginBooking(){
+  closeAssginBooking() {
     this.assignBookingModalVisibleAnimate = false;
     setTimeout(() => (this.assignBookingModalVisible = false), 300);
   }

@@ -84,9 +84,9 @@ export class PalletManagementComponent implements OnInit {
     this.filterFormHasValue = false;
   }
 
-  addPallet(pallet: PalletDetail, sequence: number) {
+  addPallet(pallet: PalletDetail) {
     if(!pallet.isPalletAssigned) {
-      pallet.sequence = sequence+1;
+      pallet.sequence = pallet.position;
       this.selectedPosition=pallet;
       this.modalVisible = true;
       setTimeout(() => (this.modalVisibleAnimate = true));

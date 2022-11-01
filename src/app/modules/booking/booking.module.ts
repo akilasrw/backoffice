@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -26,7 +27,8 @@ import { AssignBookingComponent } from './booking-summary/booking-summary-detail
     CommonModule,
     BookingRoutingModule,
     SharedModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    CoreModule
   ]
 })
 export class BookingModule { }
