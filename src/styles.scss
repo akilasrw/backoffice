@@ -86,6 +86,10 @@ a {
     }
 }
 
+.text-red {
+    color: $red !important;
+}
+
 .label {
     color: $gray;
 }
@@ -1002,6 +1006,7 @@ a {
         overflow-y: auto;
         @include customScrollbar(10px);
         .flight-booking {
+            position: relative;
             .flight-body {
                 .hide-seat {
                     visibility: hidden;
