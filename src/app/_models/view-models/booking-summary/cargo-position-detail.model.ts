@@ -6,5 +6,5 @@ export class CargoPositionDetail {
     volume?: number;
     maxVolume?: number;
     destinationAirportCode?: string;
-    uldPosition?:number;
+    position?:number;
 }

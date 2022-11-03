@@ -103,9 +103,9 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
 
   onULDClick(position:number){
     this.selectedPositionNumber= position;
-    this.selectedCargoPosition = this.cargoBookingSummary?.cargoPositions?.[position-1];
+    this.selectedCargoPosition = this.cargoBookingSummary?.cargoPositions?.filter(x=>x.position == position)[0];
     this.selectedCargoPosition!.destinationAirportCode = this.cargoBookingSummary?.destinationAirportCode;
-    this.selectedCargoPosition!.uldPosition = position;
+    this.selectedCargoPosition!.position = position;
     this.openULDDetail();
   }
 
