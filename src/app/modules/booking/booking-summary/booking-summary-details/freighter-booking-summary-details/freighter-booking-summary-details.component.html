@@ -72,6 +72,7 @@
             <button class="btn btn-primary" type="button" (click)="viewAssignBooking()">Assgin Bookings</button>
         </div>
         <div class="booking-summary">
+            <app-uld-info></app-uld-info>
             <app-al-b737400-type-one *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
         </div>
     </div>
