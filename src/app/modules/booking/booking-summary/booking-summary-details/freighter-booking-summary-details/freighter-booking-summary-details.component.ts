@@ -6,6 +6,7 @@ import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { BookingSummaryDetailQuery } from 'src/app/_models/queries/booking-summary/booking-summary-detail-query.model';
 import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary-detail.model';
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
+import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
 
 @Component({
   selector: 'app-freighter-booking-summary-details',
@@ -110,10 +111,10 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   }
 
   convertcm3Tom3(volume: number): number {
-    return volume / 1000000;
+    return NumberExtension.convertcm3Tom3(volume);
   }
 
-  viewBookingdetail() {
+  viewBookingdetail(): void {
     this.bookingDetailModalVisible = true;
     setTimeout(() => (this.bookingDetailModalVisibleAnimate = true));
   }
