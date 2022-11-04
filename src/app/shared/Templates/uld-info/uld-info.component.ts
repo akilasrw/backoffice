@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-uld-info',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./uld-info.component.scss']
 })
 export class UldInfoComponent implements OnInit {
-
+  @Input() selectedCargoPosition: any;
   constructor() { }
 
   ngOnInit(): void {
+    console.log('selectedCargoPosition',this.selectedCargoPosition);
   }
 
 }

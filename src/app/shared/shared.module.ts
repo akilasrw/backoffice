@@ -23,6 +23,7 @@ import { TextInputLoaderComponent } from './components/text-input-loader/text-in
 import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-textbox/auto-complete-textbox.component';
 import { TwodecimalpointsDirective } from '../directives/twodecimalpoints.directive';
 import { ValueInputComponent } from './components/forms/value-input/value-input.component';
+import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ValueInputComponent } from './components/forms/value-input/value-input.
     AutoCompleteTextboxComponent,
     TwodecimalpointsDirective,
     ValueInputComponent,
+    UldInfoComponent
   ],
   imports: [
     CommonModule,

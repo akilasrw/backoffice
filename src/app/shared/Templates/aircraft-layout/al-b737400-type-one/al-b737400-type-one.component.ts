@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CargoPositionDetail } from 'src/app/_models/view-models/booking-summary/cargo-position-detail.model';
 
 @Component({
   selector: 'app-al-b737400-type-one',
@@ -8,10 +9,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class AlB737400TypeOneComponent implements OnInit {
 
   @Output() ULDClick = new EventEmitter<any>();
+  @Input() cargoPositions?: CargoPositionDetail[];
+  selectedCargoPosition: any;
+  selectedPosition: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+
+  over(pos: number) {
+    this.selectedPosition = pos;
+    this.selectedCargoPosition = this.cargoPositions?.filter(x=>x.position == pos)[0];
+  }
+
+  leave(){
+    this.selectedPosition = 0;
   }
 
   onULDClick(uldPosition:number){

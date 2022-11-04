@@ -1,0 +1,27 @@
+<div class="freighter-summary" style="top: 30px; left: 6%;">
+  <div class="summary-info">
+      <div class="info-label">
+          <div class="lable">Total Weight (Kg)</div>
+          <div>{{selectedCargoPosition?.weight}} / {{selectedCargoPosition?.maxWeight}}</div>
+      </div>
+      <div class="progress" style="height: 5px;">
+          <div class="progress-bar" role="progressbar"  [style.width.%]="selectedCargoPosition?.weight/selectedCargoPosition?.maxWeight*100" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+  </div>
+  <div class="summary-info">
+      <div class="info-label">
+          <div class="lable">Total Booked Volume (m3)</div>
+          <div>{{selectedCargoPosition?.volume>0? selectedCargoPosition?.volume/1000000 :0}} /
+            {{selectedCargoPosition?.maxVolume>0? selectedCargoPosition?.maxVolume/1000000 :0}}</div>
+      </div>
+      <div class="progress" style="height: 5px;">
+          <div class="progress-bar" role="progressbar" [style.width.%]="selectedCargoPosition?.volume/selectedCargoPosition?.maxVolume*100" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+  </div>
+  <div class="summary-info">
+      <div class="info-label">
+          <div class="lable">Dimensions (L x W x H) cm</div>
+      </div>
+      <div>40 x 39 x 55</div>
+  </div>
+</div>

@@ -11,7 +11,6 @@ import { BookingSummaryLirComponent } from './booking-summary/booking-summary-de
 import { FreighterUldDetailsComponent } from './booking-summary/booking-summary-details/freighter-uld-details/freighter-uld-details.component';
 import { BookingDetailComponent } from './booking-detail/booking-detail.component';
 import { AssignBookingComponent } from './booking-summary/booking-summary-details/assign-booking/assign-booking.component';
-import { UldInfoComponent } from './booking-summary/booking-summary-details/uld-info/uld-info.component';
 
 
 @NgModule({
@@ -22,8 +21,7 @@ import { UldInfoComponent } from './booking-summary/booking-summary-details/uld-
     BookingSummaryLirComponent,
     FreighterUldDetailsComponent,
     BookingDetailComponent,
-    AssignBookingComponent,
-    UldInfoComponent
+    AssignBookingComponent
   ],
   imports: [
     CommonModule,
