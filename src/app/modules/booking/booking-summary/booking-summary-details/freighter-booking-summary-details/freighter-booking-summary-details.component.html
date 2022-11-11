@@ -69,7 +69,7 @@
                 <h3 class="mb-0">View Freighter Details</h3>
                 <button class="btn btn-primary-outline ms-5" type="button" (click)="viewLIR()">View LIR</button>
             </div>
-            <button class="btn btn-primary" type="button" (click)="viewAssignBooking()">Assgin Bookings</button>
+            <button class="btn btn-primary" type="button" (click)="viewAssignBooking()">Update Information</button>
         </div>
         <div class="booking-summary">
             <app-al-b737400-type-one [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
