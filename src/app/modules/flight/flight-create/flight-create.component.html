@@ -63,11 +63,13 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label class="form-label">Block Hours</label>
-                            <input type="text" class="form-control">
+                            <app-text-input [formControl]='flightForm.get("flightSector")?.controls["originBlockTimeHrs"]' [label]='"Origin Block Time "' type="number" [tabindex]="7">
+                            </app-text-input>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Block Hours</label>
-                            <input type="text" class="form-control">
+                            <app-text-input [formControl]='flightForm.get("flightSector")?.controls["destinationBlockTimeHrs"]' [label]='"Destination Block Time"' type="number" [tabindex]="7">
+                            </app-text-input>
                         </div>
                     </div>
                     <div class="col-md-12 text-end">
@@ -81,7 +83,7 @@
                 <div class="bg-box px-3 pt-2 pb-1" *ngIf="flightSectorList?.length > 0">
                     <div class="sector-wrapper">
                         <div class="sector-set">
-                            <div class="base block-time">12:18</div>
+                            <div class="base block-time" *ngIf="initialBlockHrs > 0">{{initialBlockHrs}} hrs</div>
                             <div class="base">{{initialAirportCode}}</div>
                         </div>
                         <div class="sector-set" *ngFor="let item of flightSectorList">
@@ -97,9 +99,9 @@
                                 <i class="ca ca-icn-bin" title="Delete" (click)="removeflightSector()" ></i>
                                 <div class="d-flex">
                                     <div class="base">{{item.destinationAirportCode}}</div>
-                                    <div class="base block-time">19:28</div>
+                                    <div class="base block-time" *ngIf="item?.destinationBlockTimeHrs > 0">{{item.destinationBlockTimeHrs}} hrs</div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
