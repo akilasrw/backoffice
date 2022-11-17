@@ -1433,6 +1433,12 @@ a {
                     background-color: $default-white;
                     padding: 0 20px;
                     font-weight: 600;
+                    &.block-time {
+                        background-color: #ffffbb;
+                        border-color: yellow;
+                        color: #b4a200;
+                        font-weight: 400;
+                    }
                 }
                 .sector-data {
                     text-align: center;

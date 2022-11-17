@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="create-flight-sector" formGroupName="flightSector">
                 <div class="row" >
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label class="form-label">Origin</label>
                             <app-auto-complete-textbox #originAirportTextBox [SelectedList]="originAirports"
@@ -30,7 +30,7 @@
                             </app-auto-complete-textbox>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label class="form-label">Departure Time</label>
                             <div class="row">
@@ -60,6 +60,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="form-label">Block Hours</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Block Hours</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
                     <div class="col-md-12 text-end">
                         <button class="btn btn-primary-outline" type="button" (click)="addSector()" >{{flightForm.get("flightSector")?.value.isEdit? 'Update ':'Add '}}Sector</button> <!--[disabled]="!flightForm.valid"-->
                     </div>
@@ -71,6 +81,7 @@
                 <div class="bg-box px-3 pt-2 pb-1" *ngIf="flightSectorList?.length > 0">
                     <div class="sector-wrapper">
                         <div class="sector-set">
+                            <div class="base block-time">12:18</div>
                             <div class="base">{{initialAirportCode}}</div>
                         </div>
                         <div class="sector-set" *ngFor="let item of flightSectorList">
@@ -84,7 +95,11 @@
                             <div class="sector-action">
                                 <i class="ca ca-icn-edit" title="Edit" (click)="editFlightSector(item)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="removeflightSector()" ></i>
-                                <div class="base">{{item.destinationAirportCode}}</div>
+                                <div class="d-flex">
+                                    <div class="base">{{item.destinationAirportCode}}</div>
+                                    <div class="base block-time">19:28</div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
