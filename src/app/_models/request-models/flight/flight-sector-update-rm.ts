@@ -9,6 +9,6 @@ export class FlightSectorUpdateRM{
   departureDateTime?: string;
   arrivalDateTime?: string;
   sector?:SectorUpdateRM;
-  originBlockTimeHrs?: number;
-  destinationBlockTimeHrs?: number;
+  originBlockTimeMin?: number;
+  destinationBlockTimeMin?: number;
 }

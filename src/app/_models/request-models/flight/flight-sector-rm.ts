@@ -7,6 +7,6 @@ export class FlightSectorRM {
   destinationAirportCode?: string;
   departureDateDisplayTime?: string;
   arrivalDateDisplayTime?: string;
-  originBlockTimeHrs?: number;
-  destinationBlockTimeHrs?: number;
+  originBlockTimeMin?: number;
+  destinationBlockTimeMin?: number;
 }

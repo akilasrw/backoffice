@@ -30,7 +30,7 @@ export class FlightCreateComponent implements OnInit {
   selectedOriginAirportId: string ='';
   selectedDesAirportId: string ='';
   initialAirportCode?: string;
-  initialBlockHrs?: string;
+  initialBlockMin?: string;
   flightSectorList: FlightSectorRM[] = [];
   isLoading: boolean = false;
   @Output() closePopup = new EventEmitter<any>();
@@ -71,7 +71,7 @@ export class FlightCreateComponent implements OnInit {
     this.flightForm.get('flightNumber')?.patchValue(flight.flightNumber);
     this.initialAirportCode = flight?.originAirportCode;
     if(flight?.flightSectors && flight?.flightSectors.length> 0)
-      this.initialBlockHrs = flight?.flightSectors[0].originBlockTimeHrs?.toString();
+      this.initialBlockMin = flight?.flightSectors[0].originBlockTimeMin?.toString();
 
     if(flight?.flightSectors)
     flight?.flightSectors.forEach(val => {
@@ -85,10 +85,10 @@ export class FlightCreateComponent implements OnInit {
         flightSector.arrivalDateDisplayTime = this.timeFormat(val.arrivalDateTime);
       flightSector.destinationAirportCode = val.sector?.destinationAirportCode;
       flightSector.originAirportCode = val.sector?.originAirportCode;
-      if(val.destinationBlockTimeHrs)
-        flightSector.destinationBlockTimeHrs = +val.destinationBlockTimeHrs;
-      if(val.originBlockTimeHrs)
-        flightSector.originBlockTimeHrs = Number(val.originBlockTimeHrs);
+      if(val.destinationBlockTimeMin)
+        flightSector.destinationBlockTimeMin = +val.destinationBlockTimeMin;
+      if(val.originBlockTimeMin)
+        flightSector.originBlockTimeMin = Number(val.originBlockTimeMin);
       this.flightSectorList.push(flightSector);
       this.flightCreateRM.flightSectors = this.flightSectorList;
     });
@@ -147,8 +147,8 @@ export class FlightCreateComponent implements OnInit {
         departureDateDisplayTimeMin: ['',[Validators.required, Validators.min(0), Validators.max(59)]],
         arrivalDateDisplayTimeHr: ['',[Validators.required, Validators.min(0), Validators.max(23)]],
         arrivalDateDisplayTimeMin: ['',[Validators.required, Validators.min(0), Validators.max(59)]],
-        originBlockTimeHrs:[0,[Validators.required, Validators.min(0), Validators.max(24)]],
-        destinationBlockTimeHrs:[0,[Validators.required, Validators.min(0), Validators.max(24)]],
+        originBlockTimeMin:[0,[Validators.required, Validators.min(0), Validators.max(24)]],
+        destinationBlockTimeMin:[0,[Validators.required, Validators.min(0), Validators.max(24)]],
         isEdit:[false]
       })
     });
@@ -183,7 +183,7 @@ export class FlightCreateComponent implements OnInit {
 
         if(this.flightSectorList.length == 1)
           this.initialAirportCode = this.flightSectorList[0]?.originAirportCode;
-          this.initialBlockHrs = this.flightSectorList[0]?.originBlockTimeHrs?.toString();
+          this.initialBlockMin = this.flightSectorList[0]?.originBlockTimeMin?.toString();
       }
     } else {
       this.flightForm.markAllAsTouched();
@@ -215,8 +215,8 @@ export class FlightCreateComponent implements OnInit {
 
     flightSector.departureDateDisplayTime = this.timeFormat(departureTime);
     flightSector.arrivalDateDisplayTime = this.timeFormat(arrivalTime);
-    flightSector.originBlockTimeHrs = form.flightSector.originBlockTimeHrs;
-    flightSector.destinationBlockTimeHrs = form.flightSector.destinationBlockTimeHrs;
+    flightSector.originBlockTimeMin = form.flightSector.originBlockTimeMin;
+    flightSector.destinationBlockTimeMin= form.flightSector.destinationBlockTimeMin;
 
     this.flightForm.controls['flightSector'].reset();
     if(selectedSector[0]) {
@@ -374,8 +374,8 @@ export class FlightCreateComponent implements OnInit {
     this.flightForm.get('flightSector')?.get('departureDateDisplayTimeMin')?.patchValue(sector.departureDateDisplayTime?.split(':')[1]);
     this.flightForm.get('flightSector')?.get('arrivalDateDisplayTimeHr')?.patchValue(sector.arrivalDateDisplayTime?.split(':',1));
     this.flightForm.get('flightSector')?.get('arrivalDateDisplayTimeMin')?.patchValue(sector.arrivalDateDisplayTime?.split(':')[1]);
-    this.flightForm.get('flightSector')?.get('originBlockTimeHrs')?.patchValue(sector.originBlockTimeHrs);
-    this.flightForm.get('flightSector')?.get('destinationBlockTimeHrs')?.patchValue(sector.destinationBlockTimeHrs);
+    this.flightForm.get('flightSector')?.get('originBlockTimeMin')?.patchValue(sector.originBlockTimeMin);
+    this.flightForm.get('flightSector')?.get('destinationBlockTimeMin')?.patchValue(sector.destinationBlockTimeMin);
   }
 
   closeModal() {
