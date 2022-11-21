@@ -147,8 +147,8 @@ export class FlightCreateComponent implements OnInit {
         departureDateDisplayTimeMin: ['',[Validators.required, Validators.min(0), Validators.max(59)]],
         arrivalDateDisplayTimeHr: ['',[Validators.required, Validators.min(0), Validators.max(23)]],
         arrivalDateDisplayTimeMin: ['',[Validators.required, Validators.min(0), Validators.max(59)]],
-        originBlockTimeMin:[0,[Validators.required, Validators.min(0), Validators.max(24)]],
-        destinationBlockTimeMin:[0,[Validators.required, Validators.min(0), Validators.max(24)]],
+        originBlockTimeMin:[0,[Validators.required, Validators.min(0), Validators.max(1440)]],
+        destinationBlockTimeMin:[0,[Validators.required, Validators.min(0), Validators.max(1440)]],
         isEdit:[false]
       })
     });
