@@ -155,7 +155,6 @@ export class FlightListComponent implements OnInit {
             this.getFlightList();
           },
           error: (error) => {
-            this.toastr.error(CommonMessages.DeleteFailMsg);
             this.cancelDelete();
             this.isLoading=false;
           }
