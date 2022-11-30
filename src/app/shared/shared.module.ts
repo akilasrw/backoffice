@@ -24,6 +24,7 @@ import { AutoCompleteTextboxComponent } from './components/forms/auto-complete-t
 import { TwodecimalpointsDirective } from '../directives/twodecimalpoints.directive';
 import { ValueInputComponent } from './components/forms/value-input/value-input.component';
 import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
+import { WhiteSpaceInputComponent } from './components/forms/white-space-input/white-space-input.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
     AutoCompleteTextboxComponent,
     TwodecimalpointsDirective,
     ValueInputComponent,
-    UldInfoComponent
+    UldInfoComponent,
+    WhiteSpaceInputComponent
   ],
   imports: [
     CommonModule,
@@ -77,7 +79,8 @@ import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
     TableLoaderComponent ,
     TextInputLoaderComponent    ,
     AutoCompleteTextboxComponent,
-    TwodecimalpointsDirective
+    TwodecimalpointsDirective,
+    WhiteSpaceInputComponent
   ]
 })
 export class SharedModule { }
