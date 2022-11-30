@@ -216,8 +216,8 @@ export class CoreExtensions {
       case AWBNumberStatus.All:
         statusString = "All";
         break;
-      case AWBNumberStatus.Avilable:
-        statusString = "Avilable";
+      case AWBNumberStatus.Available:
+        statusString = "Available";
         break;
       case AWBNumberStatus.Used:
         statusString = "Used";
