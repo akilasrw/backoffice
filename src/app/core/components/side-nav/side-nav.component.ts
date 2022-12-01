@@ -1,4 +1,3 @@
-import { AwbStackManagementComponent } from './../../../modules/air-waybill/awb-stack-management/awb-stack-management.component';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/user.model';
 import { Subscription } from 'rxjs';
@@ -17,12 +16,12 @@ export class SideNavComponent implements OnInit, OnDestroy {
   routeConstants = RouteConstants
 
   selectedMenu = MenuType.None
-  currentUser?:User | null
-  subscription?:Subscription;
-  public showCollapseMenu:boolean=false;
-  public showProfileCard:boolean=true;
+  currentUser?: User | null
+  subscription?: Subscription;
+  public showCollapseMenu: boolean = false;
+  public showProfileCard: boolean = true;
   @Output() hideMenu = new EventEmitter<any>();
-  
+
   constructor(
     private router: Router,
     private accountService: AccountService,
@@ -35,6 +34,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCurrentUser();
+    let currentUrl = window.location.href.split('/').pop();
+    if (currentUrl != null) {
+      this.selectedMenu = this.getSelectedMenuType(currentUrl);
+    }
   }
 
   getCurrentUser() {
@@ -43,7 +46,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
     });
   }
 
-  profileClick(){
+  profileClick() {
     this.showProfileCard = !this.showProfileCard
   }
 
@@ -51,56 +54,56 @@ export class SideNavComponent implements OnInit, OnDestroy {
     this.accountService.logout();
   }
 
-  settings(){
+  settings() {
 
   }
 
-  edit(){
+  edit() {
 
   }
 
-  menuClickEvent(menu: MenuType){
+  menuClickEvent(menu: MenuType) {
     this.selectedMenu = menu;
-    switch(menu){
+    switch (menu) {
       case MenuType.None:
-        this.showCollapseMenu=!this.showCollapseMenu;
+        this.showCollapseMenu = !this.showCollapseMenu;
         this.hideMenu.emit(this.showCollapseMenu);
-        if(!this.showCollapseMenu){
+        if (!this.showCollapseMenu) {
           this.showProfileCard = true;
-        }else{
+        } else {
           this.showProfileCard = !this.showProfileCard;
         }
-      break;
+        break;
       case MenuType.DashBoard:
         this.router.navigate([RouteConstants.DashboardRoute])
-      break;
+        break;
       case MenuType.BookingSummay:
         this.router.navigate([RouteConstants.BookingSummaryRoute])
-      break;
+        break;
       case MenuType.AWBStackManagement:
         this.router.navigate([RouteConstants.AirWaybillRoute])
-      break;
+        break;
       case MenuType.PalletManagement:
         this.router.navigate([RouteConstants.PalletRoute])
-      break;
+        break;
       case MenuType.Airport:
         this.router.navigate([RouteConstants.AirportRoute])
-      break;
+        break;
       case MenuType.Sector:
         this.router.navigate([RouteConstants.SectorRoute])
-      break;
+        break;
       case MenuType.Aircraft:
         this.router.navigate([RouteConstants.AircraftRoute])
-      break;
+        break;
       case MenuType.Flight:
         this.router.navigate([RouteConstants.FlightRoute])
-      break;
+        break;
       case MenuType.FlightSchedule:
         this.router.navigate([RouteConstants.FlightSchedule])
-      break;
+        break;
       case MenuType.Rate:
         this.router.navigate([RouteConstants.Rate])
-      break;
+        break;
       case MenuType.UserManagement:
         this.router.navigate([RouteConstants.UserManagement])
         break;
@@ -109,6 +112,46 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
     }
 
+  }
+
+  getSelectedMenuType(url: string): number {
+    let selectedType = MenuType.None
+    switch (url) {
+      case RouteConstants.DashboardRoute:
+        selectedType = MenuType.DashBoard;
+        break;
+      case RouteConstants.BookingSummaryRoute:
+        selectedType = MenuType.BookingSummay;
+        break;
+      case RouteConstants.AirWaybillRoute:
+        selectedType = MenuType.AWBStackManagement;
+        break;
+      case RouteConstants.PalletRoute:
+        selectedType = MenuType.PalletManagement;
+        break;
+      case RouteConstants.SectorRoute:
+        selectedType = MenuType.Sector;
+        break;
+      case RouteConstants.AirportRoute:
+        selectedType = MenuType.Airport;
+        break;
+      case RouteConstants.FlightRoute:
+        selectedType = MenuType.Flight;
+        break;
+      case RouteConstants.FlightSchedule:
+        selectedType = MenuType.FlightSchedule;
+        break;
+      case RouteConstants.Rate:
+        selectedType = MenuType.Rate;
+        break;
+      case RouteConstants.UserManagement:
+        selectedType = MenuType.UserManagement;
+        break;
+      case RouteConstants.DashboardRoute:
+        selectedType = MenuType.None;
+        break;
+    }
+    return selectedType;
   }
 
 }
