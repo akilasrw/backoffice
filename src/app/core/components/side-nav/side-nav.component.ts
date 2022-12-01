@@ -147,9 +147,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case RouteConstants.UserManagement:
         selectedType = MenuType.UserManagement;
         break;
-      case RouteConstants.DashboardRoute:
-        selectedType = MenuType.None;
-        break;
     }
     return selectedType;
   }
