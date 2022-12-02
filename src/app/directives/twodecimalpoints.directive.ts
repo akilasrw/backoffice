@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class TwodecimalpointsDirective {
 
   private regex: RegExp = new RegExp(/^\d*\.?\d{0,2}$/g);
-  private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', '-', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
+  private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
   constructor(private el: ElementRef) {
   }
   @HostListener('keydown', ['$event'])
