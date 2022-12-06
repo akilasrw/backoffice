@@ -22,6 +22,44 @@
             </div>
         </div>
 </div>
+<div class="row">
+    <div class="table-content">
+      <div class="table-responsive">
+        <table class="table" >
+          <thead>
+            <th>Booking ID</th>
+              <th>AWB Number</th>
+              <th>Booking Agent</th>
+              <th>Booking Date</th>
+              <th>Booking Status</th>
+              <th>Number of Boxes</th>
+              <th>Total Weight (kg)</th>
+              <th>Total Volume (m3)</th>
+          </thead>
+          <!-- <tbody>
+            <tr *ngFor="let booking of this.cargoBookingList">
+                <td>{{booking.bookingNumber}}</td>
+                <td>{{booking.awbNumber}}</td>
+                <td>{{booking.bookingAgent}}</td>
+                <td>{{booking.bookingDate | date}}</td>
+                <td><span class="status-chip" [ngClass]="{
+                  'none':booking?.bookingStatus == bookingStatus.None,
+                  'pending': booking?.bookingStatus == bookingStatus.Pending,
+                  'dispatch':booking?.bookingStatus == bookingStatus.Dispatched,
+                  'invoiced':booking?.bookingStatus == bookingStatus.Invoiced,
+                  'accepted':booking?.bookingStatus == bookingStatus.Accepted,
+                  'loading':booking?.bookingStatus == bookingStatus.Loading,
+                  'exported':booking?.bookingStatus == bookingStatus.Exported
+              }">{{getBookingStatus(booking?.bookingStatus)}}</span></td>
+                <td>{{booking.numberOfBoxes}}</td>
+                <td>{{booking.totalWeight}}</td>
+                <td>{{convertcm3Tom3(booking.totalVolume)}}</td>
+            </tr>
+        </tbody> -->
+        </table>
+      </div>
+    </div>
+  </div>
 <div class="not-available" *ngIf="!positionDetail?.isPalletAssigned">
     <img src="./assets/images/no-data.png" alt="No Content Data">
     <div>ULD not assigned.</div>
