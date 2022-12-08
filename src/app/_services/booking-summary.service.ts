@@ -9,6 +9,7 @@ import { BookingSummaryQuery } from '../_models/queries/booking-summary/booking-
 import { CargoBookingSummaryDetail } from '../_models/view-models/booking-summary/cargo-booking-summary-detail.model';
 import { CargoBookingSummary } from '../_models/view-models/booking-summary/cargo-booking-summary.model';
 import { UldContainerCargoPosition } from '../_models/view-models/booking-summary/uld-container-cargo-position.model';
+import { CargoBooking } from '../_models/view-models/cargo-bookings/cargo-booking.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,8 @@ export class BookingSummaryService extends BaseService {
   private readonly getSeatSummaryEndpoint = `${this.endpointEntityName}/getSeatSummary`;
   private readonly getFilteredListEndpoint = `${this.endpointCargoBookingSummary}/GetFilteredList`;
   private readonly assignCargoToULDEndpoint = `${this.endpointULDCargoBookingSummary}/AssignCargoToULD`;
+  private readonly getULDBookingListEndpoint = `${this.endpointULDCargoBookingSummary}/getULDBookingList`;
+
 
 
   constructor(http: HttpClient){super(http)}
@@ -76,6 +79,22 @@ export class BookingSummaryService extends BaseService {
 
   assignCargoToUld(uldContainerCargoPosition: UldContainerCargoPosition){
     return this.post<any>(this.assignCargoToULDEndpoint, uldContainerCargoPosition);
+  }
+
+  getULDBookingList(query: UldContainerCargoPosition) {
+    var params = new HttpParams();
+
+    if (query.cargoPositionId) {
+      params = params.append("cargoPositionId", query.cargoPositionId);
+    }
+    if (query.uLDContainerId) {
+      params = params.append("uLDContainerId", query.uLDContainerId);
+    }
+
+    return this.getWithParams<CargoBooking[]>(
+      this.getULDBookingListEndpoint,
+      params
+    );
   }
 
 
