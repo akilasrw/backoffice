@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CargoPositionULDContainerListQuery } from 'src/app/_models/queries/booking-summary/cargo-position-uld-container-list-query.model';
 import { CargoPositionDetail } from 'src/app/_models/view-models/booking-summary/cargo-position-detail.model';
-import { UldContainerCargoPosition } from 'src/app/_models/view-models/booking-summary/uld-container-cargo-position.model';
 import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-booking.model';
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
 
@@ -24,14 +24,12 @@ export class FreighterUldDetailsComponent implements OnInit {
   }
 
   getULDBookingList() {
-    let query = new UldContainerCargoPosition();
+    let query = new CargoPositionULDContainerListQuery();
     query.cargoPositionId = this.positionDetail.id;
-    // query.uLDContainerId = cargoPackage.uldContainerId;
     this.bookingSummaryService.getULDBookingList(query).subscribe(
       {
         next: (res) => {
           this.cargoBookingList = res;
-          console.log('Booking Detail',res);
         },
         error: () => {
           this.cargoBookingList = [];
