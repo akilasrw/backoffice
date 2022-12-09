@@ -30,9 +30,7 @@
           <th>Booking ID</th>
           <th>AWB Number</th>
           <th>Booking Agent</th>
-          <th>Booking Date</th>
-          <th>Booking Status</th>
-          <th>Number of Boxes</th>
+          <th>Number of Packages</th>
           <th>Total Weight (kg)</th>
           <th>Total Volume (m3)</th>
         </thead>
@@ -41,19 +39,9 @@
             <td>{{booking.bookingNumber}}</td>
             <td>{{booking.awbNumber}}</td>
             <td>{{booking.bookingAgent}}</td>
-            <td>{{booking.bookingDate | date}}</td>
-            <td><span class="status-chip" [ngClass]="{
-                  'none':booking?.bookingStatus == bookingStatus.None,
-                  'pending': booking?.bookingStatus == bookingStatus.Pending,
-                  'dispatch':booking?.bookingStatus == bookingStatus.Dispatched,
-                  'invoiced':booking?.bookingStatus == bookingStatus.Invoiced,
-                  'accepted':booking?.bookingStatus == bookingStatus.Accepted,
-                  'loading':booking?.bookingStatus == bookingStatus.Loading,
-                  'exported':booking?.bookingStatus == bookingStatus.Exported
-              }">{{getBookingStatus(booking?.bookingStatus)}}</span></td>
-            <td>{{booking.numberOfBoxes}}</td>
+            <td>{{booking.numberOfBoxes       }}</td>
             <td>{{booking.totalWeight}}</td>
-            <td>{{convertcm3Tom3(booking.totalVolume)}}</td>
+            <td>{{convertcm3Tom3(booking.totalVolume)|number:'1.2-2'}}</td>
           </tr>
         </tbody>
       </table>
