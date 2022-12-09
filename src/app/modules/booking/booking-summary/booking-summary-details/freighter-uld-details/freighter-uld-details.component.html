@@ -14,7 +14,7 @@
     </div>
     <div class="details-group">
       <div class="lable">Volume</div>
-      <div>{{positionDetail.volume + " cm3"}}</div>
+      <div>{{convertcm3Tom3(positionDetail.volume) |number :'1.2-2'}} m3</div>
     </div>
     <div class="details-group">
       <div class="lable">Destination</div>
@@ -39,7 +39,7 @@
             <td>{{booking.bookingNumber}}</td>
             <td>{{booking.awbNumber}}</td>
             <td>{{booking.bookingAgent}}</td>
-            <td>{{booking.numberOfBoxes       }}</td>
+            <td>{{booking.numberOfAssignedBoxes+"/"+booking.numberOfBoxes}}</td>
             <td>{{booking.totalWeight}}</td>
             <td>{{convertcm3Tom3(booking.totalVolume)|number:'1.2-2'}}</td>
           </tr>

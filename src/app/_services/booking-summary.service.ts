@@ -10,7 +10,7 @@ import { CargoPositionULDContainerListQuery } from '../_models/queries/booking-s
 import { CargoBookingSummaryDetail } from '../_models/view-models/booking-summary/cargo-booking-summary-detail.model';
 import { CargoBookingSummary } from '../_models/view-models/booking-summary/cargo-booking-summary.model';
 import { UldContainerCargoPosition } from '../_models/view-models/booking-summary/uld-container-cargo-position.model';
-import { CargoBooking } from '../_models/view-models/cargo-bookings/cargo-booking.model';
+import { ULDCargoBooking } from '../_models/view-models/cargo-bookings/uld-cargo-booking.model';
 
 @Injectable({
   providedIn: 'root'
@@ -88,7 +88,7 @@ export class BookingSummaryService extends BaseService {
     if (query.cargoPositionId) {
       params = params.append("cargoPositionId", query.cargoPositionId);
     }
-    return this.getWithParams<CargoBooking[]>(
+    return this.getWithParams<ULDCargoBooking[]>(
       this.getULDBookingListEndpoint,
       params
     );
