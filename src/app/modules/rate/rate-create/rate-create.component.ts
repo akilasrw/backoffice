@@ -83,6 +83,8 @@ export class RateCreateComponent implements OnInit {
       destinationAirportId: new FormControl(null, [Validators.required]),
       originAirportCode: new FormControl(null),
       destinationAirportCode: new FormControl(null),
+      startDate: new FormControl(null,[Validators.required]),
+      endDate: new FormControl(null,[Validators.required]),
       agentRates: this.fb.array([]),
     });
 
@@ -148,11 +150,26 @@ export class RateCreateComponent implements OnInit {
       return;
     }
 
+    if (this.rateForm.get('startDate')?.value === null) {
+      this.toastr.error('Please start date.');
+      return;
+    }
+
+    if (this.rateForm.get('endDate')?.value === null) {
+      this.toastr.error('Please end date.');
+      return;
+    }
+
+    if (this.rateForm.get('startDate')?.value >= this.rateForm.get('endDate')?.value) {
+      this.toastr.error('The end date should be greater than the start date.');
+      return;
+    }
+
     if(this.isFlightExist()){
       this.toastr.error('Selected flight(origin and destination) already exist.');
       return;
     }
-    
+
     if (this.rateForm.valid) {
       this.agentRateManagements.push(this.rateForm.value);
       this.rateForm.reset();
