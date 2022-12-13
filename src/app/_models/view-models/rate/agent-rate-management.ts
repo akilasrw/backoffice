@@ -10,5 +10,7 @@ export class AgentRateManagement extends BaseVM{
     originAirportName?:string;
     destinationAirportName?:string;
     cargoAgentName?:string;
+    startDate?: Date;
+    endDate?: Date;
     agentRates?:AgentRate[];
 }

@@ -34,6 +34,24 @@
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Valid Start Date</label>
+                                <input type="text" [formControl]='rateForm.controls["startDate"]'
+                                    class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Valid End Date</label>
+                                <input type="text" [formControl]='rateForm.controls["endDate"]'
+                                    class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                    </div>
                     <div>Add rate classes and rates</div>
                     <div class="row">
                         <div class="col-md-12">
@@ -63,6 +81,8 @@
                     <thead>
                         <th>Origin</th>
                         <th>Destination</th>
+                        <th>Start date</th>
+                        <th>End date</th>
                         <th>M</th>
                         <th>-45K</th>
                         <th>+45K</th>
@@ -76,6 +96,8 @@
                         <tr *ngFor="let item of this.agentRateManagements">
                             <td>{{item.originAirportCode}}</td>
                             <td>{{item.destinationAirportCode}}</td>
+                            <td>{{item.startDate| date}}</td>
+                            <td>{{item.endDate| date}}</td>
                             <td *ngFor="let rateItem of item.agentRates">{{rateItem.rate}}</td>
                             <td>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>

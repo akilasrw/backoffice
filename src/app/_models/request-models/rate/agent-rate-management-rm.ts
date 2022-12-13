@@ -4,5 +4,7 @@ export class AgentRateManagementRM {
     cargoAgentId?:string;
     originAirportId?:string;
     destinationAirportId?:string;
+    startDate?:string;
+    endDate?:string;
     agentRates?:AgentRateRM[];
 }

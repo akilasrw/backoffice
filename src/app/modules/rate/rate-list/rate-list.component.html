@@ -44,6 +44,8 @@
                         <th>Agent</th>
                         <th>Origin</th>
                         <th>Destination</th>
+                        <th>Valid Start Date</th>
+                        <th>Valid End Date</th>
                         <th class="text-center">Actions</th>
                     </thead>
                     <tbody>
@@ -51,6 +53,8 @@
                             <td>{{item.cargoAgentName}}</td>
                             <td>{{item.originAirportCode}}</td>
                             <td>{{item.destinationAirportCode}}</td>
+                            <td>{{item.startDate| date}}</td>
+                            <td>{{item.endDate| date}}</td>
                             <td class="text-center">
                                 <i class="ca ca-icn-view" title="View" (click)="openRateDetail(item.id)"></i>
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onUpdate(item.id)"></i>
