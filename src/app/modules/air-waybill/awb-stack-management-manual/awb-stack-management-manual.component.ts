@@ -46,7 +46,7 @@ export class AwbStackManagementManualComponent implements OnInit {
 
   loadStatusTypes() {
     this.awbStatus.push({ id: AWBNumberStatus.All.toString(), value: CoreExtensions.GetAWBStaus(AWBNumberStatus.All) },
-      { id: AWBNumberStatus.Avilable.toString(), value: CoreExtensions.GetAWBStaus(AWBNumberStatus.Avilable) },
+      { id: AWBNumberStatus.Available.toString(), value: CoreExtensions.GetAWBStaus(AWBNumberStatus.Available) },
       { id: AWBNumberStatus.Used.toString(), value: CoreExtensions.GetAWBStaus(AWBNumberStatus.Used) });
   }
 

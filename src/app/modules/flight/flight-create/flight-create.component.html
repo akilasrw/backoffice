@@ -23,49 +23,28 @@
                                     (selectedObject)="originAirportSelectEvent($event)">
                                 </app-auto-complete-textbox>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Destination</label>
-                                <app-auto-complete-textbox #destinationAirportTextBox [SelectedList]="desAirports"
-                                    [form]="flightForm"
-                                    [control]="flightForm.get('flightSector')?.get('desAirportCode')"
-                                    (searchedText)="destinationAirportTextChange($event)"
-                                    (selectedObject)="destinationAirportSelectEvent($event)">
-                                </app-auto-complete-textbox>
-                            </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label class="form-label">Departure Time</label>
                                 <div class="row">
                                     <div class="col-md-12 time-field">
-                                        <div class="d-flex align-items-center">
-                                            <app-text-input
-                                                [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeHr"]'
-                                                [label]='"Departure Time (Hr)"' type="number" [tabindex]="3">
-                                            </app-text-input>
-                                            <span class="px-2">:</span>
-                                            <app-text-input
-                                                [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeMin"]'
-                                                [label]='"Departure Time (Min)"' type="number" [tabindex]="4">
-                                            </app-text-input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Arrival Time</label>
-                                <div class="row">
-                                    <div class="col-md-12 time-field">
-                                        <div class="d-flex align-items-center">
-                                            <app-text-input class="mb-0"
-                                                [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeHr"]'
-                                                [label]='"Arrival Time (Hr)"' type="number" [tabindex]="5">
-                                            </app-text-input>
-                                            <span class="px-2">:</span>
-                                            <app-text-input
-                                                [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeMin"]'
-                                                [label]='"Arrival Time (Min)"' type="number" [tabindex]="6">
-                                            </app-text-input>
+                                        <div class="row">
+                                            <div class="col-md-5 pe-0">
+                                                <app-text-input
+                                                    [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeHr"]'
+                                                    [label]='"Departure Time (Hr)"' type="number" [tabindex]="3">
+                                                </app-text-input>
+                                            </div>
+                                            <div class="col-md-2 p-2 text-center">
+                                                <span>:</span>
+                                            </div>
+                                            <div class="col-md-5 ps-0">
+                                                <app-text-input
+                                                    [formControl]='flightForm.get("flightSector")?.controls["departureDateDisplayTimeMin"]'
+                                                    [label]='"Departure Time (Min)"' type="number" [tabindex]="4">
+                                                </app-text-input>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -79,6 +58,47 @@
                                     [label]='"Origin Block Time "' type="number" [tabindex]="7">
                                 </app-text-input>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Destination</label>
+                                <app-auto-complete-textbox #destinationAirportTextBox [SelectedList]="desAirports"
+                                    [form]="flightForm"
+                                    [control]="flightForm.get('flightSector')?.get('desAirportCode')"
+                                    (searchedText)="destinationAirportTextChange($event)"
+                                    (selectedObject)="destinationAirportSelectEvent($event)">
+                                </app-auto-complete-textbox>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="form-label">Arrival Time</label>
+                                <div class="row">
+                                    <div class="col-md-12 time-field">
+                                        <div class="row">
+                                            <div class="col-md-5 pe-0">
+                                                <app-text-input class="mb-0"
+                                                    [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeHr"]'
+                                                    [label]='"Arrival Time (Hr)"' type="number" [tabindex]="5">
+                                                </app-text-input>
+                                            </div>
+                                            <div class="col-md-2 p-2 text-center">
+                                                <span>:</span>
+                                            </div>
+                                            <div class="col-md-5 ps-0">
+                                                <app-text-input
+                                                    [formControl]='flightForm.get("flightSector")?.controls["arrivalDateDisplayTimeMin"]'
+                                                    [label]='"Arrival Time (Min)"' type="number" [tabindex]="6">
+                                                </app-text-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Block Minutes</label>
                                 <app-text-input
@@ -87,12 +107,12 @@
                                 </app-text-input>
                             </div>
                         </div>
-                        <div class="col-md-12 text-end">
-                            <button class="btn btn-primary-outline" type="button"
-                                (click)="addSector()">{{flightForm.get("flightSector")?.value.isEdit? 'Update ':'Add
-                                '}}Sector</button>
-                            <!--[disabled]="!flightForm.valid"-->
-                        </div>
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <button class="btn btn-primary-outline" type="button"
+                            (click)="addSector()">{{flightForm.get("flightSector")?.value.isEdit? 'Update ':'Add
+                            '}}Sector</button>
+                        <!--[disabled]="!flightForm.valid"-->
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
-export class CargoPositionDetail {
+import { BaseVM } from './../../../shared/models/base-vm.model';
+export class CargoPositionDetail extends BaseVM {
     isPalletAssigned?:boolean;
     uldNumber?:string;
     maxWeight?: number;

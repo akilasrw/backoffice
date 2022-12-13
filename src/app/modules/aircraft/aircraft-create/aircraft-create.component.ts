@@ -70,7 +70,6 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
 
   editAircraftForm(aircraft: Aircraft) {
     this.getFileredAircraftTypes(aircraft.configurationType!);
-    console.log(aircraft);
     this.aircraftForm.get('id')?.patchValue(aircraft.id);
     this.aircraftForm.get('regNo')?.patchValue(aircraft.regNo);
     var typeId = this.getAircraftTypeIdByType(aircraft.aircraftType);

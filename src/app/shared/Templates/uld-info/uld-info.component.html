@@ -11,8 +11,8 @@
   <div class="summary-info">
       <div class="info-label">
           <div class="lable">Total Booked Volume (m3)</div>
-          <div>{{selectedCargoPosition?.volume>0? convertcm3Tom3(selectedCargoPosition?.volume) : 0}} /
-            {{selectedCargoPosition?.maxVolume>0? convertcm3Tom3(selectedCargoPosition?.maxVolume) : 0}}</div>
+          <div>{{convertcm3Tom3(selectedCargoPosition?.volume)|number :'1.2-2' }} /
+            {{convertcm3Tom3(selectedCargoPosition?.maxVolume)}}</div>
       </div>
       <div class="progress" style="height: 5px;">
           <div class="progress-bar" role="progressbar" [style.width.%]="selectedCargoPosition?.volume/selectedCargoPosition?.maxVolume*100"
