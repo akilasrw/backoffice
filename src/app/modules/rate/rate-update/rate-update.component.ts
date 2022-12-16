@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -8,6 +9,7 @@ import { AgentRateManagement } from 'src/app/_models/view-models/rate/agent-rate
 import { AirportService } from 'src/app/_services/airport.service';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 import { RateService } from 'src/app/_services/rate.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-rate-update',
@@ -29,6 +31,9 @@ export class RateUpdateComponent implements OnInit {
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
+  startMinDate = new Date();
+  endMinDate = new Date();
+  isDisabled = true;
 
   constructor(
     private cargoAgentService: CargoAgentService,
@@ -39,7 +44,7 @@ export class RateUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+  this.initializeForm();
     this.getDetail();
   }
 
@@ -53,7 +58,7 @@ export class RateUpdateComponent implements OnInit {
             this.isLoading = false;
             this.loadAirports();
             this.loadCargoAgents();
-            this.initializeForm(this.rateDetail);
+            this.patchValues(this.rateDetail);
           },
           error: (error) => {
             this.isLoading = false;
@@ -95,14 +100,29 @@ export class RateUpdateComponent implements OnInit {
       );
   }
 
-  initializeForm(rateDetail: AgentRateManagement) {
+  initializeForm() {
     this.rateForm = this.fb.group({
-      id: new FormControl(rateDetail.id, [Validators.required]),
-      cargoAgentId: new FormControl(rateDetail.cargoAgentId, [Validators.required]),
-      originAirportId: new FormControl(rateDetail.originAirportId, [Validators.required]),
-      destinationAirportId: new FormControl(rateDetail.destinationAirportId, [Validators.required]),
+      id: new FormControl(null, [Validators.required]),
+      cargoAgentId: new FormControl(null, [Validators.required]),
+      originAirportId: new FormControl(null, [Validators.required]),
+      destinationAirportId: new FormControl(null, [Validators.required]),
+      startDate: new FormControl(null,[Validators.required]),
+      endDate: new FormControl(null,[Validators.required]),
       agentRates: this.fb.array([]),
     });
+
+  }
+
+  patchValues(rateDetail: AgentRateManagement) {
+    this.rateForm.patchValue({
+      id: rateDetail.id,
+      cargoAgentId: rateDetail.cargoAgentId,
+      originAirportId: rateDetail.originAirportId,
+      destinationAirportId: rateDetail.destinationAirportId,
+    });
+
+    this.rateForm.get('startDate')?.patchValue(formatDate(rateDetail.startDate!.toString(), 'MM-dd-yyyy', 'en-US'));
+    this.rateForm.get('endDate')?.patchValue(formatDate(rateDetail.endDate!.toString(), 'MM-dd-yyyy', 'en-US'));
 
     rateDetail?.agentRates?.forEach(obj => {
       this.agentRates.push(this.fb.group({
@@ -172,8 +192,23 @@ export class RateUpdateComponent implements OnInit {
       return;
     }
 
+    if (this.rateForm.get('startDate')?.value === null) {
+      this.toastr.error('Please start date.');
+      return;
+    }
+
     if (this.rateForm.get('agentRates')?.value === null) {
       this.toastr.error('Please add rates.');
+      return;
+    }
+
+    if (this.rateForm.get('endDate')?.value === null) {
+      this.toastr.error('Please end date.');
+      return;
+    }
+
+    if (this.rateForm.get('startDate')?.value >= this.rateForm.get('endDate')?.value) {
+      this.toastr.error('The end date should be greater than the start date.');
       return;
     }
 
@@ -181,6 +216,9 @@ export class RateUpdateComponent implements OnInit {
       this.isLoading = true;
       var rateManagement: AgentRateManagementRM = new AgentRateManagementRM();
       rateManagement = this.rateForm.value;
+      rateManagement.startDate = moment(this.rateForm.get('startDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+      rateManagement.endDate = moment(this.rateForm.get('endDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+
       this.rateService.update(rateManagement).subscribe({
         next: (res) => {
           this.toastr.success('Rate updated successfully.');

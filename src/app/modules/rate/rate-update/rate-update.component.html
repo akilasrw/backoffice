@@ -5,7 +5,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Cargo Agent</label>
                     <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
-                        [selectedIndex]="editAgentIndex" (selectFileOutput)="selectedCargoAgent($event)"
+                        [selectedIndex]="editAgentIndex" (selectFileOutput)="selectedCargoAgent($event)" [isDisabled]="isDisabled"
                         (clearSearch)="onClearCargoAgent()">
                     </app-auto-complete-dropdown>
                 </div>
@@ -17,7 +17,7 @@
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Origin</label>
-                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
+                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" [isDisabled]="isDisabled"
                                     [selectedIndex]="editOriginIndex" #autoCompleteOrigin
                                     (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                                     (clearSearch)="onClearOrigin()">
@@ -28,11 +28,29 @@
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Destination</label>
-                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" [isDisabled]="isDisabled"
                                     [selectedIndex]="editDestinationIndex" #autoCompleteDestination
                                     (selectFileOutput)="selectedDestination($event)"
                                     (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
                                 </app-auto-complete-dropdown>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Valid Start Date</label>
+                                <input type="text" [formControl]='rateForm.controls["startDate"]'
+                                    class="form-control" readonly >
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <label class="form-label">Valid End Date</label>
+                                <input type="text" [formControl]='rateForm.controls["endDate"]'
+                                    class="form-control" readonly >
                             </div>
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>

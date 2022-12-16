@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { WeightType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
@@ -28,6 +29,8 @@ export class RateCreateComponent implements OnInit {
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
+  startMinDate = new Date();
+  endMinDate = new Date();
   @ViewChild('autoCompleteCargoAgent') autoCompleteCargoAgent!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteOrigin') autoCompleteOrigin!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteDestination') autoCompleteDestination!: AutoCompleteDropdownComponent;
@@ -171,7 +174,11 @@ export class RateCreateComponent implements OnInit {
     }
 
     if (this.rateForm.valid) {
-      this.agentRateManagements.push(this.rateForm.value);
+      var createdRate = this.rateForm.value;
+      createdRate.startDate = moment(this.rateForm.get('startDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+      createdRate.sndDate = moment(this.rateForm.get('endDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+
+      this.agentRateManagements.push(createdRate);
       this.rateForm.reset();
       this.rateForm.markAsUntouched();
       this.initializeForm();

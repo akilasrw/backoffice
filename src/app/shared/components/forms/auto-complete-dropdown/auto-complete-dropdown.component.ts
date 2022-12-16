@@ -15,6 +15,7 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Output() clearSearch = new EventEmitter<any>();
   @Output() changeSearch = new EventEmitter<any>();
   @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
+  @Input() isDisabled:Boolean = false;
 
   // @Input() set clearInput(value: boolean) {
   //   if(value)
