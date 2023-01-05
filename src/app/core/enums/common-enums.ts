@@ -10,7 +10,8 @@ export enum MenuType {
   Flight = 8,
   FlightSchedule = 9,
   Rate = 10,
-  UserManagement = 11
+  UserManagement = 11,
+  Notification=12
 }
 
 export enum SectorType {

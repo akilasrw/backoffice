@@ -74,6 +74,12 @@
                         <span class="menu-title">Cargo Agent Management</span>
                     </div>
                 </li>
+                <li>
+                    <div class="menu-item" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">
+                        <span class="menu-icn ca ca-icn-bell tool-tip"><span class="tooltiptext">Publish Notification</span></span>
+                        <span class="menu-title">Publish Notification</span>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
