@@ -1,5 +1,5 @@
 <div [ngClass]="{ 'collapseActive':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
-  <app-side-nav (hideMenu)="hideMenu($event)" *ngIf="(accountService.currentUser$ | async) != null"></app-side-nav>
+  <app-side-nav (hideMenu)="hideMenu($event)" (publishNotification)="showNotificationModal($event)" *ngIf="(accountService.currentUser$ | async) != null"></app-side-nav>
   <div [ngClass]="{'content-container': (accountService.currentUser$ | async) != null}">
       <router-outlet></router-outlet>
       <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
@@ -14,4 +14,21 @@
 
   <h1>{{'hello' | translate }}</h1> -->
   
+</div>
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': notificationModalVisibleAnimate}"
+    [ngStyle]="{'display': notificationModalVisible ? 'block' : 'none', 'opacity': notificationModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Publish Notification</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelNotificationModal()" aria-label="Close"><span
+                        class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+              <app-publish-notification></app-publish-notification>
+            </div>
+        </div>
+    </div>
 </div>

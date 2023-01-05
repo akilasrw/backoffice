@@ -15,6 +15,8 @@ export class AppComponent implements OnInit{
   title = 'aeroclub cargo backoffice client';
   isLoaded = false;
   public showCollapseMenu:boolean=false;
+  notificationModalVisible = false;
+  notificationModalVisibleAnimate = false;
 
 
   constructor(
@@ -56,4 +58,13 @@ export class AppComponent implements OnInit{
     this.showCollapseMenu=valu;
   }
 
+  showNotificationModal(value:any){
+    this.notificationModalVisible = true;
+    setTimeout(() => (this.notificationModalVisibleAnimate = true));
+  }
+
+  cancelNotificationModal() {
+    this.notificationModalVisibleAnimate = false;
+    setTimeout(() => (this.notificationModalVisible = false), 300);
+  }
 }

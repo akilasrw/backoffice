@@ -1,3 +1,4 @@
+import { NotificationModule } from './modules/notification/notification.module';
 import { HttpClient,HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +24,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
+    NotificationModule,
     TranslateModule.forRoot({
       loader:{
         provide: TranslateLoader,

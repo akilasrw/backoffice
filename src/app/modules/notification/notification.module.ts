@@ -14,6 +14,10 @@ import { PublishNotificationComponent } from './publish-notification/publish-not
     CommonModule,
     NotificationRoutingModule,
     SharedModule
+  ],
+  exports:[
+    PublishNotificationComponent
   ]
+
 })
 export class NotificationModule { }
