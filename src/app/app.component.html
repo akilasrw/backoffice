@@ -26,8 +26,8 @@
                 <button type="button" class="close btn" data-dismiss="modal" (click)="cancelNotificationModal()" aria-label="Close"><span
                         class="ca ca-icn-close"></span></button>
             </div>
-            <div class="modal-body">
-              <app-publish-notification></app-publish-notification>
+            <div>
+              <app-publish-notification (closePopup)="cancelNotificationModal()"></app-publish-notification>
             </div>
         </div>
     </div>

@@ -1,12 +1,37 @@
-<div class="main-card">
-    <div class="card-header px-0 pt-0">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <h1>Publish Notification</h1>
+<form [formGroup]='notificationForm' (ngSubmit)="publish()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Booking Agent Name(s)</label>
+                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
+                        (selectFileOutput)="selectedCargoAgent($event)" (changeSearch)="onClearCargoAgent()"
+                        (clearSearch)="onClearCargoAgent()" [tabindex]="1"></app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group" *ngIf="!isLoading">
+                <label class="form-label">Title</label>
+                <app-text-input [formControl]='notificationForm.controls["title"]' type="text" [label]='"Title"'
+                    [tabindex]="2">
+                </app-text-input>
+            </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+        </div>
+        <div class="row">
+            <div class="form-group" *ngIf="!isLoading">
+                <label class="form-label">Content</label>
+                <textarea class="form-control" [formControl]='notificationForm.controls["body"]' type="text" rows="10"
+                    [tabindex]="3"></textarea>
+            </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+        </div>
     </div>
-    <div class="card-body without-footer">
 
+    <div class="modal-footer">
+        <button class="btn btn-secondary me-3" type="button" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" type="submit">Publish</button>
     </div>
-</div>
+</form>
