@@ -85,7 +85,7 @@ export class PublishNotificationComponent implements OnInit {
       });
       this.notificationForm.markAsUntouched();
     } else {
-      this.notificationForm.markAsTouched();
+      this.notificationForm.markAsTouched({onlySelf:true});
     }
   }
 

@@ -61,6 +61,9 @@ export class CoreExtensions {
       case AircraftTypes.B737400:
         typeString = "Boeing 737-400";
         break;
+      case AircraftTypes.B737800:
+        typeString = "Boeing 737-800";
+        break;
       default:
         break;
     }
@@ -81,6 +84,9 @@ export class CoreExtensions {
         break;
       case AircraftSubTypes.B737400TypeOne:
         typeString = "B737-400-TypeOne";
+        break;
+      case AircraftSubTypes.B737800TypeOne:
+        typeString = "B737-800-TypeOne";
         break;
       default:
         break;

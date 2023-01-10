@@ -25,6 +25,7 @@ import { TwodecimalpointsDirective } from '../directives/twodecimalpoints.direct
 import { ValueInputComponent } from './components/forms/value-input/value-input.component';
 import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
 import { WhiteSpaceInputComponent } from './components/forms/white-space-input/white-space-input.component';
+import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b737800-type-one/al-b737800-type-one.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { WhiteSpaceInputComponent } from './components/forms/white-space-input/w
     TwodecimalpointsDirective,
     ValueInputComponent,
     UldInfoComponent,
-    WhiteSpaceInputComponent
+    WhiteSpaceInputComponent,
+    AlB737800TypeOneComponent
   ],
   imports: [
     CommonModule,
@@ -75,6 +77,7 @@ import { WhiteSpaceInputComponent } from './components/forms/white-space-input/w
     AlB7879TypeOneComponent,
     AlA320200TypeOneComponent,
     AlB737400TypeOneComponent,
+    AlB737800TypeOneComponent,
     LoaderFlightComponent,
     TableLoaderComponent ,
     TextInputLoaderComponent    ,

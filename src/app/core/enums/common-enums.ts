@@ -40,6 +40,7 @@ export enum AircraftTypes {
   B7879 = 1,
   A320200 = 2,
   B737400 = 3,
+  B737800 = 4,
 }
 
 export enum AircraftSubTypes {
@@ -47,6 +48,7 @@ export enum AircraftSubTypes {
   B7879TypeOne = 1,
   A320200TypeOne = 2,
   B737400TypeOne = 3,
+  B737800TypeOne = 4,
 }
 
 
