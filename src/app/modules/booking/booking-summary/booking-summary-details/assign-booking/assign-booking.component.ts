@@ -20,6 +20,8 @@ export class AssignBookingComponent implements OnInit {
   cargoBookings?: CargoBookingUld[] =[];
   selectedPosition: any;
   @Output() submitSuccess = new EventEmitter();
+  totalCount: number = 0;
+  isLoading :boolean= false;
 
   constructor(private bookingService:BookingService,
     private bookingSummaryService: BookingSummaryService,
@@ -31,6 +33,7 @@ export class AssignBookingComponent implements OnInit {
   }
 
   getList() {
+    this.isLoading= true;
     this.query.flightNumber = this.bookingDetail?.flightNumber;
     this.query.flightDate = this.bookingDetail?.scheduledDepartureDateTime;
     this.bookingService.getFreighterBookingList(this.query).subscribe(
@@ -39,10 +42,14 @@ export class AssignBookingComponent implements OnInit {
           this.cargoBookings = res;
           console.log('getFreighterBookingList',res);
           console.log('bookingDetail',this.bookingDetail);
-
+          this.isLoading= false;
+          debugger;
+          this.totalCount = this.cargoBookings.length;
         },
         error: () => {
           this.cargoBookings = [];
+          this.isLoading= false;
+          this.totalCount =0;
         }
       }
     )

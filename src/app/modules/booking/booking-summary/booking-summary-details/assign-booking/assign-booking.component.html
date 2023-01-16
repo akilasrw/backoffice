@@ -62,7 +62,7 @@
             </div>
           </summary>
           <div class="card-details p-0">
-            <div class="table-content">
+            <div class="table-content" *ngIf="!isLoading">
               <div class="table-responsive">
                 <table class="table mt-0">
                   <thead>
@@ -93,9 +93,14 @@
                 </table>
               </div>
             </div>
+
           </div>
         </details>
       </div>
+    </div>
+    <div class="not-available" *ngIf="this.totalCount==0">
+      <img src="./assets/images/no-data.png" alt="No Content Data">
+      <div>Data not available.</div>
     </div>
   </div>
 </div>
