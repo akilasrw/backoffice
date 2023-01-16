@@ -2,14 +2,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextInputComponent } from './components/forms/text-input/text-input.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AutoCompleteDropdownComponent } from './components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlB7879TypeOneComponent } from './Templates/aircraft-layout/al-b7879-type-one/al-b7879-type-one.component';
@@ -26,6 +25,7 @@ import { ValueInputComponent } from './components/forms/value-input/value-input.
 import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
 import { WhiteSpaceInputComponent } from './components/forms/white-space-input/white-space-input.component';
 import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b737800-type-one/al-b737800-type-one.component';
+import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b737300-type-one/al-b737300-type-one.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
     ValueInputComponent,
     UldInfoComponent,
     WhiteSpaceInputComponent,
-    AlB737800TypeOneComponent
+    AlB737800TypeOneComponent,
+    AlB737300TypeOneComponent
   ],
   imports: [
     CommonModule,
@@ -57,10 +58,9 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
     }),
     AutocompleteLibModule,
     NgxSpinnerModule,
-    NgxPaginationModule,
     PaginationModule
   ],
-  exports:[
+  exports: [
     ToastrModule,
     FormsModule,
     ReactiveFormsModule,
@@ -70,7 +70,6 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
     PagerComponent,
     PagingHeaderComponent,
     NgxSpinnerModule,
-    NgxPaginationModule,
     PaginationModule,
     OverheadTemplateComponent,
     SeatTemplateComponent,
@@ -79,11 +78,12 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
     AlB737400TypeOneComponent,
     AlB737800TypeOneComponent,
     LoaderFlightComponent,
-    TableLoaderComponent ,
-    TextInputLoaderComponent    ,
+    TableLoaderComponent,
+    TextInputLoaderComponent,
     AutoCompleteTextboxComponent,
     TwodecimalpointsDirective,
-    WhiteSpaceInputComponent
+    WhiteSpaceInputComponent,
+    AlB737300TypeOneComponent
   ]
 })
 export class SharedModule { }
