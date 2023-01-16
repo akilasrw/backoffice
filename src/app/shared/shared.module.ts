@@ -25,6 +25,7 @@ import { ValueInputComponent } from './components/forms/value-input/value-input.
 import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
 import { WhiteSpaceInputComponent } from './components/forms/white-space-input/white-space-input.component';
 import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b737800-type-one/al-b737800-type-one.component';
+import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b737300-type-one/al-b737300-type-one.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
     ValueInputComponent,
     UldInfoComponent,
     WhiteSpaceInputComponent,
-    AlB737800TypeOneComponent
+    AlB737800TypeOneComponent,
+    AlB737300TypeOneComponent
   ],
   imports: [
     CommonModule,
@@ -80,7 +82,8 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
     TextInputLoaderComponent,
     AutoCompleteTextboxComponent,
     TwodecimalpointsDirective,
-    WhiteSpaceInputComponent
+    WhiteSpaceInputComponent,
+    AlB737300TypeOneComponent
   ]
 })
 export class SharedModule { }
