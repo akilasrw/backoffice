@@ -170,7 +170,7 @@ export class FlightScheduleCreateComponent implements OnInit {
       return;
     }
 
-    if (this.flightScheduleForm.valid) { debugger
+    if (this.flightScheduleForm.valid) {
       this.isLoading = true;
       var flightSchedule: FlightScheduleManagementCreateRM = this.flightScheduleForm.value;
       flightSchedule.scheduleStartDate = moment(this.flightScheduleForm.get('scheduleStartDate')?.value).format('YYYY-MM-DDThh:mm:ss');

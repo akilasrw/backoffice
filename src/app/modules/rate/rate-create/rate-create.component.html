@@ -9,7 +9,7 @@
             </div>
             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
         </div>
-        <form [formGroup]='rateForm' (submit)="addRate($event)">
+        <form [formGroup]='rateForm' (submit)="addRate()">
             <div class="col-md-12">
                 <div class="add-rate-section">
                     <div class="row">
@@ -65,6 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="text-end">
+                                    <button type="button" style="margin-right: 5px;" class="btn btn-secondary-outline" (click)="clearFields($event)"> Clear</button>
                                     <button type="submit" class="btn btn-primary-outline">Add Rate</button>
                                 </div>
                             </div>

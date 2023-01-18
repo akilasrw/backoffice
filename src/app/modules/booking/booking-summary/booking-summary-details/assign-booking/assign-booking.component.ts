@@ -43,7 +43,6 @@ export class AssignBookingComponent implements OnInit {
           console.log('getFreighterBookingList',res);
           console.log('bookingDetail',this.bookingDetail);
           this.isLoading= false;
-          debugger;
           this.totalCount = this.cargoBookings.length;
         },
         error: () => {
@@ -60,7 +59,7 @@ export class AssignBookingComponent implements OnInit {
     console.log(cargoPackage);
     if(cargoPackage.cargoPositionId == "00000000-0000-0000-0000-000000000000") {
       this.toast.warning('Please select the pallet.');
-    } else {debugger
+    } else {
       let cargo = new UldContainerCargoPosition();
       cargo.cargoPositionId = cargoPackage.cargoPositionId;
       cargo.uLDContainerId = cargoPackage.uldContainerId;

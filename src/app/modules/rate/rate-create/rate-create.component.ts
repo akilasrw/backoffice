@@ -90,7 +90,10 @@ export class RateCreateComponent implements OnInit {
       endDate: new FormControl(null,[Validators.required]),
       agentRates: this.fb.array([]),
     });
+    this.pushRateClassType();
+  }
 
+  pushRateClassType(){
     this.agentRates.push(this.fb.group({
       rate: [0, [Validators.required, Validators.min(1)]],
       weightType: [WeightType.M],
@@ -119,7 +122,6 @@ export class RateCreateComponent implements OnInit {
       rate: [0, [Validators.required, Validators.min(1)]],
       weightType: [WeightType.Plus1000K],
     }));
-
   }
 
   get agentRates() {
@@ -127,7 +129,7 @@ export class RateCreateComponent implements OnInit {
   }
 
 
-  addRate(event: any) {
+  addRate() {
     if (this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "") {
       this.toastr.error('Please select cargo agent.');
       return;
@@ -177,15 +179,25 @@ export class RateCreateComponent implements OnInit {
       var createdRate = this.rateForm.value;
       createdRate.startDate = moment(this.rateForm.get('startDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
       createdRate.sndDate = moment(this.rateForm.get('endDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
-
       this.agentRateManagements.push(createdRate);
-      this.rateForm.reset();
-      this.rateForm.markAsUntouched();
-      this.initializeForm();
-      this.clearDropdowns(event);
+      this.clearFormArray(<FormArray>this.rateForm.controls['agentRates'])
+      this.pushRateClassType();
     } else {
       this.rateForm.markAllAsTouched();
     }
+  }
+
+  clearFormArray = (formArray: FormArray) => {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0)
+    }
+  }
+
+  clearFields(event: any) {
+    this.rateForm.reset();
+    this.rateForm.markAsUntouched();
+    this.initializeForm();
+    this.clearDropdowns(event);
   }
 
   isFlightExist():boolean{
