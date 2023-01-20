@@ -558,10 +558,13 @@ a {
             padding: 0 0 2.813rem 0;
             cursor: pointer;
         }
+        .main-menu li {
+            margin: 16px 0;
+        }
         .menu-item {
             .menu-icn {
                 &.tool-tip {
-                    position: relative;
+                    position: absolute;
                     display: inline-block;
                     .tooltiptext {
                         font-family: $font-family;
