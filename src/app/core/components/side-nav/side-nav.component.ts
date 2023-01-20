@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/user.model';
 import { Subscription } from 'rxjs';
@@ -14,7 +15,8 @@ import { AccountService } from 'src/app/account/account.service';
 export class SideNavComponent implements OnInit, OnDestroy {
 
   routeConstants = RouteConstants
-
+  logoUrl = environment.mainLogoPath;
+  iconUrl = environment.mainIconPath;
   selectedMenu = MenuType.None
   currentUser?: User | null
   subscription?: Subscription;
@@ -112,7 +114,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case MenuType.Notification:
         this.publishNotification.emit();
-        break; 
+        break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;
