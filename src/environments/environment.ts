@@ -7,7 +7,8 @@ export const environment = {
   baseEndpoint: 'https://localhost:7130/api/v1/',
   encriptionKey:"123456$#@$^@1ERF",
   mainLogoPath: "/assets/images/logo-aero.svg",
-  mainIconPath: "/assets/images/logo-icon.svg"
+  mainIconPath: "/assets/images/logo-icon.svg",
+  loginImgPath: "/assets/images/logo.svg",
 };
 
 /*

@@ -26,6 +26,7 @@ import { UldInfoComponent } from './Templates/uld-info/uld-info.component';
 import { WhiteSpaceInputComponent } from './components/forms/white-space-input/white-space-input.component';
 import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b737800-type-one/al-b737800-type-one.component';
 import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b737300-type-one/al-b737300-type-one.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b73730
     }),
     AutocompleteLibModule,
     NgxSpinnerModule,
-    PaginationModule
+    PaginationModule,
+    NgxPaginationModule,
   ],
   exports: [
     ToastrModule,
@@ -71,6 +73,7 @@ import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b73730
     PagingHeaderComponent,
     NgxSpinnerModule,
     PaginationModule,
+    NgxPaginationModule,
     OverheadTemplateComponent,
     SeatTemplateComponent,
     AlB7879TypeOneComponent,

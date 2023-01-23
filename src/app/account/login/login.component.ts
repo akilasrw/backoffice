@@ -6,6 +6,7 @@ import { AccountService } from '../account.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CryptoService } from 'src/app/core/services/crypto.service';
 import { AuthenticateRM } from 'src/app/_models/request-models/login/authenticate-rm.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   isSubmitting = false;
   show: boolean = false;
+  logoUrl = environment.loginImgPath;
 
   constructor(public accountService: AccountService,
     private router: Router,

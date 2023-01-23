@@ -3,5 +3,6 @@ export const environment = {
   baseEndpoint: '',
   encriptionKey:"",
   mainLogoPath: "/assets/images/logo-aero.svg",
-  mainIconPath: "/assets/images/logo-icon.svg"
+  mainIconPath: "/assets/images/logo-icon.svg",
+  loginImgPath: "",
 };
