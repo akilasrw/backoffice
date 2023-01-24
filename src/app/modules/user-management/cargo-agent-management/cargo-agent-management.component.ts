@@ -132,14 +132,14 @@ export class CargoAgentManagementComponent implements OnInit {
       this.cargoAgentService.statusUpdate({id:this.selectedAgent.id,status:this.selectedAgent.status})
         .subscribe({
           next: (res) => {
-            this.toastr.success((this.selectedAgent!.status == CargoAgentStatus.Active)?"Cargo agent successfully active.":"Cargo agent successfully suspend.");
+            this.toastr.success((this.selectedAgent!.status == CargoAgentStatus.Active)?"Cargo agent successfully activated.":"Cargo agent successfully suspended.");
             (this.selectedAgent!.status == CargoAgentStatus.Active)? this.cancelActive() : this.cancelSuspend();
             this.cargoAgents = [];
             this.isLoading=false;
             this.getCargoAgentList();
           },
           error: (error) => {
-            this.toastr.error((this.selectedAgent!.status == CargoAgentStatus.Active)?"Cargo agent unable to active.":"Cargo agent unable to suspend.");
+            this.toastr.error((this.selectedAgent!.status == CargoAgentStatus.Active)?"Cargo agent unable to activate.":"Cargo agent unable to suspend.");
             (this.selectedAgent!.status == CargoAgentStatus.Active)? this.cancelActive() : this.cancelSuspend();
             this.isLoading=false;
           }
