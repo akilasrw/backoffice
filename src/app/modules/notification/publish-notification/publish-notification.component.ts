@@ -69,6 +69,7 @@ export class PublishNotificationComponent implements OnInit {
   publish() {
     if (this.notificationForm.get('cargoAgentId')?.value === null || this.notificationForm.get('cargoAgentId')?.value === "") {
       this.toastr.error('Please select cargo agent.');
+      return;
     }
     if (this.notificationForm.valid) {
       this.isLoading = true;

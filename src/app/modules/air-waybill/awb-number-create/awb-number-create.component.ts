@@ -84,6 +84,7 @@ export class AwbNumberCreateComponent implements OnInit {
   addAWBNumber(){
     if (this.awbForm.get('cargoAgentId')?.value === null || this.awbForm.get('cargoAgentId')?.value === "") {
       this.toastr.error('Please select booking agent.');
+      return;
     }
 
     if(this.awbForm.valid){

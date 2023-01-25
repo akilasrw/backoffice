@@ -122,12 +122,15 @@ export class SectorCreateComponent implements OnInit {
 
     if (this.sectorForm.get('sectorType')?.value === null || this.sectorForm.get('sectorType')?.value === "") {
       this.toastr.error('Please select sector type.');
+      return;
     }
     if (this.sectorForm.get('originAirportId')?.value === null || this.sectorForm.get('originAirportId')?.value === "") {
       this.toastr.error('Please select origin airport.');
+      return;
     }
     if (this.sectorForm.get('destinationAirportId')?.value === null || this.sectorForm.get('destinationAirportId')?.value === "") {
       this.toastr.error('Please select destination airport.');
+      return;
     }
 
     if (this.sectorForm.valid) {

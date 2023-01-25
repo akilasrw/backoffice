@@ -89,6 +89,7 @@ export class AirportCreateComponent implements OnInit {
   saveAirportDetails() {
     if (this.airportForm.get('countryId')?.value === null || this.airportForm.get('countryId')?.value === "") {
       this.toastr.error('Please select country.');
+      return;
     }
     if (this.airportForm.valid) {
       this.isLoading = true;
