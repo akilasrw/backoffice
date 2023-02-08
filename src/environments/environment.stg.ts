@@ -4,5 +4,5 @@ export const environment = {
     encriptionKey:"123456$#@$^@1ERF",
     mainLogoPath: "/assets/images/my-indo-airlines.svg",
     mainIconPath: "/assets/images/my-indo-airlines-logo.svg",
-    loginImgPath: "/assets/images/logos/my-indo-logo.svg",
+    loginImgPath: "/assets/images/my-indo-login-logo-bcs.svg",
   };
