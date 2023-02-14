@@ -7,6 +7,7 @@ import { CargoBookingUld } from 'src/app/_models/view-models/booking-summary/car
 import { BookingService } from 'src/app/_services/booking.service';
 import {PositionPipe } from 'src/app/core/pipes/position.pipe'
 import { BookingSummaryService } from 'src/app/_services/booking-summary.service';
+import { PackageItem } from 'src/app/_models/view-models/booking-summary/package-item.model';
 
 @Component({
   selector: 'app-assign-booking',
@@ -18,6 +19,8 @@ export class AssignBookingComponent implements OnInit {
   @Input() bookingDetail?: CargoBookingSummaryDetail;
   query: CargoBookingListQuery = new CargoBookingListQuery();
   cargoBookings?: CargoBookingUld[] =[];
+  displayCargoBookings?: CargoBookingUld[] =[];
+
   selectedPosition: any;
   @Output() submitSuccess = new EventEmitter();
   totalCount: number = 0;
@@ -40,13 +43,13 @@ export class AssignBookingComponent implements OnInit {
       {
         next: (res) => {
           this.cargoBookings = res;
-          console.log('getFreighterBookingList',res);
-          console.log('bookingDetail',this.bookingDetail);
+          this.displayCargoBookings = this.cargoBookings.filter((item, i, arr) => arr.findIndex((t) => t.id === item.id) === i);
           this.isLoading= false;
           this.totalCount = this.cargoBookings.length;
         },
         error: () => {
           this.cargoBookings = [];
+          this.displayCargoBookings=[];
           this.isLoading= false;
           this.totalCount =0;
         }
@@ -60,12 +63,7 @@ export class AssignBookingComponent implements OnInit {
     if(cargoPackage.cargoPositionId == "00000000-0000-0000-0000-000000000000") {
       this.toast.warning('Please select the pallet.');
     } else {
-      let cargo = new UldContainerCargoPosition();
-      cargo.cargoPositionId = cargoPackage.cargoPositionId;
-      cargo.uLDContainerId = cargoPackage.uldContainerId;
-      cargo.volume = cargoPackage.height*cargoPackage.length*cargoPackage.width;
-      cargo.weight = cargoPackage.weight;
-      this.bookingSummaryService.assignCargoToUld(cargo).subscribe({
+      this.bookingSummaryService.assignCargoToUld(this.getSectorWisePositionList(cargoPackage)).subscribe({
         next: (res) => {
           this.toast.success('Added Successfully.');
           this.submitSuccess.emit();
@@ -73,7 +71,28 @@ export class AssignBookingComponent implements OnInit {
         error: (err) => {
         }
       });
-
     }
   }
+
+  getSectorWisePositionList(packageItem :PackageItem): UldContainerCargoPosition []{
+    let uldContainerCargoPosition:UldContainerCargoPosition []=[];
+
+    let selectedBooking = this.cargoBookings?.filter(b=>b.id==packageItem.cargoBookingId);
+
+    selectedBooking?.forEach(b=>{
+      b.packageItems?.forEach(p=>{
+        if(p.id == packageItem.id){
+          let cargo = new UldContainerCargoPosition();
+          cargo.cargoPositionId = packageItem.cargoPositionId;
+          cargo.uLDContainerId = p.uldContainerId;
+          cargo.volume = p.height!*p.length!*p.width!;
+          cargo.weight = p.weight;
+
+          uldContainerCargoPosition.push(cargo);
+        }
+      });
+    });
+    return uldContainerCargoPosition;
+  }
+
 }
