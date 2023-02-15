@@ -78,8 +78,8 @@ export class BookingSummaryService extends BaseService {
     return this.getWithParams<CargoBookingSummaryDetail>(`${this.endpointCargoBookingSummary}`, params);
   }
 
-  assignCargoToUld(uldContainerCargoPositions: UldContainerCargoPosition[]){
-    return this.post<any>(this.assignCargoToULDEndpoint, uldContainerCargoPositions);
+  assignCargoToUld(uldContainerCargoPosition: UldContainerCargoPosition){
+    return this.post<any>(this.assignCargoToULDEndpoint, uldContainerCargoPosition);
   }
 
   getULDBookingList(query: CargoPositionULDContainerListQuery) {

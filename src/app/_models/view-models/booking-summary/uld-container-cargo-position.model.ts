@@ -1,5 +1,5 @@
 export class UldContainerCargoPosition {
-  uLDContainerId?: string;
+  uLDContainerIds?: string[];
   cargoPositionId?: string;
   weight?: number;
   volume?: number;

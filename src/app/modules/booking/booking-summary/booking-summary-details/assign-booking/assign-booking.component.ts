@@ -74,24 +74,23 @@ export class AssignBookingComponent implements OnInit {
     }
   }
 
-  getSectorWisePositionList(packageItem :PackageItem): UldContainerCargoPosition []{
-    let uldContainerCargoPosition:UldContainerCargoPosition []=[];
+  getSectorWisePositionList(packageItem :PackageItem): UldContainerCargoPosition{
+    let uldContainerCargoPosition = new UldContainerCargoPosition();
+    uldContainerCargoPosition.cargoPositionId = packageItem.cargoPositionId;
+    uldContainerCargoPosition.weight=packageItem.weight;
+    uldContainerCargoPosition.volume = packageItem.height!*packageItem.length!*packageItem.width!;
+    let ULDContainerIds:string[]=[];
 
     let selectedBooking = this.cargoBookings?.filter(b=>b.id==packageItem.cargoBookingId);
 
     selectedBooking?.forEach(b=>{
       b.packageItems?.forEach(p=>{
-        if(p.id == packageItem.id){
-          let cargo = new UldContainerCargoPosition();
-          cargo.cargoPositionId = packageItem.cargoPositionId;
-          cargo.uLDContainerId = p.uldContainerId;
-          cargo.volume = p.height!*p.length!*p.width!;
-          cargo.weight = p.weight;
-
-          uldContainerCargoPosition.push(cargo);
+        if(p.id == packageItem.id && p.uldContainerId != null){
+          ULDContainerIds.push(p.uldContainerId);
         }
       });
     });
+    uldContainerCargoPosition.uLDContainerIds = ULDContainerIds;
     return uldContainerCargoPosition;
   }
 
