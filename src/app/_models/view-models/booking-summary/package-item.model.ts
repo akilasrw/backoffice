@@ -8,7 +8,7 @@ export class PackageItem extends BaseVM {
   volumeUnitId?: string;
   weight?: number;
   weightUnitId?: string;
-  uLDContainerId?: string;
+  uldContainerId?: string;
   cargoBookingId?: string;
   cargoPositionId?: string;
 }
