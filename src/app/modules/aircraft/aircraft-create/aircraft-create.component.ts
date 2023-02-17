@@ -34,6 +34,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   modalVisibleAnimate: boolean = false;
   isEditAircraft: boolean = false;
   isLoading: boolean = false;
+  isMaintenance: boolean=false;
   @Output() viewLayout = new EventEmitter<any>();
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
@@ -59,7 +60,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   initializeForm() {
     this.aircraftForm = new FormGroup({
       id: new FormControl(null),
-      regNo: new FormControl(null, [Validators.required]),
+      regNo: new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z0-9_]+$")],),
       aircraftTypeId: new FormControl(null, [Validators.required]),
       aircraftSubTypeId: new FormControl(null, [Validators.required]),
       configurationType: new FormControl(null, [Validators.required]),
@@ -160,6 +161,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   }
 
   onClearAircraftType() {
+    this.editAircraftTypeIndex = undefined;
     this.aircraftForm.get('aircraftTypeId')?.patchValue(null);
     this.aircraftForm.get('aircraftSubTypeId')?.patchValue(null);
     this.selectedAircraftSubType = undefined;
@@ -175,6 +177,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   }
 
   onClearConfigType() {
+    this.editConfigTypeIndex=undefined;
     this.aircraftForm.get('configurationType')?.patchValue(null);
     this.selectedConfigurationType = AircraftConfigType.None;
     this.aircraftTypes = []
@@ -186,6 +189,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   }
 
   onClearStatusType() {
+    this.editStatusTypeIndex = undefined;
     this.aircraftForm.get('status')?.patchValue(null);
   }
 
@@ -233,17 +237,21 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
       this.setAircraftSubTypeId(this.selectedAircraftSubType);
     }
 
+    if (this.aircraftForm.get('configurationType')?.value === null || this.aircraftForm.get('configurationType')?.value === "") {
+      this.toastr.error('Please select aircraft configuration type.');
+      return;
+    }
     if (this.aircraftForm.get('aircraftTypeId')?.value === null || this.aircraftForm.get('aircraftTypeId')?.value === "") {
       this.toastr.error('Please select aircraft type.');
+      return;
     }
     if (this.aircraftForm.get('aircraftSubTypeId')?.value === null || this.aircraftForm.get('aircraftSubTypeId')?.value === "") {
       this.toastr.error('Please select aircraft sub type.');
-    }
-    if (this.aircraftForm.get('configurationType')?.value === null || this.aircraftForm.get('configurationType')?.value === "") {
-      this.toastr.error('Please select aircraft configuration type.');
+      return;
     }
     if (this.aircraftForm.get('status')?.value === null || this.aircraftForm.get('status')?.value === "") {
       this.toastr.error('Please select aircraft status.');
+      return;
     }
 
     if (this.aircraftForm.valid) {

@@ -4,9 +4,10 @@ import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.mode
 import { AircraftFilterQuery } from './../../../_models/queries/aircraft/aircraft-filter-query.model';
 import { AircraftActiveTypes } from './../../../core/enums/common-enums';
 import { AircraftService } from './../../../_services/aircraft.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { Subscription } from 'rxjs';
+import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 
 @Component({
   selector: 'app-aircraft-list',
@@ -36,7 +37,8 @@ export class AircraftListComponent implements OnInit {
   aircraftFilterQuery: AircraftFilterQuery = new AircraftFilterQuery();
   keyword = 'value';
   isLoading :boolean= false;
-
+  @ViewChild('aircraftTypeAutoComplete') aircraftTypeDropdown!: AutoCompleteDropdownComponent;
+  @ViewChild('activeTypeAutoComplete') activeTypeDropdown!: AutoCompleteDropdownComponent;
 
   constructor(private aircraftService: AircraftService) { }
 
@@ -124,6 +126,8 @@ export class AircraftListComponent implements OnInit {
 
   clearFilter() {
     this.regNumber = undefined;
+    this.aircraftTypeDropdown.clear();
+    this.activeTypeDropdown.clear();
     this.onClearActive();
     this.onClearAircraft();
     this.filterFormHasValue = false;
@@ -182,13 +186,6 @@ export class AircraftListComponent implements OnInit {
   closeAircraftDetails() {
     this.detailsModalVisibleAnimate = false;
     setTimeout(() => (this.detailsModalVisible = false), 300);
-  }
-
-  public onPageChanged(event: any) {
-    if (this.aircraftFilterQuery?.pageIndex !== event) {
-      this.aircraftFilterQuery.pageIndex = event;
-      this.getAircraftList();
-    }
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="main-card">
-    <div class="card-header px-0 pt-0">
+    <div class="card-header px-0 pt-0 pb-2">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h1>Aircrafts</h1>
@@ -20,13 +20,13 @@
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Aircraft Type</label>
-                        <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword"
+                        <app-auto-complete-dropdown #aircraftTypeAutoComplete [data]="aircraftTypes" [keyword]="keyword"
                             (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
                             (clearSearch)="onClearAircraft()"></app-auto-complete-dropdown>
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Activity</label>
-                        <app-auto-complete-dropdown [data]="activeTypes" [keyword]="keyword"
+                        <app-auto-complete-dropdown #activeTypeAutoComplete [data]="activeTypes" [keyword]="keyword"
                             (selectFileOutput)="selectedActive($event)" (changeSearch)="onClearActive()"
                             (clearSearch)="onClearActive()"></app-auto-complete-dropdown>
                     </div>
@@ -48,8 +48,8 @@
                         <th>Reg Number</th>
                         <th>Aircraft Type</th>
                         <th>Config</th>
+                        <th>Type</th>
                         <th>Status</th>
-                        <th>Activity</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>

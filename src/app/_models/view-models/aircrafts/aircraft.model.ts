@@ -8,4 +8,5 @@ export class Aircraft extends BaseVM{
     configurationType?:AircraftConfigType;
     status?:AircraftStatus;
     isActive?: boolean;
+    aircraftScheduleId?:string;
 }

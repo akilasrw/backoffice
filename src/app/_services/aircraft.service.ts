@@ -20,12 +20,12 @@ export class AircraftService extends BaseService {
 
   private readonly endpointEntityName = 'Aircraft';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
+  private readonly getSelectListEndpoint = `${this.endpointEntityName}/GetSelectList`;
   private readonly getAircraftTypesEndpoint = `${this.endpointEntityName}/GetAircraftTypes`;
+
 
   aircraftTypes$: Observable<AircraftType[]| null>;
   private aircraftTypeSource: BehaviorSubject<AircraftType[]|null>;
-
-
 
   constructor(http: HttpClient) { super(http)
     this.aircraftTypeSource = new BehaviorSubject<AircraftType[]|null>(null);
@@ -61,11 +61,11 @@ export class AircraftService extends BaseService {
     if (query.activeType) {
       params = params.append("activeType", query.activeType);
     }
-    
+
     if (query.aircraftType) {
       params = params.append("aircraftType", query.aircraftType);
     }
-    
+
     params = CoreExtensions.AsPaginate(params, query);
 
     return this.getWithParams<IPagination<Aircraft>>(
@@ -80,6 +80,10 @@ export class AircraftService extends BaseService {
 
   update(aircraftUpdateRM: AircraftUpdateRM){
     return this.put<any>(this.endpointEntityName, aircraftUpdateRM);
+  }
+
+  getAircraftSelectList() {
+    return this.get<SelectList[]>(`${this.getSelectListEndpoint}`);
   }
 
 }

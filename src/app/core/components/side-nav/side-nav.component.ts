@@ -1,3 +1,4 @@
+import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.model';
 import { environment } from 'src/environments/environment';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/user.model';
@@ -154,6 +155,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.UserManagement:
         selectedType = MenuType.UserManagement;
+        break;
+      case RouteConstants.AircraftRoute:
+        selectedType = MenuType.Aircraft;
         break;
     }
     return selectedType;
