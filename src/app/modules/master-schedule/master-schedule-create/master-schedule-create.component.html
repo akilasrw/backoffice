@@ -1,0 +1,151 @@
+<form [formGroup]='scheduleForm' (ngSubmit)="saveScheduleDetails()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="lable mb-3">Schedule for,</div>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Day
+                            <input type="radio" checked="checked" formControlName="calendarType"
+                                [value]="CalendarType.Daily" (change)="onChangeCalendar()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Week
+                            <input type="radio" formControlName="calendarType" [value]="CalendarType.Weekly"
+                                (change)="onChangeCalendar()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Month
+                            <input type="radio" formControlName="calendarType" [value]="CalendarType.Monthly"
+                                (change)="onChangeCalendar()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Aircraft Reg. Number</label>
+                    <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
+                        (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
+                        (clearSearch)="onClearAircraft()" [tabindex]="1">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Status</label>
+                    <app-auto-complete-dropdown [data]="scheduleStatus" [keyword]="keyword" [tabindex]="2"
+                        (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
+                        (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 time-field">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <div class="row">
+                                <label class="form-label">Start Time</label>
+                                <div class="col-md-5 pe-0">
+                                    <app-text-input [formControl]='scheduleForm.controls["scheduleStartTimeHr"]'
+                                        [label]='"Start Time (Hr)"' type="number" [tabindex]="3">
+                                    </app-text-input>
+                                    
+                                </div>
+                                <div class="col-md-2 p-2 text-center">
+                                    <span class="">:</span>
+                                </div>
+                                <div class="col-md-5 ps-0">
+                                    <app-text-input [formControl]='scheduleForm.controls["scheduleStartTimeMin"]'
+                                        [label]='"Start Time (Min)"' type="number" [tabindex]="4">
+                                    </app-text-input>
+                                </div>
+                            </div>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Total Hours</label>
+                            <app-text-input [formControl]='scheduleForm.controls["numberOfHours"]'
+                                [label]='"Total Hours (Hr:Min)"' type="number" [tabindex]="5">
+                            </app-text-input>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">{{(this.selectedCalenderType == CalendarType.Daily)?"Date":"Start
+                                Date"}} </label>
+                            <input type="text" [formControl]='scheduleForm.controls["scheduleStartDate"]'
+                                class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                    <div class="col-md-6" *ngIf="this.selectedCalenderType != CalendarType.Daily">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">End Date</label>
+                            <input type="text" [formControl]='scheduleForm.controls["scheduleEndDate"]'
+                                class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12" *ngIf="this.selectedCalenderType != CalendarType.Daily">
+                <div class="lable">Day(s) of Week,</div>
+                <div class="chek-chip">
+                    <div class="cu-check" *ngIf="!isLoading">
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(1)}">1
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,1)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(2)}">2
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,2)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox " [ngClass]="{'checked': daysList.includes(3)}">3
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,3)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(4)}">4
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,4)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(5)}">5
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,5)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(6)}">6
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,6)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(7)}">7
+                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,7)">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+
+

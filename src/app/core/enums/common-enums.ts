@@ -11,7 +11,8 @@ export enum MenuType {
   FlightSchedule = 9,
   Rate = 10,
   UserManagement = 11,
-  Notification=12
+  Notification=12,
+  MasterSchedule=13,
 }
 
 export enum SectorType {
@@ -124,4 +125,20 @@ export enum CargoAgentStatus {
   Pending = 1,
   Active = 2,
   Suspended = 3
+}
+
+export enum CalendarType
+{
+    None = 0,
+    Daily = 1,
+    Weekly = 2,
+    Monthly = 3,
+}
+
+export enum ScheduleStatus
+{
+    None = 0,
+    Schedule = 1,
+    Chartered = 2,
+    Maintainance = 3,
 }

@@ -17,4 +17,5 @@ export class RouteConstants{
     public static Rate : string = "rate";
     public static UserManagement : string = "user-management";
     public static Notification : string = "publish-notification";
+    public static MasterSchedule: string = "master-schedule";
   }

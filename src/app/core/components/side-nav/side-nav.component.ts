@@ -68,8 +68,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   menuClickEvent(menu: MenuType) {
-    if(MenuType.Notification != menu)
-        this.selectedMenu = menu;
+    if (MenuType.Notification != menu)
+      this.selectedMenu = menu;
     switch (menu) {
       case MenuType.None:
         this.showCollapseMenu = !this.showCollapseMenu;
@@ -116,6 +116,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.Notification:
         this.publishNotification.emit();
         break;
+      case MenuType.MasterSchedule:
+        this.router.navigate([RouteConstants.MasterSchedule])
+        break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;
@@ -158,6 +161,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.AircraftRoute:
         selectedType = MenuType.Aircraft;
+        break;
+      case RouteConstants.MasterSchedule:
+        selectedType = MenuType.MasterSchedule;
         break;
     }
     return selectedType;

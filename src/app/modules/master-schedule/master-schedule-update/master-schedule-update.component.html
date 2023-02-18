@@ -1,0 +1,105 @@
+<form [formGroup]='scheduleForm' (ngSubmit)="editScheduleDetails()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Aircraft Reg. Number</label>
+                    <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
+                        (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
+                        [selectedIndex]="editAircraftIndex" (clearSearch)="onClearAircraft()" [tabindex]="1">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Status</label>
+                    <app-auto-complete-dropdown [data]="scheduleStatus" [keyword]="keyword" [tabindex]="2"
+                        (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
+                        [selectedIndex]="editScheduleStatusIndex" (clearSearch)="onClearStatus()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Start Date</label>
+                            <input type="text" [formControl]='scheduleForm.controls["scheduleStartDateTime"]'
+                                class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                    <div class="col-md-6 time-field">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Start Time</label>
+                            <div class="d-flex align-items-center">
+                                <app-text-input [formControl]='scheduleForm.controls["scheduleStartTimeHr"]'
+                                    [label]='"Start Time (Hr)"' type="number" [tabindex]="3">
+                                </app-text-input>
+                                <span class="px-2">:</span>
+                                <app-text-input [formControl]='scheduleForm.controls["scheduleStartTimeMin"]'
+                                    [label]='"Start Time (Min)"' type="number" [tabindex]="4">
+                                </app-text-input>
+                            </div>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">End Date</label>
+                            <input type="text" [formControl]='scheduleForm.controls["scheduleEndDateTime"]'
+                                class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                    <div class="col-md-6 time-field">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">End Time</label>
+                            <div class="d-flex align-items-center">
+                                <app-text-input [formControl]='scheduleForm.controls["scheduleEndTimeHr"]'
+                                    [label]='"End Time (Hr)"' type="number" [tabindex]="5">
+                                </app-text-input>
+                                <span class="px-2">:</span>
+                                <app-text-input [formControl]='scheduleForm.controls["scheduleEndTimeMin"]'
+                                    [label]='"End Time (Min)"' type="number" [tabindex]="6">
+                                </app-text-input>
+                            </div>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-danger me-3" (click)="showDelete()">Delete</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateDelete}"
+    [ngStyle]="{'display': modalVisibleDelete ? 'block' : 'none', 'opacity': modalVisibleAnimateDelete ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Delete Schedule</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelDelete()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Schedule?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelDelete()">Cancel</button>
+                <button class="btn btn-primary" (click)="onDelete()" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

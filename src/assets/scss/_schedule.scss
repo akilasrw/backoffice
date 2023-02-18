@@ -1,0 +1,267 @@
+// Schedule colors
+.flight-active {
+    background-color: #C7FADC;
+    border-left: 3px solid #12823F;
+    color: #12823F;
+}
+.flight-maintain {
+    background-color: #ffdad8;
+    border-left: 3px solid #ff1100;
+    color: #e60000;
+}
+.flight-charter {
+    background-color: #C6E3FF;
+    border-left: 3px solid #0B65BE;
+    color: #0B65BE;
+}
+.calendar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    .calendar-date {
+        display: flex;
+        align-items: center;
+        .date {
+            padding-right: 1rem;
+        }
+        .left-right {
+            display: flex;
+            align-items: center;
+            color: #D6D6D6;
+            cursor: pointer;
+            padding-right: 1rem;
+            i {
+                &:first-child {
+                    padding-right: 1rem;
+                }
+            }
+        }
+        .calendar-icon {
+            padding: 2px 2px;
+            background-color: $light-blue;
+            border-radius: 50px;
+            color: $brand-primary;
+            cursor: pointer;
+        }
+        input[type='image'] {
+            width: 25px;
+        }
+    }
+    .date-range {
+        display: flex;
+        align-items: center;
+        .range-button {
+            padding: 0 1rem;
+            cursor: pointer;
+            &:last-child {
+                padding-right: 0px;
+            }
+            &:hover {
+                color: $brand-primary;
+            }
+            &.active {
+                color: $brand-primary;
+                font-weight: 600;
+                border-bottom: 2px solid $brand-primary;
+            }
+        }
+    }
+}
+
+.schedule-day {
+    .table-wrapper {
+        max-width: 1520px;
+        overflow: scroll;
+        height: calc(100vh - 145px);
+        table {
+            position: relative;
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            font-size: 11px;
+            td, th {
+                white-space: nowrap;
+                border: 1px solid $off-white !important;
+                padding: 10px 10px;
+            }
+            th {
+                background-color: $off-white;
+                position: sticky;
+                padding: 0 10px;
+                top: 1px;
+                z-index: 2;
+                .daytimeline-block {
+                    border-top: 1px solid #c3c3c3;
+                    .time-unit {
+                        display: inline-block;
+                        // margin-left: -5px;
+                        .time-block {
+                            width: 180px;
+                            border-bottom: 1px solid #000;
+                            display: flex;
+                            flex-wrap: wrap;
+                            position: relative;
+                            font-size: 10px;
+                            font-weight: 500;
+                            .time-value {
+                                width: 180px;
+                                display: flex;
+                                flex-wrap: wrap;
+                                .value {
+                                    flex-grow: 1;
+                                    max-width: 100%;
+                                    font-weight: 300;
+                                    &.main-hour {
+                                        font-weight: 700;
+                                    }
+                                }
+                            }
+                            .time-slot {
+                                flex-grow: 1;
+                                max-width: 100%;
+                                border-left: 1px solid #000;
+                                position: relative;
+                                height: 3px;
+                                width: 15px;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            th:first-of-type {
+                left: 0;
+                z-index: 3;
+            }
+            thead {
+                tr {
+                    th {
+                        
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        &:first-of-type {
+                            background-color: $default-white;
+                            position: sticky;
+                            left: -1px;
+                            text-align: left;
+                            z-index: 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.calender {
+    .table-wrapper {
+        overflow: scroll;
+        height: calc(100vh - 145px);
+        table {
+            position: relative;
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            font-size: 11px;
+            width: 100%;
+            td, th {
+                white-space: nowrap;
+                border: 1px solid $off-white !important;
+                padding: 10px 10px;
+            }
+            th {
+                background-color: $off-white;
+                position: sticky;
+                padding: 10px 10px;
+                top: 1px;
+                z-index: 2;
+            }
+            .month-view {
+                tr {
+                    td {
+                        vertical-align: baseline;
+                        height: 108px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.marker-row-set {
+    position: relative;
+    .marker-row {
+        display: flex;
+        align-items: center;
+        height: 20px;
+        position: relative;
+        margin-bottom: 5px;
+        .highlight-bar {
+            position: absolute;
+            padding: 3px 10px;
+            cursor: pointer;
+        }
+    }
+}
+
+.schedule-marker-block {
+    display: flex;
+    z-index: 1;
+    .schedule-marker {
+        padding: 4px 5px;
+        width: 100%;
+        position: absolute;
+        top: 6px;
+        cursor: pointer;
+        &.active {
+            background-color: #7fdba4;
+            // opacity: 0.5;
+        }
+    }
+}
+
+.clalender-schedule {
+    padding-top: 5px;
+    .cl-schedule {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        margin-top: 5px;
+        .schedule-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50px;
+            display: block;
+            &.active {
+                background-color: $green;
+            }
+        }
+        .aircraft-number {
+            background-color: $light-blue;
+            margin-left: 10px;
+            padding: 1px 10px;
+            border: 1px solid #c6e3ff;
+        }
+    }
+}
+
+.marker-hover {
+    width: fit-content;
+    position: absolute;
+    background-color: $default-white;
+    box-shadow: 3px 3px 20px rgba($default-black, 0.1);
+    padding: 1rem;
+    color: $default-black;
+    border-radius: 2px;
+    z-index: 1;
+    .lable {
+        padding-right: 50px;
+    }
+}
+
+.past-next-days {
+    color: $gray;
+}

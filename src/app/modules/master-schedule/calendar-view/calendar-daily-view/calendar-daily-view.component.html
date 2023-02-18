@@ -1,0 +1,137 @@
+<div class="schedule-day">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Aircraft(s)</th>
+            <th class="timeline-row">
+              <div class="one-day-timeline">
+                <div class="text-center">{{selectedScheduleDate| date:'MM/dd/yyyy'}}</div>
+                <div class="daytimeline-block">
+                  <span class="time-unit" *ngFor="let item of this.timeLine">
+                    <div class="time-block">
+                      <div class="time-value">
+                        <span class="value main-hour" style="margin: 0 -8px;">{{item}}</span>
+                        <span class="value" style="margin-left: 0px;">15</span>
+                        <span class="value">30</span>
+                        <span class="value">45</span>
+                      </div>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                      <span class="time-slot"></span>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.masterSchedules">
+            <td>{{item.aircraftRegNo}}</td>
+            <td>
+              <div class="marker-row-set">
+                <div class="marker-row">
+                  <div *ngFor="let schedule of item.airctaftSchedules" class="highlight-bar" [ngClass]="[schedule.scheduleStatus == ScheduleStatus.Schedule?'flight-active':'',
+                          schedule.scheduleStatus == ScheduleStatus.Chartered?'flight-charter':'',
+                          schedule.scheduleStatus == ScheduleStatus.Maintainance?'flight-maintain':'']" [ngStyle]="{left:getScheduleStartPixel(schedule.scheduleStartDateTime),
+                            width:getTimeSlotPixel(schedule.scheduleStartDateTime,schedule.scheduleEndDateTime)}"
+                    (mouseenter)="mouseEnter(schedule.id)" (mouseleave)="mouseLeave()" (click)="onScheduleClick(schedule)">
+                    <div>{{getScheduleStaus(schedule.scheduleStatus)}}</div>
+                    <div *ngIf="hoverScheduleID==schedule.id" class="marker-hover">
+                      <div class="hover-body">
+                        <div class="details-group pt-0">
+                          <div class="lable">Aircraft Reg No.</div>
+                          <div>{{schedule.regNo}}</div>
+                        </div>
+                        <div class="details-group">
+                          <div class="lable">Flight Time</div>
+                          <div>{{schedule.scheduleStartDateTime|date:'h:mm a'}} -
+                            {{schedule.scheduleEndDateTime|date:'h:mm a'}}</div>
+                        </div>
+                        <div class="details-group">
+                          <div class="lable">Start Date</div>
+                          <div>{{schedule.scheduleStartDateTime|date:'MM/dd/yyyy'}}</div>
+                        </div>
+                        <div class="details-group">
+                          <div class="lable">End Date</div>
+                          <div>{{schedule.scheduleEndDateTime|date:'MM/dd/yyyy'}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngFor="let schedule of item.airctaftSchedules" class="schedule-marker-block">
+                    <div *ngIf="schedule.scheduleStatus == ScheduleStatus.Schedule && schedule.aircraftScheduleFlights != null ">
+                      <div *ngFor="let flight of schedule.aircraftScheduleFlights" class="schedule-marker active"
+                        (mouseenter)="blockMouseEnter(flight.id)" (click)="show(flight)" (mouseleave)="blockMouseLeave()"
+                        [ngStyle]="{left:getScheduleStartPixel(flight.flightScheduleStartDateTime),width:getTimeSlotPixel(flight.flightScheduleStartDateTime,flight.flightScheduleEndDateTime)}">
+                        <div *ngIf="hoverFlightScheduleID==flight.id" class="marker-hover">
+                          <div class="hover-body">
+                            <div class="details-group pt-0">
+                              <div class="lable">Aircraft Reg No.</div>
+                              <div>{{schedule.regNo}}</div>
+                            </div>
+                            <div class="details-group">
+                              <div class="lable">Flight No.</div>
+                              <div>{{flight.flightNumber}}</div>
+                            </div>
+                            <div class="details-group">
+                              <div class="lable">Origin and Destination</div>
+                              <div>{{flight.originAirportCode}} - {{flight.destinationAirportCode}}</div>
+                            </div>
+                            <div class="details-group">
+                              <div class="lable">Flight Time</div>
+                              <div>{{flight.flightScheduleStartDateTime|date:'h:mm a'}} -
+                                {{flight.flightScheduleEndDateTime|date:'h:mm a'}}</div>
+                            </div>
+                            <div class="details-group">
+                              <div class="lable">Flight Start Date</div>
+                              <div>{{flight.flightScheduleStartDateTime|date:'MM/dd/yyyy'}}</div>
+                            </div>
+                            <div class="details-group">
+                              <div class="lable">Flight End Date</div>
+                              <div>{{flight.flightScheduleEndDateTime|date:'MM/dd/yyyy'}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+      [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+      <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 class="modal-title">Assign Aircraft</h2>
+                  <button type="button" class="close btn" data-dismiss="modal" (click)="close()"
+                      aria-label="Close"><span class="ca ca-icn-close"></span></button>
+              </div>
+              <app-link-aircraft-create
+                [flightScheduleId]="clickedFlightScheduleID"
+                (closePopup)="close()"
+                (submitSuccess)="onSubmitSuccess($event)"
+                *ngIf="modalVisibleAnimate">
+              </app-link-aircraft-create>
+          </div>
+      </div>
+  </div>
+  

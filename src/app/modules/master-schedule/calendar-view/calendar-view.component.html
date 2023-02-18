@@ -1,0 +1,78 @@
+<div class="main-card">
+    <div class="card-header px-0 pt-0 pb-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Schedule</h1>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="show()">Create Schedule</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="calendar-head">
+            <div class="calendar-date">
+                <div *ngIf="this.selectedCalenderType == CalendarType.Daily" class="date">{{selectedDate
+                    |date:'fullDate'}}</div>
+                <div *ngIf="this.selectedCalenderType == CalendarType.Weekly" class="date">{{calendarFirstDate |date}} -
+                    {{calendarLastDate |date}}</div>
+                <div *ngIf="this.selectedCalenderType == CalendarType.Monthly" class="date">{{selectedDate
+                    |date:'MMMM,y'}}</div>
+                <div class="left-right">
+                    <i class="ca ca-icn-fil-arrow-left" (click)="onDateDecriment()"></i>
+                    <i class="ca ca-icn-fil-arrow-right" (click)="onDateIncriment()"></i>
+                </div>
+                <input class="calendar-icon ca ca-icn-main-schedule" type="image" src="/assets/images/calendar-icon.svg"
+                    bsDatepicker [(ngModel)]="selectedDate">
+            </div>
+            <div class="date-range">
+                <div class="range-button " [ngClass]="{'active': this.selectedCalenderType == CalendarType.Daily}"
+                    (click)="onChangeCalendar(CalendarType.Daily)">Day</div>
+                <div class="range-button" [ngClass]="{'active': this.selectedCalenderType == CalendarType.Weekly}"
+                    (click)="onChangeCalendar(CalendarType.Weekly)">Week</div>
+                <div class="range-button" [ngClass]="{'active': this.selectedCalenderType == CalendarType.Monthly}"
+                    (click)="onChangeCalendar(CalendarType.Monthly)">Month</div>
+            </div>
+        </div>
+        <app-calendar-daily-view [selectedDate]="this.selectedDate" (updateSchedule)="scheduleUpdate($event)"
+            *ngIf="this.selectedCalenderType == CalendarType.Daily"></app-calendar-daily-view>
+        <app-calendar-weekly-view [calendarFirstDate]="this.calendarFirstDate"
+            [calendarLastDate]="this.calendarLastDate" *ngIf="this.selectedCalenderType == CalendarType.Weekly"
+            (dayClick)="onDayClick($event)"></app-calendar-weekly-view>
+        <app-calendar-monthly-view [calendarFirstDate]="this.calendarFirstDate"
+            [calendarLastDate]="this.calendarLastDate" *ngIf="this.selectedCalenderType == CalendarType.Monthly"
+            (dayClick)="onDayClick($event)"></app-calendar-monthly-view>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create Schedule</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="close()" aria-label="Close"><span
+                        class="ca ca-icn-close"></span></button>
+            </div>
+            <app-master-schedule-create (closePopup)="close()" (submitSuccess)="onScheduleAdd($event)"
+                *ngIf="modalVisible">
+            </app-master-schedule-create>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': updateModalVisibleAnimate}"
+    [ngStyle]="{'display': updateModalVisible ? 'block' : 'none', 'opacity': updateModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Update Schedule</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeUpdate()" aria-label="Close"><span
+                        class="ca ca-icn-close"></span></button>
+            </div>
+            <app-master-schedule-update [editAircraftSchedule]="selectedAircraftSchedule" (closePopup)="closeUpdate()" (submitSuccess)="onScheduleUpdate($event)"
+                *ngIf="updateModalVisible">
+            </app-master-schedule-update>
+        </div>
+    </div>
+</div>

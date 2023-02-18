@@ -1,0 +1,83 @@
+<div class="calender">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <th style="width: 14.5%;">Sunday</th>
+                <th style="width: 14.5%;">Monday</th>
+                <th style="width: 14.5%;">Tuesday</th>
+                <th style="width: 14.5%;">Wednesday</th>
+                <th style="width: 14.5%;">Thursday</th>
+                <th style="width: 14.5%;">Friday</th>
+                <th style="width: 14.5%;">Saturday</th>
+            </thead>
+            <tbody class="month-view" *ngFor="let day of this.timeLine;let i = index">
+                <tr *ngIf="i ==0">
+                    <td *ngFor="let day of this.timeLine | slice:0:7;let i = index" (click)="onDayClick(day)">
+                        <div [ngClass]="{'past-next-days': isCurrentMonth(day)}">{{day|date:'d'}}</div>
+                        <div *ngIf="isScheduleAvailable(day)" class="clalender-schedule">
+                            <div *ngFor="let schedule of this.getDailySchedules(day)" class="cl-schedule">
+                                <span class="schedule-status active"></span>
+                                <span class="aircraft-number">{{schedule.regNo}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="i==7">
+                    <td *ngFor="let day of this.timeLine | slice:7:14;let i = index" (click)="onDayClick(day)">
+                        <div [ngClass]="{'past-next-days': isCurrentMonth(day)}">{{day|date:'d'}}</div>
+                        <div *ngIf="isScheduleAvailable(day)" class="clalender-schedule">
+                            <div *ngFor="let schedule of this.getDailySchedules(day)" class="cl-schedule">
+                                <span class="schedule-status active"></span>
+                                <span class="aircraft-number">{{schedule.regNo}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="i==14">
+                    <td *ngFor="let day of this.timeLine | slice:14:21;let i = index" (click)="onDayClick(day)">
+                        <div [ngClass]="{'past-next-days': isCurrentMonth(day)}">{{day|date:'d'}}</div>
+                        <div *ngIf="isScheduleAvailable(day)" class="clalender-schedule">
+                            <div *ngFor="let schedule of this.getDailySchedules(day)" class="cl-schedule">
+                                <span class="schedule-status active"></span>
+                                <span class="aircraft-number">{{schedule.regNo}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="i==21">
+                    <td *ngFor="let day of this.timeLine | slice:21:28;let i = index" (click)="onDayClick(day)">
+                        <div [ngClass]="{'past-next-days': isCurrentMonth(day)}">{{day|date:'d'}}</div>
+                        <div *ngIf="isScheduleAvailable(day)" class="clalender-schedule">
+                            <div *ngFor="let schedule of this.getDailySchedules(day)" class="cl-schedule">
+                                <span class="schedule-status active"></span>
+                                <span class="aircraft-number">{{schedule.regNo}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="i==28">
+                    <td *ngFor="let day of this.timeLine | slice:28:35;let i = index" (click)="onDayClick(day)">
+                        <div [ngClass]="{'past-next-days': isCurrentMonth(day)}">{{day|date:'d'}}</div>
+                        <div *ngIf="isScheduleAvailable(day)" class="clalender-schedule">
+                            <div *ngFor="let schedule of this.getDailySchedules(day)" class="cl-schedule">
+                                <span class="schedule-status active"></span>
+                                <span class="aircraft-number">{{schedule.regNo}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="i==35">
+                    <td *ngFor="let day of this.timeLine | slice:35:42;let i = index" (click)="onDayClick(day)">
+                        <div [ngClass]="{'past-next-days': isCurrentMonth(day)}">{{day|date:'d'}}</div>
+                        <div *ngIf="isScheduleAvailable(day)" class="clalender-schedule">
+                            <div *ngFor="let schedule of this.getDailySchedules(day)" class="cl-schedule">
+                                <span class="schedule-status active"></span>
+                                <span class="aircraft-number">{{schedule.regNo}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
