@@ -1,3 +1,4 @@
+import { LinkAircraftFliterStatus } from 'src/app/core/enums/common-enums';
 import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
@@ -280,6 +281,27 @@ export class CoreExtensions {
         break;
     }
     return statusString;
+  }
+
+  public static GetLinkAircraftStatus(val: LinkAircraftFliterStatus){
+    let text = "None";
+    switch(val){
+      case LinkAircraftFliterStatus.None:
+        text="All";
+        break;
+      case LinkAircraftFliterStatus.Pending:
+        text="Pending";
+        break;
+      case  LinkAircraftFliterStatus.PartiallyCompleted:
+        text="Partially Completed";
+        break;
+      case  LinkAircraftFliterStatus.Completed:
+        text="Completed";
+        break;
+      default:
+        break;
+    }
+    return text;
   }
 
 }

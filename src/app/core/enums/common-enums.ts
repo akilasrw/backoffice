@@ -13,6 +13,7 @@ export enum MenuType {
   UserManagement = 11,
   Notification=12,
   MasterSchedule=13,
+  LinkAircraft=14,
 }
 
 export enum SectorType {
@@ -141,4 +142,11 @@ export enum ScheduleStatus
     Schedule = 1,
     Chartered = 2,
     Maintainance = 3,
+}
+
+export enum LinkAircraftFliterStatus {
+  None = 0,
+  Pending = 1,
+  PartiallyCompleted = 2,
+  Completed = 3
 }

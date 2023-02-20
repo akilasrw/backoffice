@@ -1,0 +1,37 @@
+<div class="modal-body">
+    <div>
+        You can add or edit Aircraft for specific date.
+    </div>
+    <div class="row">
+        <div class="table-content" *ngIf="!isLoading" >
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <th>Scheduled Date</th>
+                        <th class="text-end pe-5">Aircraft Reg. Number</th>
+                    </thead>
+                    <tbody *ngIf="flightSchedules">
+                        <tr *ngFor="let f of flightSchedules">
+                            <td>{{f.scheduledDepartureDateTime | date}}</td>
+                            <td class="filter-wrapper d-flex justify-content-end">
+                                <div class="filter-group ms-0" *ngIf="!isTextLoading">
+                                    <app-auto-complete-dropdown [data]="f?.aircraftList" [keyword]="keyword" [selectedIndex]="f?.editAircraftIndex"
+                                      (selectFileOutput)="selectedAircraft($event, f)" (changeSearch)="onClearAircraft()"
+                                      (clearSearch)="onClearAircraft()" [tabindex]="1">
+                                    </app-auto-complete-dropdown>
+                                </div>
+                                <app-text-input-loader *ngIf="isTextLoading"></app-text-input-loader>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <app-table-loader [columnCount]="2" [rowCount]="flightSchedules.lenght" *ngIf="isLoading">
+        </app-table-loader>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary me-3" (click)="close()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+</div>

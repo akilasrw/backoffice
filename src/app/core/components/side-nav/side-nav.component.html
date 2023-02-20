@@ -69,6 +69,12 @@
                     </div>
                 </li>
                 <li>
+                    <div class="menu-item" (click)="menuClickEvent(14)" [ngClass]="{'selected': selectedMenu == 14}">
+                        <span class="menu-icn ca ca-icn-assign-aircraft tool-tip"><span class="tooltiptext">Assign Aircraft</span></span>
+                        <span class="menu-title">Assign Aircraft</span>
+                    </div>
+                </li>
+                <li>
                     <div class="menu-item" (click)="menuClickEvent(10)" [ngClass]="{'selected': selectedMenu == 10}">
                         <span class="menu-icn ca ca-icn-dollar tool-tip"><span class="tooltiptext">Rate Management</span></span>
                         <span class="menu-title">Rate Management</span>

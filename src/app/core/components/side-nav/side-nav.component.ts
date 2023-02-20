@@ -119,6 +119,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.MasterSchedule:
         this.router.navigate([RouteConstants.MasterSchedule])
         break;
+      case MenuType.LinkAircraft:
+        this.router.navigate([RouteConstants.LinkAircraft])
+        break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;
@@ -164,6 +167,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.MasterSchedule:
         selectedType = MenuType.MasterSchedule;
+        break;
+      case RouteConstants.LinkAircraft:
+        selectedType = MenuType.LinkAircraft;
         break;
     }
     return selectedType;

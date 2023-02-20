@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: RouteConstants.UserManagement, loadChildren: ()=> import('./modules/user-management/user-management.module').then(mod => mod.UserManagementModule), canActivate: [AuthGuard]},
   { path: RouteConstants.Notification, loadChildren: ()=> import('./modules/notification/notification.module').then(mod => mod.NotificationModule), canActivate: [AuthGuard]},
   { path: RouteConstants.MasterSchedule, loadChildren: ()=> import('./modules/master-schedule/master-schedule.module').then(mod => mod.MasterScheduleModule),canActivate: [AuthGuard]},
+  { path: RouteConstants.LinkAircraft, loadChildren: ()=> import('./modules/link-aircraft/link-aircraft.module').then(mod => mod.LinkAircraftModule),canActivate: [AuthGuard]},
 
 
   { path: 'server-error', component: ServerErrorComponent },
