@@ -19,4 +19,5 @@ export class RouteConstants{
     public static Notification : string = "publish-notification";
     public static MasterSchedule: string = "master-schedule";
     public static LinkAircraft: string="link-aircraft";
+    public static FleetReport: string="fleet-report";
   }

@@ -1,9 +1,7 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextInputComponent } from './components/forms/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AutoCompleteDropdownComponent } from './components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
@@ -27,6 +25,7 @@ import { WhiteSpaceInputComponent } from './components/forms/white-space-input/w
 import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b737800-type-one/al-b737800-type-one.component';
 import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b737300-type-one/al-b737300-type-one.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -61,6 +60,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxSpinnerModule,
     PaginationModule,
     NgxPaginationModule,
+    BsDatepickerModule.forRoot()
+
   ],
   exports: [
     ToastrModule,
@@ -86,7 +87,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AutoCompleteTextboxComponent,
     TwodecimalpointsDirective,
     WhiteSpaceInputComponent,
-    AlB737300TypeOneComponent
+    AlB737300TypeOneComponent,
+    BsDatepickerModule
   ]
 })
 export class SharedModule { }

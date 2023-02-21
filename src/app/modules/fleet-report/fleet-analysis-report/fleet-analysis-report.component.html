@@ -1,0 +1,125 @@
+<div class="main-card">
+    <div class="card-header px-0 pt-0 pb-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Fleet Analysis {{this.query.reportType == 1?' - Idle Time':' - Flight Time'}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="filter-wrapper">
+                        <div class="filter-group ms-0">
+                          <label class="form-label">Month</label>
+                          <input [(ngModel)]="pickerDate" autocomplete="off" class="form-control" name="date"
+                          bsDatepicker [bsConfig]="{dateInputFormat: 'MMM YYYY'}" (onShown)="onOpenCalendar($event)">
+                        </div>
+                        <!-- <div class="filter-group ms-0">
+                            <label class="form-label">Date Range</label>
+                            <input type="text" class="form-control">
+                        </div> -->
+                        <div class="filter-group">
+                            <label class="form-label">Report Type</label>
+                            <app-auto-complete-dropdown [data]="reportTypes" [keyword]="keyword" [selectedIndex]="reportTypeIndex"
+                            (selectFileOutput)="selectedReportType($event)" (changeSearch)="onClearReportType()"
+                            (clearSearch)="onClearReportType()"></app-auto-complete-dropdown>
+                        </div>
+                        <div class="button">
+                            <button class="btn sm btn-primary-outline" (click)="addFilter()">Add Filter</button>
+                        </div>
+                        <!-- <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div> -->
+                    </div>
+                </div>
+                <div class="total-hours">
+                    <div>Total Idle Hours:<span class="houres">{{this.totalReportHours | number: '1.2-2'}} h</span></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" id="report" #report>
+            <div>
+                <div *ngIf="reportData" class="report-head">
+                    <div>{{query.month +'/'+ query.year}} Idle Hours in Aircraft</div>
+                </div>
+            </div>
+            <div>
+                <div class="report-table-wrapper" *ngIf="!isLoading">
+                    <table *ngIf="reportData">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px 0px;">
+                                    <div class="head-bg">Aircraft No. (S)</div>
+                                </th>
+                                <th *ngFor="let item of getDates();let i = index">
+                                    <div class="head-bg">{{item?.day}}</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of reportData">
+                                <td>{{item.aircraftRegNo}}</td>
+                                <td *ngFor="let data of item?.aircraftData"   (mouseenter)="mouseEnter(data)" (mouseleave)="mouseLeave()" >
+                                  <div class="table-label" [ngClass]="{'idle': this.query.reportType == reportType.IdleTimeReport, 'flight-time': this.query.reportType == reportType.Running}" >
+                                        <lable>{{data?.noOfHours| number : '1.2-2'}} h</lable>
+                                        <div class="marker-hover" *ngIf="this.overedAircraftIdleReport.showHover==true">
+                                          <div class="hover-body">
+                                              <div class="details-group" *ngIf="this.query.reportType == reportType.IdleTimeReport">
+                                                  <div class="lable">Idle Hour(s)</div>
+                                                  <div>{{data.noOfHours| number: '1.2-2'}} h</div>
+                                              </div>
+                                              <div class="details-group" *ngIf="data?.aircraftIdleDateRangeList?.length > 0 && this.query.reportType == reportType.IdleTimeReport">
+                                                    <div class="lable">Idle Time(s)</div>
+                                                    <ng-container *ngFor="let idleData of data.aircraftIdleDateRangeList">
+                                                      {{idleData.startTime| date :'HH:mm'}} - {{idleData.endTime| date :'HH:mm'}} - {{idleData.totalHours| number: '1.2-2'}} h  <br />
+                                                    </ng-container>
+                                              </div>
+                                              <div class="details-group" *ngIf="this.query.reportType == reportType.Running">
+                                                  <div class="lable">Schedule Times</div>
+                                                  <div *ngIf="data.scheduleTimeList?.length > 0">
+                                                    <ng-container *ngFor="let times of data.scheduleTimeList">
+                                                            {{times.startTime| date :'HH:mm'}} - {{times.endTime|date :'HH:mm'}} <br/>
+                                                    </ng-container>
+                                                    </div>
+                                              </div>
+                                              <div class="details-group" *ngIf="this.query.reportType == reportType.IdleTimeReport && data.totalFlightTimeHrs > 0">
+                                                  <div class="lable">{{data.scheduleStatus == scheduleStatus.Maintainance? 'Maintainance ':
+                                                    data.scheduleStatus == scheduleStatus.Chartered?'Chartered ':'Flight '}} Duration</div>
+                                                  <div>{{data.totalFlightTimeHrs| number: '1.2-2'}} h</div>
+                                              </div>
+                                              <div class="details-group" *ngIf="this.query.reportType == reportType.Running">
+                                                  <div class="lable">Flight Duration</div>
+                                                  <div>{{data.noOfHours| number: '1.2-2'}} h</div>
+                                              </div>
+                                              <div class="details-group" *ngIf="data.flightLocationsList?.length > 0 && this.query.reportType == reportType.Running">
+                                                <div class="lable">Origin - Destination</div>
+                                                <ng-container *ngFor="let loc of data.flightLocationsList">
+                                                        {{loc.origin}} - {{loc.destination}} <br/>
+                                                </ng-container>
+                                               </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="not-available" *ngIf="!reportData">
+                      <img src="./assets/images/no-data.png" alt="No Content Data">
+                      <div>Data is not available.</div>
+                  </div>
+                </div>
+                <app-table-loader [columnCount]="30" [rowCount]="5" *ngIf="isLoading">
+                </app-table-loader>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="footer-content">
+            <button type="button" class="btn btn-primary" (click)="print()">Print and Download</button>
+        </div>
+    </div>
+</div>
+
+

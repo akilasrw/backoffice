@@ -14,6 +14,7 @@ export enum MenuType {
   Notification=12,
   MasterSchedule=13,
   LinkAircraft=14,
+  FleetReport=15
 }
 
 export enum SectorType {
@@ -149,4 +150,10 @@ export enum LinkAircraftFliterStatus {
   Pending = 1,
   PartiallyCompleted = 2,
   Completed = 3
+}
+
+export enum MasterSheduleReportType {
+  None = 0,
+  IdleTimeReport = 1,
+  Running = 2
 }

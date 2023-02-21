@@ -1,4 +1,4 @@
-import { LinkAircraftFliterStatus } from 'src/app/core/enums/common-enums';
+import { LinkAircraftFliterStatus, MasterSheduleReportType } from 'src/app/core/enums/common-enums';
 import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
@@ -304,9 +304,21 @@ export class CoreExtensions {
     return text;
   }
 
+  public static GetReportType(type: MasterSheduleReportType): string {
+    let statusString = "None";
+    switch (type) {
+      case MasterSheduleReportType.None:
+        statusString = "All";
+        break;
+      case MasterSheduleReportType.IdleTimeReport:
+        statusString = "Idle Time";
+        break
+      case MasterSheduleReportType.Running:
+        statusString = "Schedule Time";
+        break
+      default:
+        break;
+    }
+    return statusString;
+  }
 }
-
-
-
-
-

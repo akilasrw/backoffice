@@ -1637,6 +1637,116 @@ a {
     }
 }
 
+// Report section styles
+
+.total-hours {
+    font-size: 16px;
+    .houres {
+        color: $red;
+        padding-left: 0.625rem;
+        font-weight: 700;
+    }
+}
+.report-head {
+    background-color: $off-white;
+    padding: 9px 15px;
+    margin-top: 25px;
+}
+.report-table-wrapper {
+    max-width: 100%;
+    overflow: scroll;
+    height: calc(100vh - 274px);
+    font-size: 12px;
+    table {
+        position: relative;
+        // border: 1px solid #ddd;
+        border-collapse: collapse;
+        td, th {
+            white-space: nowrap;
+            // border: 1px solid #ddd !important;
+            padding: 8px 16px;
+        }
+        th {
+            // background-color: #eee;
+            position: sticky;
+            top: -1px;
+            z-index: 2;
+            font-weight: 500;
+            &:first-of-type {
+                left: 0;
+                z-index: 3;
+            }
+        }
+        .head-bg {
+            background-color: $off-white;
+            padding: 3px 16px;
+            text-align: center;
+        }
+        tbody {
+            tr {
+                td {
+                    &:first-of-type {
+                        background-color: $default-white;
+                        position: sticky;
+                        left: -1px;
+                        text-align: left;
+                        z-index: 1;
+                    }
+                    .table-label {
+                        border-radius: 2px;
+                        text-align: center;
+                        cursor: pointer;
+                        position: relative;
+                        padding: 1px 5px;
+                        .marker-hover {
+                            display: none;
+                        }
+                        &:hover {
+                            .marker-hover {
+                                display: block;
+                                left: -70px;
+                            }
+                        }
+                        &.idle {
+                            background-color: #FADCDC;
+                            color: #CF2323;
+                        }
+                        &.flight-time {
+                            background-color: $blue;
+                            color: #282894;
+                        }
+                    }
+                    &:nth-child(2) {
+                        .table-label {
+                            &:hover {
+                                .marker-hover {
+                                    display: block;
+                                    left: 0px;
+                                }
+                            }
+                        }
+                    }
+                    &:last-child {
+                        .table-label {
+                            &:hover {
+                                .marker-hover {
+                                    display: block;
+                                    left: -132px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.footer-content {
+    padding: 10px 16px;
+    text-align: end;
+}
+
+
 
 // .search-result-container {
 // 	position: relative;
