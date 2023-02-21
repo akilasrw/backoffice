@@ -15,6 +15,7 @@ import { LinkAircraftCreateComponent } from './link-aircraft-create/link-aircraf
     CommonModule,
     LinkAircraftRoutingModule,
     SharedModule
-  ]
+  ],
+  exports:[LinkAircraftCreateComponent]
 })
 export class LinkAircraftModule { }

@@ -10,6 +10,7 @@ import { CalendarMonthlyViewComponent } from './calendar-view/calendar-monthly-v
 import { CalendarDailyViewComponent } from './calendar-view/calendar-daily-view/calendar-daily-view.component';
 import { MasterScheduleCreateComponent } from './master-schedule-create/master-schedule-create.component';
 import { MasterScheduleUpdateComponent } from './master-schedule-update/master-schedule-update.component';
+import { LinkAircraftModule } from '../link-aircraft/link-aircraft.module';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { MasterScheduleUpdateComponent } from './master-schedule-update/master-s
     MasterScheduleRoutingModule,
     SharedModule,
     BsDatepickerModule,
-    //LinkAircraftModule
+    LinkAircraftModule
   ]
 })
 export class MasterScheduleModule { }
