@@ -64,6 +64,10 @@
                 </div>
             </div>
         </div>
+        <div class="not-available" *ngIf="this.palletPositions.length < 1">
+            <img src="./assets/images/no-data.png" alt="No Content Data">
+            <div>Data not available.</div>
+        </div>
     </div>
 </div>
 
