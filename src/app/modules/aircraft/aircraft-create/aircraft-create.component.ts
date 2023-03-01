@@ -65,7 +65,10 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
       aircraftSubTypeId: new FormControl(null, [Validators.required]),
       configurationType: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
-      isActive: new FormControl(true)
+      isActive: new FormControl(true),
+      aCheck: new FormControl(null),
+      bCheck: new FormControl(null),
+      cCheck: new FormControl(null)
     });
   }
 
@@ -252,6 +255,20 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
     if (this.aircraftForm.get('status')?.value === null || this.aircraftForm.get('status')?.value === "") {
       this.toastr.error('Please select aircraft status.');
       return;
+    }
+    if(this.isMaintenance){
+      if(this.aircraftForm.get('aCheck')?.value === null || this.aircraftForm.get('aCheck')?.value === ""){
+        this.toastr.error('Please set A check.');
+        return;
+      }
+      if(this.aircraftForm.get('bCheck')?.value === null || this.aircraftForm.get('bCheck')?.value === ""){
+        this.toastr.error('Please set B check.');
+        return;
+      }
+      if(this.aircraftForm.get('cCheck')?.value === null || this.aircraftForm.get('cCheck')?.value === ""){
+        this.toastr.error('Please set C check.');
+        return;
+      }
     }
 
     if (this.aircraftForm.valid) {
