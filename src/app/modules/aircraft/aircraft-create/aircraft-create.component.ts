@@ -279,6 +279,9 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
             this.isLoading=false;
           },
           error: (err) => {
+            this.editConfigTypeIndex = this.configTypes.findIndex(x => x.id == aircraft.configurationType?.toString());
+            this.editAircraftTypeIndex = this.aircraftTypes?.findIndex(x => x.id == aircraft.aircraftTypeId);
+            this.editStatusTypeIndex = this.statusTypes.findIndex(x => x.id == aircraft.status?.toString());
             this.isLoading=false;
           }
         });
