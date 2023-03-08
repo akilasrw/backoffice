@@ -134,6 +134,10 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
       { id: AircraftConfigType.Freighter.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Freighter) });
     if (this.isEditAircraft) {
       this.editConfigTypeIndex = this.configTypes.findIndex(x => x.id == this.editAircraft.configurationType?.toString());
+    console.log(this.configTypes);
+    console.log(this.editAircraft.configurationType?.toString());
+    console.log(this.editConfigTypeIndex);
+
     }
   }
 
