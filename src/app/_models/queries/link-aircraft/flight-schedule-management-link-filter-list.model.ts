@@ -4,4 +4,7 @@ export class FlightScheduleManagementLinkFilterList extends BasePaginationQuery{
   flightNumber? :string;
   status? :number;
   isHistory?: boolean;
+  originAirportId?: string;
+  destinationAirportId?: string;
+  flightDate?: Date
 }

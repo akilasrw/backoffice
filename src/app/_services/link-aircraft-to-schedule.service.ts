@@ -26,6 +26,18 @@ export class LinkAircraftToScheduleService extends BaseService{
       params = params.append("flightNumber", query.flightNumber);
     }
 
+    if (query.flightDate) {
+      params = params.append("flightDate", query.flightDate.toDateString());
+    }
+
+    if (query.originAirportId) {
+      params = params.append("originAirportId", query.originAirportId);
+    }
+
+    if (query.destinationAirportId) {
+      params = params.append("destinationAirportId", query.destinationAirportId);
+    }
+
     if (query.status) {
       params = params.append("status", Number(query.status));
     }

@@ -14,15 +14,26 @@
                         <label class="form-label">Flight No.</label>
                         <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
                     </div>
-                    <div class="filter-group">
+                    <!-- <div class="filter-group">
                       <label class="form-label">Dept. Date</label>
                       <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
-                    </div><div class="filter-group">
-                        <label class="form-label">Origin</label>
-                        <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
-                    </div><div class="filter-group">
-                      <label class="form-label">Dest.</label>
-                      <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
+                    </div> -->
+                    <div class="filter-group">
+                      <label class="form-label">Flight Date</label>
+                      <input [(ngModel)]="query.flightDate" type="text" class="form-control" bsDatepicker
+                          (change)="onChangeFilter()">
+                    </div>
+                    <div class="filter-group">
+                      <label class="form-label">Origin</label>
+                      <app-auto-complete-dropdown #originAirportAutoComplete [data]="originAirpots" [keyword]="keyword"
+                          (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                          (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
+                  </div>
+                  <div class="filter-group">
+                      <label class="form-label">Destination</label>
+                      <app-auto-complete-dropdown #destinationAirportAutoComplete [data]="destinationAirpots" [keyword]="keyword"
+                          (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
+                          (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
                   </div>
                     <div class="button">
                         <button class="btn sm btn-primary-outline" (click)="getFilterList()">Add Filter</button>
@@ -65,7 +76,7 @@
                               <td>{{(fs.actualArrivalDateTime !== null) ? (fs.actualArrivalDateTime | date: 'shortTime') : "-" }}</td>
                               <td>{{timeDiff(fs.actualArrivalDateTime,fs.actualDepartureDateTime)}}</td>
                               <td>view</td>
-                              <td>250 kg</td>
+                              <td>{{(fs.totalWeight!==0)? (fs.totalWeight)+' kg':"-"}} </td>
                               <td><i class="ca ca-icn-add" (click)="show(fs.id)" title="Add"></i></td>
                             </tr>
                         </tbody>

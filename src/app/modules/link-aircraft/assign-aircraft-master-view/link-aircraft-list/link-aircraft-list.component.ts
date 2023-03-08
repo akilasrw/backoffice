@@ -1,10 +1,12 @@
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { FlightScheduleLink } from '../../../../_models/view-models/link-aircraft/flight-schedule-link.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FlightScheduleManagementLinkFilterList } from 'src/app/_models/queries/link-aircraft/flight-schedule-management-link-filter-list.model';
 import { LinkAircraftFliterStatus } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { LinkAircraftToScheduleService } from 'src/app/_services/link-aircraft-to-schedule.service';
+import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
+import { AirportService } from 'src/app/_services/airport.service';
 
 
 @Component({
@@ -26,13 +28,31 @@ export class LinkAircraftListComponent implements OnInit {
   keyword = 'value';
   //selectedStatus?: number;
   statusList: SelectList[] = [];
+  originAirpots: SelectList[] = [];
+  destinationAirpots: SelectList[] = [];
 
+  @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
+  @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
 
-  constructor(private linkAircraftToScheduleService: LinkAircraftToScheduleService) { }
+  constructor(private linkAircraftToScheduleService: LinkAircraftToScheduleService,
+    private airportService: AirportService,) { }
 
   ngOnInit(): void {
+    this.loadAirports();
     this.getFilterList();
     this.loadLinkAircraftStatusList();
+  }
+
+  loadAirports() {
+    this.isLoading=true;
+    this.airportService.getSelectList()
+      .subscribe(res => {
+        if (res.length > 0) {
+          this.originAirpots = res;
+          Object.assign(this.destinationAirpots, res);
+        }
+        this.isLoading=false;
+      });
   }
 
   show(id:string) {
@@ -55,7 +75,7 @@ export class LinkAircraftListComponent implements OnInit {
 
         this.flightScheduleLinks = res.data;
         this.totalCount = res.count
-        this.checkFiltered();
+        this.onChangeFilter();
         this.isLoading = false;
       }
     });
@@ -63,16 +83,10 @@ export class LinkAircraftListComponent implements OnInit {
 
   clearFilter() {
     this.query=  new FlightScheduleManagementLinkFilterList();
+    this.originAirportDropdown.clear();
+    this.destinationAirportDropdown.clear();
     this.getFilterList();
     this.isFiltered = false;
-  }
-
-  checkFiltered() {
-    if(this.query.flightNumber == undefined || this.query.flightNumber == '') {
-      this.isFiltered = false;
-    } else {
-      this.isFiltered = true;
-    }
   }
 
   selectedStatusValue(value: any) {
@@ -113,5 +127,33 @@ export class LinkAircraftListComponent implements OnInit {
     const diffInMs = Date.parse(date2) - Date.parse(date1);
     const diffInHours = diffInMs / 1000 / 60 / 60;
     return diffInHours+ ' Hrs';
+  }
+
+  selectedOrigin(value: any) {
+    this.query.originAirportId = value.id;
+    this.onChangeFilter();
+  }
+
+  onClearOrigin(){
+    this.query.originAirportId = undefined;
+  }
+
+  selectedDestination(value: any) {
+    this.query.destinationAirportId = value.id;
+    this.onChangeFilter();
+  }
+
+  onClearDestination(){
+    this.query.destinationAirportId = undefined;
+  }
+
+  onChangeFilter() {
+    this.isFiltered= true;
+    if((this.query.flightNumber == undefined || this.query.flightNumber == '') &&
+    (this.query.originAirportId == undefined || this.query.originAirportId == '') &&
+    (this.query.destinationAirportId == undefined || this.query.destinationAirportId == '') &&
+    this.query.flightDate == undefined){
+      this.isFiltered = false;
+    }
   }
 }
