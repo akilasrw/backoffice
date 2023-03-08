@@ -29,6 +29,9 @@ export class LinkAircraftToScheduleService extends BaseService{
     if (query.status) {
       params = params.append("status", Number(query.status));
     }
+    if (query.isHistory) {
+      params = params.append("isHistory", Boolean(query.isHistory));
+    }
 
     params = CoreExtensions.AsPaginate(params, query);
 
@@ -37,5 +40,5 @@ export class LinkAircraftToScheduleService extends BaseService{
       params
     );
   }
-  
+
 }

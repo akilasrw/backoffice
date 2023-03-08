@@ -18,7 +18,7 @@ import { FleetAnalysisService } from 'src/app/_services/fleet-analysis.service';
 })
 export class FleetAnalysisReportComponent implements OnInit {
 
-  
+
   pickerDate = new Date();
   query: FlightScheduleReportQuery = new FlightScheduleReportQuery();
   aircraftIdleReport?: AircraftIdleReport[]=[];

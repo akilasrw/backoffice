@@ -15,11 +15,15 @@
                         <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
                     </div>
                     <div class="filter-group">
-                        <label class="form-label">Assign Status</label>
-                        <app-auto-complete-dropdown [data]="statusList" [keyword]="keyword"
-                        (selectFileOutput)="selectedStatusValue($event)" (changeSearch)="onClearStatus()"
-                        (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
-                    </div>
+                      <label class="form-label">Dept. Date</label>
+                      <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
+                    </div><div class="filter-group">
+                        <label class="form-label">Origin</label>
+                        <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
+                    </div><div class="filter-group">
+                      <label class="form-label">Dest.</label>
+                      <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
+                  </div>
                     <div class="button">
                         <button class="btn sm btn-primary-outline" (click)="getFilterList()">Add Filter</button>
                     </div>
@@ -33,28 +37,35 @@
                     <table class="table">
                         <thead>
                             <th>Flight No.</th>
+                            <th>Aircraft Type</th>
+                            <th>Acreg.</th>
+                            <th>Dept. Date</th>
                             <th>Origin</th>
-                            <th>Destination</th>
-                            <th>Flight Time</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Days of the Week</th>
-                            <th>No of linked Aircrafts</th>
-                            <th>Assign Status</th>
+                            <th>Dest</th>
+                            <th>STD</th>
+                            <th>STA</th>
+                            <th>ATD</th>
+                            <th>ATA</th>
+                            <th>Block Hrs.</th>
+                            <th>Bookings</th>
+                            <th>Aircraft Uplift</th>
                             <th>Actions</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let fs of flightScheduleLinks">
-
                               <td>{{fs.flightNumber}}</td>
-                              <td>{{fs.originAirportCode}}</td>
-                              <td>{{fs.destinationAirportCode}}</td>
-                              <td>{{fs.scheduledTime| date :'shortTime'}}</td>
-                              <td>{{fs.scheduleStartDate| date}}</td>
-                              <td>{{fs.scheduleEndDate| date}}</td>
-                              <td>{{fs.daysOfWeek}}</td>
-                              <td>{{fs.linkedAircraftsCount}}/{{fs.totalRecordCount}}</td>
-                              <td>{{getStatus(fs.status)}}</td>
+                              <td>{{fs.aircraftSubTypeName}}</td>
+                              <td>{{fs.aircraftRegNo}}</td>
+                              <td>{{fs.scheduledDepartureDateTime | date}}</td>
+                              <td>{{fs.originAirportName}}</td>
+                              <td>{{fs.destinationAirportName}}</td>
+                              <td>{{fs.scheduledDepartureDateTime | date :'shortTime'}}</td>
+                              <td>{{fs.scheduledArrivalDateTime | date :'shortTime'}}</td>
+                              <td>{{(fs.actualDepartureDateTime!==null)?  (fs.actualDepartureDateTime| date :'shortTime'):"-"}}</td>
+                              <td>{{(fs.actualArrivalDateTime !== null) ? (fs.actualArrivalDateTime | date: 'shortTime') : "-" }}</td>
+                              <td>{{timeDiff(fs.actualArrivalDateTime,fs.actualDepartureDateTime)}}</td>
+                              <td>view</td>
+                              <td>250 kg</td>
                               <td><i class="ca ca-icn-add" (click)="show(fs.id)" title="Add"></i></td>
                             </tr>
                         </tbody>

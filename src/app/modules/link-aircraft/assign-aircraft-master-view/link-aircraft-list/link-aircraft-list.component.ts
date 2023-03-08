@@ -1,5 +1,5 @@
 import { SelectList } from 'src/app/shared/models/select-list.model';
-import { FlightScheduleLink } from './../../../_models/view-models/link-aircraft/flight-schedule-link.model';
+import { FlightScheduleLink } from '../../../../_models/view-models/link-aircraft/flight-schedule-link.model';
 import { Component, OnInit } from '@angular/core';
 import { FlightScheduleManagementLinkFilterList } from 'src/app/_models/queries/link-aircraft/flight-schedule-management-link-filter-list.model';
 import { LinkAircraftFliterStatus } from 'src/app/core/enums/common-enums';
@@ -48,9 +48,11 @@ export class LinkAircraftListComponent implements OnInit {
 
   getFilterList() {
     this.isLoading = true;
+    this.query.isHistory = true;
     this.linkAircraftToScheduleService.getFilteredList(this.query)
     .subscribe(res => {
-      if (res != null) {
+      if (res != null) { console.log(res);
+
         this.flightScheduleLinks = res.data;
         this.totalCount = res.count
         this.checkFiltered();
@@ -105,5 +107,11 @@ export class LinkAircraftListComponent implements OnInit {
     }
   }
 
-
+  timeDiff(date1: string, date2: string) {
+    if(date1 == null || date2 == null)
+      return 'n/a';
+    const diffInMs = Date.parse(date2) - Date.parse(date1);
+    const diffInHours = diffInMs / 1000 / 60 / 60;
+    return diffInHours+ ' Hrs';
+  }
 }
