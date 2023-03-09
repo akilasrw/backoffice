@@ -5,13 +5,15 @@ import { LinkAircraftRoutingModule } from './link-aircraft-routing.module';
 import { LinkAircraftListComponent } from './assign-aircraft-master-view/link-aircraft-list/link-aircraft-list.component';
 import { LinkAircraftCreateComponent } from './link-aircraft-create/link-aircraft-create.component';
 import { AssignAircraftMasterViewComponent } from './assign-aircraft-master-view/assign-aircraft-master-view.component';
+import { UpdateATAComponent } from './update-ata/update-ata.component';
 
 
 @NgModule({
   declarations: [
     LinkAircraftListComponent,
     LinkAircraftCreateComponent,
-    AssignAircraftMasterViewComponent
+    AssignAircraftMasterViewComponent,
+    UpdateATAComponent
   ],
   imports: [
     CommonModule,

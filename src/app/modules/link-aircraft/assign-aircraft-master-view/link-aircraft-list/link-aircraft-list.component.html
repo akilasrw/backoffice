@@ -77,7 +77,9 @@
                               <td>{{timeDiff(fs.actualArrivalDateTime,fs.actualDepartureDateTime)}}</td>
                               <td>view</td>
                               <td>{{(fs.totalWeight!==0)? (fs.totalWeight)+' kg':"-"}} </td>
-                              <td><i class="ca ca-icn-add" (click)="show(fs.id)" title="Add"></i></td>
+                              <td>
+                                <i class="ca ca-icn-view" title="View"></i>
+                                <i class="ca ca-icn-add" (click)="showATA(fs.id)" title="Add" *ngIf="fs.actualArrivalDateTime === null"></i></td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,7 +102,21 @@
     </div>
 </div>
 
-<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': updateATAModalVisibleAnimate}"
+    [ngStyle]="{'display': updateATAModalVisible ? 'block' : 'none', 'opacity': updateATAModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Update ATA</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeUpdateATA()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <app-update-ata [flightScheduleId]="selectedId" (closePopup)="closeUpdateATA()" (submitSuccess)="onSubmitSuccess($event)"></app-update-ata>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
     [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
@@ -112,5 +128,6 @@
             <app-link-aircraft-create [flightMasterScheduleId]="selectedId" (closePopup)="close()" (submitSuccess)="onSubmitSuccess($event)" *ngIf="modalVisibleAnimate"></app-link-aircraft-create>
         </div>
     </div>
-</div>
+</div> -->
+
 

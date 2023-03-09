@@ -6,6 +6,7 @@ import { FlightScheduleManagementLinkFilterList } from '../_models/queries/link-
 import { ScheduleAircraftRm } from '../_models/request-models/link-aircraft/schedule-aircraft-rm.model';
 import { FlightScheduleLink } from '../_models/view-models/link-aircraft/flight-schedule-link.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
+import { UpdateAtaRm } from '../_models/request-models/link-aircraft/update-ata-rm.model';
 
 @Injectable({
   providedIn: 'root'

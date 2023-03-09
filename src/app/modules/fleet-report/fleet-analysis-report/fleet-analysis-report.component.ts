@@ -149,7 +149,7 @@ export class FleetAnalysisReportComponent implements OnInit {
     this.overedAircraftIdleReport.showHover = false;
   }
 
-  getHoursLable() {debugger
+  getHoursLable() {
     return this.overedAircraftIdleReport.scheduleStatus == 3? 'Maintainance ':'Idle ' + 'Hour(s)';
   }
 

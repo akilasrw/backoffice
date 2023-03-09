@@ -17,8 +17,10 @@ import { AirportService } from 'src/app/_services/airport.service';
 export class LinkAircraftListComponent implements OnInit {
 
 
-  modalVisible = false;
-  modalVisibleAnimate = false;
+  //modalVisible = false;
+  //modalVisibleAnimate = false;
+  updateATAModalVisible = false;
+  updateATAModalVisibleAnimate = false;
   flightScheduleLinks: FlightScheduleLink[]=[];
   query: FlightScheduleManagementLinkFilterList=  new FlightScheduleManagementLinkFilterList();
   selectedId?: string;
@@ -30,6 +32,7 @@ export class LinkAircraftListComponent implements OnInit {
   statusList: SelectList[] = [];
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
+  ATAValue: string ='';
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
@@ -55,15 +58,26 @@ export class LinkAircraftListComponent implements OnInit {
       });
   }
 
-  show(id:string) {
+  // show(id:string) {
+  //   this.selectedId=id;
+  //   this.modalVisible = true;
+  //   setTimeout(() => (this.modalVisibleAnimate = true));
+  // }
+
+  showATA(id:string) {
     this.selectedId=id;
-    this.modalVisible = true;
-    setTimeout(() => (this.modalVisibleAnimate = true));
+    this.updateATAModalVisible = true;
+    setTimeout(() => (this.updateATAModalVisibleAnimate = true));
   }
 
-  close() {
-    this.modalVisibleAnimate = false;
-    setTimeout(() => (this.modalVisible = false), 300);
+  // close() {
+  //   this.modalVisibleAnimate = false;
+  //   setTimeout(() => (this.modalVisible = false), 300);
+  // }
+
+  closeUpdateATA() {
+    this.updateATAModalVisibleAnimate = false;
+    setTimeout(() => (this.updateATAModalVisible = false), 300);
   }
 
   getFilterList() {
@@ -126,7 +140,7 @@ export class LinkAircraftListComponent implements OnInit {
       return 'n/a';
     const diffInMs = Date.parse(date2) - Date.parse(date1);
     const diffInHours = diffInMs / 1000 / 60 / 60;
-    return diffInHours+ ' Hrs';
+    return (Math.round(diffInHours * 100) / 100).toFixed(2);;
   }
 
   selectedOrigin(value: any) {
@@ -156,4 +170,5 @@ export class LinkAircraftListComponent implements OnInit {
       this.isFiltered = false;
     }
   }
+
 }
