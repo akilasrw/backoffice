@@ -25,7 +25,6 @@ export class UpdateATAComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
   }
 
   initializeForm() {
@@ -36,7 +35,7 @@ export class UpdateATAComponent implements OnInit {
   }
 
   saveATA() {
-    if(this.ataForm.valid) { 
+    if(this.ataForm.valid) {
       this.isLoading = true;
       console.log(this.ataForm.value);
 
@@ -54,8 +53,7 @@ export class UpdateATAComponent implements OnInit {
         error: (err) => {
           this.isLoading = false;
         }
-        })
-
+        });
     } else {
       this.ataForm.markAllAsTouched();
     }

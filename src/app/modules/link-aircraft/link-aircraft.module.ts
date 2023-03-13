@@ -6,6 +6,7 @@ import { LinkAircraftListComponent } from './assign-aircraft-master-view/link-ai
 import { LinkAircraftCreateComponent } from './link-aircraft-create/link-aircraft-create.component';
 import { AssignAircraftMasterViewComponent } from './assign-aircraft-master-view/assign-aircraft-master-view.component';
 import { UpdateATAComponent } from './update-ata/update-ata.component';
+import { ViewAircraftSummaryComponent } from './view-aircraft-summary/view-aircraft-summary.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { UpdateATAComponent } from './update-ata/update-ata.component';
     LinkAircraftListComponent,
     LinkAircraftCreateComponent,
     AssignAircraftMasterViewComponent,
-    UpdateATAComponent
+    UpdateATAComponent,
+    ViewAircraftSummaryComponent
   ],
   imports: [
     CommonModule,

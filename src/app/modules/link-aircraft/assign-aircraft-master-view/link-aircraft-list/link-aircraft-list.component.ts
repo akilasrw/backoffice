@@ -17,8 +17,8 @@ import { AirportService } from 'src/app/_services/airport.service';
 export class LinkAircraftListComponent implements OnInit {
 
 
-  //modalVisible = false;
-  //modalVisibleAnimate = false;
+  modalVisible = false;
+  modalVisibleAnimate = false;
   updateATAModalVisible = false;
   updateATAModalVisibleAnimate = false;
   flightScheduleLinks: FlightScheduleLink[]=[];
@@ -58,22 +58,28 @@ export class LinkAircraftListComponent implements OnInit {
       });
   }
 
-  // show(id:string) {
-  //   this.selectedId=id;
-  //   this.modalVisible = true;
-  //   setTimeout(() => (this.modalVisibleAnimate = true));
-  // }
+  show(id:string) {
+    this.selectedId=id;
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
 
   showATA(id:string) {
     this.selectedId=id;
     this.updateATAModalVisible = true;
     setTimeout(() => (this.updateATAModalVisibleAnimate = true));
   }
+  showSummary(id:string) {
+    this.selectedId=id;
+    // this.updateATAModalVisible = true;
+    // setTimeout(() => (this.updateATAModalVisibleAnimate = true));
 
-  // close() {
-  //   this.modalVisibleAnimate = false;
-  //   setTimeout(() => (this.modalVisible = false), 300);
-  // }
+  }
+
+  close() {
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
+  }
 
   closeUpdateATA() {
     this.updateATAModalVisibleAnimate = false;

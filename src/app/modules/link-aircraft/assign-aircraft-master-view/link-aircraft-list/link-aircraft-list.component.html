@@ -78,7 +78,7 @@
                               <td>view</td>
                               <td>{{(fs.totalWeight!==0)? (fs.totalWeight)+' kg':"-"}} </td>
                               <td>
-                                <i class="ca ca-icn-view" title="View"></i>
+                                <i class="ca ca-icn-view" title="View" (click)="show(fs.id)"></i>
                                 <i class="ca ca-icn-add" (click)="showATA(fs.id)" title="Add" *ngIf="fs.actualArrivalDateTime === null"></i></td>
                             </tr>
                         </tbody>
@@ -116,18 +116,18 @@
     </div>
 </div>
 
-<!-- <div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
     [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Assign Aircraft</h2>
+                <h2 class="modal-title">View Summary</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="close()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
-            <app-link-aircraft-create [flightMasterScheduleId]="selectedId" (closePopup)="close()" (submitSuccess)="onSubmitSuccess($event)" *ngIf="modalVisibleAnimate"></app-link-aircraft-create>
+            <app-view-aircraft-summary [flightScheduleId]="selectedId" (closePopup)="close()"></app-view-aircraft-summary>
         </div>
     </div>
-</div> -->
+</div>
 
 
