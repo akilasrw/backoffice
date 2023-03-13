@@ -63,7 +63,7 @@
                             <td>{{item.scheduleEndDate| date}}</td>
                             <td>{{item.daysOfWeek}}</td>
                             <td class="text-center">
-                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onEditFlightSchedule(item)"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
                             </td>
                         </tr>
@@ -94,12 +94,12 @@
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Create Flight Schedule</h2>
+                <h2 class="modal-title">{{(selectedEditFlightSchedule != null)? 'Update Flight Schedule' :'Create Flight Schedule'}}</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddFlightSchedule()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-flight-schedule-create
+                <app-flight-schedule-create [editFlightSchedule]="this.selectedEditFlightSchedule" 
                     (closePopup)="closeAddFlightSchedule()" (submitSuccess)="onAddFlightSchedule()" *ngIf="modalVisible"></app-flight-schedule-create>
             </div>
         </div>

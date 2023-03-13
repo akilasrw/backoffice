@@ -1,5 +1,5 @@
 import { FlightScheduleManagementService } from 'src/app/_services/flight-schedule-management.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -11,7 +11,9 @@ import { FlightScheduleManagementCreateRM } from 'src/app/_models/request-models
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import * as moment from 'moment';
 import { AircraftSubTypes } from 'src/app/core/enums/common-enums';
-import { AircraftSubType } from 'src/app/_models/view-models/aircrafts/aircraft-sub-type.model';
+import { FlightScheduleManagement } from 'src/app/_models/view-models/flight-schedules-management/flight-schedule-management';
+import { formatDate } from '@angular/common';
+import { FlightScheduleManagementUpdateRM } from 'src/app/_models/request-models/flight-schedule-management/flight-schedule-management-update-rm';
 
 @Component({
   selector: 'app-flight-schedule-create',
@@ -33,6 +35,10 @@ export class FlightScheduleCreateComponent implements OnInit {
   keyword = 'value';
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
+  @Input() editFlightSchedule: FlightScheduleManagement = new FlightScheduleManagement();
+  isEditFlightSchedule: boolean = false;
+  editFlightNumberIndex?:number;
+  editAircraftSubType?:number
 
 
   constructor(private aircraftService: AircraftService,
@@ -43,9 +49,17 @@ export class FlightScheduleCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.editFlightSchedule != null)this.isEditFlightSchedule = true;
     this.initializeFlightScheduleForm();
     this.loadFlights();
     this.getAircraftTypes();
+    if (this.isEditFlightSchedule) {
+      this.editFlightScheduleForm(this.editFlightSchedule);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
+    }
   }
 
   initializeFlightScheduleForm() {
@@ -59,6 +73,16 @@ export class FlightScheduleCreateComponent implements OnInit {
     });
   }
 
+  editFlightScheduleForm(flightSchedule: FlightScheduleManagement) {
+    this.flightScheduleForm.get('id')?.patchValue(flightSchedule.id);
+    this.flightScheduleForm.get('flightId')?.patchValue(flightSchedule.flightId);
+    this.flightScheduleForm.get('scheduleStartDate')?.patchValue(formatDate(flightSchedule.scheduleStartDate!.toString(), 'MM-dd-yyyy', 'en-US'));
+    this.flightScheduleForm.get('scheduleEndDate')?.patchValue(formatDate(flightSchedule.scheduleEndDate!.toString(),'MM-dd-yyyy', 'en-US'));
+    this.flightScheduleForm.get('daysOfWeek')?.patchValue(flightSchedule.daysOfWeek);
+    this.flightScheduleForm.get('aircraftSubTypeId')?.patchValue(this.getAircraftSubTypeIdBySubType(flightSchedule.aircraftSubType));
+    this.setEditDaysOfWeek();
+  }
+
   loadFlights() {
     this.isLoading = true;
     this.flightService.getSelectList()
@@ -66,6 +90,10 @@ export class FlightScheduleCreateComponent implements OnInit {
         this.isLoading = false;
         if (res.length > 0) {
           this.flightList = res;
+          if(this.isEditFlightSchedule){
+            this.editFlightNumberIndex =  this.flightList.findIndex(x=>x.id == this.editFlightSchedule.flightId);
+            this.getFlightDetails(this.editFlightSchedule.flightId!);
+          }
         }
       });
   }
@@ -95,6 +123,10 @@ export class FlightScheduleCreateComponent implements OnInit {
       }
       this.isLoading = false;
     });
+    if (this.isEditFlightSchedule) {
+      this.editAircraftSubType = this.aircraftSubTypes.findIndex(x => x.id == this.editFlightSchedule.aircraftSubType?.toString());
+      this.selectedAircraftSubType = this.editFlightSchedule.aircraftSubType!;
+    }
   }
 
   getFlightDetails(flightId: string) {
@@ -129,7 +161,7 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   saveScheduleDetails() {
     if (this.selectedAircraftSubType != undefined) {
-      this.flightScheduleForm.get('aircraftSubTypeId')?.patchValue(this.getAircraftTypeIdByType(this.selectedAircraftSubType));
+      this.flightScheduleForm.get('aircraftSubTypeId')?.patchValue(this.getAircraftSubTypeIdBySubType(this.selectedAircraftSubType));
     }
 
     if (this.flightScheduleForm.get('aircraftSubTypeId')?.value === null || this.flightScheduleForm.get('aircraftSubTypeId')?.value === "") {
@@ -157,10 +189,9 @@ export class FlightScheduleCreateComponent implements OnInit {
       return;
     }
 
-    var time = this.flightScheduleForm.get('scheduleEndDate')?.value.getTime() - this.flightScheduleForm.get('scheduleStartDate')?.value.getTime();
-    var days = time / (1000 * 3600 * 24);
+    let days = this.calculateNumberOfDates(this.flightScheduleForm.get('scheduleStartDate')?.value,this.flightScheduleForm.get('scheduleEndDate')?.value);
 
-    if (days < 5) {
+    if(days < 6) {
       this.toastr.error('Please select 7 days date range.');
       return;
     }
@@ -172,42 +203,77 @@ export class FlightScheduleCreateComponent implements OnInit {
 
     if (this.flightScheduleForm.valid) {
       this.isLoading = true;
-      var flightSchedule: FlightScheduleManagementCreateRM = this.flightScheduleForm.value;
-      flightSchedule.scheduleStartDate = moment(this.flightScheduleForm.get('scheduleStartDate')?.value).format('YYYY-MM-DDThh:mm:ss');
-      flightSchedule.scheduleEndDate = moment(this.flightScheduleForm.get('scheduleEndDate')?.value).format('YYYY-MM-DDThh:mm:ss');
+      if(this.isEditFlightSchedule){
+        var flightScheduleUpdate: FlightScheduleManagementUpdateRM = this.flightScheduleForm.value;
+        flightScheduleUpdate.scheduleStartDate = moment(this.flightScheduleForm.get('scheduleStartDate')?.value).format('YYYY-MM-DDThh:mm:ss');
+        flightScheduleUpdate.scheduleEndDate = moment(this.flightScheduleForm.get('scheduleEndDate')?.value).format('YYYY-MM-DDThh:mm:ss');
+        flightScheduleUpdate.flightScheduleIds = this.getScheduleIDs();
 
-      this.flightScheduleManagementService.create(flightSchedule).subscribe({
-        next: (res) => {
-          this.toastr.success('Flight schedules created successfully.');
-          this.submitSuccess.emit();
-          this.closeModal();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          this.isLoading = false;
-        }
-      })
+        this.flightScheduleManagementService.update(flightScheduleUpdate).subscribe({
+          next: (res) => {
+            this.toastr.success('Flight schedules updated successfully.');
+            this.submitSuccess.emit();
+            this.closeModal();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+          }
+        });
+      }else{
+        var flightSchedule: FlightScheduleManagementCreateRM = this.flightScheduleForm.value;
+        flightSchedule.scheduleStartDate = moment(this.flightScheduleForm.get('scheduleStartDate')?.value).format('YYYY-MM-DDThh:mm:ss');
+        flightSchedule.scheduleEndDate = moment(this.flightScheduleForm.get('scheduleEndDate')?.value).format('YYYY-MM-DDThh:mm:ss');
+
+        this.flightScheduleManagementService.create(flightSchedule).subscribe({
+          next: (res) => {
+            this.toastr.success('Flight schedules created successfully.');
+            this.submitSuccess.emit();
+            this.closeModal();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+          }
+        });
+      }
     } else {
       this.flightScheduleForm.markAllAsTouched();
     }
   }
 
-  getAircraftTypeIdByType(aircraftType?: number): string {
-    var typeId: string | undefined = "";
+  getScheduleIDs():string[]{
+    let ids :string[]=[];
+    if(this.editFlightSchedule!=null && this.editFlightSchedule.flightSchedules != null){
+      this.editFlightSchedule.flightSchedules.forEach(schedule=>{
+        ids.push(schedule.id!)
+      });
+    }
+    return ids;
+  }
 
+  calculateNumberOfDates(startDate:string,endDate:string){
+    let stDate = new Date(startDate);
+    let ltDate = new Date(endDate);
+
+    return Math.floor((Date.UTC(ltDate.getFullYear(), ltDate.getMonth(), ltDate.getDate()) - Date.UTC(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()) ) /(1000 * 60 * 60 * 24));
+}
+
+  getAircraftSubTypeIdBySubType(aircraftType?: number): string {
+    var typeId;
     this.aircraftService.aircraftTypes$.subscribe(res => {
       if (res != null) {
         res.forEach(obj => {
-          obj.aircraftSubTypes?.forEach(subObj => {
+          obj.aircraftSubTypes?.forEach((subObj) => {
             if (subObj.type == aircraftType) {
-              typeId = subObj.id
+              typeId = subObj.id;
             }
           })
         });
       }
       this.isLoading = false;
     });
-    return typeId;
+    return (typeId==undefined)?"":typeId;
   }
 
   checkDay(checked: boolean, day: number) {
@@ -223,7 +289,18 @@ export class FlightScheduleCreateComponent implements OnInit {
     this.flightScheduleForm.get('daysOfWeek')?.patchValue(this.daysList.toString());
   }
 
+  setEditDaysOfWeek(){
+    if(this.editFlightSchedule != null){
+      var daysOfWeek = this.editFlightSchedule.daysOfWeek?.split(",");
+      daysOfWeek?.forEach(obj=>{
+        this.daysList.push(+obj);
+      });
+    }
+  }
+
   closeModal() {
+    this.isEditFlightSchedule = false;
+    this.editFlightSchedule = new FlightScheduleManagement();
     this.flightScheduleForm.reset();
     this.closePopup.emit();
   }

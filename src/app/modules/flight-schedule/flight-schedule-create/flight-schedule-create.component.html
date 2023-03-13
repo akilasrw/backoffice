@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Aircraft Type</label>
-                    <app-auto-complete-dropdown [data]="aircraftSubTypes" [keyword]="keyword"
+                    <app-auto-complete-dropdown [data]="aircraftSubTypes" [keyword]="keyword" [selectedIndex]="editAircraftSubType"
                         (selectFileOutput)="selectAircraftSubType($event)" (clearSearch)="onClearAircraftSubType()"
                         [tabindex]="1">
                     </app-auto-complete-dropdown>
@@ -14,7 +14,7 @@
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Flight Number</label>
-                    <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword"
+                    <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword" [selectedIndex]="editFlightNumberIndex"
                         (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
                     </app-auto-complete-dropdown>
                 </div>
@@ -80,31 +80,31 @@
                 <div class="chek-chip">
                     <div class="cu-check" *ngIf="!isLoading">
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(1)}">1
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,1)">
+                            <input type="checkbox" [checked]="daysList.includes(1)" (change)="checkDay($event.target.checked ? true : false,1)">
                             <span class="checkmark"></span>
                         </label>
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(2)}">2
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,2)">
+                            <input type="checkbox" [checked]="daysList.includes(2)" (change)="checkDay($event.target.checked ? true : false,2)">
                             <span class="checkmark"></span>
                         </label>
                         <label class="chip-button cu-checkbox " [ngClass]="{'checked': daysList.includes(3)}">3
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,3)">
+                            <input type="checkbox" [checked]="daysList.includes(3)" (change)="checkDay($event.target.checked ? true : false,3)">
                             <span class="checkmark"></span>
                         </label>
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(4)}">4
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,4)">
+                            <input type="checkbox" [checked]="daysList.includes(4)" (change)="checkDay($event.target.checked ? true : false,4)">
                             <span class="checkmark"></span>
                         </label>
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(5)}">5
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,5)">
+                            <input type="checkbox" [checked]="daysList.includes(5)" (change)="checkDay($event.target.checked ? true : false,5)">
                             <span class="checkmark"></span>
                         </label>
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(6)}">6
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,6)">
+                            <input type="checkbox" [checked]="daysList.includes(6)" (change)="checkDay($event.target.checked ? true : false,6)">
                             <span class="checkmark"></span>
                         </label>
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(7)}">7
-                            <input type="checkbox" (change)="checkDay($event.target.checked ? true : false,7)">
+                            <input type="checkbox" [checked]="daysList.includes(7)" (change)="checkDay($event.target.checked ? true : false,7)">
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -115,6 +115,6 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-secondary me-3" type="button" (click)="closeModal()">Cancel</button>
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="submit">{{isEditFlightSchedule?"Update":"Save"}}</button>
     </div>
 </form>

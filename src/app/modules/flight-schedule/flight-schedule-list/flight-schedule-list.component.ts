@@ -26,6 +26,7 @@ export class FlightScheduleListComponent implements OnInit {
   flightScheduleFilterQuery: FlightScheduleManagementFilterQuery = new FlightScheduleManagementFilterQuery();
   totalCount: number = 0;
   flightSchedule: FlightScheduleManagement[] = [];
+  selectedEditFlightSchedule?: FlightScheduleManagement;
 
 
   constructor(private airportService:AirportService,
@@ -76,11 +77,18 @@ export class FlightScheduleListComponent implements OnInit {
 
 
   closeAddFlightSchedule() {
+    this.selectedEditFlightSchedule = undefined;
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
   onAddFlightSchedule(){
+    this.selectedEditFlightSchedule = undefined;
     this.getFlightScheduleList();
+  }
+
+  onEditFlightSchedule(flightSchedule: FlightScheduleManagement){
+    this.selectedEditFlightSchedule = flightSchedule;
+    this.openAddFlightSchedule();
   }
 
   clearFilter() {

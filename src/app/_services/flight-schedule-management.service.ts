@@ -6,6 +6,7 @@ import { IPagination } from '../shared/models/pagination.model';
 import { FlightScheduleManagementFilterQuery } from '../_models/queries/flight-schedules-management/flight-schedule-management-filter-query.model';
 import { FlightScheduleManagement } from '../_models/view-models/flight-schedules-management/flight-schedule-management';
 import { FlightScheduleManagementCreateRM } from '../_models/request-models/flight-schedule-management/flight-schedule-management-create-rm';
+import { FlightScheduleManagementUpdateRM } from '../_models/request-models/flight-schedule-management/flight-schedule-management-update-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class FlightScheduleManagementService extends BaseService {
 
   create(flightScheduleManagementCreateRM: FlightScheduleManagementCreateRM){
     return this.post<any>(this.endpointEntityName, flightScheduleManagementCreateRM);
+  }
+
+  update(flightScheduleManagementUpdateRM: FlightScheduleManagementUpdateRM){
+    return this.put<any>(this.endpointEntityName, flightScheduleManagementUpdateRM);
   }
 
   getFilteredList(query: FlightScheduleManagementFilterQuery){
