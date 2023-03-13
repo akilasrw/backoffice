@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { WeightType } from 'src/app/core/enums/common-enums';
+import { CargoType, RateType, WeightType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -22,6 +22,8 @@ export class RateCreateComponent implements OnInit {
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
   cargoAgents: SelectList[] = [];
+  rateTypes:SelectList[]=[];
+  cargoTypes:SelectList[]=[];
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   agentRateManagementListRM = new AgentRateManagementListRM();
@@ -32,6 +34,8 @@ export class RateCreateComponent implements OnInit {
   startMinDate = new Date();
   endMinDate = new Date();
   @ViewChild('autoCompleteCargoAgent') autoCompleteCargoAgent!: AutoCompleteDropdownComponent;
+  @ViewChild('autoCompleteRateType') autoCompleteRateType!: AutoCompleteDropdownComponent;
+  @ViewChild('autoCompleteCargoType') autoCompleteCargoType!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteOrigin') autoCompleteOrigin!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteDestination') autoCompleteDestination!: AutoCompleteDropdownComponent;
 
@@ -48,6 +52,8 @@ export class RateCreateComponent implements OnInit {
     this.loadAirports();
     this.loadCargoAgents();
     this.initializeForm();
+    this.loadRateTypes();
+    this.loadCargoTypes();
   }
 
   loadAirports() {
@@ -60,6 +66,17 @@ export class RateCreateComponent implements OnInit {
         }
         this.isLoading = false;
       });
+  }
+
+  loadRateTypes(){
+    this.rateTypes = [{id:RateType.SpotRate.toString(),value:this.GetRateType(RateType.SpotRate)},
+      {id:RateType.PromotionalRate.toString(),value:this.GetRateType(RateType.PromotionalRate)},
+      {id:RateType.ContractRate.toString(),value:this.GetRateType(RateType.ContractRate)},
+      {id:RateType.MarketPublishRate.toString(),value:this.GetRateType(RateType.MarketPublishRate)}]
+  }
+
+  loadCargoTypes(){
+    this.cargoTypes=[{id:CargoType.General.toString(),value:this.GetCargoType(CargoType.General)}]
   }
 
   loadCargoAgents() {
@@ -81,7 +98,10 @@ export class RateCreateComponent implements OnInit {
 
   initializeForm() {
     this.rateForm = this.fb.group({
+      rateType: new FormControl(null,[Validators.required]),
+      cargoType: new FormControl(null,[Validators.required]),
       cargoAgentId: new FormControl(null, [Validators.required]),
+      cargoAgentName:new FormControl(null),
       originAirportId: new FormControl(null, [Validators.required]),
       destinationAirportId: new FormControl(null, [Validators.required]),
       originAirportCode: new FormControl(null),
@@ -237,10 +257,28 @@ export class RateCreateComponent implements OnInit {
 
   selectedCargoAgent(value: any) {
     this.rateForm.get('cargoAgentId')?.patchValue(value.id);
+    this.rateForm.get('cargoAgentName')?.patchValue(value.value);    
   }
 
   onClearCargoAgent() {
     this.rateForm.get('cargoAgentId')?.patchValue(null);
+    this.rateForm.get('cargoAgentName')?.patchValue(null);    
+  }
+
+  selectedRateType(value: any) {
+    this.rateForm.get('rateType')?.patchValue(+value.id);
+  }
+
+  onClearRateType() {
+    this.rateForm.get('rateType')?.patchValue(null);
+  }
+
+  selectedCargoType(value: any) {
+    this.rateForm.get('cargoType')?.patchValue(+value.id);
+  }
+
+  onClearCargoType() {
+    this.rateForm.get('cargoType')?.patchValue(null);
   }
 
   selectedOrigin(value: any) {
@@ -272,6 +310,14 @@ export class RateCreateComponent implements OnInit {
     return CoreExtensions.GetWeightType(type);
   }
 
+  GetRateType(type:number){
+    return CoreExtensions.GetRateType(type);
+  }
+
+  GetCargoType(type:number){
+    return CoreExtensions.GetCargoType(type);
+  }
+
   onDelete(agentRateManagement: AgentRateManagementRM) {
     const index = this.agentRateManagements?.indexOf(agentRateManagement);
     if (index !== -1) {
@@ -279,9 +325,15 @@ export class RateCreateComponent implements OnInit {
     }
   }
 
+  onEdit(agentRateManagement: AgentRateManagementRM){
+
+  }
+
   clearDropdowns(e: any): void {
     e.stopPropagation();
     this.autoCompleteCargoAgent.clear();
+    this.autoCompleteRateType.clear();
+    this.autoCompleteCargoType.clear();
     this.autoCompleteDestination.clear();
     this.autoCompleteOrigin.clear();
   }

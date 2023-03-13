@@ -1,5 +1,5 @@
-import { LinkAircraftFliterStatus, MasterSheduleReportType } from 'src/app/core/enums/common-enums';
-import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus } from './../enums/common-enums';
+import { CargoType, LinkAircraftFliterStatus, MasterSheduleReportType } from 'src/app/core/enums/common-enums';
+import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus, RateType } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
 import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftSubTypes, AircraftTypes, SectorType } from "../enums/common-enums";
@@ -316,6 +316,39 @@ export class CoreExtensions {
       case MasterSheduleReportType.Running:
         statusString = "Schedule Time";
         break
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetRateType(type:RateType):string{
+    let statusString = "None";
+    switch (type) {
+      case RateType.SpotRate:
+        statusString = "Spot Rate";
+        break;
+      case RateType.ContractRate:
+        statusString = "Contract Rate";
+        break
+      case RateType.PromotionalRate:
+        statusString = "Promotional Rate";
+        break
+      case RateType.MarketPublishRate:
+        statusString = "Market Publish Rate";
+        break
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetCargoType(type:CargoType):string{
+    let statusString = "None";
+    switch (type) {
+      case CargoType.General:
+        statusString = "General";
+        break;
       default:
         break;
     }

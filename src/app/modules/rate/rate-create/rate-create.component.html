@@ -1,10 +1,28 @@
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="form-group" *ngIf="!isLoading">
+                <label class="form-label">Rate Type</label>
+                <app-auto-complete-dropdown [data]="rateTypes" [keyword]="keyword" #autoCompleteRateType
+                    (selectFileOutput)="selectedRateType($event)" (clearSearch)="onClearRateType()">
+                </app-auto-complete-dropdown>
+            </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+        </div>
+        <div class="col-md-4">
             <div class="form-group" *ngIf="!isLoading">
                 <label class="form-label">Cargo Agent</label>
                 <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
                     (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
+                </app-auto-complete-dropdown>
+            </div>
+            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" *ngIf="!isLoading">
+                <label class="form-label">Cargo Type</label>
+                <app-auto-complete-dropdown [data]="cargoTypes" [keyword]="keyword" #autoCompleteCargoType
+                    (selectFileOutput)="selectedCargoType($event)" (clearSearch)="onClearCargoType()">
                 </app-auto-complete-dropdown>
             </div>
             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
@@ -78,6 +96,9 @@
             <div class="add-rate-table table-content form-group">
                 <table class="table table-responsive">
                     <thead>
+                        <th>Rate Type</th>
+                        <th>Cargo Agent</th>
+                        <th>Cargo Type</th>
                         <th>Origin</th>
                         <th>Destination</th>
                         <th>Start date</th>
@@ -93,12 +114,16 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.agentRateManagements">
+                            <td>{{GetRateType(item.rateType)}}</td>
+                            <td>{{item.cargoAgentName}}</td>
+                            <td>{{GetCargoType(item.cargoType)}}</td>
                             <td>{{item.originAirportCode}}</td>
                             <td>{{item.destinationAirportCode}}</td>
                             <td>{{item.startDate| date}}</td>
                             <td>{{item.endDate| date}}</td>
                             <td *ngFor="let rateItem of item.agentRates">{{rateItem.rate}}</td>
                             <td>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
                             </td>
                         </tr>

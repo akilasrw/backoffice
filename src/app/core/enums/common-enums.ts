@@ -157,3 +157,16 @@ export enum MasterSheduleReportType {
   IdleTimeReport = 1,
   Running = 2
 }
+
+export enum RateType{
+  None=0,
+  SpotRate =1,
+  PromotionalRate=2,
+  ContractRate=3,
+  MarketPublishRate=4
+}
+
+export enum CargoType{
+  None=0,
+  General =1,
+}
