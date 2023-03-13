@@ -6,6 +6,7 @@ import { FlightScheduleManagementLinkFilterList } from '../_models/queries/link-
 import { ScheduleAircraftRm } from '../_models/request-models/link-aircraft/schedule-aircraft-rm.model';
 import { FlightScheduleLink } from '../_models/view-models/link-aircraft/flight-schedule-link.model';
 import { CoreExtensions } from '../core/extensions/core-extensions.model';
+import { UpdateAtaRm } from '../_models/request-models/link-aircraft/update-ata-rm.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,23 @@ export class LinkAircraftToScheduleService extends BaseService{
       params = params.append("flightNumber", query.flightNumber);
     }
 
+    if (query.flightDate) {
+      params = params.append("flightDate", query.flightDate.toDateString());
+    }
+
+    if (query.originAirportId) {
+      params = params.append("originAirportId", query.originAirportId);
+    }
+
+    if (query.destinationAirportId) {
+      params = params.append("destinationAirportId", query.destinationAirportId);
+    }
+
     if (query.status) {
       params = params.append("status", Number(query.status));
+    }
+    if (query.isHistory) {
+      params = params.append("isHistory", Boolean(query.isHistory));
     }
 
     params = CoreExtensions.AsPaginate(params, query);
@@ -37,5 +53,5 @@ export class LinkAircraftToScheduleService extends BaseService{
       params
     );
   }
-  
+
 }

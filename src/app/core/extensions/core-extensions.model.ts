@@ -283,7 +283,7 @@ export class CoreExtensions {
     return statusString;
   }
 
-  public static GetLinkAircraftStatus(val: LinkAircraftFliterStatus){
+  public static GetLinkAircraftStatus(val: LinkAircraftFliterStatus) {
     let text = "None";
     switch(val){
       case LinkAircraftFliterStatus.None:
@@ -320,5 +320,9 @@ export class CoreExtensions {
         break;
     }
     return statusString;
+  }
+
+  public static IsMinimumDateTimeValue(eta: Date): Boolean {
+      return new Date(eta).getTime() === new Date('1/1/0001 12:00:00 AM').getTime();
   }
 }
