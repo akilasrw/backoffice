@@ -1,37 +1,146 @@
 <div class="modal-body">
-    <div>
-        You can add or edit Aircraft for specific date.
+  <div class="row">
+    <div class="col-6">Change Aircraft Type</div>
+    <div class="col-6">
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+      </label>
     </div>
-    <div class="row">
-        <div class="table-content" *ngIf="!isLoading" >
-            <div class="">
-                <table class="table">
-                    <thead>
-                        <th>Scheduled Date</th>
-                        <th class="text-end pe-5">Aircraft Reg. Number</th>
-                    </thead>
-                    <tbody *ngIf="flightSchedules">
-                        <tr *ngFor="let f of flightSchedules">
-                            <td>{{f.scheduledDepartureDateTime | date}}</td>
-                            <td class="filter-wrapper d-flex justify-content-end">
-                                <div class="filter-group ms-0" *ngIf="!isTextLoading">
-                                    <app-auto-complete-dropdown [data]="f?.aircraftList" [keyword]="keyword" [selectedIndex]="f?.editAircraftIndex"
-                                      (selectFileOutput)="selectedAircraft($event, f)" (changeSearch)="onClearAircraft()"
-                                      (clearSearch)="onClearAircraft()" [tabindex]="1">
-                                    </app-auto-complete-dropdown>
-                                </div>
-                                <app-text-input-loader *ngIf="isTextLoading"></app-text-input-loader>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <app-table-loader [columnCount]="2" [rowCount]="flightSchedules.lenght" *ngIf="isLoading">
-        </app-table-loader>
+  </div>
+  <div style="margin-top: 20px;">
+
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Flight Number</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
     </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Aircraft Type</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Acreg</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Dep. Date</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Origin</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Destination</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">STD</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">STA</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">ETD</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">ETA</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="d-flex justify-content-between">
+      <div>
+        <span style="font-weight: bold;margin-right: 10px;">Pre Booking</span> <span class="assign-aircraft-status-chip">Not Verify</span>
+      </div>
+      <div><a href="">View Bookings</a></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Off Load</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Assign Status</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [label]='"Flight Number"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary me-3" (click)="close()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save and Next</button>
 </div>

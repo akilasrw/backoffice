@@ -38,7 +38,7 @@ export class LinkAircraftListComponent implements OnInit {
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
 
   constructor(private linkAircraftToScheduleService: LinkAircraftToScheduleService,
-    private airportService: AirportService,) { }
+    private airportService: AirportService) { }
 
   ngOnInit(): void {
     this.loadAirports();

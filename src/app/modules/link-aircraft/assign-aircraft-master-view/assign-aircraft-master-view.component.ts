@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AssignAircraftViewType } from 'src/app/core/enums/common-enums';
 
 @Component({
   selector: 'app-assign-aircraft-master-view',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignAircraftMasterViewComponent implements OnInit {
 
+  assignAircraftType: AssignAircraftViewType = AssignAircraftViewType.UpcomingFlight;
+  selectedAssignAircraftType = AssignAircraftViewType;
   constructor() { }
 
   ngOnInit(): void {

@@ -157,3 +157,9 @@ export enum MasterSheduleReportType {
   IdleTimeReport = 1,
   Running = 2
 }
+
+export enum AssignAircraftViewType {
+  None = 0,
+  History = 1,
+  UpcomingFlight
+}

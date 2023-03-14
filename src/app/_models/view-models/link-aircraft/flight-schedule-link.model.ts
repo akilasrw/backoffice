@@ -1,4 +1,5 @@
 export class FlightScheduleLink {
+  id?: string;
   flightNumber? : string;
   daysOfWeek? : string;
   originAirportCode? : string;

@@ -1,1 +1,2 @@
-<app-link-aircraft-list></app-link-aircraft-list>
+<app-link-aircraft-list *ngIf="assignAircraftType == selectedAssignAircraftType.History"></app-link-aircraft-list>
+<app-upcoming-assign-aircraft *ngIf="assignAircraftType == selectedAssignAircraftType.UpcomingFlight"></app-upcoming-assign-aircraft>
