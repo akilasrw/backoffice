@@ -11,4 +11,5 @@ export class AgentRateManagementRM {
     startDate?:string;
     endDate?:string;
     agentRates?:AgentRateRM[];
+    isEdit?:boolean;
 }

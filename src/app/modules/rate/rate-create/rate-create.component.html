@@ -54,16 +54,16 @@
                         <div class="col-md-2">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Valid Start Date</label>
-                                <input type="text" [formControl]='rateForm.controls["startDate"]'
-                                    class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
+                                <input type="text" [formControl]='rateForm.controls["startDate"]' class="form-control"
+                                    bsDatepicker [minDate]="startMinDate" placement="auto">
                             </div>
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Valid End Date</label>
-                                <input type="text" [formControl]='rateForm.controls["endDate"]'
-                                    class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
+                                <input type="text" [formControl]='rateForm.controls["endDate"]' class="form-control"
+                                    bsDatepicker [minDate]="endMinDate" placement="auto">
                             </div>
                             <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                         </div>
@@ -77,13 +77,14 @@
                                         <div class="form-group">
                                             <label
                                                 class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
-                                            <app-value-input formControlName="rate" [label]='"rate"' >
+                                            <app-value-input formControlName="rate" [label]='"rate"'>
                                             </app-value-input>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button type="button" style="margin-right: 5px;" class="btn btn-secondary-outline" (click)="clearFields($event)"> Clear</button>
+                                    <button type="button" style="margin-right: 5px;" class="btn btn-secondary-outline"
+                                        (click)="clearFields($event)"> Clear</button>
                                     <button type="submit" class="btn btn-primary-outline">Add Rate</button>
                                 </div>
                             </div>
@@ -92,45 +93,59 @@
                 </div>
             </div>
         </form>
-        <div class="row">
-            <div class="add-rate-table table-content form-group">
-                <table class="table table-responsive">
-                    <thead>
-                        <th>Rate Type</th>
-                        <th>Cargo Agent</th>
-                        <th>Cargo Type</th>
-                        <th>Origin</th>
-                        <th>Destination</th>
-                        <th>Start date</th>
-                        <th>End date</th>
-                        <th>M</th>
-                        <th>-45K</th>
-                        <th>+45K</th>
-                        <th>+100K</th>
-                        <th>+300K</th>
-                        <th>+500K</th>
-                        <th>+1000K</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of this.agentRateManagements">
-                            <td>{{GetRateType(item.rateType)}}</td>
-                            <td>{{item.cargoAgentName}}</td>
-                            <td>{{GetCargoType(item.cargoType)}}</td>
-                            <td>{{item.originAirportCode}}</td>
-                            <td>{{item.destinationAirportCode}}</td>
-                            <td>{{item.startDate| date}}</td>
-                            <td>{{item.endDate| date}}</td>
-                            <td *ngFor="let rateItem of item.agentRates">{{rateItem.rate}}</td>
-                            <td>
-                                <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
-                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="add-rate-table table-content form-group">
+                    <table class="table table-responsive">
+                        <thead>
+                            <th>Rate Type</th>
+                            <th>Cargo Agent</th>
+                            <th>Cargo Type</th>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>M</th>
+                            <th>-45K</th>
+                            <th>+45K</th>
+                            <th>+100K</th>
+                            <th>+300K</th>
+                            <th>+500K</th>
+                            <th>+1000K</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let item of this.agentRateManagements;let indexOfElement =index">
+
+                                <td>{{GetRateType(item.rateType)}}</td>
+                                <td>{{item.cargoAgentName}}</td>
+                                <td>{{GetCargoType(item.cargoType)}}</td>
+                                <td>{{item.originAirportCode}}</td>
+                                <td>{{item.destinationAirportCode}}</td>
+                                <td>{{item.startDate| date}}</td>
+                                <td>{{item.endDate| date}}</td>
+                                <td *ngFor="let rateItem of item.agentRates;let indexOfRate =index">{{rateItem.rate}}</td>
+                                <!-- <ng-container *ngIf="!item.isEdit">
+                                    <td *ngFor="let rateItem of item.agentRates;let indexOfRate =index">{{rateItem.rate}}</td>
+                                </ng-container>
+                                <ng-container *ngIf="item.isEdit" [formGroup]='editRateForm'>
+                                    <td *ngFor="let rateItem of agentRates.controls">
+                                        <ng-container [formGroup]="rateItem">
+                                            <app-value-input formControlName="rate">
+                                            </app-value-input>
+                                        </ng-container>
+                                    </td>
+                                </ng-container> -->
+                                <td>
+                                    <!-- <i class="ca ca-icn-right-arrow"  *ngIf="item.isEdit" title="Submit" (click)="onEdited(indexOfElement)"></i>
+                                    <i class="ca ca-icn-edit"  *ngIf="!item.isEdit" title="Edit" (click)="onEdit(indexOfElement)"></i> -->
+                                    <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 <div class="modal-footer">
