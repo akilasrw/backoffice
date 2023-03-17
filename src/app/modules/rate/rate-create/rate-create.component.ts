@@ -31,7 +31,6 @@ export class RateCreateComponent implements OnInit {
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
-//  editRateForm!:FormGroup;
   startMinDate = new Date();
   endMinDate = new Date();
   @ViewChild('autoCompleteCargoAgent') autoCompleteCargoAgent!: AutoCompleteDropdownComponent;
@@ -55,7 +54,6 @@ export class RateCreateComponent implements OnInit {
     this.initializeForm();
     this.loadRateTypes();
     this.loadCargoTypes();
-//    this. initEditRateForm();
   }
 
   loadAirports() {
@@ -116,12 +114,6 @@ export class RateCreateComponent implements OnInit {
     this.pushRateClassType();
   }
 
-  // initEditRateForm(){
-  //   this.editRateForm = this.fb.group({
-  //     agentRates: this.fb.array([]),
-  //   });
-  // }
-
   pushRateClassType(){
     this.agentRates.push(this.fb.group({
       rate: [0, [Validators.required, Validators.min(1)]],
@@ -156,10 +148,6 @@ export class RateCreateComponent implements OnInit {
   get agentRates() {
     return this.rateForm.controls["agentRates"] as FormArray;
   }
-
-  // get editAgentRates() {
-  //   return this.editRateForm.controls["agentRates"] as FormArray;
-  // }
 
 
   addRate() {
@@ -343,29 +331,11 @@ export class RateCreateComponent implements OnInit {
   }
 
   onDelete(agentRateManagement: AgentRateManagementRM) {
-    // const index = this.agentRateManagements?.indexOf(agentRateManagement);
-    // if (index !== -1) {
-    //   this.agentRateManagements?.splice(Number(index), 1);
-    // }
-    console.log(agentRateManagement)
+    const index = this.agentRateManagements?.indexOf(agentRateManagement);
+    if (index !== -1) {
+      this.agentRateManagements?.splice(Number(index), 1);
+    }
   }
-
-  // onEdit(elementIndex: number){
-  //   this.agentRateManagements[elementIndex].isEdit =true;
-  //   this.agentRateManagements[elementIndex]?.agentRates?.forEach(obj => {
-  //     this.editAgentRates.push(this.fb.group({
-  //       rate: [obj.rate, [Validators.required, Validators.min(1)]],
-  //       weightType: [obj.weightType],
-  //     }));
-  //   });
-  //   console.log(this.editAgentRates)
-  // }
-
-  // onEdited(elementIndex: number){
-  //   this.agentRateManagements[elementIndex].isEdit =false;
-  //   this.agentRateManagements[elementIndex].agentRates = this.editAgentRates.get('agentRates')?.value;
-  //   console.log(this.editAgentRates);
-  // }
 
   clearDropdowns(e: any): void {
     e.stopPropagation();

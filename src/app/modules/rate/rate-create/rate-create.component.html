@@ -125,20 +125,7 @@
                                 <td>{{item.startDate| date}}</td>
                                 <td>{{item.endDate| date}}</td>
                                 <td *ngFor="let rateItem of item.agentRates;let indexOfRate =index">{{rateItem.rate}}</td>
-                                <!-- <ng-container *ngIf="!item.isEdit">
-                                    <td *ngFor="let rateItem of item.agentRates;let indexOfRate =index">{{rateItem.rate}}</td>
-                                </ng-container>
-                                <ng-container *ngIf="item.isEdit" [formGroup]='editRateForm'>
-                                    <td *ngFor="let rateItem of agentRates.controls">
-                                        <ng-container [formGroup]="rateItem">
-                                            <app-value-input formControlName="rate">
-                                            </app-value-input>
-                                        </ng-container>
-                                    </td>
-                                </ng-container> -->
                                 <td>
-                                    <!-- <i class="ca ca-icn-right-arrow"  *ngIf="item.isEdit" title="Submit" (click)="onEdited(indexOfElement)"></i>
-                                    <i class="ca ca-icn-edit"  *ngIf="!item.isEdit" title="Edit" (click)="onEdit(indexOfElement)"></i> -->
                                     <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
                                     <label class="switch">
                                         <input type="checkbox"  [(ngModel)]="item.isActive" checked>
