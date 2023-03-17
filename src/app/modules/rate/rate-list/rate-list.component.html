@@ -72,7 +72,7 @@
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onUpdate(item.id)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" (change)="onChecked(item)" [checked]="item.isActive">
                                     <span class="slider round"></span>
                                 </label>
                             </td>

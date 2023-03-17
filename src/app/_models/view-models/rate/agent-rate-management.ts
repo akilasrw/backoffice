@@ -16,4 +16,5 @@ export class AgentRateManagement extends BaseVM{
     rateType?: RateType;
     cargoType?: CargoType;
     agentRates?:AgentRate[];
+    isActive?:boolean;
 }

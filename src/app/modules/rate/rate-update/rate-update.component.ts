@@ -132,6 +132,7 @@ export class RateUpdateComponent implements OnInit {
       startDate: new FormControl(null,[Validators.required]),
       endDate: new FormControl(null,[Validators.required]),
       agentRates: this.fb.array([]),
+      isActive: new FormControl(null),
     });
 
   }
@@ -144,6 +145,7 @@ export class RateUpdateComponent implements OnInit {
       cargoAgentId: rateDetail.cargoAgentId,
       originAirportId: rateDetail.originAirportId,
       destinationAirportId: rateDetail.destinationAirportId,
+      isActive:rateDetail.isActive,
     });
 
     this.rateForm.get('startDate')?.patchValue(formatDate(rateDetail.startDate!.toString(), 'MM-dd-yyyy', 'en-US'));

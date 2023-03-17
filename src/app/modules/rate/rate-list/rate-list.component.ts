@@ -10,6 +10,7 @@ import { CommonMessages } from 'src/app/core/constants/common-messages';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { RateType } from 'src/app/core/enums/common-enums';
 import { Router } from '@angular/router';
+import { AgentRateManagementRM } from 'src/app/_models/request-models/rate/agent-rate-management-rm';
 
 @Component({
   selector: 'app-rate-list',
@@ -218,6 +219,19 @@ export class RateListComponent implements OnInit {
 
   get rateType(): typeof RateType {
     return RateType;
+  }
+
+  onChecked(rateItem :AgentRateManagement){
+    let updateRate = new AgentRateManagementRM()
+    updateRate.id =rateItem.id;
+    updateRate.isActive=!rateItem.isActive;
+    this.rateService.updateActiveStatus(updateRate).subscribe({
+      next: (res) => {
+        this.getRateList();
+      },
+      error: (err) => {
+      }
+    })
   }
   
 }
