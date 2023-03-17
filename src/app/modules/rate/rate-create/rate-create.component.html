@@ -141,7 +141,7 @@
                                     <i class="ca ca-icn-edit"  *ngIf="!item.isEdit" title="Edit" (click)="onEdit(indexOfElement)"></i> -->
                                     <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox"  [(ngModel)]="item.isActive" checked>
                                         <span class="slider round"></span>
                                     </label>
                                 </td>

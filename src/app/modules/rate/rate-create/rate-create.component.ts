@@ -110,6 +110,7 @@ export class RateCreateComponent implements OnInit {
       destinationAirportCode: new FormControl(null),
       startDate: new FormControl(null,[Validators.required]),
       endDate: new FormControl(null,[Validators.required]),
+      isActive: new FormControl(true),
       agentRates: this.fb.array([]),
     });
     this.pushRateClassType();
@@ -342,10 +343,11 @@ export class RateCreateComponent implements OnInit {
   }
 
   onDelete(agentRateManagement: AgentRateManagementRM) {
-    const index = this.agentRateManagements?.indexOf(agentRateManagement);
-    if (index !== -1) {
-      this.agentRateManagements?.splice(Number(index), 1);
-    }
+    // const index = this.agentRateManagements?.indexOf(agentRateManagement);
+    // if (index !== -1) {
+    //   this.agentRateManagements?.splice(Number(index), 1);
+    // }
+    console.log(agentRateManagement)
   }
 
   // onEdit(elementIndex: number){
