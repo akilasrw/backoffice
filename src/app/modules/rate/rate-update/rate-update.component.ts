@@ -213,7 +213,18 @@ export class RateUpdateComponent implements OnInit {
   }
 
   updateRate() {
-    if (this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "") {
+
+    if (this.rateForm.get('rateType')?.value === null || this.rateForm.get('rateType')?.value === "") {
+      this.toastr.error('Please select rate type.');
+      return;
+    }
+
+    if (this.rateForm.get('cargoType')?.value === null || this.rateForm.get('cargoType')?.value === "") {
+      this.toastr.error('Please select cargo type.');
+      return;
+    }
+
+    if (this.rateForm.get('rateType')?.value === RateType.ContractRate && this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "") {
       this.toastr.error('Please select cargo agent.');
       return;
     }
