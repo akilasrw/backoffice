@@ -363,4 +363,8 @@ export class RateCreateComponent implements OnInit {
     this.autoCompleteOrigin.clear();
   }
 
+  get rateType(): typeof RateType {
+    return RateType;
+  }
+
 }

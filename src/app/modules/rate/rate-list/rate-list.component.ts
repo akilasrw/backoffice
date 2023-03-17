@@ -8,6 +8,8 @@ import { RateService } from 'src/app/_services/rate.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonMessages } from 'src/app/core/constants/common-messages';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { RateType } from 'src/app/core/enums/common-enums';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rate-list',
@@ -42,7 +44,8 @@ export class RateListComponent implements OnInit {
     private cargoAgentService: CargoAgentService,
     private airportService: AirportService,
     private rateService: RateService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -211,6 +214,10 @@ export class RateListComponent implements OnInit {
 
   GetCargoType(type:number){
     return CoreExtensions.GetCargoType(type);
+  }
+
+  get rateType(): typeof RateType {
+    return RateType;
   }
   
 }

@@ -8,6 +8,7 @@ import { RateCreateComponent } from './rate-create/rate-create.component';
 import { RateDetailComponent } from './rate-detail/rate-detail.component';
 import { RateUpdateComponent } from './rate-update/rate-update.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { OtherChargesComponent } from './other-charges/other-charges.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     RateListComponent,
     RateCreateComponent,
     RateDetailComponent,
-    RateUpdateComponent
+    RateUpdateComponent,
+    OtherChargesComponent
   ],
   imports: [
     CommonModule,

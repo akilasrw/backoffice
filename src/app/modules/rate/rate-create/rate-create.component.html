@@ -140,6 +140,10 @@
                                     <!-- <i class="ca ca-icn-right-arrow"  *ngIf="item.isEdit" title="Submit" (click)="onEdited(indexOfElement)"></i>
                                     <i class="ca ca-icn-edit"  *ngIf="!item.isEdit" title="Edit" (click)="onEdit(indexOfElement)"></i> -->
                                     <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
+                                    <label *ngIf="item.rateType == rateType.SpotRate" class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
                                 </td>
                             </tr>
                         </tbody>
