@@ -3,7 +3,7 @@
     <div class="col-6">Change Aircraft Type</div>
     <div class="col-6">
         <label class="switch">
-          <input type="checkbox">
+          <input type="checkbox" disabled>
           <span class="slider round"></span>
       </label>
     </div>
@@ -16,7 +16,7 @@
       <div class="form-group">
         <label class="form-label">Flight Number</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
+        [formControl]='linkAircraftForm?.controls["flightNumber"]' [textBoxDisabled]="true"
         [label]='"Flight Number"' type="text" [tabindex]="1">
         </app-text-input>
       </div>
@@ -25,8 +25,8 @@
       <div class="form-group">
         <label class="form-label">Aircraft Type</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="2">
+        [formControl]='linkAircraftForm?.controls["aircraftSubTypeName"]' [textBoxDisabled]="true"
+        [label]='"Aircraft Type"' type="text" [tabindex]="2">
         </app-text-input>
       </div>
     </div>
@@ -35,18 +35,18 @@
     <div class="col-6">
       <div class="form-group">
         <label class="form-label">Acreg</label>
-        <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="1">
-        </app-text-input>
+        <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword" [selectedIndex]="editAircraftIndex"
+        (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
+        (clearSearch)="onClearAircraft()" [tabindex]="3">
+      </app-auto-complete-dropdown>
       </div>
     </div>
     <div class="col-6">
       <div class="form-group">
         <label class="form-label">Dep. Date</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="2">
+        [formControl]='linkAircraftForm?.controls["scheduledDepartureDate"]' [textBoxDisabled]="true"
+        [label]='"scheduledDepartureDate"' type="text" [tabindex]="4">
         </app-text-input>
       </div>
     </div>
@@ -56,8 +56,8 @@
       <div class="form-group">
         <label class="form-label">Origin</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="1">
+        [formControl]='linkAircraftForm?.controls["originAirportName"]' [textBoxDisabled]="true"
+        [label]='"Origin Airport"' type="text" [tabindex]="5">
         </app-text-input>
       </div>
     </div>
@@ -65,8 +65,8 @@
       <div class="form-group">
         <label class="form-label">Destination</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="2">
+        [formControl]='linkAircraftForm?.controls["destinationAirportName"]' [textBoxDisabled]="true"
+        [label]='"Destination Airport"' type="text" [tabindex]="6">
         </app-text-input>
       </div>
     </div>
@@ -76,8 +76,8 @@
       <div class="form-group">
         <label class="form-label">STD</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="1">
+        [formControl]='linkAircraftForm?.controls["scheduledDepartureDateTime"]' [textBoxDisabled]="true"
+        [label]='"Scheduled Departure Time"' type="text" [tabindex]="7">
         </app-text-input>
       </div>
     </div>
@@ -85,8 +85,8 @@
       <div class="form-group">
         <label class="form-label">STA</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="2">
+        [formControl]='linkAircraftForm?.controls["scheduledArrivalDateTime"]' [textBoxDisabled]="true"
+        [label]='"Scheduled Arrival Time"' type="text" [tabindex]="8">
         </app-text-input>
       </div>
     </div>
@@ -96,8 +96,8 @@
       <div class="form-group">
         <label class="form-label">ETD</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="1">
+        [formControl]='linkAircraftForm?.controls["estimatedDepartureDateTime"]'
+        [label]='"Estimated Departure Time"' type="time" [tabindex]="9">
         </app-text-input>
       </div>
     </div>
@@ -105,14 +105,14 @@
       <div class="form-group">
         <label class="form-label">ETA</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="2">
+        [formControl]='linkAircraftForm?.controls["estimatedArrivalDateTime"]'
+        [label]='"Estimated Arrival Time"' type="time" [tabindex]="10">
         </app-text-input>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between py-2" style="background-color: lightgray;">
       <div>
         <span style="font-weight: bold;margin-right: 10px;">Pre Booking</span> <span class="assign-aircraft-status-chip">Not Verify</span>
       </div>
@@ -124,8 +124,8 @@
       <div class="form-group">
         <label class="form-label">Off Load</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="1">
+        [formControl]='linkAircraftForm?.controls["offLoad"]'
+        [label]='"Off Load"' type="text" [tabindex]="11">
         </app-text-input>
       </div>
     </div>
@@ -133,8 +133,8 @@
       <div class="form-group">
         <label class="form-label">Assign Status</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["flightNumber"]'
-        [label]='"Flight Number"' type="text" [tabindex]="2">
+        [formControl]='linkAircraftForm?.controls["assignStatus"]'
+        [label]='"assignStatus"' type="text" [tabindex]="12">
         </app-text-input>
       </div>
     </div>

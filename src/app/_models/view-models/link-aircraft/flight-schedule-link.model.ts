@@ -16,4 +16,5 @@ export class FlightScheduleLink {
   estimatedArrivalDateTime?: Date;
   actualDepartureDateTime?: Date;
   actualArrivalDateTime?: Date;
+  aircraftId?: string;
 }
