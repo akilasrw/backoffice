@@ -126,7 +126,7 @@ export class RateUpdateComponent implements OnInit {
       id: new FormControl(null, [Validators.required]),
       rateType: new FormControl(null,[Validators.required]),
       cargoType: new FormControl(null,[Validators.required]),
-      cargoAgentId: new FormControl(null, [Validators.required]),
+      cargoAgentId: new FormControl(null),
       originAirportId: new FormControl(null, [Validators.required]),
       destinationAirportId: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null,[Validators.required]),
@@ -226,7 +226,11 @@ export class RateUpdateComponent implements OnInit {
       return;
     }
 
-    if (this.rateForm.get('rateType')?.value === RateType.ContractRate && this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "") {
+    if (this.rateForm.get('rateType')?.value === RateType.MarketPublishRate) {
+      this.rateForm.get('cargoAgentId')?.patchValue(null); 
+    }
+
+    if (this.rateForm.get('rateType')?.value == RateType.ContractRate && (this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "")) {
       this.toastr.error('Please select cargo agent.');
       return;
     }
@@ -298,6 +302,10 @@ export class RateUpdateComponent implements OnInit {
 
   GetCargoType(type:number){
     return CoreExtensions.GetCargoType(type);
+  }
+
+  get rateType(): typeof RateType {
+    return RateType;
   }
 
 }

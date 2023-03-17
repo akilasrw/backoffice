@@ -11,7 +11,7 @@
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" *ngIf="rateForm.value.rateType != rateType.MarketPublishRate">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Cargo Agent</label>
                     <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
