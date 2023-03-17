@@ -1,9 +1,35 @@
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="booking-details">
+                <div class="label">Rate Type</div>
+                <div>{{GetRateType(rateDetail?.rateType)}}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="booking-details">
                 <div class="label">Cargo Agent</div>
                 <div>{{rateDetail?.cargoAgentName}}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="booking-details">
+                <div class="label">Cargo Type</div>
+                <div>{{GetCargoType(rateDetail?.cargoType)}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="booking-details">
+                <div class="label">Valid Start Date</div>
+                <div>{{rateDetail?.startDate| date}}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="booking-details">
+                <div class="label">Valid End Date</div>
+                <div>{{rateDetail?.endDate| date}}</div>
             </div>
         </div>
     </div>

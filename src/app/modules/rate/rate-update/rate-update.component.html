@@ -1,12 +1,32 @@
 <form [formGroup]='rateForm' (submit)="updateRate()">
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Rate Type</label>
+                    <app-auto-complete-dropdown [data]="rateTypes" [keyword]="keyword"
+                        [selectedIndex]="editRateTypeIndex" (selectFileOutput)="selectedRateType($event)" [isDisabled]="isDisabled"
+                        (clearSearch)="onClearRateType()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-4">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Cargo Agent</label>
-                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
+                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
                         [selectedIndex]="editAgentIndex" (selectFileOutput)="selectedCargoAgent($event)" [isDisabled]="isDisabled"
                         (clearSearch)="onClearCargoAgent()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Cargo Type</label>
+                    <app-auto-complete-dropdown [data]="cargoTypes" [keyword]="keyword"
+                        [selectedIndex]="editCargoTypeIndex" (selectFileOutput)="selectedCargoType($event)" [isDisabled]="isDisabled"
+                        (clearSearch)="onClearCargoType()">
                     </app-auto-complete-dropdown>
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>

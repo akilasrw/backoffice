@@ -10,6 +10,7 @@ import { AirportService } from 'src/app/_services/airport.service';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 import { RateService } from 'src/app/_services/rate.service';
 import { formatDate } from '@angular/common';
+import { CargoType, RateType } from 'src/app/core/enums/common-enums';
 
 @Component({
   selector: 'app-rate-update',
@@ -28,12 +29,16 @@ export class RateUpdateComponent implements OnInit {
   editAgentIndex?: number;
   editOriginIndex?: number;
   editDestinationIndex?: number;
+  editRateTypeIndex?: number;
+  editCargoTypeIndex?: number;
   isLoading: boolean = false;
   keyword = 'value';
   rateForm!: FormGroup;
   startMinDate = new Date();
   endMinDate = new Date();
   isDisabled = true;
+  rateTypes:SelectList[]=[];
+  cargoTypes:SelectList[]=[];
 
   constructor(
     private cargoAgentService: CargoAgentService,
@@ -58,6 +63,8 @@ export class RateUpdateComponent implements OnInit {
             this.isLoading = false;
             this.loadAirports();
             this.loadCargoAgents();
+            this.loadRateTypes();
+            this.loadCargoTypes();
             this.patchValues(this.rateDetail);
           },
           error: (error) => {
@@ -100,9 +107,25 @@ export class RateUpdateComponent implements OnInit {
       );
   }
 
+  loadRateTypes(){
+    this.rateTypes = [{id:RateType.SpotRate.toString(),value:this.GetRateType(RateType.SpotRate)},
+      {id:RateType.PromotionalRate.toString(),value:this.GetRateType(RateType.PromotionalRate)},
+      {id:RateType.ContractRate.toString(),value:this.GetRateType(RateType.ContractRate)},
+      {id:RateType.MarketPublishRate.toString(),value:this.GetRateType(RateType.MarketPublishRate)}]
+
+      this.editRateTypeIndex = this.rateTypes.findIndex(x=>x.id==this.rateDetail?.rateType);
+  }
+
+  loadCargoTypes(){
+    this.cargoTypes=[{id:CargoType.General.toString(),value:this.GetCargoType(CargoType.General)}]
+    this.editCargoTypeIndex = this.cargoTypes.findIndex(x=>x.id==this.rateDetail?.cargoType);
+  }
+
   initializeForm() {
     this.rateForm = this.fb.group({
       id: new FormControl(null, [Validators.required]),
+      rateType: new FormControl(null,[Validators.required]),
+      cargoType: new FormControl(null,[Validators.required]),
       cargoAgentId: new FormControl(null, [Validators.required]),
       originAirportId: new FormControl(null, [Validators.required]),
       destinationAirportId: new FormControl(null, [Validators.required]),
@@ -116,6 +139,8 @@ export class RateUpdateComponent implements OnInit {
   patchValues(rateDetail: AgentRateManagement) {
     this.rateForm.patchValue({
       id: rateDetail.id,
+      rateType: rateDetail.rateType,
+      cargoType: rateDetail.cargoType,
       cargoAgentId: rateDetail.cargoAgentId,
       originAirportId: rateDetail.originAirportId,
       destinationAirportId: rateDetail.destinationAirportId,
@@ -144,6 +169,22 @@ export class RateUpdateComponent implements OnInit {
 
   onClearCargoAgent() {
     this.rateForm.get('cargoAgentId')?.patchValue(null);
+  }
+
+  selectedRateType(value: any) {
+    this.rateForm.get('rateType')?.patchValue(value.id);
+  }
+
+  onClearRateType() {
+    this.rateForm.get('rateType')?.patchValue(null);
+  }
+
+  selectedCargoType(value: any) {
+    this.rateForm.get('cargoType')?.patchValue(value.id);
+  }
+
+  onClearCargoType() {
+    this.rateForm.get('cargoType')?.patchValue(null);
   }
 
   selectedOrigin(value: any) {
@@ -211,13 +252,15 @@ export class RateUpdateComponent implements OnInit {
       this.toastr.error('The end date should be greater than the start date.');
       return;
     }
-
+   
     if (this.rateForm.valid) {
+      console.log("Hello");
       this.isLoading = true;
       var rateManagement: AgentRateManagementRM = new AgentRateManagementRM();
       rateManagement = this.rateForm.value;
       rateManagement.startDate = moment(this.rateForm.get('startDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
       rateManagement.endDate = moment(this.rateForm.get('endDate')?.value).format('YYYY-MM-DDThh:mm:ssZ');
+     
 
       this.rateService.update(rateManagement).subscribe({
         next: (res) => {
@@ -234,6 +277,14 @@ export class RateUpdateComponent implements OnInit {
     } else {
       this.rateForm.markAllAsTouched();
     }
+  }
+
+  GetRateType(type:number){
+    return CoreExtensions.GetRateType(type);
+  }
+
+  GetCargoType(type:number){
+    return CoreExtensions.GetCargoType(type);
   }
 
 }

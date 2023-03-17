@@ -7,6 +7,7 @@ import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 import { RateService } from 'src/app/_services/rate.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonMessages } from 'src/app/core/constants/common-messages';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 
 @Component({
   selector: 'app-rate-list',
@@ -203,4 +204,13 @@ export class RateListComponent implements OnInit {
     this.modalVisibleAnimateDelete = false;
     setTimeout(() => (this.modalVisibleDelete = false), 300);
   }
+
+  GetRateType(type:number){
+    return CoreExtensions.GetRateType(type);
+  }
+
+  GetCargoType(type:number){
+    return CoreExtensions.GetCargoType(type);
+  }
+  
 }
