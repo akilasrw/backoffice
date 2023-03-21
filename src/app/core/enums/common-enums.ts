@@ -173,5 +173,5 @@ export enum CargoType{
 export enum AssignAircraftViewType {
   None = 0,
   History = 1,
-  UpcomingFlight
+  UpcomingFlight =2
 }
