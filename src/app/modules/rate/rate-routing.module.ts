@@ -1,9 +1,12 @@
+import { OtherChargesComponent } from './other-charges/other-charges.component';
 import { RateListComponent } from './rate-list/rate-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: RateListComponent}
+  { path: '', component: RateListComponent},
+  { path: 'otherCharges', component: OtherChargesComponent}
+
 ];
 
 @NgModule({

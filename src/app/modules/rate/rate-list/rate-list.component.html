@@ -4,11 +4,16 @@
             <div>
                 <h1>Rate Management</h1>
             </div>
-            <div>
-                <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
-            </div>
         </div>
     </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/rate">Rate</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="rate/otherCharges">Other charges</a>
+        </li>
+      </ul>
     <div class="card-body without-footer">
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
@@ -35,12 +40,17 @@
                         <button class="btn sm btn-primary-outline" (click)="getRateList()">Add Filter</button>
                     </div>
                 </div>
+                <div>
+                    <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="table-content" *ngIf="!isLoading">
                 <table class="table table-responsive">
                     <thead>
+                        <th>Rate Type</th>
+                        <th>Cargo Type</th>
                         <th>Agent</th>
                         <th>Origin</th>
                         <th>Destination</th>
@@ -50,6 +60,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.rates">
+                            <td>{{GetRateType(item.rateType)}}</td>
+                            <td>{{GetCargoType(item.cargoType)}}</td>
                             <td>{{item.cargoAgentName}}</td>
                             <td>{{item.originAirportCode}}</td>
                             <td>{{item.destinationAirportCode}}</td>
@@ -59,6 +71,10 @@
                                 <i class="ca ca-icn-view" title="View" (click)="openRateDetail(item.id)"></i>
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onUpdate(item.id)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
+                                <label class="switch">
+                                    <input type="checkbox" (change)="onChecked(item)" [checked]="item.isActive">
+                                    <span class="slider round"></span>
+                                </label>
                             </td>
                         </tr>
                     </tbody>

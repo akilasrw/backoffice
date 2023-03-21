@@ -18,7 +18,6 @@ export class CargoAgentService extends BaseService {
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
   private readonly statusUpdateEndpoint = `${this.endpointEntityName}/StatusUpdate`;
 
-
   constructor(http: HttpClient){super(http)}
 
   getAgentList(){
