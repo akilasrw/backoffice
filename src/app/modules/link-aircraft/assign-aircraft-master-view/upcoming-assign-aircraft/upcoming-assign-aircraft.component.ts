@@ -28,6 +28,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   ATAValue: string ='';
+  stepCount: number= 1;
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
@@ -102,8 +103,12 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     }
   }
 
-  show(fs:FlightScheduleLink) {
+  show(fs:FlightScheduleLink) { debugger
     this.selectedFlightScheduleLink=fs;
+    this.stepCount = 1;
+    if(this.selectedFlightScheduleLink?.aircraftId)
+      this.stepCount = 2;
+    (this.selectedFlightScheduleLink as FlightScheduleLink).stepCount = this.stepCount;
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
   }

@@ -116,11 +116,14 @@
     <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Assign Aircraft - Step 01</h2>
+                <h2 class="modal-title">Assign Aircraft - Step {{ this.stepCount}}</h2>
                 <button type="button" class="close btn" data-dismiss="modal" (click)="close()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
-            <app-link-aircraft-create [flightSchedule]="selectedFlightScheduleLink" (closePopup)="close()"></app-link-aircraft-create>
+            <app-link-aircraft-create *ngIf="modalVisible"
+            [flightSchedule]="selectedFlightScheduleLink"
+            (submitSuccess)="getFilterList()" (closePopup)="close()">
+          </app-link-aircraft-create>
         </div>
     </div>
 </div>

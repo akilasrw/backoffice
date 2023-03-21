@@ -17,4 +17,7 @@ export class FlightScheduleLink {
   actualDepartureDateTime?: Date;
   actualArrivalDateTime?: Date;
   aircraftId?: string;
+  aircraftScheduleId?: string;
+  isEdit?: boolean;
+  stepCount?: number;
 }
