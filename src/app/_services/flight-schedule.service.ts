@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../core/services/base.service';
 import { FlightScheduleQuery } from '../_models/queries/flight-schedule/flight-schedule-query.model';
+import { UpdateAtaRm } from '../_models/request-models/link-aircraft/update-ata-rm.model';
 import { Aircraft } from '../_models/view-models/aircrafts/aircraft.model';
 
 @Injectable({
@@ -13,6 +14,7 @@ export class FlightScheduleService extends BaseService {
   private readonly getListByMasterIdEndpoint = `${this.endpointEntityName}/GetListByMasterId`;
   private readonly getByIdAsyncEndpoint = `${this.endpointEntityName}/GetByIdAsync`;
   private readonly getAircraftsBy_FlightScheduleIdEndPoint = `${this.endpointEntityName}/GetAircraftsByFlightScheduleId`;
+  private readonly updateATAEndPoint = `${this.endpointEntityName}/UpdateATA`;
 
 
   constructor(http: HttpClient) { super(http)}
@@ -47,5 +49,9 @@ export class FlightScheduleService extends BaseService {
 
   getAircraftsByFlightScheduleId(flightScheduleId: string) {
     return this.get<Aircraft[]>(`${this.getAircraftsBy_FlightScheduleIdEndPoint}/${flightScheduleId}`);
+  }
+
+  updateATA(updateAtaRm: UpdateAtaRm) {
+    return this.put<any>(`${this.updateATAEndPoint}/${updateAtaRm.id}`, updateAtaRm);
   }
 }

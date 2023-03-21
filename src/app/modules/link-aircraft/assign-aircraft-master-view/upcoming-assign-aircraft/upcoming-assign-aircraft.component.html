@@ -1,0 +1,126 @@
+<div class="main-card">
+  <div class="card-header px-0 pt-0 pb-2">
+      <div class="d-flex justify-content-between align-items-center">
+          <div>
+              <h1>Assign Aircraft </h1>
+          </div>
+      </div>
+  </div>
+  <div class="card-body without-footer">
+      <div class="row">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="filter-wrapper">
+                  <div class="filter-group">
+                      <label class="form-label">Flight No.</label>
+                      <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
+                  </div>
+                  <!-- <div class="filter-group">
+                    <label class="form-label">Dept. Date</label>
+                    <input [(ngModel)]="query.flightNumber" type="text" class="form-control">
+                  </div> -->
+                  <div class="filter-group">
+                    <label class="form-label">Flight Date</label>
+                    <input [(ngModel)]="query.flightDate" type="text" class="form-control" bsDatepicker
+                        (change)="onChangeFilter()">
+                  </div>
+                  <div class="filter-group">
+                    <label class="form-label">Origin</label>
+                    <app-auto-complete-dropdown #originAirportAutoComplete [data]="originAirpots" [keyword]="keyword"
+                        (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                        (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
+                </div>
+                <div class="filter-group">
+                    <label class="form-label">Destination</label>
+                    <app-auto-complete-dropdown #destinationAirportAutoComplete [data]="destinationAirpots" [keyword]="keyword"
+                        (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
+                        (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
+                </div>
+                  <div class="button">
+                      <button class="btn sm btn-primary-outline" (click)="getFilterList()">Add Filter</button>
+                  </div>
+                  <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close" *ngIf="isFiltered" (click)="clearFilter()"></i></div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="table-content"  *ngIf="!isLoading">
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <th>Flight No.</th>
+                          <th>Aircraft Type</th>
+                          <th>Acreg.</th>
+                          <th>Dept. Date</th>
+                          <th>Origin</th>
+                          <th>Dest</th>
+                          <th>STD</th>
+                          <th>STA</th>
+                          <th>ETD</th>
+                          <th>ETA</th>
+                          <th>Pre Bookings</th>
+                          <th>Actual Load</th>
+                          <th>Off Load</th>
+                          <th>Assign Status</th>
+                          <th>Dispatch</th>
+                          <th>Actions</th>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let fs of flightScheduleLinks">
+                            <td>{{fs.flightNumber}}</td>
+                            <td>{{fs.aircraftSubTypeName}}</td>
+                            <td>{{fs.aircraftRegNo}}</td>
+                            <td>{{fs.scheduledDepartureDateTime | date}}</td>
+                            <td>{{fs.originAirportName}}</td>
+                            <td>{{fs.destinationAirportName}}</td>
+                            <td>{{fs.scheduledDepartureDateTime | date :'shortTime'}}</td>
+                            <td>{{fs.scheduledArrivalDateTime | date :'shortTime'}}</td>
+                            <td>{{(fs.estimatedDepartureDateTime!==null)?  (fs.estimatedDepartureDateTime| date :'shortTime'):"-"}}</td>
+                            <td>{{(fs.estimatedArrivalDateTime !== null) ? (fs.estimatedArrivalDateTime | date: 'shortTime') : "-" }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="assign-aircraft-status-chip" [ngClass]="{
+                              'assign':fs.aircraftRegNo,
+                              'notassign':fs.aircraftRegNo== null || fs.aircraftRegNo == undefined
+                              }">{{fs.aircraftRegNo?"Assign": "Not Assign"}}</span></td>
+                            <td>{{fs.isDispatched==true? "Yes":"No"}}</td>
+                            <td>
+                              <i class="ca ca-icn-view" title="View"></i>
+                              <i class="ca ca-icn-add" title="Add" (click)="show(fs)"></i></td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <div class="not-available" *ngIf="totalCount == 0">
+                    <img src="./assets/images/no-data.png" alt="No Content Data">
+                    <div>Assign aircrafts not available.</div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                    <app-pager [pageSize]="query?.pageSize" [pageNumber]="query?.pageIndex"
+                        [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                    <app-paging-header [totalCount]="totalCount" [pageSize]="query?.pageSize"
+                        [pageNumber]="query?.pageIndex"></app-paging-header>
+                </div>
+
+              </div>
+          </div>
+          <app-table-loader [columnCount]="10" [rowCount]="query.pageSize" *ngIf="isLoading">
+          </app-table-loader>
+      </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Assign Aircraft - Step 01</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="close()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <app-link-aircraft-create [flightSchedule]="selectedFlightScheduleLink" (closePopup)="close()"></app-link-aircraft-create>
+        </div>
+    </div>
+</div>

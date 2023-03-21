@@ -18,7 +18,7 @@ import { FleetAnalysisService } from 'src/app/_services/fleet-analysis.service';
 })
 export class FleetAnalysisReportComponent implements OnInit {
 
-  
+
   pickerDate = new Date();
   query: FlightScheduleReportQuery = new FlightScheduleReportQuery();
   aircraftIdleReport?: AircraftIdleReport[]=[];
@@ -149,7 +149,7 @@ export class FleetAnalysisReportComponent implements OnInit {
     this.overedAircraftIdleReport.showHover = false;
   }
 
-  getHoursLable() {debugger
+  getHoursLable() {
     return this.overedAircraftIdleReport.scheduleStatus == 3? 'Maintainance ':'Idle ' + 'Hour(s)';
   }
 

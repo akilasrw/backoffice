@@ -51,7 +51,7 @@
 }
 @mixin lable-color {
   @include status-lable;
-  &.accepted { 
+  &.accepted {
     border-color: $green;
     color: $green;
   }
@@ -79,7 +79,7 @@
 
 @mixin awb-lable-color {
   @include status-lable;
-  &.added { 
+  &.added {
     border-color: $green;
     color: $green;
   }
@@ -95,7 +95,7 @@
 
 @mixin agent-lable-color {
   @include status-lable;
-  &.active { 
+  &.active {
     border-color: $green;
     color: $green;
   }
@@ -106,6 +106,22 @@
   &.suspended  {
     border-color: $red;
     color: $red;
+  }
+  &.none  {
+    border-color: $gray;
+    color: $gray;
+  }
+}
+
+@mixin assign-aircraft-lable-color {
+  @include status-lable;
+  &.assign {
+    border-color: $green;
+    color: $green;
+  }
+  &.notassign  {
+    border-color: $orange;
+    color: $orange;
   }
   &.none  {
     border-color: $gray;
