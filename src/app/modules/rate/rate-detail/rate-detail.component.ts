@@ -42,4 +42,12 @@ export class RateDetailComponent implements OnInit {
     return CoreExtensions.GetWeightType(type);
   }
 
+  GetRateType(type:number){
+    return CoreExtensions.GetRateType(type);
+  }
+
+  GetCargoType(type:number){
+    return CoreExtensions.GetCargoType(type);
+  }
+
 }

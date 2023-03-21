@@ -7,6 +7,10 @@ import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 import { RateService } from 'src/app/_services/rate.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonMessages } from 'src/app/core/constants/common-messages';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { RateType } from 'src/app/core/enums/common-enums';
+import { Router } from '@angular/router';
+import { AgentRateManagementRM } from 'src/app/_models/request-models/rate/agent-rate-management-rm';
 
 @Component({
   selector: 'app-rate-list',
@@ -41,7 +45,8 @@ export class RateListComponent implements OnInit {
     private cargoAgentService: CargoAgentService,
     private airportService: AirportService,
     private rateService: RateService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -203,4 +208,30 @@ export class RateListComponent implements OnInit {
     this.modalVisibleAnimateDelete = false;
     setTimeout(() => (this.modalVisibleDelete = false), 300);
   }
+
+  GetRateType(type:number){
+    return CoreExtensions.GetRateType(type);
+  }
+
+  GetCargoType(type:number){
+    return CoreExtensions.GetCargoType(type);
+  }
+
+  get rateType(): typeof RateType {
+    return RateType;
+  }
+
+  onChecked(rateItem :AgentRateManagement){
+    let updateRate = new AgentRateManagementRM()
+    updateRate.id =rateItem.id;
+    updateRate.isActive=!rateItem.isActive;
+    this.rateService.updateActiveStatus(updateRate).subscribe({
+      next: (res) => {
+        this.getRateList();
+      },
+      error: (err) => {
+      }
+    })
+  }
+  
 }

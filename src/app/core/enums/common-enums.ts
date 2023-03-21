@@ -158,8 +158,20 @@ export enum MasterSheduleReportType {
   Running = 2
 }
 
+export enum RateType{
+  None=0,
+  SpotRate =1,
+  PromotionalRate=2,
+  ContractRate=3,
+  MarketPublishRate=4
+}
+
+export enum CargoType{
+  None=0,
+  General =1,
+}
 export enum AssignAircraftViewType {
   None = 0,
   History = 1,
-  UpcomingFlight
+  UpcomingFlight =2
 }
