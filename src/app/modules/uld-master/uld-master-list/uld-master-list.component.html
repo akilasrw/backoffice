@@ -1,0 +1,101 @@
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>ULD Master</h1>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="addULD()">Add ULD</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">ULD Number</label>
+                        <input [(ngModel)]="uldNumber" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
+                    <div class="button">
+                        <button (click)="getFilteredList()" class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
+                            class="ca ca-icn-close" (click)="clearFilter()"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="!isLoading" class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>ULD Type</th>
+                        <th>ULD Number</th>
+                        <th>Owernership</th>
+                        <th>Airline Code</th>
+                        <th>Last Used Date</th>
+                        <th>Last Used Flight</th>
+                        <th>Dimentions(L x W x H)cm</th>
+                        <th>Weight</th>
+                        <th>Max Weight</th>
+                        <th>Volume</th>
+                        <th>ULD Locator</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <i class="ca ca-icn-view" title="View"></i>
+                                <i class="ca ca-icn-edit" title="Edit"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="not-available" *ngIf="totalCount == 0">
+                    <img src="./assets/images/no-data.png" alt="No Content Data">
+                    <div>ULD not available.</div>
+                </div>
+                <!-- <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                    <app-pager [pageSize]="bookingSummaryFilterQuery?.pageSize" [pageNumber]="bookingSummaryFilterQuery?.pageIndex"
+                        [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+                    <app-paging-header [totalCount]="totalCount" [pageSize]="bookingSummaryFilterQuery?.pageSize"
+                        [pageNumber]="bookingSummaryFilterQuery?.pageIndex"></app-paging-header>
+                </div> -->
+            </div>
+            <!-- <app-table-loader [columnCount]="13" [rowCount]="bookingSummaryFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader> -->
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add ULD</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddULD()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-uld-create  *ngIf="modalVisible"></app-uld-create>
+            </div>
+        </div>
+    </div>
+</div>
+

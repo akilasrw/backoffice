@@ -14,7 +14,8 @@ export enum MenuType {
   Notification=12,
   MasterSchedule=13,
   LinkAircraft=14,
-  FleetReport=15
+  FleetReport=15,
+  ULDMaster=16
 }
 
 export enum SectorType {

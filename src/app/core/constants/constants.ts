@@ -20,4 +20,5 @@ export class RouteConstants{
     public static MasterSchedule: string = "master-schedule";
     public static LinkAircraft: string="link-aircraft";
     public static FleetReport: string="fleet-report";
+    public static ULDMaster: string="uld-master";
   }
