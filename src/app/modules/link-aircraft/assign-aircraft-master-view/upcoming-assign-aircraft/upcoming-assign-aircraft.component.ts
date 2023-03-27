@@ -14,6 +14,8 @@ import { LinkAircraftToScheduleService } from 'src/app/_services/link-aircraft-t
 export class UpcomingAssignAircraftComponent implements OnInit {
   modalVisible = false;
   modalVisibleAnimate = false;
+  modalVisibleSummary = false;
+  modalVisibleAnimateSummary = false;
   updateATAModalVisible = false;
   updateATAModalVisibleAnimate = false;
   flightScheduleLinks: FlightScheduleLink[]=[];
@@ -103,7 +105,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     }
   }
 
-  show(fs:FlightScheduleLink) { debugger
+  show(fs:FlightScheduleLink) {
     this.selectedFlightScheduleLink=fs;
     this.stepCount = 1;
     if(this.selectedFlightScheduleLink?.aircraftId)
@@ -117,4 +119,17 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
+
+  closeSummary() {
+    this.modalVisibleAnimateSummary = false;
+    setTimeout(() => (this.modalVisibleSummary = false), 300);
+  }
+
+  showSummary(fs:FlightScheduleLink) {
+    this.selectedFlightScheduleLink=fs;
+    this.modalVisibleSummary = true;
+    setTimeout(() => (this.modalVisibleAnimateSummary = true));
+  }
+
+
 }

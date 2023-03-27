@@ -12,6 +12,7 @@ import { ScheduleAircraftRm } from 'src/app/_models/request-models/link-aircraft
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FlightScheduleLink } from 'src/app/_models/view-models/link-aircraft/flight-schedule-link.model';
 import { formatDate } from '@angular/common';
+import { UploadService } from 'src/app/_services/upload.service';
 
 @Component({
   selector: 'app-link-aircraft-create',
@@ -32,10 +33,10 @@ export class LinkAircraftCreateComponent implements OnInit {
   aircraftInputDisable?: boolean= false;
   stepCount?: number = 1;
   //@ViewChild('autoCompleteAircraft') autoCompleteAircraft!: AutoCompleteDropdownComponent;
-
+  selectedFile!: File;
 
   @Input() set flightSchedule(val: any) {
-    console.log('LinkAircraftCreateComponent',val); debugger;
+    console.log('LinkAircraftCreateComponent',val);
     this.initialiseForm();
     if(val) {
       this.selectedFlightScheduleLink = val;
@@ -47,6 +48,7 @@ export class LinkAircraftCreateComponent implements OnInit {
   @Output() closePopup = new EventEmitter<any>();
 
   constructor(private flightScheduleService : FlightScheduleService,
+            private uploadService: UploadService,
             private linkAircraftToScheduleService:LinkAircraftToScheduleService,
             private toastr :ToastrService,
             private fb: FormBuilder) { }
@@ -59,7 +61,7 @@ export class LinkAircraftCreateComponent implements OnInit {
       id:[null],
       flightNumber: [''],
       aircraftId: [''],
-      aircraftScheduleId: [''],
+      aircraftScheduleId: [null],
       estimatedArrivalDateTime: [''],
       estimatedDepartureDateTime: [''],
       aircraftRegNo: [''],
@@ -74,11 +76,12 @@ export class LinkAircraftCreateComponent implements OnInit {
       actualDepartureDateTime:[''],
       stepCount: [],
       actualLoad:[],
-      dispatch:[1]
+      dispatch:[1],
+      file: [null]
     });
   }
 
-  patchValues() { debugger
+  patchValues() {
     if(this.selectedFlightScheduleLink)
     this.linkAircraftForm.patchValue({
       id: this.selectedFlightScheduleLink.id,
@@ -114,10 +117,10 @@ export class LinkAircraftCreateComponent implements OnInit {
     }
   }
 
-  fillAircraft() { debugger
+  fillAircraft() {
     var fs = this.selectedFlightScheduleLink;
     if(fs != undefined && fs.id  != undefined ) {
-      this.loadAircraft(fs.id).subscribe( res=> { debugger
+      this.loadAircraft(fs.id).subscribe( res=> {
         this.aircrafts = res;
         this.aircraftList =[];
         res.forEach(r=>{
@@ -141,7 +144,7 @@ export class LinkAircraftCreateComponent implements OnInit {
     .getAircraftsByFlightScheduleId(flightScheduleId);
   }
 
-  selectedAircraft(aircraft: any) { debugger
+  selectedAircraft(aircraft: any) {
     this.linkAircraftForm.get('aircraftId')?.patchValue(aircraft.id);
 
     if(this.selectedFlightScheduleLink) {
@@ -163,7 +166,7 @@ export class LinkAircraftCreateComponent implements OnInit {
   }
 
 
-  save() { debugger
+  save() {
     if(this.linkAircraftForm.valid) {
       if(this.isValid()) {
         this.isLoading = true;
@@ -176,21 +179,39 @@ export class LinkAircraftCreateComponent implements OnInit {
         scheduleAircraftRm.estimatedDepartureDateTime = fs?.estimatedDepartureDateTime;
         scheduleAircraftRm.actualDepartureDateTime = fs?.actualDepartureDateTime;
         scheduleAircraftRm.stepCount = this.stepCount;
-        scheduleAircraftRm.isDispatched = fs?.dispatch==1? true: false
+        scheduleAircraftRm.isDispatched = fs?.dispatch ==1 ? true: false;
+        scheduleAircraftRm.file = fs?.file;
 
         this.linkAircraftToScheduleService.create(scheduleAircraftRm).subscribe(
-          {
-          next: (res) => {
-            // let formattedDate = (moment(value.scheduledDepartureDateTime)).format('DD-MMM-YYYY')
-            this.toastr.success('Saved Successfully.');
-            this.isLoading = false;
-            this.submitSuccess.emit();
-            this.close();
-          },
-          error: (error) => {
-            this.isLoading = false;
-          }
-        });
+         {
+        next: (res) => {
+          if(this.selectedFile) {
+              const formData = new FormData();
+              formData.append('file', this.selectedFile);
+              formData.append('FlightScheduleId', this.linkAircraftForm?.value?.id.toString());
+
+              this.uploadService.upload(formData).subscribe(
+                {
+                  next: (r) => {
+                    this.toastr.success('Saved Successfully.');
+                    this.isLoading = false;
+                    this.submitSuccess.emit();
+                    this.close();
+                  },
+                  error: (err) => {
+                    this.toastr.warning('Saved Successfully. but uploaded is failed.');
+                    this.isLoading = false;
+                    this.submitSuccess.emit();
+                    this.close();
+                  }
+                }
+              );
+            }
+           },
+           error: (error) => {
+             this.isLoading = false;
+           }
+         });
 
 
         // var editedObjects = this.flightSchedules.filter(x => x.isEdited == true);
@@ -203,6 +224,13 @@ export class LinkAircraftCreateComponent implements OnInit {
       this.linkAircraftForm.markAllAsTouched();
     }
 
+  }
+
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+    //this.linkAircraftForm.get('file')?.patchValue(file);
   }
 
   close(){

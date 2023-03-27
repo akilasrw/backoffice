@@ -165,12 +165,12 @@
       <div class="form-group">
         <label class="form-label">Dispatch</label>
         <label class="cu-checkbox">
-          <input name="options" type="radio" checked="checked" formControlName="dispatch"
+          <input name="dispatch" type="radio" checked="checked" formControlName="dispatch"
                       [value]="1">
             <span class="checkmark cu-radio"></span>Yes
         </label>
         <label class="cu-checkbox">
-          <input name="options" type="radio" formControlName="dispatch"
+          <input name="dispatch" type="radio" formControlName="dispatch"
               [value]="0">
           <span class="checkmark cu-radio"></span>No
       </label>
@@ -178,6 +178,7 @@
     </div>
     <div class="col-6">
       <label class="form-label">Document Upload </label>
+      <input type="file" accept=".pdf" (change)="onFileSelected($event)">
     </div>
   </div>
 </div>

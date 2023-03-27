@@ -26,6 +26,7 @@ import { AlB737800TypeOneComponent } from './Templates/aircraft-layout/al-b73780
 import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b737300-type-one/al-b737300-type-one.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     UldInfoComponent,
     WhiteSpaceInputComponent,
     AlB737800TypeOneComponent,
-    AlB737300TypeOneComponent
+    AlB737300TypeOneComponent,
+    FileUploadComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +90,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     TwodecimalpointsDirective,
     WhiteSpaceInputComponent,
     AlB737300TypeOneComponent,
-    BsDatepickerModule
+    BsDatepickerModule,
+    FileUploadComponent
   ]
 })
 export class SharedModule { }

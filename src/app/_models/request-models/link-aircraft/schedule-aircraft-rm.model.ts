@@ -7,4 +7,6 @@ export class ScheduleAircraftRm {
   actualDepartureDateTime?: string;
   stepCount?: number;
   isDispatched?: boolean;
+  file?: File;
+
 }

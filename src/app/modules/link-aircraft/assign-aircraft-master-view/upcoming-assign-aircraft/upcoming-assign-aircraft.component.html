@@ -85,7 +85,7 @@
                               }">{{fs.aircraftRegNo?"Assign": "Not Assign"}}</span></td>
                             <td>{{fs.isDispatched==true? "Yes":"No"}}</td>
                             <td>
-                              <i class="ca ca-icn-view" title="View"></i>
+                              <i class="ca ca-icn-view" title="View" (click)="showSummary(fs)"></i>
                               <i class="ca ca-icn-add" title="Add" (click)="show(fs)"></i></td>
                           </tr>
                       </tbody>
@@ -124,6 +124,20 @@
             [flightSchedule]="selectedFlightScheduleLink"
             (submitSuccess)="getFilterList()" (closePopup)="close()">
           </app-link-aircraft-create>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateSummary}"
+    [ngStyle]="{'display': modalVisibleSummary ? 'block' : 'none', 'opacity': modalVisibleAnimateSummary ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">View Summary</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeSummary()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <app-view-aircraft-summary [flightScheduleId]="selectedFlightScheduleLink?.id" (closePopup)="closeSummary()"></app-view-aircraft-summary>
         </div>
     </div>
 </div>

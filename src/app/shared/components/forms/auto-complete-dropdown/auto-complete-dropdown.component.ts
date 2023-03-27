@@ -24,7 +24,7 @@ export class AutoCompleteDropdownComponent implements OnInit {
 
 
   ngOnInit(): void {
-    setTimeout(() => { debugger
+    setTimeout(() => {
       if (this.selectedIndex != null && this.data.length > 0) {
         this.autocompleteDropdown.initialValue = this.data[this.selectedIndex]?.value;
         this.autocompleteDropdown.searchInput.nativeElement.value = this.data[this.selectedIndex]?.value;

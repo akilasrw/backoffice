@@ -20,4 +20,5 @@ export class FlightScheduleLink {
   aircraftScheduleId?: string;
   isEdit?: boolean;
   stepCount?: number;
+  file?: File;
 }
