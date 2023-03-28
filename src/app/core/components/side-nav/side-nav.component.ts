@@ -125,6 +125,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.FleetReport:
         this.router.navigate([RouteConstants.FleetReport])
         break;
+      case MenuType.ULDMaster:
+        this.router.navigate([RouteConstants.ULDMaster])
+        break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;
@@ -176,6 +179,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.FleetReport:
         selectedType = MenuType.FleetReport;
+        break;
+      case RouteConstants.ULDMaster:
+        selectedType = MenuType.ULDMaster;
         break;
     }
     return selectedType;
