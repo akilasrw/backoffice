@@ -21,7 +21,7 @@ export class LinkAircraftToScheduleService extends BaseService{
     return this.post<any>(this.endpointEntityName, scheduleAircrat);
   }
 
-  getFilteredList(query: FlightScheduleManagementLinkFilterList) { debugger
+  getFilteredList(query: FlightScheduleManagementLinkFilterList) {
     var params = new HttpParams();
     if (query.flightNumber) {
       params = params.append("flightNumber", query.flightNumber);
