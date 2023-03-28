@@ -45,19 +45,19 @@
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        <tr >
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let item of this.ulds">
+                            <td>{{GetULDType(item.uLDType)}}</td>
+                            <td>{{item.serialNumber}}</td>
+                            <td>{{GetULDOwnershipType(item.GetULDOwnershipType)}}</td>
+                            <td>{{item.ownerAirlineCode}}</td>
+                            <td>{{item.lastUsedDate| date}}</td>
+                            <td>{{item.lastUsedFlightNumber}}</td>
+                            <td>{{GetDimentions(item)}}</td>
+                            <td>{{item.Weight}}</td>
+                            <td>{{item.maxWeight}}</td>
+                            <td>{{item.volume}}</td>
+                            <td>{{item.lastLocatedAirportCode}}</td>
+                            <td>{{GetULDLocateStatus(item.uLDLocateStatus)}}</td>
                             <td>
                                 <i class="ca ca-icn-view" title="View"></i>
                                 <i class="ca ca-icn-edit" title="Edit"></i>
@@ -69,15 +69,15 @@
                     <img src="./assets/images/no-data.png" alt="No Content Data">
                     <div>ULD not available.</div>
                 </div>
-                <!-- <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
-                    <app-pager [pageSize]="bookingSummaryFilterQuery?.pageSize" [pageNumber]="bookingSummaryFilterQuery?.pageIndex"
+                <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+                    <app-pager [pageSize]="uldFilterQuery?.pageSize" [pageNumber]="uldFilterQuery?.pageIndex"
                         [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
-                    <app-paging-header [totalCount]="totalCount" [pageSize]="bookingSummaryFilterQuery?.pageSize"
-                        [pageNumber]="bookingSummaryFilterQuery?.pageIndex"></app-paging-header>
-                </div> -->
+                    <app-paging-header [totalCount]="totalCount" [pageSize]="uldFilterQuery?.pageSize"
+                        [pageNumber]="uldFilterQuery?.pageIndex"></app-paging-header>
+                </div>
             </div>
-            <!-- <app-table-loader [columnCount]="13" [rowCount]="bookingSummaryFilterQuery.pageSize" *ngIf="isLoading">
-            </app-table-loader> -->
+            <app-table-loader [columnCount]="13" [rowCount]="uldFilterQuery.pageSize" *ngIf="isLoading">
+            </app-table-loader>
         </div>
     </div>
 </div>

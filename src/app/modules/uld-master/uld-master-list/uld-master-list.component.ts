@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { ULDFilterQuery } from 'src/app/_models/queries/uld/uld-filter-query.model';
+import { ULD } from 'src/app/_models/view-models/uld-master/ulsd.model';
+import { ULDService } from 'src/app/_services/uld.service';
 
 @Component({
   selector: 'app-uld-master-list',
@@ -6,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./uld-master-list.component.scss']
 })
 export class UldMasterListComponent implements OnInit {
-
+  ulds: ULD[] = [];
+  uldFilterQuery: ULDFilterQuery = new ULDFilterQuery();
   isLoading:boolean=false;
   filterFormHasValue:boolean=false;
   uldNumber?: string;
@@ -15,13 +20,31 @@ export class UldMasterListComponent implements OnInit {
   modalVisibleAnimate = false;
 
 
-  constructor() { }
+  constructor(private uldService:ULDService) { }
 
   ngOnInit(): void {
+    this.getFilteredList();
   }
 
 
   getFilteredList(){
+    this.isLoading=true;
+    this.uldFilterQuery.uLDNumber = this.uldNumber;
+  
+    this.uldService.getFilteredList(this.uldFilterQuery).subscribe(
+      {
+        next: (res) => {
+          this.ulds = res.data
+          this.totalCount = res.count
+          this.isLoading=false;
+        },
+        error: (error) => {
+          this.totalCount = 0;
+          this.ulds = [];
+          this.isLoading=false;
+        }
+      }
+    )
 
   }
 
@@ -47,5 +70,29 @@ export class UldMasterListComponent implements OnInit {
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
+
+  public onPageChanged(event: any) {
+    if (this.uldFilterQuery?.pageIndex !== event) {
+      this.uldFilterQuery.pageIndex = event;
+      this.getFilteredList();
+    }
+  }
+
+  GetULDType(type: number) {
+    return CoreExtensions.GetULDType(type);
+  }
+
+  GetULDOwnershipType(type: number) {
+    return CoreExtensions.GetULDOwnershipType(type);
+  }
+
+  GetDimentions(item: any) {
+    return CoreExtensions.GetDimentions(item.length, item.width, item.height);
+  }
+  
+  GetULDLocateStatus(type: number) {
+    return CoreExtensions.GetULDLocateStatus(type);
+  }
+  
 
 }
