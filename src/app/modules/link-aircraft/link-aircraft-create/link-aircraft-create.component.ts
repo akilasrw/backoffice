@@ -32,8 +32,7 @@ export class LinkAircraftCreateComponent implements OnInit {
   aircrafts: Aircraft[]=[];
   aircraftInputDisable?: boolean= false;
   stepCount?: number = 1;
-  //@ViewChild('autoCompleteAircraft') autoCompleteAircraft!: AutoCompleteDropdownComponent;
-  selectedFile!: File;
+  selectedFile?: File;
 
   @Input() set flightSchedule(val: any) {
     console.log('LinkAircraftCreateComponent',val);
@@ -193,32 +192,25 @@ export class LinkAircraftCreateComponent implements OnInit {
               this.uploadService.upload(formData).subscribe(
                 {
                   next: (r) => {
-                    this.toastr.success('Saved Successfully.');
-                    this.isLoading = false;
-                    this.submitSuccess.emit();
-                    this.close();
+                    this.selectedFile = undefined;
+                    this.successMsg();
+                    this.saveCompleted();
                   },
                   error: (err) => {
                     this.toastr.warning('Saved Successfully. but uploaded is failed.');
-                    this.isLoading = false;
-                    this.submitSuccess.emit();
-                    this.close();
+                    this.saveCompleted();
                   }
                 }
               );
+            } else {
+              this.successMsg();
+              this.saveCompleted();
             }
            },
            error: (error) => {
              this.isLoading = false;
            }
          });
-
-
-        // var editedObjects = this.flightSchedules.filter(x => x.isEdited == true);
-        // if(editedObjects.length == 0){
-        //   this.toastr.warning('Nothing has been changed to save.');
-        //   this.isLoading = false;
-        // }
       }
     } else {
       this.linkAircraftForm.markAllAsTouched();
@@ -226,11 +218,20 @@ export class LinkAircraftCreateComponent implements OnInit {
 
   }
 
+  saveCompleted() {
+    this.isLoading = false;
+    this.submitSuccess.emit();
+    this.close();
+  }
+
+  successMsg(){
+    this.toastr.success('Saved Successfully.');
+  }
+
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.selectedFile = file;
-    //this.linkAircraftForm.get('file')?.patchValue(file);
   }
 
   close(){
@@ -260,27 +261,4 @@ export class LinkAircraftCreateComponent implements OnInit {
     //   }
     return true;;
   }
-
-  // getFlightSchedule(id: string) {
-  //   var query = new FlightScheduleQuery();
-  //   query.id = id;
-  //   query.includeFlightScheduleSectors = true;
-  //   query.includeAircrafts = true;
-
-  //   this.isTextLoading = true;
-
-    // this.flightScheduleService.getFlightSchedule(query).subscribe(
-    //   {
-    //     next: (res) => {
-    //       // this.flightSchedules = [];
-    //       // this.flightSchedules.push(res)
-    //       // this.fillAircraft(res);
-    //     },
-    //     error: (error) => {
-    //       this.isTextLoading = false;
-    //     }
-    //   }
-    // );
-  // }
-
 }
