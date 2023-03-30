@@ -23,7 +23,7 @@
             <div class="col-md-12">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">ULD Number</label>
-                    <app-text-input [formControl]='uldForm.controls["serialNumber"]' type="text" [label]='"ULD number."'
+                    <app-text-input [formControl]='uldForm.controls["serialNumber"]' type="text" [label]='"ULD number"'
                         [tabindex]="1">
                     </app-text-input>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Airline Code</label>
                     <app-text-input [formControl]='uldForm.controls["ownerAirlineCode"]' type="text"
-                        [label]='"airline code."' [tabindex]="2">
+                        [label]='"Airline code"' [tabindex]="2">
                     </app-text-input>
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
@@ -169,7 +169,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Lend Airline Code</label>
                     <app-text-input [formControl]='uldForm.controls["lendAirlineCode"]' type="text"
-                        [label]='"lend airline code."' [tabindex]="11">
+                        [label]='"Lend airline code"' [tabindex]="11">
                     </app-text-input>
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>

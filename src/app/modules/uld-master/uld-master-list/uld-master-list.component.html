@@ -39,25 +39,25 @@
                         <th>Dimentions(L x W x H)cm</th>
                         <th>Weight</th>
                         <th>Max Weight</th>
-                        <th>Volume</th>
+                        <th>Max Volume</th>
                         <th>ULD Locator</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.ulds">
-                            <td>{{GetULDType(item.uLDType)}}</td>
+                            <td>{{GetULDType(item.uldType)}}</td>
                             <td>{{item.serialNumber}}</td>
-                            <td>{{GetULDOwnershipType(item.GetULDOwnershipType)}}</td>
-                            <td>{{item.ownerAirlineCode}}</td>
-                            <td>{{item.lastUsedDate| date}}</td>
-                            <td>{{item.lastUsedFlightNumber}}</td>
+                            <td>{{GetULDOwnershipType(item.uldOwnershipType)}}</td>
+                            <td>{{(item.ownerAirlineCode =="" || item.ownerAirlineCode ==null)?'-':item.ownerAirlineCode}}</td>
+                            <td>{{(item.lastUsedDate=='0001-01-01T00:00:00')?'-':item.lastUsedDate| date}}</td>
+                            <td>{{(item.lastUsedFlightNumber =="" || item.lastUsedFlightNumber ==null)?'-':item.lastUsedFlightNumber}}</td>
                             <td>{{GetDimentions(item)}}</td>
-                            <td>{{item.Weight}}</td>
+                            <td>{{item.weight}}</td>
                             <td>{{item.maxWeight}}</td>
-                            <td>{{item.volume}}</td>
-                            <td>{{item.lastLocatedAirportCode}}</td>
-                            <td>{{GetULDLocateStatus(item.uLDLocateStatus)}}</td>
+                            <td>{{item.maxVolume}}</td>
+                            <td>{{(item.lastLocatedAirportCode =="" || item.lastLocatedAirportCode ==null)?'-':item.lastLocatedAirportCode}}</td>
+                            <td>{{GetULDLocateStatus(item.uldLocateStatus)}}</td>
                             <td>
                                 <i class="ca ca-icn-view" title="View"></i>
                                 <i class="ca ca-icn-edit" title="Edit"></i>

@@ -96,6 +96,18 @@ export class UldCreateComponent implements OnInit {
 
   saveULDDetails() {
     if (this.uldForm.valid) {
+
+      if (this.uldForm.get('uLDOwnershipType')?.value ===  ULDOwnershipType.Other && this.uldForm.get('ownerAirlineCode')?.value == null) {
+        this.toastr.error('Please enter ULD own airline code.');
+        return;
+      }
+
+      if (this.uldForm.get('uLDLocateStatus')?.value ===  ULDLocateStatus.Lend && this.uldForm.get('lendAirlineCode')?.value == null) {
+        this.toastr.error('Please enter ULD lend airline code.');
+        return;
+      }
+
+
       this.isLoading = true;
       var uld: UldCreateRM = this.uldForm.value;
 

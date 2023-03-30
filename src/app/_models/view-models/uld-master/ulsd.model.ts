@@ -2,11 +2,11 @@ import { ULDLocateStatus, ULDOwnershipType, ULDType } from "src/app/core/enums/c
 import { BaseVM } from "src/app/shared/models/base-vm.model";
 
 export class ULD extends BaseVM{
-    uLDType?: ULDType;
+    uldType?: ULDType;
     serialNumber?: string;
-    uLDOwnershipType?: ULDOwnershipType;
+    uldOwnershipType?: ULDOwnershipType;
     ownerAirlineCode?:string;
-    uLDLocateStatus?:ULDLocateStatus;
+    uldLocateStatus?:ULDLocateStatus;
     lendAirlineCode?: string; 
     lastUsedDate?:Date;
     lastUsedFlightNumber?:string;
