@@ -506,7 +506,7 @@ a {
             height: calc(100vh - 320px);
             overflow: auto;
             @include customScrollbar(3px);
-            .main-menu {
+            .main-menu, .main-nav {
                 margin: 0;
                 padding: 0;
                 list-style: none;
@@ -515,6 +515,64 @@ a {
                     display: flex;
                     align-items: center;
                     cursor: pointer;
+                    position: relative;
+                    &.single {
+                        details {
+                            summary {
+                                &::marker {
+                                    content: "";
+                                    display: none!important;
+                                }
+                                &::before {
+                                    content: "";
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                    details {
+                        summary {
+                            display: flex;
+                            align-items: center;
+                            &::marker {
+                                content: "";
+                                display: none!important;
+                            }
+                            &::before {
+                                content: "\e904";
+                                font-family: cargo-icons;
+                                right: 0;
+                                position: absolute;
+                                margin-right: 1.875rem;
+                            }
+                        }
+                        &[open] {
+                            color: $brand-primary;
+                            summary {
+                                &::before {
+                                    content: "\e903";
+                                    font-family: cargo-icons;
+                                    right: 0;
+                                    position: absolute;
+                                    margin-right: 1.875rem;
+                                    color: $brand-primary;
+                                }
+                                .menu-icn {
+                                    color: $default-white;
+                                    background-color: $brand-primary;
+                                    padding: 0.313rem;
+                                    border-radius: 0.313rem;
+                                    box-shadow: 0 0.188rem 0.375rem $blue;
+                                }
+                            }
+                        }
+                        .sub-menu {
+                            padding: 16px 0 0 44px;
+                            a {
+                                color: $form-label;
+                            }
+                        }
+                    }
                     .menu-icn {
                         font-size: 1.125rem;
                         margin-right: 0.938rem;

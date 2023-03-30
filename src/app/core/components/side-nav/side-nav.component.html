@@ -7,7 +7,64 @@
             <img src="{{iconUrl}}" />
         </div>
         <div class="menu-scroller">
-            <ul class="main-menu">
+            <div class="main-nav">
+                <div class="">
+                    <div class="menu-item single" (click)="menuClickEvent(1)">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-dashboard"></span> Dashboard</summary>
+                        </details>
+                    </div>
+                    <div class="menu-item">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-booking"></span> Manage Bookings</summary>
+                            <div class="sub-menu">Standby Cargo</div>
+                            <div class="sub-menu" (click)="menuClickEvent(2)" [ngClass]="{'selected': selectedMenu == 2}">Booking Summary</div>
+                        </details>
+                    </div>
+                    <div class="menu-item">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-flight-schedule"></span> Fleet Management</summary>
+                            <div class="sub-menu" (click)="menuClickEvent(9)" [ngClass]="{'selected': selectedMenu == 9}">Flight Schedule</div>
+                            <div class="sub-menu" (click)="menuClickEvent(13)" [ngClass]="{'selected': selectedMenu == 13}">Master Schedule</div>
+                            <div class="sub-menu" (click)="menuClickEvent(14)" [ngClass]="{'selected': selectedMenu == 14}">Assign Aircrafts</div>
+                            <div class="sub-menu" (click)="menuClickEvent(15)" [ngClass]="{'selected': selectedMenu == 15}">Fleet Analysis</div>
+                        </details>
+                    </div>
+                    <div class="menu-item">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-dollar"></span> Agent and Rate</summary>
+                            <div class="sub-menu" (click)="menuClickEvent(11)" [ngClass]="{'selected': selectedMenu == 11}">Cargo Agent</div>
+                            <div class="sub-menu" (click)="menuClickEvent(10)" [ngClass]="{'selected': selectedMenu == 10}">Rate Management</div>
+                            <div class="sub-menu" (click)="menuClickEvent(3)" [ngClass]="{'selected': selectedMenu == 3}">AWB Stock Management</div>
+                        </details>
+                    </div>
+                    <div class="menu-item">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-settings"></span> Settings</summary>
+                            <div class="sub-menu" (click)="menuClickEvent(5)" [ngClass]="{'selected': selectedMenu == 5}">Manage Airports</div>
+                            <div class="sub-menu" (click)="menuClickEvent(6)" [ngClass]="{'selected': selectedMenu == 6}">Manage Sectors</div>
+                            <div class="sub-menu" (click)="menuClickEvent(7)" [ngClass]="{'selected': selectedMenu == 7}">Manage Aircrafts</div>
+                            <div class="sub-menu" (click)="menuClickEvent(8)" [ngClass]="{'selected': selectedMenu == 8}">Flight Creation</div>
+                        </details>
+                    </div>
+                    <div class="menu-item">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-pallet"></span> ULD Management</summary>
+                            <div class="sub-menu" (click)="menuClickEvent(4)" [ngClass]="{'selected': selectedMenu == 4}">ULD Assignement</div>
+                            <div class="sub-menu" (click)="menuClickEvent(16)" [ngClass]="{'selected': selectedMenu == 16}">ULD Master</div>
+                        </details>
+                    </div>
+                    <div class="menu-item">
+                        <details>
+                            <summary><span class="menu-icn ca ca-icn-bell"></span> Manage Notifications</summary>
+                            <div class="sub-menu" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">Publish Notifications</div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Old menu -->
+            <!-- <ul class="main-menu">
                 <li>
                     <div class="menu-item" (click)="menuClickEvent(1)" [ngClass]="{'selected': selectedMenu == 1}">
                         <span class="menu-icn ca ca-icn-dashboard"></span>
@@ -104,7 +161,7 @@
                         <span class="menu-title">ULD Master</span>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
     <div>
@@ -125,5 +182,4 @@
         </div>
     </div>
 </div>
-
 
