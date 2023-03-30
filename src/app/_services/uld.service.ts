@@ -4,6 +4,7 @@ import { CoreExtensions } from '../core/extensions/core-extensions.model';
 import { BaseService } from '../core/services/base.service';
 import { IPagination } from '../shared/models/pagination.model';
 import { ULDFilterQuery } from '../_models/queries/uld/uld-filter-query.model';
+import { UldCreateRM } from '../_models/request-models/uld-master/uld-create-rm';
 import { ULD } from '../_models/view-models/uld-master/ulsd.model';
 
 @Injectable({
@@ -31,6 +32,10 @@ export class ULDService  extends BaseService{
       this.getFilteredListEndpoint,
       params
     );
+  }
+
+  create(uldCreateRM: UldCreateRM){
+    return this.post<any>(this.endpointEntityName, uldCreateRM);
   }
 
 }

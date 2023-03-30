@@ -93,7 +93,7 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-uld-create  *ngIf="modalVisible"></app-uld-create>
+                <app-uld-create  *ngIf="modalVisible" (submitSuccess)="onULDAdd()" (closePopup)="closeAddULD()" ></app-uld-create>
             </div>
         </div>
     </div>

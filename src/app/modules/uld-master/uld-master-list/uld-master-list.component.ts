@@ -71,11 +71,15 @@ export class UldMasterListComponent implements OnInit {
     setTimeout(() => (this.modalVisible = false), 300);
   }
 
-  public onPageChanged(event: any) {
+  onPageChanged(event: any) {
     if (this.uldFilterQuery?.pageIndex !== event) {
       this.uldFilterQuery.pageIndex = event;
       this.getFilteredList();
     }
+  }
+
+  onULDAdd(){
+    this.getFilteredList();
   }
 
   GetULDType(type: number) {
