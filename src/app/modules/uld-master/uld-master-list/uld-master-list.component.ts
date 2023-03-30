@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
 import { ULDFilterQuery } from 'src/app/_models/queries/uld/uld-filter-query.model';
 import { ULD } from 'src/app/_models/view-models/uld-master/ulsd.model';
 import { ULDService } from 'src/app/_services/uld.service';
@@ -98,5 +99,8 @@ export class UldMasterListComponent implements OnInit {
     return CoreExtensions.GetULDLocateStatus(type);
   }
   
+  convertcm3Tom3(volume: number): number {
+    return NumberExtension.convertcm3Tom3(volume);
+  }
 
 }

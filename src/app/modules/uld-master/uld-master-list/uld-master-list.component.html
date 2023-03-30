@@ -55,7 +55,7 @@
                             <td>{{GetDimentions(item)}}</td>
                             <td>{{item.weight}}</td>
                             <td>{{item.maxWeight}}</td>
-                            <td>{{item.maxVolume}}</td>
+                            <td>{{convertcm3Tom3(item.maxVolume)|number :'1.2-2'}}</td>
                             <td>{{(item.lastLocatedAirportCode =="" || item.lastLocatedAirportCode ==null)?'-':item.lastLocatedAirportCode}}</td>
                             <td>{{GetULDLocateStatus(item.uldLocateStatus)}}</td>
                             <td>
