@@ -176,3 +176,28 @@ export enum AssignAircraftViewType {
   History = 1,
   UpcomingFlight =2
 }
+
+export enum ULDType
+{
+    None = 0,
+    Pallet = 1,
+    Container = 2
+}
+
+export enum ULDOwnershipType
+{
+    None = 0,
+    OwnByAirline = 1,
+    Other = 2
+}
+
+export enum ULDLocateStatus
+{
+    None = 0,
+    OnGround = 1,
+    OnBoard = 2,
+    Maintenance = 3,
+    Lend = 4,
+}
+
+
