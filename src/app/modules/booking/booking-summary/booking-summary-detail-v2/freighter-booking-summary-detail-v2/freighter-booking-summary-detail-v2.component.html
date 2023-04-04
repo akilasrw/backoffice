@@ -1,0 +1,138 @@
+<div class="main-card">
+  <div class="card-header px-0 pt-0">
+      <div class="d-flex justify-content-between align-items-center">
+          <div>
+              <h1>Booking Summary Details</h1>
+          </div>
+          <div class="d-flex align-items-center">
+              <div class="me-3">
+
+              </div>
+              <div class="back-icn"><i class="ca ca-icn-left-arrow-dash" title="Back" (click)="backToList()"></i>
+              </div>
+          </div>
+
+      </div>
+  </div>
+  <div class="card-body without-footer">
+      <div class="booking-details">
+        <div class="d-flex flex-row-reverse">
+        </div>
+          <div class="row">
+              <div class="col-md-2">
+                  <div class="label">Flight Number</div>
+                  <div>{{cargoBookingSummary?.flightNumber}}</div>
+              </div>
+              <div class="col-md-2">
+                <div class="label">Flight Date</div>
+                <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date}}</div>
+              </div>
+              <div class="col-md-2">
+                <div class="label">Departure Time</div>
+                <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date :'shortTime'}}</div>
+              </div>
+              <div class="col-md-2">
+                  <div class="label">Cut off time</div>
+                  <div>-</div>
+              </div>
+              <div class="col-md-2">
+                  <div class="label">Origin</div>
+                  <div>{{cargoBookingSummary?.originAirportCode}}</div>
+              </div>
+              <div class="col-md-1">
+                  <div class="label">Destination</div>
+                  <div>{{cargoBookingSummary?.destinationAirportCode}}</div>
+              </div>
+              <div class="col-md-1">
+                  <div class="label pt-4">Aircraft Type</div>
+                  <div>{{cargoBookingSummary?.aircraftSubTypeName}}</div>
+              </div>
+          </div>
+          <div class="details-box-section">
+              <div class="details-box">
+                <h4>Bookings</h4>
+                <div class="value"><span class="">{{cargoBookingSummary?.bookingSummaryDetailFigures?.bookingCount}}</span></div>
+            </div>
+              <div class="details-box">
+                  <h4>Total Booked Weight (Kg)</h4>
+                  <div class="value"><span class="">{{cargoBookingSummary?.bookingSummaryDetailFigures?.totalBookedWeight}}</span></div>
+              </div>
+              <div class="details-box">
+                  <h4>Total Booked Volume (m3)</h4>
+                  <div class="value"><span class="">{{convertcm3Tom3(cargoBookingSummary?.bookingSummaryDetailFigures?.totalBookedVolume)|number :'1.2-2'}}</span></div>
+              </div>
+              <div class="details-box" style="background-color:#C7FADC">
+                <h4>Total recieving bookings</h4>
+                <div class="value"><span class="">{{cargoBookingSummary?.bookingSummaryDetailFigures?.bookingRecievedCount}}</span></div>
+              </div>
+              <div class="details-box" style="background-color:#C7FADC">
+                <h4>Total recieving Weight (Kg)</h4>
+                <div class="value"><span class="">{{cargoBookingSummary?.bookingSummaryDetailFigures?.totalRecievedBookedWeight}}</span></div>
+              </div>
+              <div class="details-box" style="background-color:#C7FADC">
+                <h4>Total recieving Volume (m3)</h4>
+                <div class="value"><span class="">{{convertcm3Tom3(cargoBookingSummary?.bookingSummaryDetailFigures?.totalRecievedBookedVolume)|number :'1.2-2'}}</span></div>
+              </div>
+          </div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <span><strong>Bookings</strong></span>
+      </div>
+      <div class="row">
+        <div class="table-content">
+          <div class="table-responsive">
+            <table class="table" *ngIf="this.cargoBookingList.length > 0">
+              <thead>
+                  <th><input type="checkbox" /></th>
+                  <th>Booking ID</th>
+                  <th>AWB Number</th>
+                  <th>Booking Agent</th>
+                  <th>No. Pcs</th>
+                  <th>Total Weight (kg)</th>
+                  <th>Total Volume (m3)</th>
+                  <th>Status</th>
+                  <th>No.Rec.Pcs</th>
+                  <th>Total Rec. Weight(kg)</th>
+                  <th>Total Rec. Volume (m3)</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let booking of this.cargoBookingList">
+                    <td><input type="checkbox" /></td>
+                    <td>{{booking.bookingNumber}}</td>
+                    <td>{{booking.awbNumber}}</td>
+                    <td>{{booking.bookingAgent}}</td>
+                    <td>{{booking.numberOfBoxes}}</td>
+
+                    <td>{{booking.totalWeight}}</td>
+                    <td>{{convertcm3Tom3(booking.totalVolume)}}</td>
+                    <td><span class="status-chip" [ngClass]="{
+                      'none':booking?.bookingStatus == bookingStatus.None,
+                      'pending': booking?.bookingStatus == bookingStatus.Pending,
+                      'dispatch':booking?.bookingStatus == bookingStatus.Dispatched,
+                      'invoiced':booking?.bookingStatus == bookingStatus.Invoiced,
+                      'accepted':booking?.bookingStatus == bookingStatus.Accepted,
+                      'loading':booking?.bookingStatus == bookingStatus.Loading,
+                      'exported':booking?.bookingStatus == bookingStatus.Exported
+                  }">{{getBookingStatus(booking?.bookingStatus)}}</span></td>
+                  <td>{{booking.numberOfRecBoxes}}</td>
+                  <td>{{booking.totalRecWeight}}</td>
+                  <td>{{booking.totalRecVolume}}</td>
+                </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="not-available" *ngIf="this.cargoBookingList.length == 0">
+          <img src="./assets/images/no-data.png" alt="No Content Data">
+          <div>Data not found.</div>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-secondary me-3" disabled>Cancel Booking</button>
+        <button type="button" class="btn btn-primary me-3" disabled>Move to StandBy Cargo</button>
+        <button type="button" class="btn btn-primary" disabled>Move to Offload</button>
+      </div>
+  </div>
+</div>

@@ -44,7 +44,8 @@ export class BookingSummaryListComponent implements OnInit {
     this.bookingSummaryService.getFilteredList(this.bookingSummaryFilterQuery).subscribe(
       {
         next:(res)=>{
-          this.bookingSummarys = res.data;
+          this.bookingSummarys = res.data; console.log(res);
+
           this.totalCount = res.count;
           this.isLoading=false;
         },
@@ -81,5 +82,5 @@ export class BookingSummaryListComponent implements OnInit {
       this.router.navigate(['booking-summary/freighterSummaryDetails',item.id]);
     }
   }
-  
+
 }

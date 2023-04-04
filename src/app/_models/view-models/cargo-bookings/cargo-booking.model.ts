@@ -10,6 +10,8 @@ export interface CargoBooking {
   totalWeight:number;
   totalVolume:number;
   bookingStatus: BookingStatus;
-
+  numberOfRecBoxes:number;
+  totalRecWeight:number;
+  totalRecVolume:number;
 
 }
