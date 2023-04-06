@@ -1,2 +1,35 @@
-<app-link-aircraft-list *ngIf="assignAircraftType == selectedAssignAircraftType.History"></app-link-aircraft-list>
-<app-upcoming-assign-aircraft *ngIf="assignAircraftType == selectedAssignAircraftType.UpcomingFlight"></app-upcoming-assign-aircraft>
+<div class="main-card">
+    <div class="card-header px-0 pt-0 pb-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Assign Aircraft</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="booking-summary">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="flight-history-tab" data-bs-toggle="tab" data-bs-target="#flight-history" type="button"
+                        role="tab" aria-controls="flight-history" aria-selected="true">Flight History</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="upcoming-flight-tab" data-bs-toggle="tab" data-bs-target="#upcoming-flight" type="button"
+                        role="tab" aria-controls="upcoming-flight" aria-selected="false">Upcoming Flight</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="flight-history" role="tabpanel" aria-labelledby="flight-history-tab">
+                    <app-link-aircraft-list *ngIf="assignAircraftType == selectedAssignAircraftType.History"></app-link-aircraft-list>
+                </div>
+                <div class="tab-pane fade" id="upcoming-flight" role="tabpanel" aria-labelledby="upcoming-flight-tab">
+                    <app-upcoming-assign-aircraft *ngIf="assignAircraftType == selectedAssignAircraftType.UpcomingFlight"></app-upcoming-assign-aircraft>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
