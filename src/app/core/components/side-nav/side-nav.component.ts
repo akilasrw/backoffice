@@ -128,6 +128,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.ULDMaster:
         this.router.navigate([RouteConstants.ULDMaster])
         break;
+      case MenuType.StandByCargo:
+        this.router.navigate([RouteConstants.StandByCargo])
+        break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;

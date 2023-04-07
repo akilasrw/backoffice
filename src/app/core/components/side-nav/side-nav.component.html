@@ -17,7 +17,7 @@
                     <div class="menu-item">
                         <details>
                             <summary><span class="menu-icn ca ca-icn-booking"></span> Manage Bookings</summary>
-                            <div class="sub-menu">Standby Cargo</div>
+                            <div class="sub-menu" (click)="menuClickEvent(17)" [ngClass]="{'selected': selectedMenu == 17}">Standby Cargo</div>
                             <div class="sub-menu" (click)="menuClickEvent(2)" [ngClass]="{'selected': selectedMenu == 2}">Booking Summary</div>
                         </details>
                     </div>

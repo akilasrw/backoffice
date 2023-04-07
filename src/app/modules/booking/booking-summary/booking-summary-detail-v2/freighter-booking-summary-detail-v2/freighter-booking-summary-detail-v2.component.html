@@ -83,7 +83,7 @@
           <div class="table-responsive">
             <table class="table" *ngIf="this.cargoBookingList.length > 0">
               <thead>
-                  <th><input type="checkbox" /></th>
+                  <th><input type="checkbox" (change)="selectDeselectAll($event)" [hidden]="selectAllCheckBoxHidden"/></th>
                   <th>Booking ID</th>
                   <th>AWB Number</th>
                   <th>Booking Agent</th>
@@ -92,12 +92,12 @@
                   <th>Total Volume (m3)</th>
                   <th>Status</th>
                   <th>No.Rec.Pcs</th>
-                  <th>Total Rec. Weight(kg)</th>
+                  <th>Total Rec. Weight (kg)</th>
                   <th>Total Rec. Volume (m3)</th>
               </thead>
               <tbody>
                 <tr *ngFor="let booking of this.cargoBookingList">
-                    <td><input type="checkbox" /></td>
+                    <td><input type="checkbox" [(ngModel)]="booking.selected" (change)="selectedBooking($event, booking)"/></td>
                     <td>{{booking.bookingNumber}}</td>
                     <td>{{booking.awbNumber}}</td>
                     <td>{{booking.bookingAgent}}</td>
@@ -130,9 +130,9 @@
         </div>
       </div>
       <div>
-        <button type="button" class="btn btn-secondary me-3" disabled>Cancel Booking</button>
-        <button type="button" class="btn btn-primary me-3" disabled>Move to StandBy Cargo</button>
-        <button type="button" class="btn btn-primary" disabled>Move to Offload</button>
+        <button type="button" class="btn btn-secondary me-3" (click)="cancelBookings()" [disabled]="isCancelButtonDisabled">Cancel Booking</button>
+        <button type="button" class="btn btn-primary me-3" (click)="moveToStabdBy()" [disabled]="isStandByButtonDisabled">Move to StandBy Cargo</button>
+        <button type="button" class="btn btn-primary" (click)="moveToOffload()" [disabled]="isOffloadButtonDisabled">Move to Offload</button>
       </div>
   </div>
 </div>

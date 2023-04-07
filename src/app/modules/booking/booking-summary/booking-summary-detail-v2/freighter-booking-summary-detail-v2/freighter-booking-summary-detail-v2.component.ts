@@ -10,6 +10,7 @@ import { NumberExtension } from 'src/app/core/extensions/number-extension.model'
 import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-booking.model';
 import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/cargo-booking-list-query.model';
 import { BookingService } from 'src/app/_services/booking.service';
+import { CargoBookingStatusUpdateListRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-list-rm.model';
 
 @Component({
   selector: 'app-freighter-booking-summary-detail-v2',
@@ -33,6 +34,10 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
   cargoBookingList: CargoBooking[] = [];
   query: CargoBookingListQuery = new CargoBookingListQuery();
   bookingStatus = BookingStatus;
+  isCancelButtonDisabled: boolean = true;
+  isStandByButtonDisabled: boolean = true;
+  isOffloadButtonDisabled: boolean = true;
+  selectAllCheckBoxHidden: boolean = true;
 
   constructor(private activatedRoute: ActivatedRoute,
     private bookingSummaryService: BookingSummaryService,
@@ -117,6 +122,7 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
         next: (res) => {
           this.cargoBookingList = res;
           console.log('Booking Detail',res);
+          this.enableDisableSelectAllCheckBox();
         },
         error: () => {
           this.cargoBookingList = [];
@@ -129,5 +135,80 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
     return CoreExtensions.GetBookingStatus(status)
   }
 
+  selectedBooking(event: any, booking: CargoBooking) {
+    if(event.target.checked == true) this.isCancelButtonDisabled = false;
+    this.enableButtons();
+  }
 
+  enableButtons() {
+    var anySelected = this.cargoBookingList.filter(x=> x.selected);
+    if(anySelected == undefined || anySelected?.length == 0) {
+      this.isCancelButtonDisabled = true;
+      this.isStandByButtonDisabled = true;
+      this.isOffloadButtonDisabled = true;
+    }
+
+    var selectedBookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Pending && x.selected);
+    var selectedRecBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Accepted && x.selected);
+
+    if(selectedBookedBookings.length > 0 && selectedRecBookings.length == 0) {
+      this.isStandByButtonDisabled = false;
+      this.isCancelButtonDisabled = false;
+      this.isOffloadButtonDisabled = true;
+    }
+    else if(selectedBookedBookings.length == 0 && selectedRecBookings.length > 0) {
+      this.isOffloadButtonDisabled = false;
+      this.isCancelButtonDisabled = false;
+      this.isStandByButtonDisabled = true;
+    } else if (selectedBookedBookings.length > 0 && selectedRecBookings.length > 0){
+      this.isStandByButtonDisabled = true;
+      this.isOffloadButtonDisabled = true;
+      this.isCancelButtonDisabled = false;
+    }
+  }
+
+  enableDisableSelectAllCheckBox() {
+    var bookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Pending);
+    var recBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Accepted);
+
+    if(bookedBookings.length > 0 && recBookings.length == 0) {
+      this.selectAllCheckBoxHidden = false;
+    }
+    else if(bookedBookings.length == 0 && recBookings.length > 0) {
+      this.selectAllCheckBoxHidden = false;
+    } else {
+      this.selectAllCheckBoxHidden = true;
+    }
+  }
+
+  selectDeselectAll(event: any) {
+    var selected = false;
+    if(event.target.checked == true) {
+      selected = true;
+    }
+
+    this.cargoBookingList.forEach(book=>{
+      book.selected = selected;
+    });
+
+    this.enableButtons();
+  }
+
+
+  cancelBookings() {
+
+  }
+
+  moveToStabdBy() {
+    var rm = new CargoBookingStatusUpdateListRm();
+  }
+
+  moveToOffload() {
+    var rm = new CargoBookingStatusUpdateListRm();
+  }
+
+  update(rm: CargoBookingStatusUpdateListRm){
+    this.bookingService.updateStandByStatus(rm)
+    .subscribe();
+  }
 }

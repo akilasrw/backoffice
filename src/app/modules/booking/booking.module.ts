@@ -12,6 +12,7 @@ import { FreighterUldDetailsComponent } from './booking-summary/booking-summary-
 import { BookingDetailComponent } from './booking-detail/booking-detail.component';
 import { AssignBookingComponent } from './booking-summary/booking-summary-details/assign-booking/assign-booking.component';
 import { FreighterBookingSummaryDetailV2Component } from './booking-summary/booking-summary-detail-v2/freighter-booking-summary-detail-v2/freighter-booking-summary-detail-v2.component';
+import { StandByCargoMasterComponent } from './stand-by-cargo-master/stand-by-cargo-master.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FreighterBookingSummaryDetailV2Component } from './booking-summary/book
     FreighterUldDetailsComponent,
     BookingDetailComponent,
     AssignBookingComponent,
-    FreighterBookingSummaryDetailV2Component
+    FreighterBookingSummaryDetailV2Component,
+    StandByCargoMasterComponent
   ],
   imports: [
     CommonModule,

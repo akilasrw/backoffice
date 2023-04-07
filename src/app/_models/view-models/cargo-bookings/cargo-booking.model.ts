@@ -13,5 +13,5 @@ export interface CargoBooking {
   numberOfRecBoxes:number;
   totalRecWeight:number;
   totalRecVolume:number;
-
+  selected: boolean;
 }

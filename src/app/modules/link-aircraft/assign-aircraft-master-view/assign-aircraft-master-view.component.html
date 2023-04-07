@@ -10,19 +10,21 @@
         <div class="booking-summary">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="flight-history-tab" data-bs-toggle="tab" data-bs-target="#flight-history" type="button"
+                    <button class="nav-link" [ngClass]="{'active':assignAircraftType == selectedAssignAircraftType.History}"
+                    id="flight-history-tab" data-bs-toggle="tab" data-bs-target="#flight-history" type="button" (click)="assignAircraftType = selectedAssignAircraftType.History"
                         role="tab" aria-controls="flight-history" aria-selected="true">Flight History</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="upcoming-flight-tab" data-bs-toggle="tab" data-bs-target="#upcoming-flight" type="button"
+                    <button class="nav-link" id="upcoming-flight-tab" data-bs-toggle="tab" data-bs-target="#upcoming-flight" [ngClass]="{'active':assignAircraftType == selectedAssignAircraftType.UpcomingFlight}"
+                    type="button" (click)="assignAircraftType = selectedAssignAircraftType.UpcomingFlight"
                         role="tab" aria-controls="upcoming-flight" aria-selected="false">Upcoming Flight</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="flight-history" role="tabpanel" aria-labelledby="flight-history-tab">
+                <div class="tab-pane fade" [ngClass]="{'show active':assignAircraftType == selectedAssignAircraftType.History}" id="flight-history" role="tabpanel" aria-labelledby="flight-history-tab">
                     <app-link-aircraft-list *ngIf="assignAircraftType == selectedAssignAircraftType.History"></app-link-aircraft-list>
                 </div>
-                <div class="tab-pane fade" id="upcoming-flight" role="tabpanel" aria-labelledby="upcoming-flight-tab">
+                <div class="tab-pane fade show active" [ngClass]="{'show active':assignAircraftType == selectedAssignAircraftType.UpcomingFlight}" id="upcoming-flight" role="tabpanel" aria-labelledby="upcoming-flight-tab">
                     <app-upcoming-assign-aircraft *ngIf="assignAircraftType == selectedAssignAircraftType.UpcomingFlight"></app-upcoming-assign-aircraft>
                 </div>
             </div>
