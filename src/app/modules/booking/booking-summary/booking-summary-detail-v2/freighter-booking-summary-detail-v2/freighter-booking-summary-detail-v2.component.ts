@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { CargoPositionDetail } from './../../../../../_models/view-models/booking-summary/cargo-position-detail.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-b
 import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/cargo-booking-list-query.model';
 import { BookingService } from 'src/app/_services/booking.service';
 import { CargoBookingStatusUpdateListRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-list-rm.model';
+import { CargoBookingStatusUpdateRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-rm.model';
 
 @Component({
   selector: 'app-freighter-booking-summary-detail-v2',
@@ -42,7 +44,8 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private bookingSummaryService: BookingSummaryService,
     private router: Router,
-    private bookingService: BookingService) { }
+    private bookingService: BookingService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getId();
@@ -200,15 +203,39 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
   }
 
   moveToStabdBy() {
-    var rm = new CargoBookingStatusUpdateListRm();
+    var rm = this.mappingList(1);
+    this.update(rm);
   }
 
   moveToOffload() {
-    var rm = new CargoBookingStatusUpdateListRm();
+    var rm = this.mappingList(2);
+    this.update(rm);
   }
 
   update(rm: CargoBookingStatusUpdateListRm){
     this.bookingService.updateStandByStatus(rm)
-    .subscribe();
+    .subscribe({
+      next: (res) => {
+        this.toastr.success('Saved Successfully.');
+        this.getBookingList();
+      },
+      error: () => {
+        this.cargoBookingList = [];
+      }
+    });
   }
+
+  mappingList(status: number){
+    var rm = new CargoBookingStatusUpdateListRm();
+    this.cargoBookingList.filter(x=>x.selected).forEach(book=>{
+      var cargoBookingStatusUpdateRm: CargoBookingStatusUpdateRm = new CargoBookingStatusUpdateRm();
+      cargoBookingStatusUpdateRm.id = book.id;
+      cargoBookingStatusUpdateRm.standByStatus = status;
+      rm.cargoBookingStatusUpdateList?.push(cargoBookingStatusUpdateRm)
+    });
+    rm.standByStatus = status;
+    return rm;
+  }
+
+
 }
