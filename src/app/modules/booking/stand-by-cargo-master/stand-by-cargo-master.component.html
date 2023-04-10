@@ -1,1 +1,85 @@
-<p>stand-by-cargo-master worksssssssssssssssssssssssssssssssss!</p>
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Standby Cargo</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Booking ID</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Booking Agent</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="booking-summary">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="offloaded-bookings-tab" data-bs-toggle="tab" data-bs-target="#offloaded-bookings" type="button" role="tab" aria-controls="offloaded-bookings" aria-selected="true">Offloaded Bookings</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="cargo-not-received-tab" data-bs-toggle="tab" data-bs-target="#cargo-not-received" type="button" role="tab" aria-controls="cargo-not-received" aria-selected="false">Cargo Not Received</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="offloaded-bookings" role="tabpanel" aria-labelledby="offloaded-bookings-tab">
+                        <div class="table-content">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <th>Booking ID</th>
+                                    <th>AWB Number</th>
+                                    <th>Booking Agent</th>
+                                    <th>From to</th>
+                                    <th>Booking Date</th>
+                                    <th>Status</th>
+                                    <th>No.Rec. Pcs</th>
+                                    <th>Total Rec. Weight (kg)</th>
+                                    <th>Total Rec. Volume (m3)</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B2023010029</td>
+                                        <td>80011400025</td>
+                                        <td>ECX Global Forwarding (M) Sdn Bhd</td>
+                                        <td>
+                                            <span class="status-chip accepted">CAN - CAK</span>
+                                        </td>
+                                        <td>3/5/2022</td>
+                                        <td>
+                                            <span class="status-chip accepted">Received</span>
+                                        </td>
+                                        <td>15</td>
+                                        <td>580</td>
+                                        <td>0.029008</td>
+                                        <td>
+                                            <i class="ca ca-icn-view" title="View"></i>
+                                            <i class="ca ca-icn-chat" title="Chat"></i>
+                                            <i class="ca ca-icn-edit" title="Edit"></i>
+                                            <i class="ca ca-icn-bin" title="Delite"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="cargo-not-received" role="tabpanel" aria-labelledby="cargo-not-received-tab">Cargo Not Received</div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
