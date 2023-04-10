@@ -35,6 +35,10 @@ export class BookingService extends BaseService {
       params = params.append("flightNumber", query.flightNumber);
     }
 
+    if (query.standByStatus) {
+      params = params.append("standByStatus", Number(query.standByStatus));
+    }
+
     return this.getWithParams<CargoBooking[]>(
       this.getListEndpoint,
       params
