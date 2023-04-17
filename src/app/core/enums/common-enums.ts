@@ -178,6 +178,12 @@ export enum AssignAircraftViewType {
   UpcomingFlight =2
 }
 
+export enum StandByCargoType {
+  None = 0,
+  NotReceived = 1,
+  Offload = 2
+}
+
 export enum ULDType
 {
     None = 0,

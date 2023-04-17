@@ -13,6 +13,7 @@ import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/ca
 import { BookingService } from 'src/app/_services/booking.service';
 import { CargoBookingStatusUpdateListRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-list-rm.model';
 import { CargoBookingStatusUpdateRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-rm.model';
+import { CargoBookingUpdateRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-update-rm.model';
 
 @Component({
   selector: 'app-freighter-booking-summary-detail-v2',
@@ -190,7 +191,7 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
       selected = true;
     }
 
-    this.cargoBookingList.forEach(book=>{
+    this.cargoBookingList.forEach(book=> {
       book.selected = selected;
     });
 
@@ -199,7 +200,27 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
 
 
   cancelBookings() {
+    var list: CargoBookingUpdateRm[]=[];
+    var bookings = this.cargoBookingList
+    .filter(x=>x.selected == true)
+    .forEach(book=>{
+      var cargoBookingUpdateRm: CargoBookingUpdateRm = new CargoBookingUpdateRm();
+      cargoBookingUpdateRm.id = book.id;
+      cargoBookingUpdateRm.bookingStatus = 70;
+      list.push(cargoBookingUpdateRm);
+    });
 
+    if(list.length > 0 ) {
+      this.bookingService.updateDeleteCargo(list)
+      .subscribe({
+        next: (res) => {
+          this.toastr.success('Cancelled Successfully.');
+          this.getBookingList();
+        },
+        error: () => {
+        }
+      });
+    }
   }
 
   moveToStabdBy() {
@@ -220,14 +241,14 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
         this.getBookingList();
       },
       error: () => {
-        this.cargoBookingList = [];
       }
     });
   }
 
-  mappingList(status: number){
+  mappingList(status: number) {
     var rm = new CargoBookingStatusUpdateListRm();
-    this.cargoBookingList.filter(x=>x.selected).forEach(book=>{
+    rm.cargoBookingStatusUpdateList =[];
+    this.cargoBookingList.filter(x=>x.selected == true).forEach(book=>{
       var cargoBookingStatusUpdateRm: CargoBookingStatusUpdateRm = new CargoBookingStatusUpdateRm();
       cargoBookingStatusUpdateRm.id = book.id;
       cargoBookingStatusUpdateRm.standByStatus = status;
