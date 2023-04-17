@@ -1,170 +1,208 @@
-<div class="menu-container" [ngClass]="{ 'collapseActive':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
-    <div class="main-container">
-        <div class="logo-wrapper" (click)="menuClickEvent(0)">
-            <img src="{{logoUrl}}" style="height: 34px;" />
-        </div>
-        <div class="logo-wrapper-s" (click)="menuClickEvent(0)">
-            <img src="{{iconUrl}}" />
-        </div>
-        <div class="menu-scroller">
-            <div class="main-nav">
-                <div class="">
-                    <div class="menu-item single" (click)="menuClickEvent(1)">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-dashboard"></span> Dashboard</summary>
-                        </details>
-                    </div>
-                    <div class="menu-item">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-booking"></span> Manage Bookings</summary>
-                            <div class="sub-menu" (click)="menuClickEvent(2)" [ngClass]="{'selected': selectedMenu == 2}">Booking Summary</div>
-                            <div class="sub-menu" (click)="menuClickEvent(17)" [ngClass]="{'selected': selectedMenu == 17}">Standby Cargo</div>
-                        </details>
-                    </div>
-                    <div class="menu-item">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-flight-schedule"></span> Fleet Management</summary>
-                            <div class="sub-menu" (click)="menuClickEvent(9)" [ngClass]="{'selected': selectedMenu == 9}">Flight Schedule</div>
-                            <div class="sub-menu" (click)="menuClickEvent(13)" [ngClass]="{'selected': selectedMenu == 13}">Master Schedule</div>
-                            <div class="sub-menu" (click)="menuClickEvent(14)" [ngClass]="{'selected': selectedMenu == 14}">Assign Aircrafts</div>
-                            <div class="sub-menu" (click)="menuClickEvent(15)" [ngClass]="{'selected': selectedMenu == 15}">Fleet Analysis</div>
-                        </details>
-                    </div>
-                    <div class="menu-item">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-dollar"></span> Agent and Rate</summary>
-                            <div class="sub-menu" (click)="menuClickEvent(11)" [ngClass]="{'selected': selectedMenu == 11}">Cargo Agent</div>
-                            <div class="sub-menu" (click)="menuClickEvent(10)" [ngClass]="{'selected': selectedMenu == 10}">Rate Management</div>
-                            <div class="sub-menu" (click)="menuClickEvent(3)" [ngClass]="{'selected': selectedMenu == 3}">AWB Stock Management</div>
-                        </details>
-                    </div>
-                    <div class="menu-item">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-settings"></span> Settings</summary>
-                            <div class="sub-menu" (click)="menuClickEvent(5)" [ngClass]="{'selected': selectedMenu == 5}">Manage Airports</div>
-                            <div class="sub-menu" (click)="menuClickEvent(6)" [ngClass]="{'selected': selectedMenu == 6}">Manage Sectors</div>
-                            <div class="sub-menu" (click)="menuClickEvent(7)" [ngClass]="{'selected': selectedMenu == 7}">Manage Aircrafts</div>
-                            <div class="sub-menu" (click)="menuClickEvent(8)" [ngClass]="{'selected': selectedMenu == 8}">Flight Creation</div>
-                        </details>
-                    </div>
-                    <div class="menu-item">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-pallet"></span> ULD Management</summary>
-                            <div class="sub-menu" (click)="menuClickEvent(4)" [ngClass]="{'selected': selectedMenu == 4}">ULD Assignement</div>
-                            <div class="sub-menu" (click)="menuClickEvent(16)" [ngClass]="{'selected': selectedMenu == 16}">ULD Master</div>
-                        </details>
-                    </div>
-                    <div class="menu-item">
-                        <details>
-                            <summary><span class="menu-icn ca ca-icn-bell"></span> Manage Notifications</summary>
-                            <div class="sub-menu" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">Publish Notifications</div>
-                        </details>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Old menu -->
-            <!-- <ul class="main-menu">
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(1)" [ngClass]="{'selected': selectedMenu == 1}">
-                        <span class="menu-icn ca ca-icn-dashboard"></span>
-                        <span class="menu-title">Dashboard</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(2)" [ngClass]="{'selected': selectedMenu == 2}">
-                        <span class="menu-icn ca ca-icn-booking tool-tip"><span class="tooltiptext">Booking Summary</span></span>
-                        <span class="menu-title">Booking Summary</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(3)" [ngClass]="{'selected': selectedMenu == 3}">
-                        <span class="menu-icn ca ca-icn-awb tool-tip"><span class="tooltiptext">AWB Stock Management</span></span>
-                        <span class="menu-title">AWB Stock Management</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(4)" [ngClass]="{'selected': selectedMenu == 4}">
-                        <span class="menu-icn ca ca-icn-pallet tool-tip"><span class="tooltiptext">ULD Assignment </span></span>
-                        <span class="menu-title">ULD Assignment </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(5)" [ngClass]="{'selected': selectedMenu == 5}">
-                        <span class="menu-icn ca ca-icn-airport tool-tip"><span class="tooltiptext">Airport</span></span>
-                        <span class="menu-title">Airport</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(6)" [ngClass]="{'selected': selectedMenu == 6}">
-                        <span class="menu-icn ca ca-icn-sector tool-tip"><span class="tooltiptext">Sector</span></span>
-                        <span class="menu-title">Sector</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(7)" [ngClass]="{'selected': selectedMenu == 7}">
-                        <span class="menu-icn ca ca-icn-aircraft tool-tip"><span class="tooltiptext">Aircraft</span></span>
-                        <span class="menu-title">Aircraft</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(8)" [ngClass]="{'selected': selectedMenu == 8}">
-                        <span class="menu-icn ca ca-icn-route tool-tip"><span class="tooltiptext">Flight Creation</span></span>
-                        <span class="menu-title">Flight Creation</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(9)" [ngClass]="{'selected': selectedMenu == 9}">
-                        <span class="menu-icn ca ca-icn-flight-schedule tool-tip"><span class="tooltiptext">Flight Schedule</span></span>
-                        <span class="menu-title">Flight Schedule</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(13)" [ngClass]="{'selected': selectedMenu == 13}">
-                      <span class="menu-icn ca ca-icn-main-schedule tool-tip"><span class="tooltiptext">Master Schedule</span></span>
-                      <span class="menu-title">Master Schedule</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(14)" [ngClass]="{'selected': selectedMenu == 14}">
-                        <span class="menu-icn ca ca-icn-assign-aircraft tool-tip"><span class="tooltiptext">Assign Aircraft</span></span>
-                        <span class="menu-title">Assign Aircraft</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(15)" [ngClass]="{'selected': selectedMenu == 15}">
-                      <span class="menu-icn ca ca-icn-document tool-tip"><span class="tooltiptext">Fleet Analysis</span></span>
-                      <span class="menu-title">Fleet Analysis</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(10)" [ngClass]="{'selected': selectedMenu == 10}">
-                        <span class="menu-icn ca ca-icn-dollar tool-tip"><span class="tooltiptext">Rate Management</span></span>
-                        <span class="menu-title">Rate Management</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(11)" [ngClass]="{'selected': selectedMenu == 11}">
-                        <span class="menu-icn ca ca-icn-profile tool-tip"><span class="tooltiptext">Cargo Agent Management</span></span>
-                        <span class="menu-title">Cargo Agent Management</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">
-                        <span class="menu-icn ca ca-icn-bell tool-tip"><span class="tooltiptext">Publish Notification</span></span>
-                        <span class="menu-title">Publish Notification</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="menu-item" (click)="menuClickEvent(16)" [ngClass]="{'selected': selectedMenu == 16}">
-                        <span class="menu-icn ca ca-icn-bell tool-tip"><span class="tooltiptext">ULD Master</span></span>
-                        <span class="menu-title">ULD Master</span>
-                    </div>
-                </li>
-            </ul> -->
-        </div>
+ <div class="sidebar" [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"> <!-- <div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"></div> -->
+  <div class="logo-details">
+    <div class="logo-wrapper" (click)="menuClickEvent(0)">
+      <img src="{{logoUrl}}" style="height: 34px;" />
     </div>
-    <div>
+    <div class="logo-wrapper-s" (click)="menuClickEvent(0)">
+      <img src="{{iconUrl}}" />
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <div class="link-group">
+        <i class='ca ca-icn-dashboard'></i>
+        <span class="link_name">Dashboard</span>
+      </div>
+      <ul class="sub-menu blank">
+        <li>
+          <div class="link_name link" (click)="menuClickEvent(1)">Dashboard</div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <div class="link-group">
+          <i class='ca ca-icn-booking'></i>
+          <span class="link_name">Manage Bookings</span>
+        </div>
+        <i class='ca ca-icn-arrow-dwon arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <div class="link_name link">Manage Bookings</div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(2)" [ngClass]="{'selected': selectedMenu == 2}">Booking Summary
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(17)" [ngClass]="{'selected': selectedMenu == 17}">Standby Cargo
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <div class="link-group">
+          <i class='ca ca-icn-flight-schedule'></i>
+          <span class="link_name">Fleet Management</span>
+        </div>
+        <i class='ca ca-icn-arrow-dwon arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <div class="link_name link">Fleet Management</div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(9)" [ngClass]="{'selected': selectedMenu == 9}">Flight Schedule
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(13)" [ngClass]="{'selected': selectedMenu == 13}">Master Schedule
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(14)" [ngClass]="{'selected': selectedMenu == 14}">Assign Aircrafts
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(15)" [ngClass]="{'selected': selectedMenu == 15}">Fleet Analysis
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <div class="link-group">
+          <i class='ca ca-icn-dollar'></i>
+          <span class="link_name">Agent and Rate</span>
+        </div>
+        <i class='ca ca-icn-arrow-dwon arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <div class="link_name link">Agent and Rate</div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(11)" [ngClass]="{'selected': selectedMenu == 11}">Cargo Agent
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(10)" [ngClass]="{'selected': selectedMenu == 10}">Rate Management
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(3)" [ngClass]="{'selected': selectedMenu == 3}">AWB Stock Management
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <div class="link-group">
+          <i class='ca ca-icn-settings'></i>
+          <span class="link_name">Settings</span>
+        </div>
+        <i class='ca ca-icn-arrow-dwon arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <div class="link_name link">Settings</div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(5)" [ngClass]="{'selected': selectedMenu == 5}">Manage Airports
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(6)" [ngClass]="{'selected': selectedMenu == 6}">Manage Sectors
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(7)" [ngClass]="{'selected': selectedMenu == 7}">Manage Aircrafts
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(8)" [ngClass]="{'selected': selectedMenu == 8}">Flight Creation
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <div class="link-group">
+          <i class='ca ca-icn-pallet'></i>
+          <span class="link_name">ULD Management</span>
+        </div>
+        <i class='ca ca-icn-arrow-dwon arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <div class="link_name link">ULD Management</div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(4)" [ngClass]="{'selected': selectedMenu == 4}">ULD Assignement
+          </div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(16)" [ngClass]="{'selected': selectedMenu == 16}">ULD Master
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <div class="link-group">
+          <i class='ca ca-icn-bell'></i>
+          <span class="link_name">Manage Notifications</span>
+        </div>
+        <i class='ca ca-icn-arrow-dwon arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <div class="link_name link">Manage Notifications</div>
+        </li>
+        <li>
+          <div class="link" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">Publish Notifications
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="profile-details">
+        <div class="profile-content">
+          <img src="assets/images/profile.jpg" alt="profileImg">
+        </div>
+        <div class="name-job">
+          <div class="profile_name">Prem Shahi</div>
+          <div class="job">Web Desginer</div>
+        </div>
+        <i class='bx bx-log-out'></i>
+        <ul class="sub-menu">
+          <li>
+            <div class="link_name link">Manage Notifications</div>
+          </li>
+          <li>
+            <div class="link" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">Publish Notifications
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- <div>
+        <div class="profile-card" *ngIf="showProfileCard">
+          <div class="pro-pic">
+              <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
+          </div>
+          <label>{{currentUser?.fullName}}</label>
+          <label>{{currentUser?.email}}</label>
+          <div class="actions">
+              <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
+              <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
+              <span class="ca ca-icn-shutdown" title="Sign Out" (click)="signOut()"></span>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div>
         <div class="profile-pic" (click)="profileClick()">
             <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
         </div>
@@ -180,6 +218,7 @@
                 <span class="ca ca-icn-shutdown" title="Sign Out" (click)="signOut()"></span>
             </div>
         </div>
-    </div>
+      </div> -->
+    </li>
+  </ul>
 </div>
-

@@ -1,4 +1,4 @@
-<div [ngClass]="{ 'collapseActive':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
+<div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
   <app-side-nav (hideMenu)="hideMenu($event)" (publishNotification)="showNotificationModal($event)" *ngIf="(accountService.currentUser$ | async) != null"></app-side-nav>
   <div [ngClass]="{'content-container': (accountService.currentUser$ | async) != null}">
       <router-outlet></router-outlet>
