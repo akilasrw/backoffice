@@ -16,6 +16,7 @@ export class BookingService extends BaseService {
 
   private readonly endpointEntityName = 'cargoBooking';
   private readonly getListEndpoint = `${this.endpointEntityName}/getList`;
+  private readonly getStandByCargoListEndpoint = `${this.endpointEntityName}/GetStandByCargoList`;
   private readonly getFreighterListEndpoint = `${this.endpointEntityName}/GetFreighterBookingList`;
   private readonly updateStandByStatusEndpoint = `${this.endpointEntityName}/UpdateStandByStatus`;
   private readonly updateDeleteCargoEndpoint = `${this.endpointEntityName}/UpdateDeleteCargo`;
@@ -41,6 +42,19 @@ export class BookingService extends BaseService {
 
     return this.getWithParams<CargoBooking[]>(
       this.getListEndpoint,
+      params
+    );
+  }
+
+  getstandByStatusList(query: CargoBookingListQuery) {
+    var params = new HttpParams();
+
+    if (query.standByStatus) {
+      params = params.append("standByStatus", Number(query.standByStatus));
+    }
+
+    return this.getWithParams<CargoBooking[]>(
+      this.getStandByCargoListEndpoint,
       params
     );
   }
