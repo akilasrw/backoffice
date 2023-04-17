@@ -3,7 +3,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/cargo-booking-list-query.model';
 import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-booking.model';
 import { BookingService } from 'src/app/_services/booking.service';
-import { StandByCargoType } from 'src/app/core/enums/common-enums';
+import { BookingStatus, StandByCargoType } from 'src/app/core/enums/common-enums';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
 
 @Component({
   selector: 'app-stand-by-cargo-master',
@@ -16,6 +18,7 @@ export class StandByCargoMasterComponent implements OnInit {
   cargoBookingList: CargoBooking[] = [];
   selectedStandByStatus = StandByCargoType;
   standByCargoType: StandByCargoType = StandByCargoType.Offload;
+  bookingStatus = BookingStatus;
 
   constructor(private bookingService: BookingService,
     private toastr: ToastrService) { }
@@ -26,7 +29,7 @@ export class StandByCargoMasterComponent implements OnInit {
 
   getBookingList() {
     this.query.standByStatus = Number(this.standByCargoType);
-    this.bookingService.getBookingList(this.query).subscribe(
+    this.bookingService.getstandByStatusList(this.query).subscribe(
       {
         next: (res) => {
           console.log('StandByCargo',res);
@@ -44,6 +47,14 @@ export class StandByCargoMasterComponent implements OnInit {
       this.standByCargoType = type;
       this.getBookingList();
     }
+  }
+
+  getBookingStatus(status: number): string {
+    return CoreExtensions.GetBookingStatus(status)
+  }
+
+  convertcm3Tom3(volume: number): number {
+    return NumberExtension.convertcm3Tom3(volume);
   }
 
 }

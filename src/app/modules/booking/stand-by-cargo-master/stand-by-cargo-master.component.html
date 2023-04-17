@@ -54,41 +54,28 @@
                                   <th>Actions</th>
                               </thead>
                               <tbody>
-                                  <tr>
-                                      <td>B2023010029</td>
-                                      <td>80011400025</td>
-                                      <td>ECX Global Forwarding (M) Sdn Bhd</td>
-                                      <td>
-                                          <span class="status-chip accepted">CAN - CAK</span>
-                                      </td>
-                                      <td>3/5/2022</td>
-                                      <td>
-                                          <span class="status-chip accepted">Received</span>
-                                      </td>
-                                      <td>15</td>
-                                      <td>580</td>
-                                      <td>0.029008</td>
-                                      <td>
-                                          <i class="ca ca-icn-view" title="View"></i>
-                                          <i class="ca ca-icn-chat" title="Chat"></i>
-                                          <i class="ca ca-icn-edit" title="Edit"></i>
-                                          <i class="ca ca-icn-bin" title="Delite"></i>
-                                      </td>
-                                  </tr>
                                   <tr *ngFor="let book of cargoBookingList">
                                       <td>{{book.bookingNumber}}</td>
                                       <td>{{book.awbNumber}}</td>
                                       <td>{{book.bookingAgent}}</td>
                                       <td>
-                                          <span class="status-chip accepted">CAN - CAK</span>
+                                          <span class="status-chip accepted">{{book.origin}} - {{book.destination}} </span>
                                       </td>
-                                      <td>3/5/2022</td>
+                                      <td>{{book.bookingDate}}</td>
                                       <td>
-                                          <span class="status-chip accepted">Received</span>
+                                        <span class="status-chip" [ngClass]="{
+                                          'none':book?.bookingStatus == bookingStatus.None,
+                                          'pending': book?.bookingStatus == bookingStatus.Pending,
+                                          'dispatch':book?.bookingStatus == bookingStatus.Dispatched,
+                                          'invoiced':book?.bookingStatus == bookingStatus.Invoiced,
+                                          'accepted':book?.bookingStatus == bookingStatus.Accepted,
+                                          'loading':book?.bookingStatus == bookingStatus.Loading,
+                                          'exported':book?.bookingStatus == bookingStatus.Exported
+                                      }">{{getBookingStatus(book?.bookingStatus)}}</span>
                                       </td>
-                                      <td>15</td>
-                                      <td>580</td>
-                                      <td>0.029008</td>
+                                      <td>{{book.numberOfRecBoxes}}</td>
+                                      <td>{{book.totalRecWeight}}</td>
+                                      <td>{{convertcm3Tom3(book.totalRecVolume)}}</td>
                                       <td>
                                           <i class="ca ca-icn-view" title="View"></i>
                                           <i class="ca ca-icn-chat" title="Chat"></i>
@@ -102,6 +89,12 @@
                     </div>
                     <!-- <app-offload-booking-view *ngIf="standByCargoType == selectedStandByStatus.Offload"></app-offload-booking-view>
                     <app-cargo-not-received-view *ngIf="standByCargoType == selectedStandByStatus.NotReceived"></app-cargo-not-received-view> -->
+                  </div>
+                  <div class="row">
+                    <div class="not-available" *ngIf="this.cargoBookingList.length == 0">
+                      <img src="./assets/images/no-data.png" alt="No Content Data">
+                      <div>Data not found.</div>
+                    </div>
                   </div>
             </div>
         </div>
