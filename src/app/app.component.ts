@@ -14,7 +14,7 @@ import { User } from './_models/user.model';
 export class AppComponent implements OnInit{
   title = 'aeroclub cargo backoffice client';
   isLoaded = false;
-  public showCollapseMenu:boolean=false;
+  public showCollapseMenu:boolean=true;
   notificationModalVisible = false;
   notificationModalVisibleAnimate = false;
 

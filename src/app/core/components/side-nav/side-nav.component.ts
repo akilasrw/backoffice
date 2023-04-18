@@ -21,7 +21,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   selectedMenu = MenuType.None
   currentUser?: User | null
   subscription?: Subscription;
-  public showCollapseMenu: boolean = false;
+  public showCollapseMenu: boolean = true;
   public showProfileCard: boolean = true;
   @Output() hideMenu = new EventEmitter<any>();
   @Output() publishNotification = new EventEmitter<any>();
