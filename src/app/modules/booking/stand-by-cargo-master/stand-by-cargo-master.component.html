@@ -61,7 +61,7 @@
                                       <td>
                                           <span class="status-chip accepted">{{book.origin}} - {{book.destination}} </span>
                                       </td>
-                                      <td>{{book.bookingDate}}</td>
+                                      <td>{{book.bookingDate| date}}</td>
                                       <td>
                                         <span class="status-chip" [ngClass]="{
                                           'none':book?.bookingStatus == bookingStatus.None,
