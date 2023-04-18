@@ -559,6 +559,9 @@ a {
             i, .profile_name, .job {
                 display: none;
             }
+            .sub-menu {
+                left: 66% !important;
+            }
         }
         .main-card {
             margin-left: 80px;
@@ -636,7 +639,7 @@ a {
                 }
             }
             .sub-menu {
-                padding: 6px 6px 14px 80px;
+                padding: 6px 6px 14px 40px;
                 margin-top: -10px;
                 background: #d4eaff;
                 display: none;
@@ -1063,15 +1066,36 @@ a {
 }
 
 // Booking Summary
+.booking-details {
+    .topbar-values {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: #F5F6F8;
+        border-radius: 5px;
+        padding: 16px;
+        div {
+            width: 100%;
+        }
+    }
+    .label {
+        color: $gray;
+    }
+}
 .details-box-section {
     padding: 1rem 0 0;
     display: flex;
     .details-box {
         width: 20%;
-        background-color: $white-blue;
-        box-shadow: 0 3px 6px $off-white;
-        padding: 1rem;
+        background-color: $blue-box;
+        border: 1px solid $box-border;
+        padding: 10px 16px;
         margin-right: 1rem;
+        border-radius: 5px;
+        &.green-box {
+            background-color: $green-box;
+            border: 1px solid $green-boxborder;
+        }
         &:last-child {
             margin-right: 0;
         }
@@ -1081,7 +1105,6 @@ a {
         .value {
             display: flex;
             align-items: center;
-            padding: 0.7rem 0;
             span {
                 &:first-child {
                     font-size: 1.25rem;
@@ -1093,11 +1116,7 @@ a {
         }
     }
 }
-.booking-details {
-    .label {
-        color: $gray;
-    }
-}
+
 
 .freighter-summary {
     position: absolute;
