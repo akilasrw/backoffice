@@ -79,7 +79,7 @@
                                       <td>
                                           <i class="ca ca-icn-view" title="View"></i>
                                           <i class="ca ca-icn-chat" title="Chat"></i>
-                                          <i class="ca ca-icn-edit" title="Edit"></i>
+                                          <i class="ca ca-icn-edit" title="Edit" (click)="showUpdate(book)" ></i>
                                           <i class="ca ca-icn-bin" title="Delite"></i>
                                       </td>
                                   </tr>
@@ -97,6 +97,21 @@
                     </div>
                   </div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': updateStandByModalVisibleAnimate}"
+    [ngStyle]="{'display': updateStandByModalVisible ? 'block' : 'none', 'opacity': updateStandByModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Booking</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeUpdateStandBy()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <app-stand-by-cargo-update [cargoBookingId]="bookingId"  (closePopup)="closeUpdateStandBy()" (submitSuccess)="onSubmitSuccess($event)"></app-stand-by-cargo-update>
         </div>
     </div>
 </div>
