@@ -19,150 +19,20 @@
         </li>
       </ul>
     </li>
-    <li>
+    <li *ngFor="let item of sideMenuItems" [ngClass]="{'showMenu': item.expanded}">
       <div class="iocn-link">
         <div class="link-group">
-          <i class='ca ca-icn-booking'></i>
-          <span class="link_name">Manage Bookings</span>
+          <i class='ca' [ngClass]="item.icon"></i>
+          <span class="link_name">{{item.title}}</span>
         </div>
-        <i class='ca ca-icn-arrow-dwon arrow'></i>
+        <i class='ca ca-icn-arrow-dwon arrow' (click)="item.expanded= !item.expanded"></i>
       </div>
       <ul class="sub-menu">
         <li>
-          <div class="link_name link">Manage Bookings</div>
+          <div class="link_name link">{{item.title}}</div>
         </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(2)" [ngClass]="{'selected': selectedMenu == 2}">Booking Summary
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(17)" [ngClass]="{'selected': selectedMenu == 17}">Standby Cargo
-          </div>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <div class="link-group">
-          <i class='ca ca-icn-flight-schedule'></i>
-          <span class="link_name">Fleet Management</span>
-        </div>
-        <i class='ca ca-icn-arrow-dwon arrow'></i>
-      </div>
-      <ul class="sub-menu">
-        <li>
-          <div class="link_name link">Fleet Management</div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(9)" [ngClass]="{'selected': selectedMenu == 9}">Flight Schedule
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(13)" [ngClass]="{'selected': selectedMenu == 13}">Master Schedule
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(14)" [ngClass]="{'selected': selectedMenu == 14}">Assign Aircrafts
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(15)" [ngClass]="{'selected': selectedMenu == 15}">Fleet Analysis
-          </div>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <div class="link-group">
-          <i class='ca ca-icn-dollar'></i>
-          <span class="link_name">Agent and Rate</span>
-        </div>
-        <i class='ca ca-icn-arrow-dwon arrow'></i>
-      </div>
-      <ul class="sub-menu">
-        <li>
-          <div class="link_name link">Agent and Rate</div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(11)" [ngClass]="{'selected': selectedMenu == 11}">Cargo Agent
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(10)" [ngClass]="{'selected': selectedMenu == 10}">Rate Management
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(3)" [ngClass]="{'selected': selectedMenu == 3}">AWB Stock Management
-          </div>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <div class="link-group">
-          <i class='ca ca-icn-settings'></i>
-          <span class="link_name">Settings</span>
-        </div>
-        <i class='ca ca-icn-arrow-dwon arrow'></i>
-      </div>
-      <ul class="sub-menu">
-        <li>
-          <div class="link_name link">Settings</div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(5)" [ngClass]="{'selected': selectedMenu == 5}">Manage Airports
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(6)" [ngClass]="{'selected': selectedMenu == 6}">Manage Sectors
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(7)" [ngClass]="{'selected': selectedMenu == 7}">Manage Aircrafts
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(8)" [ngClass]="{'selected': selectedMenu == 8}">Flight Creation
-          </div>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <div class="link-group">
-          <i class='ca ca-icn-pallet'></i>
-          <span class="link_name">ULD Management</span>
-        </div>
-        <i class='ca ca-icn-arrow-dwon arrow'></i>
-      </div>
-      <ul class="sub-menu">
-        <li>
-          <div class="link_name link">ULD Management</div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(4)" [ngClass]="{'selected': selectedMenu == 4}">ULD Assignement
-          </div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(16)" [ngClass]="{'selected': selectedMenu == 16}">ULD Master
-          </div>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <div class="link-group">
-          <i class='ca ca-icn-bell'></i>
-          <span class="link_name">Manage Notifications</span>
-        </div>
-        <i class='ca ca-icn-arrow-dwon arrow'></i>
-      </div>
-      <ul class="sub-menu">
-        <li>
-          <div class="link_name link">Manage Notifications</div>
-        </li>
-        <li>
-          <div class="link" (click)="menuClickEvent(12)" [ngClass]="{'selected': selectedMenu == 12}">Publish Notifications
+        <li *ngFor="let child of item.children">
+          <div class="link" (click)="menuClickEvent(child.menuType)" [ngClass]="{'selected': selectedMenu == child.menuType}">{{child.title}}
           </div>
         </li>
       </ul>
@@ -187,7 +57,7 @@
           </li>
         </ul>
       </div>
-      
+
       <!-- <div>
         <div class="profile-card" *ngIf="showProfileCard">
           <div class="pro-pic">

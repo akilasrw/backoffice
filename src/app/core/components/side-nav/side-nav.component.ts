@@ -25,6 +25,36 @@ export class SideNavComponent implements OnInit, OnDestroy {
   public showProfileCard: boolean = true;
   @Output() hideMenu = new EventEmitter<any>();
   @Output() publishNotification = new EventEmitter<any>();
+  sideMenuItems=[
+                { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
+                  children:[
+                    {title:'Booking Summary', menuType:MenuType.BookingSummay},
+                    {title:'Standby Cargo', menuType:MenuType.StandByCargo}]},
+                { title:'Fleet Management',expanded: false, icon:'ca-icn-flight-schedule',
+                  children:[
+                    {title:'Flight Schedule', menuType:MenuType.FlightSchedule},
+                    {title:'Master Schedule', menuType:MenuType.MasterSchedule},
+                    {title:'Assign Aircrafts', menuType:MenuType.LinkAircraft},
+                    {title:'Fleet Analysis', menuType:MenuType.FleetReport}]},
+                { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
+                  children:[
+                    {title:'Cargo Agent', menuType:MenuType.UserManagement},
+                    {title:'Rate Management', menuType:MenuType.Rate},
+                    {title:'AWB Stock Management', menuType:MenuType.AWBStackManagement}]},
+                { title:'Settings',expanded: false, icon:'ca-icn-settings',
+                  children:[
+                    {title:'Manage Airports', menuType:MenuType.Airport},
+                    {title:'Manage Sectors', menuType:MenuType.Sector},
+                    {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
+                    {title:'Flight Creation', menuType:MenuType.Flight}]},
+                { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
+                  children:[
+                    {title:'ULD Assignement', menuType:MenuType.PalletManagement},
+                    {title:'ULD Master', menuType:MenuType.ULDMaster}]},
+                { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
+                  children:[
+                    {title:'Publish Notifications', menuType:MenuType.Notification}]}
+              ]
 
 
   constructor(

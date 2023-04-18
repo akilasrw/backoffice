@@ -19,6 +19,9 @@ export class StandByCargoMasterComponent implements OnInit {
   selectedStandByStatus = StandByCargoType;
   standByCargoType: StandByCargoType = StandByCargoType.Offload;
   bookingStatus = BookingStatus;
+  updateStandByModalVisibleAnimate: boolean = false;
+  updateStandByModalVisible: boolean = false;
+  bookingId?: string;
 
   constructor(private bookingService: BookingService,
     private toastr: ToastrService) { }
@@ -55,6 +58,23 @@ export class StandByCargoMasterComponent implements OnInit {
 
   convertcm3Tom3(volume: number): number {
     return NumberExtension.convertcm3Tom3(volume);
+  }
+
+  closeUpdateStandBy(){
+    this.updateStandByModalVisibleAnimate = false;
+    setTimeout(() => (this.updateStandByModalVisible = false), 300);
+  }
+
+  onSubmitSuccess(event:any) {
+
+  }
+
+  showUpdate(val: any) {
+    console.log('showUpdate',val);
+    this.bookingId = val.id;
+    this.updateStandByModalVisibleAnimate = true;
+    this.updateStandByModalVisible = true;
+
   }
 
 }

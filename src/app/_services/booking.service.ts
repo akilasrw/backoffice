@@ -7,6 +7,7 @@ import { CargoBookingListQuery } from '../_models/queries/cargo-bookings/cargo-b
 import { CargoBookingUld } from '../_models/view-models/booking-summary/cargo-booking-uld.model';
 import { CargoBookingStatusUpdateListRm } from '../_models/view-models/cargo-bookings/cargo-booking-status-update-list-rm.model';
 import { CargoBookingUpdateRm } from '../_models/view-models/cargo-bookings/cargo-booking-update-rm.model';
+import { CargoBookingDetailQuery } from '../_models/queries/cargo-bookings/cargo-booking-detail-query.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class BookingService extends BaseService {
   private readonly getFreighterListEndpoint = `${this.endpointEntityName}/GetFreighterBookingList`;
   private readonly updateStandByStatusEndpoint = `${this.endpointEntityName}/UpdateStandByStatus`;
   private readonly updateDeleteCargoEndpoint = `${this.endpointEntityName}/UpdateDeleteCargo`;
+  private readonly getCargoEndpoint = `${this.endpointEntityName}/GetDetail`;
 
 
   constructor(http: HttpClient) {
@@ -81,5 +83,22 @@ export class BookingService extends BaseService {
 
   updateDeleteCargo(list: CargoBookingUpdateRm[]){
     return this.put<any>(this.updateDeleteCargoEndpoint, list);
+  }
+
+  getBookingDetail(query: CargoBookingDetailQuery) {
+    var params = new HttpParams();
+    if (query.id) {
+      params = params.append("id", query.id);
+    }
+
+    if (query.isIncludeFlightDetail) {
+      params = params.append("isIncludeFlightDetail", query.isIncludeFlightDetail);
+    }
+
+    if (query.isIncludePackageDetail) {
+      params = params.append("isIncludePackageDetail", query.isIncludePackageDetail);
+    }
+
+    return this.getWithParams<any>(this.getCargoEndpoint,params);
   }
 }

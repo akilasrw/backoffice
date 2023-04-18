@@ -15,6 +15,7 @@ import { FreighterBookingSummaryDetailV2Component } from './booking-summary/book
 import { StandByCargoMasterComponent } from './stand-by-cargo-master/stand-by-cargo-master.component';
 import { OffloadBookingViewComponent } from './stand-by-cargo-master/offload-booking-view/offload-booking-view.component';
 import { CargoNotReceivedViewComponent } from './stand-by-cargo-master/cargo-not-received-view/cargo-not-received-view.component';
+import { StandByCargoUpdateComponent } from './stand-by-cargo-update/stand-by-cargo-update.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CargoNotReceivedViewComponent } from './stand-by-cargo-master/cargo-not
     FreighterBookingSummaryDetailV2Component,
     StandByCargoMasterComponent,
     OffloadBookingViewComponent,
-    CargoNotReceivedViewComponent
+    CargoNotReceivedViewComponent,
+    StandByCargoUpdateComponent
   ],
   imports: [
     CommonModule,
