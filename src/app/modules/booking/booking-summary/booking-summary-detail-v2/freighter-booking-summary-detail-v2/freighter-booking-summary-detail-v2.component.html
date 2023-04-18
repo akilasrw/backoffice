@@ -14,40 +14,42 @@
 
       </div>
   </div>
-  <div class="card-body without-footer">
+  <div class="card-body">
       <div class="booking-details">
         <div class="d-flex flex-row-reverse">
         </div>
-          <div class="row">
-              <div class="col-md-2">
-                  <div class="label">Flight Number</div>
-                  <div>{{cargoBookingSummary?.flightNumber}}</div>
-              </div>
-              <div class="col-md-2">
-                <div class="label">Flight Date</div>
-                <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date}}</div>
-              </div>
-              <div class="col-md-2">
-                <div class="label">Departure Time</div>
-                <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date :'shortTime'}}</div>
-              </div>
-              <div class="col-md-2">
-                  <div class="label">Cut off time</div>
-                  <div>-</div>
-              </div>
-              <div class="col-md-2">
-                  <div class="label">Origin</div>
-                  <div>{{cargoBookingSummary?.originAirportCode}}</div>
-              </div>
-              <div class="col-md-1">
-                  <div class="label">Destination</div>
-                  <div>{{cargoBookingSummary?.destinationAirportCode}}</div>
-              </div>
-              <div class="col-md-1">
-                  <div class="label pt-4">Aircraft Type</div>
-                  <div>{{cargoBookingSummary?.aircraftSubTypeName}}</div>
-              </div>
+        <div class="booking-details-topbar">
+          <div class="topbar-values">
+            <div>
+              <div class="label">Flight Number</div>
+              <div>{{cargoBookingSummary?.flightNumber}}</div>
+            </div>
+            <div>
+              <div class="label">Flight Date</div>
+              <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date}}</div>
+            </div>
+            <div>
+              <div class="label">Departure Time</div>
+              <div>{{cargoBookingSummary?.scheduledDepartureDateTime| date :'shortTime'}}</div>
+            </div>
+            <div>
+              <div class="label">Cut off time</div>
+              <div>-</div>
+            </div>
+            <div>
+              <div class="label">Origin</div>
+              <div>{{cargoBookingSummary?.originAirportCode}}</div>
+            </div>
+            <div>
+              <div class="label">Destination</div>
+              <div>{{cargoBookingSummary?.destinationAirportCode}}</div>
+            </div>
+            <div>
+              <div class="label">Aircraft Type</div>
+              <div>{{cargoBookingSummary?.aircraftSubTypeName}}</div>
+            </div>
           </div>
+        </div>
           <div class="details-box-section">
               <div class="details-box">
                 <h4>Bookings</h4>
@@ -61,15 +63,15 @@
                   <h4>Total Booked Volume (m3)</h4>
                   <div class="value"><span class="">{{convertcm3Tom3(cargoBookingSummary?.bookingSummaryDetailFigures?.totalBookedVolume)|number :'1.2-2'}}</span></div>
               </div>
-              <div class="details-box" style="background-color:#C7FADC">
+              <div class="details-box green-box">
                 <h4>Total recieving bookings</h4>
                 <div class="value"><span class="">{{cargoBookingSummary?.bookingSummaryDetailFigures?.bookingRecievedCount}}</span></div>
               </div>
-              <div class="details-box" style="background-color:#C7FADC">
+              <div class="details-box green-box">
                 <h4>Total recieving Weight (Kg)</h4>
                 <div class="value"><span class="">{{cargoBookingSummary?.bookingSummaryDetailFigures?.totalRecievedBookedWeight}}</span></div>
               </div>
-              <div class="details-box" style="background-color:#C7FADC">
+              <div class="details-box green-box">
                 <h4>Total recieving Volume (m3)</h4>
                 <div class="value"><span class="">{{convertcm3Tom3(cargoBookingSummary?.bookingSummaryDetailFigures?.totalRecievedBookedVolume)|number :'1.2-2'}}</span></div>
               </div>
@@ -129,10 +131,13 @@
           <div>Data not found.</div>
         </div>
       </div>
-      <div>
-        <button type="button" class="btn btn-secondary me-3" (click)="cancelBookings()" [disabled]="isCancelButtonDisabled">Cancel Booking</button>
-        <button type="button" class="btn btn-primary me-3" (click)="moveToStabdBy()" [disabled]="isStandByButtonDisabled">Move to StandBy Cargo</button>
-        <button type="button" class="btn btn-primary" (click)="moveToOffload()" [disabled]="isOffloadButtonDisabled">Move to Offload</button>
-      </div>
+      
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-3" (click)="cancelBookings()" [disabled]="isCancelButtonDisabled">Cancel Booking</button>
+      <button type="button" class="btn btn-primary me-3" (click)="moveToStabdBy()" [disabled]="isStandByButtonDisabled">Move to StandBy Cargo</button>
+      <button type="button" class="btn btn-primary" (click)="moveToOffload()" [disabled]="isOffloadButtonDisabled">Move to Offload</button>
+    </div>
   </div>
 </div>
