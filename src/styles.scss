@@ -452,6 +452,17 @@ a {
     }
 }
 
+.table-textlenth {
+    width: 200px;
+    span {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+                line-clamp: 1; 
+        -webkit-box-orient: vertical;
+    }
+}
+
 // Table lable
 .status-chip {
     @include lable-color;
@@ -1171,6 +1182,7 @@ a {
         .nav-link {
             border: 0.063rem solid $brand-primary;
             margin-right: 0.313rem;
+            color: $brand-primary;
             &.active {
                 background-color: $brand-primary;
                 color: $default-white;

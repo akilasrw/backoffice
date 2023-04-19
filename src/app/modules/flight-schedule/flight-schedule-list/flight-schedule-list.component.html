@@ -56,8 +56,8 @@
                         <tr *ngFor="let item of this.flightSchedule">
                             <td>{{GetAircraftSubType(item.aircraftSubType)}}</td>
                             <td>{{item.flightNumber}}</td>
-                            <td>{{item.originAirportCode+" - "+item.originAirportName}}</td>
-                            <td>{{item.destinationAirportCode+" - "+item.destinationAirportName}}</td>
+                            <td><div class="table-textlenth"><span title="{{item.originAirportName}}">{{item.originAirportCode+" - "+item.originAirportName}}</span></div></td> <!-- {{item.originAirportCode+" - "+item.originAirportName}} -->
+                            <td><div class="table-textlenth"><span title="{{item.destinationAirportName}}">{{item.destinationAirportCode+" - "+item.destinationAirportName}}</span></div></td> <!-- {{item.destinationAirportCode+" - "+item.destinationAirportName}} -->
                             <td>{{item.scheduledTime | date :'shortTime'}}</td>
                             <td>{{item.scheduleStartDate| date}}</td>
                             <td>{{item.scheduleEndDate| date}}</td>
