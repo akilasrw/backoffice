@@ -324,23 +324,19 @@ a {
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-
         input {
             position: absolute;
             opacity: 0;
             cursor: pointer;
             height: 0;
             width: 0;
-
-            &:checked~.checkmark {
+            &:checked ~ .checkmark {
                 background-color: $brand-primary;
             }
-
-            &:checked~.checkmark:after {
+            &:checked ~ .checkmark:after {
                 display: block;
             }
         }
-
         .checkmark {
             &:after {
                 left: 0.563rem;
@@ -355,7 +351,6 @@ a {
             }
         }
     }
-
     .checkmark {
         position: absolute;
         top: 0;
@@ -364,6 +359,18 @@ a {
         width: 1.563rem;
         border: 0.063rem solid $input-border;
         border-radius: 0.188rem;
+
+        &.cu-radio {
+            border-radius: 50%;
+            &::after {
+                top: 8px;
+                left: 8px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: white;
+            }
+        }
 
         &:after {
             content: "";
@@ -540,12 +547,12 @@ a {
 
 //Status
 .agent-status-chip {
-    @include agent-lable-color
+    @include agent-lable-color;
 }
 
 //Status
 .assign-aircraft-status-chip {
-    @include assign-aircraft-lable-color
+    @include assign-aircraft-lable-color;
 }
 
 // Booking stutus 
@@ -570,6 +577,22 @@ a {
     .view-booking-link {
         color: $brand-primary;
         font-weight: 500;
+    }
+}
+
+// File upload 
+.file-upload {
+    background-color: $off-white;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    input {
+        width: 100%;
+    }
+    span {
+        color: $brand-primary;
+        cursor: pointer;
     }
 }
 
