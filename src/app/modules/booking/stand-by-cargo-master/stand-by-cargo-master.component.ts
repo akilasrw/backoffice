@@ -22,7 +22,7 @@ export class StandByCargoMasterComponent implements OnInit {
   updateStandByModalVisibleAnimate: boolean = false;
   updateStandByModalVisible: boolean = false;
   bookingId?: string;
-
+  isLoading: boolean = false;
   constructor(private bookingService: BookingService,
     private toastr: ToastrService) { }
 
@@ -31,15 +31,17 @@ export class StandByCargoMasterComponent implements OnInit {
   }
 
   getBookingList() {
+    this.isLoading = true;
     this.query.standByStatus = Number(this.standByCargoType);
     this.bookingService.getstandByStatusList(this.query).subscribe(
       {
         next: (res) => {
-          console.log('StandByCargo',res);
           this.cargoBookingList = res;
+          this.isLoading = false;
         },
         error: () => {
           this.cargoBookingList = [];
+          this.isLoading = false;
         }
       }
     )
@@ -66,15 +68,13 @@ export class StandByCargoMasterComponent implements OnInit {
   }
 
   onSubmitSuccess(event:any) {
-
+    this.getBookingList();
   }
 
   showUpdate(val: any) {
-    console.log('showUpdate',val);
     this.bookingId = val.id;
     this.updateStandByModalVisibleAnimate = true;
     this.updateStandByModalVisible = true;
 
   }
-
 }
