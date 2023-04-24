@@ -119,4 +119,21 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': verifyBookingModalVisibleAnimate}"
+    [ngStyle]="{'display': verifyBookingModalVisible ? 'block' : 'none', 'opacity': verifyBookingModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-xxl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Verify Booking</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeVerifyBooking()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+              <app-verify-booking *ngIf="verifyBookingModalVisible" (closePopup)="close()">
+              </app-verify-booking>
+            </div>
+        </div>
+    </div>
+</div>
+
 

@@ -5,6 +5,7 @@ import { BookingSummaryFilterQuery } from 'src/app/_models/queries/booking-summa
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { Router } from '@angular/router';
 import { AircraftConfigType } from 'src/app/core/enums/common-enums';
+import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
 
 @Component({
   selector: 'app-booking-summary-list',
@@ -65,7 +66,11 @@ export class BookingSummaryListComponent implements OnInit {
     }
   }
 
-  clearFilter(){
+  convertcm3Tom3(volume: number): number {
+    return NumberExtension.convertcm3Tom3(volume);
+  }
+
+  clearFilter() {
     this.flightNumber=undefined;
     this.flightDate=undefined;
     this.filterFormHasValue = false;

@@ -53,7 +53,7 @@
                             <td>{{item.destinationAirportCode}}</td>
                             <td>{{item.aircraftSubTypeName}}</td>
                             <td>{{item.totalBookedWeight}}</td>
-                            <td>{{item.totalBookedVolume}}</td>
+                            <td>{{convertcm3Tom3(item.totalBookedVolume)}}</td>
                             <td>
                                 <i class="ca ca-icn-view" title="View" (click)="onViewDetail(item)"></i>
                             </td>

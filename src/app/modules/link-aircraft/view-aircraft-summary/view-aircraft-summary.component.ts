@@ -17,6 +17,7 @@ export class ViewAircraftSummaryComponent implements OnInit {
     this.loadSummary();
   }
   @Output() closePopup = new EventEmitter<any>();
+  @Output() viewBookings = new EventEmitter<any>();
 
   constructor(private flightScheduleService: FlightScheduleService) { }
 
@@ -35,6 +36,10 @@ export class ViewAircraftSummaryComponent implements OnInit {
         console.log('this.flightScheduleLink', this.flightScheduleLink);
       });
     }
+  }
+
+  viewBooking() {
+    this.viewBookings.emit(this.flightScheduleLink)
   }
 
 }

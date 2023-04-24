@@ -21,6 +21,8 @@ export class LinkAircraftListComponent implements OnInit {
   modalVisibleAnimate = false;
   updateATAModalVisible = false;
   updateATAModalVisibleAnimate = false;
+  verifyBookingModalVisible = false;
+  verifyBookingModalVisibleAnimate = false;
   flightScheduleLinks: FlightScheduleLink[]=[];
   query: FlightScheduleManagementLinkFilterList=  new FlightScheduleManagementLinkFilterList();
   selectedId?: string;
@@ -175,6 +177,16 @@ export class LinkAircraftListComponent implements OnInit {
     this.query.flightDate == undefined){
       this.isFiltered = false;
     }
+  }
+
+  viewBooking(event: any){
+    this.verifyBookingModalVisible = true;
+    setTimeout(() => (this.verifyBookingModalVisibleAnimate = true));
+  }
+
+  closeVerifyBooking(){
+    this.verifyBookingModalVisibleAnimate = false;
+    setTimeout(() => (this.verifyBookingModalVisible = false), 300);
   }
 
 }

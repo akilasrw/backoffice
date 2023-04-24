@@ -263,7 +263,7 @@ export class LinkAircraftCreateComponent implements OnInit {
     return true;;
   }
 
-  viewBooking() { console.log("viewBookings -link-air-create");
+  viewBooking() {
     this.viewBookings.emit(this.selectedFlightScheduleLink)
   }
 }
