@@ -45,6 +45,7 @@ export class LinkAircraftCreateComponent implements OnInit {
   }
   @Output() submitSuccess = new EventEmitter<any>();
   @Output() closePopup = new EventEmitter<any>();
+  @Output() viewBookings = new EventEmitter<any>();
 
   constructor(private flightScheduleService : FlightScheduleService,
             private uploadService: UploadService,
@@ -260,5 +261,9 @@ export class LinkAircraftCreateComponent implements OnInit {
     //     }
     //   }
     return true;;
+  }
+
+  viewBooking() { console.log("viewBookings -link-air-create");
+    this.viewBookings.emit(this.selectedFlightScheduleLink)
   }
 }

@@ -10,6 +10,7 @@ export class AlB737300TypeOneComponent implements OnInit {
 
   @Output() ULDClick = new EventEmitter<any>();
   @Input() cargoPositions?: CargoPositionDetail[];
+  @Input() isCreated: boolean = true;
   selectedCargoPosition: any;
   selectedPosition: number = 0;
 

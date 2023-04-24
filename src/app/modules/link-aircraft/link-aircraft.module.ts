@@ -8,6 +8,7 @@ import { AssignAircraftMasterViewComponent } from './assign-aircraft-master-view
 import { UpdateATAComponent } from './update-ata/update-ata.component';
 import { ViewAircraftSummaryComponent } from './view-aircraft-summary/view-aircraft-summary.component';
 import { UpcomingAssignAircraftComponent } from './assign-aircraft-master-view/upcoming-assign-aircraft/upcoming-assign-aircraft.component';
+import { VerifyBookingComponent } from './verify-booking/verify-booking.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UpcomingAssignAircraftComponent } from './assign-aircraft-master-view/u
     AssignAircraftMasterViewComponent,
     UpdateATAComponent,
     ViewAircraftSummaryComponent,
-    UpcomingAssignAircraftComponent
+    UpcomingAssignAircraftComponent,
+    VerifyBookingComponent
   ],
   imports: [
     CommonModule,

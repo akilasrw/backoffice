@@ -14,6 +14,8 @@ import { LinkAircraftToScheduleService } from 'src/app/_services/link-aircraft-t
 export class UpcomingAssignAircraftComponent implements OnInit {
   modalVisible = false;
   modalVisibleAnimate = false;
+  verifyBookingModalVisible = false;
+  verifyBookingModalVisibleAnimate = false;
   modalVisibleSummary = false;
   modalVisibleAnimateSummary = false;
   updateATAModalVisible = false;
@@ -125,11 +127,21 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     setTimeout(() => (this.modalVisibleSummary = false), 300);
   }
 
+  closeVerifyBooking(){
+    this.verifyBookingModalVisibleAnimate = false;
+    setTimeout(() => (this.verifyBookingModalVisible = false), 300);
+  }
+
   showSummary(fs:FlightScheduleLink) {
     this.selectedFlightScheduleLink=fs;
     this.modalVisibleSummary = true;
     setTimeout(() => (this.modalVisibleAnimateSummary = true));
   }
 
+  viewBooking(event: any){
+    console.log('viewBooking', event);
+    this.verifyBookingModalVisible = true;
+    setTimeout(() => (this.verifyBookingModalVisibleAnimate = true));
+  }
 
 }
