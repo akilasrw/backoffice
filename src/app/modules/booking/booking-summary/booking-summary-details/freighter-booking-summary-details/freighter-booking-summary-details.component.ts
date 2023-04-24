@@ -27,6 +27,7 @@ export class FreighterBookingSummaryDetailsComponent implements OnInit {
   bookingDetailModalVisible = false;
   bookingDetailModalVisibleAnimate = false;
   flightScheduleId?: string;
+  isAircfatCreated?: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private bookingSummaryService: BookingSummaryService,private router: Router) { }
 

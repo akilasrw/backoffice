@@ -40,7 +40,7 @@
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="offloaded-bookings" role="tabpanel" aria-labelledby="offloaded-bookings-tab">
                       <div class="table-content">
-                          <table class="table table-responsive">
+                          <table class="table table-responsive" *ngIf="!isLoading">
                               <thead>
                                   <th>Booking ID</th>
                                   <th>AWB Number</th>
@@ -111,7 +111,8 @@
                 <button type="button" class="close btn" data-dismiss="modal" (click)="closeUpdateStandBy()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
-            <app-stand-by-cargo-update [cargoBookingId]="bookingId"  (closePopup)="closeUpdateStandBy()" (submitSuccess)="onSubmitSuccess($event)"></app-stand-by-cargo-update>
+            <app-stand-by-cargo-update [cargoBookingId]="bookingId"  (closePopup)="closeUpdateStandBy()" *ngIf="updateStandByModalVisible"
+            (submitSuccess)="onSubmitSuccess($event)"></app-stand-by-cargo-update>
         </div>
     </div>
 </div>

@@ -12,7 +12,8 @@ export class AlB737400TypeOneComponent implements OnInit {
   @Input() cargoPositions?: CargoPositionDetail[];
   selectedCargoPosition: any;
   selectedPosition: number = 0;
-
+  @Input() isCreated: boolean = true;
+  
   constructor() { }
 
   ngOnInit(): void {
