@@ -46,13 +46,13 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.cargoAgents">
-                            <td>{{item.agentName}}</td>
+                            <td><div class="table-textlenth"><span title="{{item.agentName}}">{{item.agentName}}</span></div></td>
                             <td>{{item.userName}}</td>
-                            <td>{{item.email}}</td>
+                            <td><div class="table-textlenth"><span title="{{item.email}}">{{item.email}}</span></div></td>
                             <td>{{item.primaryTelephoneNumber}}</td>
                             <td>{{item.countryName}}</td>
-                            <td>{{item.city}}</td>
-                            <td>{{item.baseAirportName}}</td>
+                            <td><div class="table-textlenth"><span title="{{item.city}}">{{item.city}}</span></div></td>
+                            <td><div class="table-textlenth"><span title="{{item.baseAirportName}}">{{item.baseAirportName}}</span></div></td>
                             <td>{{item.agentIATACode}}</td>
                             <td>
                                 <span class="agent-status-chip" [ngClass]="{

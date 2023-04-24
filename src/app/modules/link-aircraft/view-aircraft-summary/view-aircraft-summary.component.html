@@ -1,50 +1,81 @@
-<div>
-  <div class="d-flex justify-content-between base-summary">
-    <div>Flight Number</div>
-    <div class="summary">{{flightScheduleLink?.flightNumber}}</div>
+<div class="modal-body">
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Flight Number</div>
+    <div>{{flightScheduleLink?.flightNumber}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >Aircraft Type</div>
-    <div class="summary">{{flightScheduleLink?.aircraftSubTypeName}}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Aircraft Type</div>
+    <div>{{flightScheduleLink?.aircraftSubTypeName}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >Acreg.</div>
-    <div class="summary">{{flightScheduleLink?.aircraftRegNo? flightScheduleLink?.aircraftRegNo: "-"}}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Acreg.</div>
+    <div>{{flightScheduleLink?.aircraftRegNo? flightScheduleLink?.aircraftRegNo: "-"}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >Dep. Date</div>
-    <div class="summary">{{flightScheduleLink?.scheduledDepartureDateTime| date}}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Dep. Date</div>
+    <div>{{flightScheduleLink?.scheduledDepartureDateTime| date}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >Origin</div>
-    <div class="summary">{{flightScheduleLink?.originAirportName}}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Origin</div>
+    <div>{{flightScheduleLink?.originAirportName}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >Destination</div>
-    <div class="summary">{{flightScheduleLink?.destinationAirportName}}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Destination</div>
+    <div>{{flightScheduleLink?.destinationAirportName}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >STD</div>
-    <div class="summary">{{flightScheduleLink?.scheduledDepartureDateTime | date :'shortTime'}}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">STD</div>
+    <div>{{flightScheduleLink?.scheduledDepartureDateTime | date :'shortTime'}}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >STA</div>
-    <div class="summary">{{(flightScheduleLink?.scheduledArrivalDateTime !== null) ? (flightScheduleLink?.scheduledArrivalDateTime | date: 'shortTime') : "-" }}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">STA</div>
+    <div>{{(flightScheduleLink?.scheduledArrivalDateTime !== null) ? (flightScheduleLink?.scheduledArrivalDateTime | date: 'shortTime') : "-" }}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >ETD</div>
-    <div class="summary">{{(flightScheduleLink?.estimatedDepartureDateTime !== null) ? (flightScheduleLink?.estimatedDepartureDateTime | date: 'shortTime') : "-" }}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">ETD</div>
+    <div>{{(flightScheduleLink?.estimatedDepartureDateTime !== null) ? (flightScheduleLink?.estimatedDepartureDateTime | date: 'shortTime') : "-" }}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >ETA</div>
-    <div class="summary">{{(flightScheduleLink?.estimatedArrivalDateTime !== null) ? (flightScheduleLink?.estimatedArrivalDateTime | date: 'shortTime') : "-" }}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">ETA</div>
+    <div>{{(flightScheduleLink?.estimatedArrivalDateTime !== null) ? (flightScheduleLink?.estimatedArrivalDateTime | date: 'shortTime') : "-" }}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >ATD</div>
-    <div class="summary">{{(flightScheduleLink?.actualDepartureDateTime !== null) ? (flightScheduleLink?.actualDepartureDateTime | date: 'shortTime') : "-" }}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">ATD</div>
+    <div>{{(flightScheduleLink?.actualDepartureDateTime !== null) ? (flightScheduleLink?.actualDepartureDateTime | date: 'shortTime') : "-" }}</div>
   </div>
-  <div class=" d-flex justify-content-between base-summary">
-    <div >ATA</div>
-    <div class="summary">{{(flightScheduleLink?.actualArrivalDateTime !== null) ? (flightScheduleLink?.actualArrivalDateTime | date: 'shortTime') : "-" }}</div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">ATA</div>
+    <div>{{(flightScheduleLink?.actualArrivalDateTime !== null) ? (flightScheduleLink?.actualArrivalDateTime | date: 'shortTime') : "-" }}</div>
+  </div>
+  <div class="booking-status-section">
+    <div class="booking-status">
+      <div>Pre Bookings</div>
+      <span class="assign-aircraft-status-chip assign">Verified</span>
+    </div>
+    <div class="view-booking-link">View Bookings</div>
+  </div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Actual Load Bookings</div>
+    <div>5</div>
+  </div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Off Load Bookings</div>
+    <div>3</div>
+  </div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Delete Bookings</div>
+    <div>1</div>
+  </div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Assign Status</div>
+    <div><span class="assign-aircraft-status-chip assign">Completed</span></div>
+  </div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Dispatch</div>
+    <div>Yes</div>
+  </div>
+  <div class="d-flex justify-content-between pb-3">
+    <div class="label">Document (LIR)</div>
+    <div class="link">View</div>
   </div>
 </div>
