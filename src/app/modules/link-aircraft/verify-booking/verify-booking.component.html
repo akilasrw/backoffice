@@ -1,1 +1,72 @@
-<p>verify-booking works!</p>
+<div class="modal-body">
+    <div class="booking-status-label">
+        <div class="check-label actual-booking">Actual Load (Booking 1)</div>
+        <div class="check-label offload-booking">Off Load (Boking 1)</div>
+    </div>
+    <div class="table-content">
+        <table class="table table-responsive">
+            <thead>
+                <th>
+                    <div class="cu-check p-0">
+                        <label class="cu-checkbox mb-0">All
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </th>
+                <th>Booking ID</th>
+                <th>AWB Number</th>
+                <th>Booking Agent</th>
+                <th class="text-center">Booking Date</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">No. Pcs</th>
+                <th class="text-center">Total Weight (kg)</th>
+                <th class="text-center">Total Volume (m3)</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="cu-check p-0">
+                            <label class="cu-checkbox mb-0">
+                                <input type="checkbox" checked="checked">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <span class="check-booking actual"></span>
+                    </td>
+                    <td>B2023010029</td>
+                    <td>80011400025</td>
+                    <td>ECX Global Forwarding (M) Sdn Bhd</td>
+                    <td class="text-center">Jan 27, 2023</td>
+                    <td class="text-center"><span class="assign-aircraft-status-chip assign">Verified Booking</span></td>
+                    <td class="text-center">11</td>
+                    <td class="text-center">572</td>
+                    <td class="text-center">0.019008</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="cu-check p-0">
+                            <label class="cu-checkbox mb-0">
+                                <input type="checkbox" checked="checked">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <span class="check-booking offload"></span>
+                    </td>
+                    <td>B2023010029</td>
+                    <td>80011400025</td>
+                    <td>ECX Global Forwarding (M) Sdn Bhd</td>
+                    <td class="text-center">Jan 27, 2023</td>
+                    <td class="text-center"><span class="assign-aircraft-status-chip notassign">Not Verify</span></td>
+                    <td class="text-center">11</td>
+                    <td class="text-center">572</td>
+                    <td class="text-center">0.019008</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary me-3">close</button>
+    <button type="button" class="btn btn-primary">Verify Booking</button>
+</div>

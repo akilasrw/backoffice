@@ -540,6 +540,40 @@ a {
     }
 }
 
+// Booking status label
+.booking-status-label {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    .check-label {
+        color: $default-white;
+        font-size: 14px;
+        padding: 6px;
+        width: fit-content;
+        border-radius: 5px;
+        margin-right: 16px;
+        &.actual-booking {
+            background-color: $green;
+        }
+        &.offload-booking {
+            background-color: $orange
+        }
+    }
+}
+.check-booking {
+    width: 6px;
+    height: 23px;
+    display: block;
+    margin-left: 35px;
+    border-radius: 50px;
+    &.actual {
+        background-color: $green;
+    }
+    &.offload {
+        background-color: $orange;
+    }
+}
+
 // Table lable
 .status-chip {
     @include lable-color;
@@ -577,6 +611,7 @@ a {
     .view-booking-link {
         color: $brand-primary;
         font-weight: 500;
+        cursor: pointer;
     }
 }
 
