@@ -17,7 +17,7 @@
     </ul>
     <div class="other-charges">
       <div class="add-other-charges text-end pt-3">
-        <button class="btn btn-primary-outline" type="button">Add New Other Rate</button>
+        <button class="btn btn-primary-outline" type="button"(click)="openAddRate()">Add New Other Rate</button>
       </div>
       <div class="charges-block">
         <h3>Select other charges main categories </h3>
@@ -108,7 +108,7 @@
         <div class="d-flex align-items-center justify-content-between">
           <h3>Fixed Fees</h3>
           <div>
-            <i class="ca ca-icn-edit icon-btn" title="Edit"></i>
+            <i class="ca ca-icn-edit icon-btn" title="Edit" (click)="onUpdate()"></i>
             <i class="ca ca-icn-bin icon-btn" title="Delete"></i>
           </div>
         </div>
@@ -132,4 +132,40 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': addRateModalVisibleAnimate}"
+    [ngStyle]="{'display': addRatemodalVisible ? 'block' : 'none', 'opacity': addRateModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-xxl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Rate</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddRate()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-other-charges-create (submitSuccess)="onRateAdd()" (closePopup)="closeAddRate()"
+                    *ngIf="addRatemodalVisible"></app-other-charges-create>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': rateUpdateModalVisibleAnimate}"
+    [ngStyle]="{'display': rateUpdateModalVisible ? 'block' : 'none', 'opacity': rateUpdateModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-xxl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Rate Update</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeRateUpdate()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-other-charges-update [rateId]="selectedRateId" (submitSuccess)="onRateUpdate()"
+                    (closePopup)="closeRateUpdate()" *ngIf="rateUpdateModalVisible"></app-other-charges-update>
+            </div>
+        </div>
+    </div>
 </div>
