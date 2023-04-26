@@ -114,7 +114,7 @@
                 <button type="button" class="close btn" data-dismiss="modal" (click)="close()"
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
-            <app-view-aircraft-summary [flightScheduleId]="selectedId" (closePopup)="close()"></app-view-aircraft-summary>
+            <app-view-aircraft-summary [flightScheduleId]="selectedId" (viewBookings)="viewBooking($event)" (closePopup)="close()"></app-view-aircraft-summary>
         </div>
     </div>
 </div>

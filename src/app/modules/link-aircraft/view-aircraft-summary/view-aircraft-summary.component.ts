@@ -33,7 +33,6 @@ export class ViewAircraftSummaryComponent implements OnInit {
       this.flightScheduleService.getFlightSchedule(query)
       .subscribe(res=> {
         this.flightScheduleLink = res;
-        console.log('this.flightScheduleLink', this.flightScheduleLink);
       });
     }
   }
