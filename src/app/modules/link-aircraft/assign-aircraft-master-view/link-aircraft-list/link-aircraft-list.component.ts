@@ -71,6 +71,7 @@ export class LinkAircraftListComponent implements OnInit {
     this.updateATAModalVisible = true;
     setTimeout(() => (this.updateATAModalVisibleAnimate = true));
   }
+
   showSummary(id:string) {
     this.selectedId=id;
     // this.updateATAModalVisible = true;
@@ -179,7 +180,8 @@ export class LinkAircraftListComponent implements OnInit {
     }
   }
 
-  viewBooking(event: any){
+  viewBooking(id: any){
+    this.selectedId=id;
     this.verifyBookingModalVisible = true;
     setTimeout(() => (this.verifyBookingModalVisibleAnimate = true));
   }

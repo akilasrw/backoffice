@@ -14,11 +14,16 @@ import { CoreExtensions } from '../core/extensions/core-extensions.model';
 export class LinkAircraftToScheduleService extends BaseService{
   private readonly endpointEntityName = 'LinkAircraftToSchedule';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
+  private readonly isVerifiedBookingEndpoint = `${this.endpointEntityName}/IsVerifiedBooking`;
 
   constructor(http: HttpClient) { super(http)}
 
   create(scheduleAircrat: ScheduleAircraftRm) {
     return this.post<any>(this.endpointEntityName, scheduleAircrat);
+  }
+
+  isVerifiedBooking(scheduleAircrat: ScheduleAircraftRm) {
+    return this.post<any>(this.isVerifiedBookingEndpoint, scheduleAircrat);
   }
 
   getFilteredList(query: FlightScheduleManagementLinkFilterList) {

@@ -135,7 +135,7 @@
   <div class="booking-status-section">
     <div class="booking-status">
       <div>Pre Bookings</div>
-      <span class="assign-aircraft-status-chip none">Not Verify</span>
+      <span class="assign-aircraft-status-chip" [ngClass]="{'assign': isVerifiedBooking== true, 'notassign': isVerifiedBooking == false}">{{isVerifiedBooking== true? 'Verified':'Not Verify'}}</span>
     </div>
     <div class="view-booking-link" (click)="viewBooking()">View Bookings</div>
   </div>

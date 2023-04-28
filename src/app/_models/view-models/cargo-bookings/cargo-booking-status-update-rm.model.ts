@@ -1,4 +1,5 @@
 export class CargoBookingStatusUpdateRm {
   id?:string;
-  standByStatus?: number
+  standByStatus?: number;
+  VerifyStatus?: number;
 }

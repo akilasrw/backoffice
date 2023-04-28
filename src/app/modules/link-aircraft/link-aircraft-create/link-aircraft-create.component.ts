@@ -33,6 +33,7 @@ export class LinkAircraftCreateComponent implements OnInit {
   aircraftInputDisable?: boolean= false;
   stepCount?: number = 1;
   selectedFile?: File;
+  isVerifiedBooking: boolean = false;
 
   @Input() set flightSchedule(val: any) {
     console.log('LinkAircraftCreateComponent',val);
@@ -41,6 +42,7 @@ export class LinkAircraftCreateComponent implements OnInit {
       this.selectedFlightScheduleLink = val;
       this.patchValues();
       this.fillAircraft();
+      this.CheckVerifiedBooking(this.mappedRM());
     }
   }
   @Output() submitSuccess = new EventEmitter<any>();
@@ -168,55 +170,61 @@ export class LinkAircraftCreateComponent implements OnInit {
 
   save() {
     if(this.linkAircraftForm.valid) {
+      var scheduleAircraftRm = this.mappedRM();
+      this.CheckVerifiedBooking(scheduleAircraftRm);
+
       if(this.isValid()) {
         this.isLoading = true;
-        var fs = this.linkAircraftForm.value;
-        var scheduleAircraftRm = new ScheduleAircraftRm();
-        scheduleAircraftRm.aircraftId = fs.aircraftId;
-        scheduleAircraftRm.flightScheduleId = fs.id;
-        scheduleAircraftRm.aircraftScheduleId = fs.aircraftScheduleId;
-        scheduleAircraftRm.estimatedArrivalDateTime = fs?.estimatedArrivalDateTime;
-        scheduleAircraftRm.estimatedDepartureDateTime = fs?.estimatedDepartureDateTime;
-        scheduleAircraftRm.actualDepartureDateTime = fs?.actualDepartureDateTime;
-        scheduleAircraftRm.stepCount = this.stepCount;
-        scheduleAircraftRm.isDispatched = fs?.dispatch ==1 ? true: false;
-        scheduleAircraftRm.file = fs?.file;
-
-        this.linkAircraftToScheduleService.create(scheduleAircraftRm).subscribe(
-         {
-        next: (res) => {
-          if(this.selectedFile) {
+        this.linkAircraftToScheduleService.create(scheduleAircraftRm)
+        .subscribe({
+          next: (res) => {
+            if(this.selectedFile) {
               const formData = new FormData();
               formData.append('file', this.selectedFile);
               formData.append('FlightScheduleId', this.linkAircraftForm?.value?.id.toString());
 
-              this.uploadService.upload(formData).subscribe(
-                {
-                  next: (r) => {
-                    this.selectedFile = undefined;
-                    this.successMsg();
-                    this.saveCompleted();
-                  },
-                  error: (err) => {
-                    this.toastr.warning('Saved Successfully. but uploaded is failed.');
-                    this.saveCompleted();
+                this.uploadService.upload(formData).subscribe(
+                  {
+                    next: (r) => {
+                      this.selectedFile = undefined;
+                      this.successMsg();
+                      this.saveCompleted();
+                    },
+                    error: (err) => {
+                      this.toastr.warning('Saved Successfully. but uploaded is failed.');
+                      this.saveCompleted();
+                    }
                   }
-                }
-              );
-            } else {
-              this.successMsg();
-              this.saveCompleted();
+                );
+              } else {
+                this.successMsg();
+                this.saveCompleted();
+              }
+            },
+            error: (error) => {
+              this.isLoading = false;
             }
-           },
-           error: (error) => {
-             this.isLoading = false;
-           }
-         });
+          });
       }
     } else {
       this.linkAircraftForm.markAllAsTouched();
     }
 
+  }
+
+  mappedRM(): ScheduleAircraftRm {
+    var fs = this.linkAircraftForm.value;
+    var scheduleAircraftRm = new ScheduleAircraftRm();
+    scheduleAircraftRm.aircraftId = fs.aircraftId;
+    scheduleAircraftRm.flightScheduleId = fs.id;
+    scheduleAircraftRm.aircraftScheduleId = fs.aircraftScheduleId;
+    scheduleAircraftRm.estimatedArrivalDateTime = fs?.estimatedArrivalDateTime;
+    scheduleAircraftRm.estimatedDepartureDateTime = fs?.estimatedDepartureDateTime;
+    scheduleAircraftRm.actualDepartureDateTime = fs?.actualDepartureDateTime;
+    scheduleAircraftRm.stepCount = this.stepCount;
+    scheduleAircraftRm.isDispatched = fs?.dispatch ==1 ? true: false;
+    scheduleAircraftRm.file = fs?.file;
+    return scheduleAircraftRm
   }
 
   saveCompleted() {
@@ -245,10 +253,12 @@ export class LinkAircraftCreateComponent implements OnInit {
             this.toastr.error('Please select aircraft.');
             return false;
       }
-    } else {
-
+    } else if (this.stepCount == 2) {
+      if(this.isVerifiedBooking == false) {
+        this.toastr.warning('Booking items are not verified. Please verify them.');
+        return false;
+      }
     }
-
     // Can not compare, bcz next can arrive the plane
     // if(this.linkAircraftForm.value.estimatedArrivalDateTime != undefined &&
     //   this.linkAircraftForm.value.estimatedDepartureDateTime != undefined) {
@@ -260,10 +270,24 @@ export class LinkAircraftCreateComponent implements OnInit {
     //       return false;
     //     }
     //   }
-    return true;;
+    return true;
   }
 
   viewBooking() {
     this.viewBookings.emit(this.selectedFlightScheduleLink)
   }
+
+  CheckVerifiedBooking(scheduleAircraftRm: ScheduleAircraftRm) {
+    this.linkAircraftToScheduleService.isVerifiedBooking(scheduleAircraftRm)
+      .subscribe({
+        next:(res)=> {
+          this.isVerifiedBooking = res;
+        },
+        error: (error)=> {
+
+        }
+      });
+  }
+
+
 }

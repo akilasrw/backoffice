@@ -117,6 +117,15 @@ export enum BookingStatus {
   Exported = 60
 }
 
+export enum VerifyStatus {
+  None = 0,
+  ActualLoad = 1,
+  OffLoad = 2,
+  Dispatched = 3,
+  Deleted = 4,
+  CargoNotDispatched = 5
+}
+
 export enum AWBNumberStatus {
   None = 0,
   All = 1,

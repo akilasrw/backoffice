@@ -22,6 +22,7 @@ export class BookingService extends BaseService {
   private readonly updateStandByStatusEndpoint = `${this.endpointEntityName}/UpdateStandByStatus`;
   private readonly updateDeleteCargoEndpoint = `${this.endpointEntityName}/UpdateDeleteCargo`;
   private readonly getCargoEndpoint = `${this.endpointEntityName}/GetDetail`;
+  private readonly getVerifyBookingListEndpoint = `${this.endpointEntityName}/GetVerifyBookingList`;
 
 
   constructor(http: HttpClient) {
@@ -44,6 +45,19 @@ export class BookingService extends BaseService {
 
     return this.getWithParams<CargoBooking[]>(
       this.getListEndpoint,
+      params
+    );
+  }
+
+  getVerifyBookingList(flightScheduleId: string) {
+    var params = new HttpParams();
+
+    if (flightScheduleId) {
+      params = params.append("flightScheduleId", flightScheduleId );
+    }
+
+    return this.getWithParams<CargoBooking[]>(
+      this.getVerifyBookingListEndpoint,
       params
     );
   }
