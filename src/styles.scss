@@ -2268,6 +2268,13 @@ a {
     }
 }
 
+.other-charges-field {
+    padding: 16px;
+    background-color: $white-blue;
+    border: 1px dashed $input-border;
+    border-radius: 5px;
+}
+
 .footer-content {
     padding: 10px 16px;
     text-align: end;
