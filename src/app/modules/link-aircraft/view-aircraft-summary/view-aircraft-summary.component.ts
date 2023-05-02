@@ -38,7 +38,7 @@ export class ViewAircraftSummaryComponent implements OnInit {
   }
 
   viewBooking() {
-    this.viewBookings.emit(this.flightScheduleLink)
+    this.viewBookings.emit(this.flightScheduleLink.id)
   }
 
 }

@@ -1,3 +1,4 @@
+import { VerifyInputBase } from './../../../../core/enums/common-enums';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { FlightScheduleLink } from '../../../../_models/view-models/link-aircraft/flight-schedule-link.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -35,6 +36,7 @@ export class LinkAircraftListComponent implements OnInit {
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   ATAValue: string ='';
+  inputBase: VerifyInputBase = VerifyInputBase.FromHistory;
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;

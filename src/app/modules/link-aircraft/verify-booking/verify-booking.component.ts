@@ -5,7 +5,7 @@ import { CargoBookingStatusUpdateListRm } from 'src/app/_models/view-models/carg
 import { CargoBookingStatusUpdateRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-rm.model';
 import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-booking.model';
 import { BookingService } from 'src/app/_services/booking.service';
-import { VerifyStatus } from 'src/app/core/enums/common-enums';
+import { VerifyInputBase, VerifyStatus } from 'src/app/core/enums/common-enums';
 import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
 
 @Component({
@@ -24,6 +24,8 @@ export class VerifyBookingComponent implements OnInit {
   offloadBookingCount: number = 0;
   verifyStatus = VerifyStatus;
   isDisabledButton: boolean = false;
+
+  @Input() inputBase: VerifyInputBase = VerifyInputBase.None;
 
   @Input() set flightScheduleId(flightScheduleId: string) {
     this.flightScheduleIdInput = flightScheduleId;
@@ -44,7 +46,11 @@ export class VerifyBookingComponent implements OnInit {
         next: (res) => {
           this.cargoBookingList = res;
           this.checkVerifiedAll();
-          this.setDefaultVerifyStatus();
+          this.setDefaultVerifyStatus(); debugger
+          if(this.inputBase == VerifyInputBase.FromHistory) {
+            this.isDisabledButton = true;
+          }
+
         },
         error: () => {
           this.cargoBookingList = [];
@@ -57,7 +63,7 @@ export class VerifyBookingComponent implements OnInit {
     return NumberExtension.convertcm3Tom3(volume);
   }
 
-  selectedBooking(event: any, booking: CargoBooking) { debugger;
+  selectedBooking(event: any, booking: CargoBooking) { ;
     //if(event.target.checked == true) this.isCancelButtonDisabled = false;
     //this.enableButtons();
   }
@@ -67,7 +73,7 @@ export class VerifyBookingComponent implements OnInit {
   }
 
   checkVerifiedAll() {
-    if(this.cargoBookingList.filter(x=>x.verifyStatus != VerifyStatus.None).length)
+    if(this.cargoBookingList.filter(x=>x.verifyStatus != VerifyStatus.None).length > 0 || this.cargoBookingList.length == 0)
       this.isDisabledButton = true;
   }
 

@@ -5,6 +5,7 @@ import { FlightScheduleManagementLinkFilterList } from 'src/app/_models/queries/
 import { FlightScheduleLink } from 'src/app/_models/view-models/link-aircraft/flight-schedule-link.model';
 import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 import { LinkAircraftToScheduleService } from 'src/app/_services/link-aircraft-to-schedule.service';
+import { VerifyInputBase } from 'src/app/core/enums/common-enums';
 
 @Component({
   selector: 'app-upcoming-assign-aircraft',
@@ -33,6 +34,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
   destinationAirpots: SelectList[] = [];
   ATAValue: string ='';
   stepCount: number= 1;
+  inputBase: VerifyInputBase = VerifyInputBase.FromHistory;
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;

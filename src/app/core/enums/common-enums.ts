@@ -216,4 +216,11 @@ export enum ULDLocateStatus
     Lend = 4,
 }
 
+export enum VerifyInputBase
+{
+  None = 0,
+  FromHistory = 1,
+  FromUpcoming = 2
+}
+
 
