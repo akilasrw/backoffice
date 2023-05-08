@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/cargo-booking-list-query.model';
 import { CargoBookingStatusUpdateListRm } from 'src/app/_models/view-models/cargo-bookings/cargo-booking-status-update-list-rm.model';
@@ -24,6 +24,9 @@ export class VerifyBookingComponent implements OnInit {
   offloadBookingCount: number = 0;
   verifyStatus = VerifyStatus;
   isDisabledButton: boolean = false;
+
+  @Output() closePopup = new EventEmitter<any>();
+  @Output() submitSuccess = new EventEmitter<any>();
 
   @Input() inputBase: VerifyInputBase = VerifyInputBase.None;
 
@@ -72,7 +75,7 @@ export class VerifyBookingComponent implements OnInit {
 
   }
 
-  checkVerifiedAll() {
+  checkVerifiedAll() { debugger;
     if(this.cargoBookingList.filter(x=>x.verifyStatus != VerifyStatus.None).length > 0 || this.cargoBookingList.length == 0)
       this.isDisabledButton = true;
   }
@@ -123,10 +126,16 @@ export class VerifyBookingComponent implements OnInit {
     .subscribe({
       next: (res) => {
         this.toastr.success('Verified Successfully.');
+        this.closeModal();
+        this.submitSuccess.emit();
         // this.getBookingList();
       },
       error: () => {
       }
     });
+  }
+
+  closeModal() {
+    this.closePopup.emit();
   }
 }

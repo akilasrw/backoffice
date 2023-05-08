@@ -129,7 +129,8 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-              <app-verify-booking *ngIf="verifyBookingModalVisible" [flightScheduleId]="selectedId" [inputBase]="inputBase" (closePopup)="close()">
+              <app-verify-booking *ngIf="verifyBookingModalVisible" [flightScheduleId]="selectedId" [inputBase]="inputBase"
+              (closePopup)="closeVerifyBooking()" (submitSuccess)="onSubmitSuccess()">
               </app-verify-booking>
             </div>
         </div>

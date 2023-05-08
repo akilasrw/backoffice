@@ -34,7 +34,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
   destinationAirpots: SelectList[] = [];
   ATAValue: string ='';
   stepCount: number= 1;
-  inputBase: VerifyInputBase = VerifyInputBase.FromHistory;
+  inputBase: VerifyInputBase = VerifyInputBase.FromUpcoming;
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
@@ -144,6 +144,10 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     console.log('viewBooking', event);
     this.verifyBookingModalVisible = true;
     setTimeout(() => (this.verifyBookingModalVisibleAnimate = true));
+  }
+
+  onVerified() {
+    
   }
 
 }

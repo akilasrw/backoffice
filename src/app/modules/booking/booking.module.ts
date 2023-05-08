@@ -13,8 +13,6 @@ import { BookingDetailComponent } from './booking-detail/booking-detail.componen
 import { AssignBookingComponent } from './booking-summary/booking-summary-details/assign-booking/assign-booking.component';
 import { FreighterBookingSummaryDetailV2Component } from './booking-summary/booking-summary-detail-v2/freighter-booking-summary-detail-v2/freighter-booking-summary-detail-v2.component';
 import { StandByCargoMasterComponent } from './stand-by-cargo-master/stand-by-cargo-master.component';
-import { OffloadBookingViewComponent } from './stand-by-cargo-master/offload-booking-view/offload-booking-view.component';
-import { CargoNotReceivedViewComponent } from './stand-by-cargo-master/cargo-not-received-view/cargo-not-received-view.component';
 import { StandByCargoUpdateComponent } from './stand-by-cargo-update/stand-by-cargo-update.component';
 
 
@@ -29,8 +27,6 @@ import { StandByCargoUpdateComponent } from './stand-by-cargo-update/stand-by-ca
     AssignBookingComponent,
     FreighterBookingSummaryDetailV2Component,
     StandByCargoMasterComponent,
-    OffloadBookingViewComponent,
-    CargoNotReceivedViewComponent,
     StandByCargoUpdateComponent
   ],
   imports: [

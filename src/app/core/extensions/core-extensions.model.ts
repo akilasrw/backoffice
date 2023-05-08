@@ -203,7 +203,7 @@ export class CoreExtensions {
         statusString = "Booked";
         break;
       case BookingStatus.Accepted:
-        statusString = "Accepted";
+        statusString = "Received";
         break;
       case BookingStatus.Dispatched:
         statusString = "Dispatched";
@@ -388,7 +388,7 @@ export class CoreExtensions {
     }
     return statusString;
   }
-  
+
   public static GetULDLocateStatus(type:ULDLocateStatus):string{
     let statusString = "None";
     switch (type) {
@@ -414,6 +414,6 @@ export class CoreExtensions {
     return (length == null ? 0 : length)+" x "+(width == null ? 0 : width)+" x "+(height == null ? 0 : height);
   }
 
-  
-  
+
+
 }

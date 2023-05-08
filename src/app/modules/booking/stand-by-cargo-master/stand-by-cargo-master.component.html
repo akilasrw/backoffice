@@ -12,16 +12,18 @@
                 <div class="filter-wrapper">
                     <div class="filter-group">
                         <label class="form-label">Booking ID</label>
-                        <input type="text" class="form-control">
+                        <input (change)="onChangeFilterFrm($event)" type="text" name="bookingNumber" [(ngModel)]="query.bookingNumber" class="form-control">
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Booking Agent</label>
-                        <input type="text" class="form-control">
+                        <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" [selectedIndex]="editAgentIndex"
+                        (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()"(changeSearch)="onClearCargoAgent()" >
+                    </app-auto-complete-dropdown>
                     </div>
                     <div class="button">
-                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                        <button class="btn sm btn-primary-outline" (click)="getBookingList()">Add Filter</button>
                     </div>
-                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                    <div [hidden]="!filterFormHasValue" class="filter-clear" title="Filter Clear" (click)="clearFilter()"><i class="ca ca-icn-close"></i></div>
                 </div>
             </div>
         </div>
@@ -87,8 +89,6 @@
                           </table>
                       </div>
                     </div>
-                    <!-- <app-offload-booking-view *ngIf="standByCargoType == selectedStandByStatus.Offload"></app-offload-booking-view>
-                    <app-cargo-not-received-view *ngIf="standByCargoType == selectedStandByStatus.NotReceived"></app-cargo-not-received-view> -->
                   </div>
                   <div class="row">
                     <div class="not-available" *ngIf="this.cargoBookingList.length == 0">

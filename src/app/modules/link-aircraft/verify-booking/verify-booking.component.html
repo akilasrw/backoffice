@@ -28,7 +28,8 @@
                 <td>
                   <div class="cu-check p-0">
                     <label class="cu-checkbox mb-0">
-                        <input type="checkbox" [(ngModel)]="booking.selected" (change)="selectedBooking($event, booking)">
+                        <input type="checkbox" [(ngModel)]="booking.selected" (change)="selectedBooking($event, booking)"
+                         [disabled]="booking.verifyStatus > 0 && !booking.newRecord">
                         <span class="checkmark"></span>
                     </label>
                   </div>
@@ -93,6 +94,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary me-3">Close</button>
+    <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Close</button>
     <button type="button" class="btn btn-primary" (click)="save()" [disabled]="isDisabledButton">Verify Booking</button>
 </div>
