@@ -60,7 +60,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   initializeForm() {
     this.aircraftForm = new FormGroup({
       id: new FormControl(null),
-      regNo: new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z0-9_]+$")],),
+      regNo: new FormControl(null, [Validators.required],), // Validators.pattern("^[a-zA-Z0-9_]+$")
       aircraftTypeId: new FormControl(null, [Validators.required]),
       aircraftSubTypeId: new FormControl(null, [Validators.required]),
       configurationType: new FormControl(null, [Validators.required]),
@@ -179,7 +179,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   selectedConfigType(value: any) {
     this.aircraftForm.get('configurationType')?.patchValue(Number(value.id));
     this.selectedConfigurationType = Number(value.id);
-    this.onClearAircraftType(); 
+    this.onClearAircraftType();
     this.getFileredAircraftTypes(this.selectedConfigurationType);
   }
 
