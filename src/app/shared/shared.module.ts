@@ -27,6 +27,7 @@ import { AlB737300TypeOneComponent } from './Templates/aircraft-layout/al-b73730
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { DisableControlDirective } from '../directives/disable-control.directive';
 
 @NgModule({
   declarations: [

@@ -1,11 +1,13 @@
 import { UldCreateRM } from './../../../_models/request-models/uld-master/uld-create-rm';
 import { ULDLocateStatus, ULDType, UnitType, ULDOwnershipType } from './../../../core/enums/common-enums';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Unit } from 'src/app/_models/view-models/unit/unit.model';
 import { UnitService } from 'src/app/_services/unit.service';
 import { ULDService } from 'src/app/_services/uld.service';
 import { ToastrService } from 'ngx-toastr';
+import { ULD } from 'src/app/_models/view-models/uld-master/ulsd.model';
+import { UldUpdateRM } from 'src/app/_models/request-models/uld-master/uld-update-rm';
 
 @Component({
   selector: 'app-uld-create',
@@ -23,8 +25,8 @@ export class UldCreateComponent implements OnInit {
   weightUnits: Unit[] = [];
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
-
-
+  @Input() uld: ULD = new ULD();
+  isEditULD: boolean = false;
 
   constructor(private unitService: UnitService,
     private fb: FormBuilder,
@@ -34,27 +36,72 @@ export class UldCreateComponent implements OnInit {
   ngOnInit(): void {
     this.initializForm();
     this.getUnits();
+    if (this.uld != null) {
+      this.isEditULD = true;
+      this.editForm(this.uld);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
+    }
   }
 
   initializForm() {
-    this.uldForm = new FormGroup({
-      uLDType: new FormControl(this.selectedULDType, [Validators.required]),
-      serialNumber: new FormControl(null, [Validators.required]),
-      uLDOwnershipType: new FormControl(this.selectedULDOwnershipType, [Validators.required]),
-      ownerAirlineCode: new FormControl(null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]),
-      uLDLocateStatus: new FormControl(this.selectedULDStatus, [Validators.required]),
-      lendAirlineCode: new FormControl(null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]),
+    this.uldForm = this.fb.group({
+      id: [null],
+      uLDType: [this.selectedULDType, [Validators.required]],
+      serialNumber: [null, [Validators.required]],
+      uLDOwnershipType: [this.selectedULDOwnershipType, [Validators.required]],
+      ownerAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
+      uLDLocateStatus: [this.selectedULDStatus, [Validators.required]],
+      lendAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
+      uldMetaDataId: [null],
       uLDMetaData: this.fb.group({
-        width: new FormControl(0, [Validators.required, Validators.min(1)]),
-        length: new FormControl(0, [Validators.required, Validators.min(1)]),
-        height: new FormControl(0, [Validators.required, Validators.min(1)]),
-        weight: new FormControl(0, [Validators.required, Validators.min(1)]),
-        maxWeight: new FormControl(0, [Validators.required, Validators.min(1)]),
-        maxVolume: new FormControl(0, [Validators.required, Validators.min(1)]),
-        volumeUnitId: new FormControl('9f0928df-5d33-4e5d-affc-f7e2e2b72680', [Validators.required]),
-        weightUnitId: new FormControl('bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c', [Validators.required]),
+        id: [null],
+        width: [0, [Validators.required, Validators.min(1)]],
+        length: [0, [Validators.required, Validators.min(1)]],
+        height: [0, [Validators.required, Validators.min(1)]],
+        weight: [0, [Validators.required, Validators.min(1)]],
+        maxWeight: [0, [Validators.required, Validators.min(1)]],
+        maxVolume: [0, [Validators.required, Validators.min(1)]],
+        volumeUnitId: ['9f0928df-5d33-4e5d-affc-f7e2e2b72680', [Validators.required]],
+        weightUnitId: ['bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c', [Validators.required]],
       })
     });
+  }
+
+  editForm(uld: ULD) {
+    if(this.uldForm) {
+      this.uldForm.reset();
+      this.uldForm.get('id')?.patchValue(uld.id);
+      this.uldForm.get('uLDType')?.patchValue(uld.uldType);
+      this.uldForm.get('serialNumber')?.patchValue(uld.serialNumber);
+      this.uldForm.get('uLDOwnershipType')?.patchValue(uld.uldOwnershipType);
+      this.uldForm.get('ownerAirlineCode')?.patchValue(uld.ownerAirlineCode);
+      this.uldForm.get('uLDLocateStatus')?.patchValue(uld.uldLocateStatus);
+      this.uldForm.get('lendAirlineCode')?.patchValue(uld.lendAirlineCode);
+      this.uldForm.get('uldMetaDataId')?.patchValue(uld.uldMetaDataId);
+      this.uldForm.get('uLDMetaData')?.get('id')?.patchValue(uld.uldMetaDataId);
+      this.uldForm.get('uLDMetaData')?.get('width')?.patchValue(uld.width);
+      this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(uld.length);
+      this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(uld.height);
+      this.uldForm.get('uLDMetaData')?.get('weight')?.patchValue(uld.weight);
+      this.uldForm.get('uLDMetaData')?.get('maxWeight')?.patchValue(uld.maxWeight);
+      this.uldForm.get('uLDMetaData')?.get('maxVolume')?.patchValue(uld.maxVolume);
+      this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.patchValue('9f0928df-5d33-4e5d-affc-f7e2e2b72680');
+      this.uldForm.get('uLDMetaData')?.get('weightUnitId')?.patchValue('bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c');
+      this.selectedULDType = uld.uldType? uld.uldType: ULDType.Pallet;;
+      this.selectedULDStatus = uld.uldLocateStatus? uld.uldLocateStatus: ULDLocateStatus.OnGround;
+      this.selectedULDOwnershipType = uld.uldOwnershipType? uld.uldOwnershipType: ULDOwnershipType.OwnByAirline;
+      this.disableInputForEdit();
+    }
+  }
+
+  disableInputForEdit() {
+    this.uldForm.get('uLDOwnershipType')?.disable();
+    this.uldForm.get('uLDType')?.disable();
+    this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.disable();
+    this.uldForm.get('uLDMetaData')?.get('weightUnitId')?.disable();
   }
 
   getUnits() {
@@ -85,7 +132,7 @@ export class UldCreateComponent implements OnInit {
     this.selectedULDStatus = this.uldForm.get('uLDLocateStatus')?.value;
   }
 
-  onChangeULDOwnershipType() {
+  onChangeULDOwnershipType(event:  any) {
     this.selectedULDOwnershipType = this.uldForm.get('uLDOwnershipType')?.value;
   }
 
@@ -96,33 +143,58 @@ export class UldCreateComponent implements OnInit {
 
   saveULDDetails() {
     if (this.uldForm.valid) {
+      if (this.isEditULD) {
 
-      if (this.uldForm.get('uLDOwnershipType')?.value ===  ULDOwnershipType.Other && this.uldForm.get('ownerAirlineCode')?.value == null) {
-        this.toastr.error('Please enter ULD own airline code.');
-        return;
-      }
-
-      if (this.uldForm.get('uLDLocateStatus')?.value ===  ULDLocateStatus.Lend && this.uldForm.get('lendAirlineCode')?.value == null) {
-        this.toastr.error('Please enter ULD lend airline code.');
-        return;
-      }
-
-
-      this.isLoading = true;
-      var uld: UldCreateRM = this.uldForm.value;
-
-      this.uldService.create(uld).subscribe({
-        next: (res) => {
-          this.toastr.success('ULD added successfully.');
-          this.submitSuccess.emit();
-          this.closeModal();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          this.isLoading = false;
+        var editUld: UldUpdateRM = this.uldForm.value;
+        console.log(this.uldForm.value);
+        editUld.uLDType = this.selectedULDType;
+        editUld.uLDOwnershipType = this.selectedULDOwnershipType;
+        var metadata = editUld.uLDMetaData
+        if(metadata != undefined) {
+          metadata.volumeUnitId ='9f0928df-5d33-4e5d-affc-f7e2e2b72680';
+          metadata.weightUnitId ='bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c';
         }
-      });
-      this.uldForm.markAsUntouched();
+
+        this.uldService.update(editUld).subscribe({
+          next: (res) => {
+            this.toastr.success('Updated successfully.');
+            this.submitSuccess.emit();
+            this.closeModal();
+            this.isLoading = false;
+            this.isEditULD = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+          }
+        })
+      } else {
+        if (this.uldForm.get('uLDOwnershipType')?.value ===  ULDOwnershipType.Other && this.uldForm.get('ownerAirlineCode')?.value == null) {
+          this.toastr.error('Please enter ULD own airline code.');
+          return;
+        }
+
+        if (this.uldForm.get('uLDLocateStatus')?.value ===  ULDLocateStatus.Lend && this.uldForm.get('lendAirlineCode')?.value == null) {
+          this.toastr.error('Please enter ULD lend airline code.');
+          return;
+        }
+
+        this.isLoading = true;
+        var uld: UldCreateRM = this.uldForm.value;
+
+        this.uldService.create(uld).subscribe({
+          next: (res) => {
+            this.toastr.success('ULD added successfully.');
+            this.submitSuccess.emit();
+            this.closeModal();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+          }
+        });
+        this.uldForm.markAsUntouched();
+      }
+
     } else {
       this.uldForm.markAllAsTouched();
     }

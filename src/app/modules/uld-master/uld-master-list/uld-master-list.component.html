@@ -32,11 +32,11 @@
                     <thead>
                         <th>ULD Type</th>
                         <th>ULD Number</th>
-                        <th>Owernership</th>
+                        <th>Ownership</th>
                         <th>Airline Code</th>
                         <th>Last Used Date</th>
                         <th>Last Used Flight</th>
-                        <th>Dimentions(L x W x H)cm</th>
+                        <th>Dimensions (L x W x H) cm</th>
                         <th>Weight</th>
                         <th>Max Weight</th>
                         <th>Max Volume</th>
@@ -59,8 +59,8 @@
                             <td>{{(item.lastLocatedAirportCode =="" || item.lastLocatedAirportCode ==null)?'-':item.lastLocatedAirportCode}}</td>
                             <td>{{GetULDLocateStatus(item.uldLocateStatus)}}</td>
                             <td>
-                                <i class="ca ca-icn-view" title="View"></i>
-                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <!-- <i class="ca ca-icn-view" title="View"></i> -->
+                                <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -93,7 +93,8 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-uld-create  *ngIf="modalVisible" (submitSuccess)="onULDAdd()" (closePopup)="closeAddULD()" ></app-uld-create>
+                <app-uld-create [uld]="selectedULD" *ngIf="modalVisible"
+                (submitSuccess)="onULDAdd()" (closePopup)="closeAddULD()"></app-uld-create>
             </div>
         </div>
     </div>

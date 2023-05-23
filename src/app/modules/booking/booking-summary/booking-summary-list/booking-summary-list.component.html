@@ -35,7 +35,7 @@
                         <th>Flight Number</th>
                         <th>Departure Date</th>
                         <th>Departure Time</th>
-                        <th>Cut off Time</th>
+                        <th>Cut off Time (Min.)</th>
                         <th>Origin</th>
                         <th>Destination</th>
                         <th>Aircraft Type</th>
@@ -48,7 +48,7 @@
                             <td>{{item.flightNumber}}</td>
                             <td>{{item.scheduledDepartureDateTime | date}}</td>
                             <td>{{item.scheduledDepartureDateTime | date :'shortTime'}}</td>
-                            <td>-</td>
+                            <td>{{item.cutoffTimeMin? item.cutoffTimeMin: 0}}</td>
                             <td>{{item.originAirportCode}}</td>
                             <td>{{item.destinationAirportCode}}</td>
                             <td>{{item.aircraftSubTypeName}}</td>

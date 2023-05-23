@@ -6,6 +6,7 @@ import { IPagination } from '../shared/models/pagination.model';
 import { ULDFilterQuery } from '../_models/queries/uld/uld-filter-query.model';
 import { UldCreateRM } from '../_models/request-models/uld-master/uld-create-rm';
 import { ULD } from '../_models/view-models/uld-master/ulsd.model';
+import { UldUpdateRM } from '../_models/request-models/uld-master/uld-update-rm';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,10 @@ export class ULDService  extends BaseService{
 
   create(uldCreateRM: UldCreateRM){
     return this.post<any>(this.endpointEntityName, uldCreateRM);
+  }
+
+  update(uldUpdateRM: UldUpdateRM){
+    return this.put<any>(this.endpointEntityName, uldUpdateRM);
   }
 
 }

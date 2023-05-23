@@ -19,9 +19,9 @@ export class UldMasterListComponent implements OnInit {
   totalCount: number = 0;
   modalVisible = false;
   modalVisibleAnimate = false;
+  selectedULD?: ULD;
 
-
-  constructor(private uldService:ULDService) { }
+  constructor(private uldService: ULDService) { }
 
   ngOnInit(): void {
     this.getFilteredList();
@@ -31,7 +31,7 @@ export class UldMasterListComponent implements OnInit {
   getFilteredList(){
     this.isLoading=true;
     this.uldFilterQuery.uLDNumber = this.uldNumber;
-  
+
     this.uldService.getFilteredList(this.uldFilterQuery).subscribe(
       {
         next: (res) => {
@@ -68,6 +68,7 @@ export class UldMasterListComponent implements OnInit {
   }
 
   closeAddULD() {
+    this.selectedULD = undefined;
     this.modalVisibleAnimate = false;
     setTimeout(() => (this.modalVisible = false), 300);
   }
@@ -94,13 +95,19 @@ export class UldMasterListComponent implements OnInit {
   GetDimentions(item: any) {
     return CoreExtensions.GetDimentions(item.length, item.width, item.height);
   }
-  
+
   GetULDLocateStatus(type: number) {
     return CoreExtensions.GetULDLocateStatus(type);
   }
-  
+
   convertcm3Tom3(volume: number): number {
     return NumberExtension.convertcm3Tom3(volume);
+  }
+
+  onEdit(uld: ULD){
+    this.selectedULD = uld;
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
 }

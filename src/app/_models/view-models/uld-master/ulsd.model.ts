@@ -7,7 +7,7 @@ export class ULD extends BaseVM{
     uldOwnershipType?: ULDOwnershipType;
     ownerAirlineCode?:string;
     uldLocateStatus?:ULDLocateStatus;
-    lendAirlineCode?: string; 
+    lendAirlineCode?: string;
     lastUsedDate?:Date;
     lastUsedFlightNumber?:string;
     lastLocatedAirportCode?:string;
@@ -17,4 +17,5 @@ export class ULD extends BaseVM{
     weight?:number;
     maxWeight?:number;
     maxVolume?:number;
+    uldMetaDataId?: string;
 }
