@@ -66,9 +66,9 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
       configurationType: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
-      aCheck: new FormControl(null),
-      bCheck: new FormControl(null),
-      cCheck: new FormControl(null)
+      aCheck: new FormControl(null,[Validators.min(0)]),
+      bCheck: new FormControl(null,[Validators.min(0)]),
+      cCheck: new FormControl(null,[Validators.min(0)])
     });
   }
 

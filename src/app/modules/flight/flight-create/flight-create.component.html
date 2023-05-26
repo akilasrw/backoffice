@@ -110,8 +110,7 @@
                     </div>
                     <div class="col-md-12 text-end">
                         <button class="btn btn-primary-outline" type="button"
-                            (click)="addSector()">{{flightForm.get("flightSector")?.value.isEdit? 'Update ':'Add
-                            '}}Sector</button>
+                            (click)="addSector()">{{flightForm.get("flightSector")?.value.isEdit? 'Update ':'Add'}}Sector</button>
                         <!--[disabled]="!flightForm.valid"-->
                     </div>
                 </div>
@@ -121,7 +120,7 @@
                     <div class="bg-box px-3 pt-2 pb-1" *ngIf="flightSectorList?.length > 0">
                         <div class="sector-wrapper">
                             <div class="sector-set">
-                                <div class="base block-time" *ngIf="initialBlockMin > 0">{{initialBlockMin}} Min.</div>
+                                <div class="base block-time" *ngIf="initialBlockMin > 0">{{initialBlockMin| number : '1.2-2'}} Min.</div>
                                 <div class="base">{{initialAirportCode}}</div>
                             </div>
                             <div class="sector-set" *ngFor="let item of flightSectorList">
@@ -138,7 +137,7 @@
                                     <div class="d-flex">
                                         <div class="base">{{item.destinationAirportCode}}</div>
                                         <div class="base block-time" *ngIf="item?.destinationBlockTimeMin > 0">
-                                            {{item.destinationBlockTimeMin}} Min.</div>
+                                            {{item.destinationBlockTimeMin| number : '1.2-2'}} Min.</div>
                                     </div>
                                 </div>
                             </div>

@@ -17,11 +17,6 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
   @Input() isDisabled:Boolean = false;
 
-  // @Input() set clearInput(value: boolean) {
-  //   if(value)
-  //     this.clear();
-  // }
-
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -34,7 +29,6 @@ export class AutoCompleteDropdownComponent implements OnInit {
 
   selectEvent(item: any) {
     this.selectFileOutput.emit(item);
-
   }
 
   onChangeSearch(val: string) {

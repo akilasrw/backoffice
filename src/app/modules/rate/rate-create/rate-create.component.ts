@@ -163,7 +163,7 @@ export class RateCreateComponent implements OnInit {
     }
 
     if (this.rateForm.get('rateType')?.value === RateType.MarketPublishRate) {
-      this.rateForm.get('cargoAgentId')?.patchValue(null); 
+      this.rateForm.get('cargoAgentId')?.patchValue(null);
     }
 
     if (this.rateForm.get('rateType')?.value === RateType.ContractRate && (this.rateForm.get('cargoAgentId')?.value === null || this.rateForm.get('cargoAgentId')?.value === "")) {
@@ -273,16 +273,19 @@ export class RateCreateComponent implements OnInit {
 
   selectedCargoAgent(value: any) {
     this.rateForm.get('cargoAgentId')?.patchValue(value.id);
-    this.rateForm.get('cargoAgentName')?.patchValue(value.value);    
+    this.rateForm.get('cargoAgentName')?.patchValue(value.value);
   }
 
   onClearCargoAgent() {
     this.rateForm.get('cargoAgentId')?.patchValue(null);
-    this.rateForm.get('cargoAgentName')?.patchValue(null);    
+    this.rateForm.get('cargoAgentName')?.patchValue(null);
   }
 
   selectedRateType(value: any) {
     this.rateForm.get('rateType')?.patchValue(+value.id);
+    if(this.rateForm.value.rateType == this.rateType.MarketPublishRate) {
+      this.onClearCargoAgent();
+    }
   }
 
   onClearRateType() {

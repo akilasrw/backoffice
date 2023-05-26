@@ -11,6 +11,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OtherChargesComponent } from './other-charges/other-charges.component';
 import { OtherChargesCreateComponent } from './other-charges-create/other-charges-create.component';
 import { OtherChargesUpdateComponent } from './other-charges-update/other-charges-update.component';
+import { RateMasterViewComponent } from './rate-master-view/rate-master-view.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { OtherChargesUpdateComponent } from './other-charges-update/other-charge
     RateUpdateComponent,
     OtherChargesComponent,
     OtherChargesCreateComponent,
-    OtherChargesUpdateComponent
+    OtherChargesUpdateComponent,
+    RateMasterViewComponent
   ],
   imports: [
     CommonModule,

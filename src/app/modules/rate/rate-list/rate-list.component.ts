@@ -1,5 +1,5 @@
 import { AgentRateManagement } from './../../../_models/view-models/rate/agent-rate-management';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { AgentRateFilterQuery } from 'src/app/_models/queries/rate/agent-rate-filter-query.model';
 import { AirportService } from 'src/app/_services/airport.service';
@@ -11,6 +11,7 @@ import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { RateType } from 'src/app/core/enums/common-enums';
 import { Router } from '@angular/router';
 import { AgentRateManagementRM } from 'src/app/_models/request-models/rate/agent-rate-management-rm';
+import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 
 @Component({
   selector: 'app-rate-list',
@@ -34,12 +35,14 @@ export class RateListComponent implements OnInit {
   agentRateFilterQuery: AgentRateFilterQuery = new AgentRateFilterQuery();
   totalCount: number = 0;
   keyword = 'value';
-  cargoAgentId?: string;
-  originAirportId?: string;
-  destinationAirportId?: string;
   isLoading: boolean = false;
   selectedRateId?: string;
   selectedDeletedID?: string;
+  isFiltered: boolean = false;
+
+  @ViewChild('cargoAgentAutoComplete') cargoAgentAutoComplete!: AutoCompleteDropdownComponent;
+  @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
+  @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
 
   constructor(
     private cargoAgentService: CargoAgentService,
@@ -52,14 +55,11 @@ export class RateListComponent implements OnInit {
   ngOnInit(): void {
     this.loadCargoAgents();
     this.loadAirports();
-    this.getRateList();
+    this.getFilteredList();
   }
 
-  getRateList() {
+  getFilteredList() {
     this.isLoading = true;
-    this.agentRateFilterQuery.cargoAgentId = this.cargoAgentId;
-    this.agentRateFilterQuery.originAirportId = this.originAirportId;
-    this.agentRateFilterQuery.destinationAirportId = this.destinationAirportId;
     this.rateService.getFilteredList(this.agentRateFilterQuery).subscribe(
       {
         next: (res) => {
@@ -106,27 +106,30 @@ export class RateListComponent implements OnInit {
   }
 
   selectedCargoAgent(value: any) {
-    this.cargoAgentId = value.id;
+    this.agentRateFilterQuery.cargoAgentId = value.id;
+    this.onChangeFilter();
   }
 
   onClearCargoAgent() {
-    this.cargoAgentId = undefined;
+    this.agentRateFilterQuery.cargoAgentId = undefined;
   }
 
   selectedOrigin(value: any) {
-    this.originAirportId = value.id;
+    this.agentRateFilterQuery.originAirportId = value.id;
+    this.onChangeFilter();
   }
 
   onClearOrigin() {
-    this.originAirportId = undefined;
+    this.agentRateFilterQuery.originAirportId = undefined;
   }
 
   selectedDestination(value: any) {
-    this.destinationAirportId = value.id;
+    this.agentRateFilterQuery.destinationAirportId = value.id;
+    this.onChangeFilter();
   }
 
   onClearDestination() {
-    this.destinationAirportId = undefined;
+    this.agentRateFilterQuery.destinationAirportId = undefined;
   }
 
   openAddRate() {
@@ -164,16 +167,34 @@ export class RateListComponent implements OnInit {
   public onPageChanged(event: any) {
     if (this.agentRateFilterQuery?.pageIndex !== event) {
       this.agentRateFilterQuery.pageIndex = event;
-      this.getRateList();
+      this.getFilteredList();
     }
   }
 
   onRateAdd() {
-    this.getRateList();
+    this.getFilteredList();
   }
 
   onRateUpdate() {
-    this.getRateList();
+    this.getFilteredList();
+  }
+
+  clearFilter() {
+    this.agentRateFilterQuery = new AgentRateFilterQuery();
+    this.getFilteredList();
+    this.originAirportDropdown.clear();
+    this.destinationAirportDropdown.clear();
+    this.cargoAgentAutoComplete.clear();
+    this.isFiltered = false;
+  }
+
+  onChangeFilter() { debugger
+    this.isFiltered= true;
+    if((this.agentRateFilterQuery.cargoAgentId == undefined || this.agentRateFilterQuery.cargoAgentId == '') &&
+    (this.agentRateFilterQuery.originAirportId == undefined || this.agentRateFilterQuery.originAirportId == '') &&
+    (this.agentRateFilterQuery.destinationAirportId == undefined || this.agentRateFilterQuery.destinationAirportId == '')) {
+      this.isFiltered = false;
+    }
   }
 
   deleteRate() {
@@ -186,7 +207,7 @@ export class RateListComponent implements OnInit {
             this.cancelDelete();
             this.rates = [];
             this.isLoading = false;
-            this.getRateList();
+            this.getFilteredList();
           },
           error: (error) => {
             this.toastr.error(CommonMessages.DeleteFailMsg);
@@ -227,11 +248,11 @@ export class RateListComponent implements OnInit {
     updateRate.isActive=!rateItem.isActive;
     this.rateService.updateActiveStatus(updateRate).subscribe({
       next: (res) => {
-        this.getRateList();
+        this.getFilteredList();
       },
       error: (err) => {
       }
     })
   }
-  
+
 }
