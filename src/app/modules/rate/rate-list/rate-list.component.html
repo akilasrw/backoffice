@@ -23,11 +23,11 @@
             <div class="button">
                 <button class="btn sm btn-primary-outline" (click)="getFilteredList()">Add Filter</button>
             </div>
+            <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close" *ngIf="isFiltered" (click)="clearFilter()"></i></div>
         </div>
         <div>
             <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
         </div>
-        <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close" *ngIf="isFiltered" (click)="clearFilter()"></i></div>
     </div>
 </div>
 <div class="row">
