@@ -54,8 +54,8 @@ export class AppComponent implements OnInit{
     this.isLoaded = true;
   }
 
-  hideMenu(valu:any){
-    this.showCollapseMenu=valu;
+  hideMenu(value:any){
+    this.showCollapseMenu=value;
   }
 
   showNotificationModal(value:any){

@@ -116,31 +116,31 @@ export class RateCreateComponent implements OnInit {
 
   pushRateClassType(){
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.M],
     }));
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.Minus45K],
     }));
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.Plus45K],
     }));
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.Plus100K],
     }));
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.Plus300K],
     }));
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.Plus500K],
     }));
     this.agentRates.push(this.fb.group({
-      rate: [0, [Validators.required, Validators.min(1)]],
+      rate: [0, [Validators.required, Validators.min(0.01)]],
       weightType: [WeightType.Plus1000K],
     }));
   }

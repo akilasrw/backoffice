@@ -32,7 +32,7 @@ export class AutoCompleteDropdownComponent implements OnInit {
   }
 
   onChangeSearch(val: string) {
-    this.changeSearch.emit();
+    this.changeSearch.emit(val);
   }
 
   onFocused(e: any) {

@@ -38,7 +38,8 @@ export class FlightScheduleCreateComponent implements OnInit {
   @Input() editFlightSchedule: FlightScheduleManagement = new FlightScheduleManagement();
   isEditFlightSchedule: boolean = false;
   editFlightNumberIndex?:number;
-  editAircraftSubType?:number
+  editAircraftSubType?:number;
+  typedFlightNo?: string;
 
 
   constructor(private aircraftService: AircraftService,
@@ -159,6 +160,10 @@ export class FlightScheduleCreateComponent implements OnInit {
     this.flight = undefined;
   }
 
+  onChangeSearch(event: any){
+    this.typedFlightNo = event;
+  }
+
   saveScheduleDetails() {
     if (this.selectedAircraftSubType != undefined) {
       this.flightScheduleForm.get('aircraftSubTypeId')?.patchValue(this.getAircraftSubTypeIdBySubType(this.selectedAircraftSubType));
@@ -198,6 +203,11 @@ export class FlightScheduleCreateComponent implements OnInit {
 
     if (this.flightScheduleForm.get('daysOfWeek')?.value === null || this.flightScheduleForm.get('daysOfWeek')?.value === "") {
       this.toastr.error('Please select day(s) Of week.');
+      return;
+    }
+
+    if(this.flightList.findIndex(x=>x.value == this.typedFlightNo) < 0) {
+      this.toastr.error('Flight number is not valid.');
       return;
     }
 

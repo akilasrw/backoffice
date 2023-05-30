@@ -188,7 +188,7 @@ export class RateListComponent implements OnInit {
     this.isFiltered = false;
   }
 
-  onChangeFilter() { debugger
+  onChangeFilter() {
     this.isFiltered= true;
     if((this.agentRateFilterQuery.cargoAgentId == undefined || this.agentRateFilterQuery.cargoAgentId == '') &&
     (this.agentRateFilterQuery.originAirportId == undefined || this.agentRateFilterQuery.originAirportId == '') &&

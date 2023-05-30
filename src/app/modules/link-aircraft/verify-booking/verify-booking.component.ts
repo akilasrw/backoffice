@@ -42,14 +42,12 @@ export class VerifyBookingComponent implements OnInit {
   }
 
   getBookingList() {
-    // this.query.flightNumber = this.cargoBookingSummary?.flightNumber;
-    // this.query.flightDate = this.cargoBookingSummary?.scheduledDepartureDateTime;
     this.bookingService.getVerifyBookingList(this.flightScheduleIdInput).subscribe(
       {
         next: (res) => {
           this.cargoBookingList = res;
           this.checkVerifiedAll();
-          this.setDefaultVerifyStatus(); debugger
+          this.setDefaultVerifyStatus();
           if(this.inputBase == VerifyInputBase.FromHistory) {
             this.isDisabledButton = true;
           }
@@ -75,7 +73,7 @@ export class VerifyBookingComponent implements OnInit {
 
   }
 
-  checkVerifiedAll() { debugger;
+  checkVerifiedAll() { 
     if(this.cargoBookingList.filter(x=>x.verifyStatus != VerifyStatus.None).length > 0 || this.cargoBookingList.length == 0)
       this.isDisabledButton = true;
   }

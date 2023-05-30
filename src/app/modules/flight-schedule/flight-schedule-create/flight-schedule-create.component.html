@@ -15,7 +15,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Flight Number</label>
                     <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword" [selectedIndex]="editFlightNumberIndex"
-                        (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
+                        (selectFileOutput)="selectedFlight($event)" (changeSearch)="onChangeSearch($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
                     </app-auto-complete-dropdown>
                 </div>
                 <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
