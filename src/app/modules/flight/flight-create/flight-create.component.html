@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">Flight Number</label>
+                    <label class="form-label">Flight Number<span class="compulsory">*</span></label>
                     <app-text-input [formControl]='flightForm.controls["flightNumber"]' type="text"
                         [label]='"Flight Number"' [tabindex]="1">
                     </app-text-input>
@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Origin</label>
+                                <label class="form-label">Origin<span class="compulsory">*</span></label>
                                 <app-auto-complete-textbox #originAirportTextBox [SelectedList]="originAirports"
                                     [form]="flightForm"
                                     [control]="flightForm.get('flightSector')?.get('originAirportCode')"
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label class="form-label">Departure Time</label>
+                                <label class="form-label">Departure Time<span class="compulsory">*</span></label>
                                 <div class="row">
                                     <div class="col-md-12 time-field">
                                         <div class="row">
@@ -63,7 +63,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Destination</label>
+                                <label class="form-label">Destination<span class="compulsory">*</span></label>
                                 <app-auto-complete-textbox #destinationAirportTextBox [SelectedList]="desAirports"
                                     [form]="flightForm"
                                     [control]="flightForm.get('flightSector')?.get('desAirportCode')"
@@ -74,7 +74,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label class="form-label">Arrival Time</label>
+                                <label class="form-label">Arrival Time<span class="compulsory">*</span></label>
                                 <div class="row">
                                     <div class="col-md-12 time-field">
                                         <div class="row">

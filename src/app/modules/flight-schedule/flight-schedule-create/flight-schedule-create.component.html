@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Aircraft Type</label>
+                    <label class="form-label">Aircraft Type<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="aircraftSubTypes" [keyword]="keyword" [selectedIndex]="editAircraftSubType"
                         (selectFileOutput)="selectAircraftSubType($event)" (clearSearch)="onClearAircraftSubType()"
                         [tabindex]="1">
@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Flight Number</label>
+                    <label class="form-label">Flight Number<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword" [selectedIndex]="editFlightNumberIndex"
                         (selectFileOutput)="selectedFlight($event)" (changeSearch)="onChangeSearch($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
                     </app-auto-complete-dropdown>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Start Date</label>
+                    <label class="form-label">Start Date<span class="compulsory">*</span></label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleStartDate"]'
                         class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
                 </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">End Date</label>
+                    <label class="form-label">End Date<span class="compulsory">*</span></label>
                     <input type="text" [formControl]='flightScheduleForm.controls["scheduleEndDate"]'
                         class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
                 </div>

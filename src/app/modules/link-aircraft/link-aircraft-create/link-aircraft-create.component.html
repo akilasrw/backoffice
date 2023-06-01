@@ -95,7 +95,7 @@
   <div class="row" *ngIf="this.selectedFlightScheduleLink?.stepCount == 1">
     <div class="col-6">
       <div class="form-group">
-        <label class="form-label">ETD</label>
+        <label class="form-label">ETD<span class="compulsory">*</span></label>
         <app-text-input
         [formControl]='linkAircraftForm?.controls["estimatedDepartureDateTime"]'
         [label]='"Estimated Departure Time"' type="time" [tabindex]="9">
@@ -104,7 +104,7 @@
     </div>
     <div class="col-6">
       <div class="form-group">
-        <label class="form-label">ETA</label>
+        <label class="form-label">ETA<span class="compulsory">*</span></label>
         <app-text-input
         [formControl]='linkAircraftForm?.controls["estimatedArrivalDateTime"]'
         [label]='"Estimated Arrival Time"' type="time" [tabindex]="10">

@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Aircraft Reg. Number</label>
+                    <label class="form-label">Aircraft Reg. Number<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword"
                         (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
                         (clearSearch)="onClearAircraft()" [tabindex]="1">
@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Status</label>
+                    <label class="form-label">Status<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="scheduleStatus" [keyword]="keyword" [tabindex]="2"
                         (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
                         (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
@@ -51,12 +51,12 @@
                     <div class="col-md-6 time-field">
                         <div class="form-group" *ngIf="!isLoading">
                             <div class="row">
-                                <label class="form-label">Start Time</label>
+                                <label class="form-label">Start Time<span class="compulsory">*</span></label>
                                 <div class="col-md-5 pe-0">
                                     <app-text-input [formControl]='scheduleForm.controls["scheduleStartTimeHr"]'
                                         [label]='"Start Time (Hr)"' type="number" [tabindex]="3">
                                     </app-text-input>
-                                    
+
                                 </div>
                                 <div class="col-md-2 p-2 text-center">
                                     <span class="">:</span>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">Total Hours</label>
+                            <label class="form-label">Total Hours<span class="compulsory">*</span></label>
                             <app-text-input [formControl]='scheduleForm.controls["numberOfHours"]'
                                 [label]='"Total Hours (Hr:Min)"' type="number" [tabindex]="5">
                             </app-text-input>
@@ -85,8 +85,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">{{(this.selectedCalenderType == CalendarType.Daily)?"Date":"Start
-                                Date"}} </label>
+                            <label class="form-label">{{(this.selectedCalenderType == CalendarType.Daily)?"Date":"Start Date"}} <span class="compulsory">*</span></label>
                             <input type="text" [formControl]='scheduleForm.controls["scheduleStartDate"]'
                                 class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
                         </div>
@@ -94,7 +93,7 @@
                     </div>
                     <div class="col-md-6" *ngIf="this.selectedCalenderType != CalendarType.Daily">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">End Date</label>
+                            <label class="form-label">End Date<span class="compulsory">*</span></label>
                             <input type="text" [formControl]='scheduleForm.controls["scheduleEndDate"]'
                                 class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
                         </div>
@@ -104,7 +103,7 @@
                 </div>
             </div>
             <div class="col-md-12" *ngIf="this.selectedCalenderType != CalendarType.Daily">
-                <div class="lable">Day(s) of Week,</div>
+                <div class="lable">Day(s) of Week,<span class="compulsory">*</span></div>
                 <div class="chek-chip">
                     <div class="cu-check" *ngIf="!isLoading">
                         <label class="chip-button cu-checkbox" [ngClass]="{'checked': daysList.includes(1)}">1

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Rate Type</label>
+                    <label class="form-label">Rate Type<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="rateTypes" [keyword]="keyword" #autoCompleteRateType
                         (selectFileOutput)="selectedRateType($event)" (clearSearch)="onClearRateType()">
                     </app-auto-complete-dropdown>
@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-4" *ngIf="rateForm.value.rateType != rateType.MarketPublishRate ">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Cargo Agent</label>
+                    <label class="form-label">Cargo Agent<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
                         (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
                     </app-auto-complete-dropdown>
@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Cargo Type</label>
+                    <label class="form-label">Cargo Type<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="cargoTypes" [keyword]="keyword" #autoCompleteCargoType
                         (selectFileOutput)="selectedCargoType($event)" (clearSearch)="onClearCargoType()">
                     </app-auto-complete-dropdown>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">Origin</label>
+                            <label class="form-label">Origin<span class="compulsory">*</span></label>
                             <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" #autoCompleteOrigin
                                 (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                                 (clearSearch)="onClearOrigin()">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">Destination</label>
+                            <label class="form-label">Destination<span class="compulsory">*</span></label>
                             <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
                                 #autoCompleteDestination (selectFileOutput)="selectedDestination($event)"
                                 (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">Valid Start Date</label>
+                            <label class="form-label">Valid Start Date<span class="compulsory">*</span></label>
                             <input type="text" [formControl]='rateForm.controls["startDate"]' class="form-control"
                                 bsDatepicker [minDate]="startMinDate" placement="auto">
                         </div>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">Valid End Date</label>
+                            <label class="form-label">Valid End Date<span class="compulsory">*</span></label>
                             <input type="text" [formControl]='rateForm.controls["endDate"]' class="form-control"
                                 bsDatepicker [minDate]="endMinDate" placement="auto">
                         </div>
