@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { ChattingModule } from './modules/chatting/chatting.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     HttpClientModule,
     CoreModule,
     NotificationModule,
+    ChattingModule,
     TranslateModule.forRoot({
       loader:{
         provide: TranslateLoader,
