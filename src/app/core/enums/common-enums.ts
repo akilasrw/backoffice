@@ -180,6 +180,7 @@ export enum RateType{
 export enum CargoType{
   None=0,
   General =1,
+  DGR =2
 }
 export enum AssignAircraftViewType {
   None = 0,

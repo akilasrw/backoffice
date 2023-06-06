@@ -349,6 +349,9 @@ export class CoreExtensions {
       case CargoType.General:
         statusString = "General";
         break;
+      case CargoType.DGR:
+        statusString = "DGR";
+        break;
       default:
         break;
     }

@@ -76,7 +76,10 @@ export class RateCreateComponent implements OnInit {
   }
 
   loadCargoTypes(){
-    this.cargoTypes=[{id:CargoType.General.toString(),value:this.GetCargoType(CargoType.General)}]
+    this.cargoTypes=[
+      {id:CargoType.General.toString(),value:this.GetCargoType(CargoType.General)},
+      {id:CargoType.DGR.toString(),value:this.GetCargoType(CargoType.DGR)},
+    ]
   }
 
   loadCargoAgents() {
@@ -241,7 +244,8 @@ export class RateCreateComponent implements OnInit {
     this.agentRateManagements.forEach(obj =>{
       if(obj.cargoAgentId === this.rateForm.get('cargoAgentId')?.value &&
         obj.originAirportId === this.rateForm.get('originAirportId')?.value &&
-      obj.destinationAirportId === this.rateForm.get('destinationAirportId')?.value){
+        obj.destinationAirportId === this.rateForm.get('destinationAirportId')?.value &&
+        obj.cargoType === this.rateForm.get('cargoType')?.value){
         isExist = true
         return;
       }
