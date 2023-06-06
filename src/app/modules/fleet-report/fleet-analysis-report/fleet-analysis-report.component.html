@@ -75,13 +75,11 @@
                                                       {{idleData.startTime| date :'HH:mm'}} - {{idleData.endTime| date :'HH:mm'}} - {{idleData.totalHours| number: '1.2-2'}} h  <br />
                                                     </ng-container>
                                               </div>
-                                              <div class="details-group" *ngIf="this.query.reportType == reportType.Running">
+                                              <div class="details-group" *ngIf="this.query.reportType == reportType.Running && data.scheduleTimeList?.length > 0">
                                                   <div class="lable">Schedule Times</div>
-                                                  <div *ngIf="data.scheduleTimeList?.length > 0">
                                                     <ng-container *ngFor="let times of data.scheduleTimeList">
                                                             {{times.startTime| date :'HH:mm'}} - {{times.endTime|date :'HH:mm'}} <br/>
                                                     </ng-container>
-                                                    </div>
                                               </div>
                                               <div class="details-group" *ngIf="this.query.reportType == reportType.IdleTimeReport && data.totalFlightTimeHrs > 0">
                                                   <div class="lable">{{data.scheduleStatus == scheduleStatus.Maintainance? 'Maintainance ':
