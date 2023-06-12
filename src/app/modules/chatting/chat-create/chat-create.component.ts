@@ -23,24 +23,36 @@ export class ChatCreateComponent implements OnInit {
   subscription?:Subscription;
   @Input() currentUserConversation?: UserConversation;
   @Input() set isNewConversation(isNewConversation: boolean) {
-    if(isNewConversation == true) {     // if no record
-      this.createConversation();
+    if(isNewConversation == true) {
+    // if no record
+    //  this.createConversation();
     }
   }
   chatbox: string ='';
+  msgUser: string = 'agent name';
+  timer?:number = 0;
 
   constructor(private accountService: AccountService,
     private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
+    this.startChattingTimer();
+  }
+
+  getChatUsername(){
+    var msgs = this.currentUserConversation?.messages?.filter(x=>x.auther != this.currentUser?.email);
+    if(msgs && msgs?.length>0)
+      return msgs[0].auther;
+
+    return this.msgUser;
   }
 
   sendMsg(event: any) {
     var msg: MessageRm = new MessageRm();
-    msg.auther =  this.currentUser?.userName;
+    msg.auther =  this.currentUser?.username;
     msg.body = event;
-    msg.pathConversationSid = this.currentUserConversation?.conversationSid; // 'CHee0e231a0ff24be182a8b486b4c4bde1';
+    msg.pathConversationSid = this.currentUserConversation?.conversationSid;
     msg.chatStatus = new ChatStatus();
     msg.chatStatus.isRead = false;
     this.chatService.createMessage(msg)
@@ -64,42 +76,44 @@ export class ChatCreateComponent implements OnInit {
       this.currentUserConversation = users;
 
     });
-  }
 
-  createConversation() {
-    // create conversation
-    var conversation: ConversationRm = new ConversationRm();
-    var userName = this.currentUser?.userName;
-    let currentDateTime = formatDate(new Date().toString(), 'yyyy-MM-dd', 'en-US');
-    let name = userName + '_'+ currentDateTime?.toString();
-    conversation.friendlyName = name;
-    conversation.uniqueName = name;
+}
 
-    this.chatService.createConversation(conversation)
-    .subscribe(t=> {
-      if(userName) {
-        this.currentUserConversation = { conversationSid : t.sid};
-        // Create particpant
-        this.createParticipant(userName, t.sid);
-        // add Admin to the conservation
-        this.createParticipant('backofficeadmin@yopmail.com', t.sid);
-      }
-    });
-  }
+createConversation() {
+  // create conversation
+  var conversation: ConversationRm = new ConversationRm();
+  var userName = this.currentUser?.username;
+  let currentDateTime = formatDate(new Date().toString(), 'yyyy-MM-dd', 'en-US');
+  let name = userName + '_'+ currentDateTime?.toString();
+  conversation.friendlyName = name;
+  conversation.uniqueName = name;
 
-  createParticipant(username: string, conversationSid: string){
-    var participant : ParticipantRm= new ParticipantRm();
-    participant.identity = username;
-    participant.conversationSid = conversationSid;
-    this.chatService.createParticipant(participant)
-    .subscribe(y=> {
+  this.chatService.createConversation(conversation)
+  .subscribe(t=> {
+    if(userName) {
+      this.currentUserConversation = { conversationSid : t.sid};
+      // Create particpant
+      this.createParticipant(userName, t.sid);
+      // add Admin to the conservation
+      if(this.currentUser?.email)
+        this.createParticipant(this.currentUser?.email, t.sid);
+    }
+  });
+}
 
-    });
-  }
+createParticipant(username: string, conversationSid: string){
+  var participant : ParticipantRm= new ParticipantRm();
+  participant.identity = username;
+  participant.conversationSid = conversationSid;
+  this.chatService.createParticipant(participant)
+  .subscribe(y=> {
+
+  });
+}
 
   getFirstLetters(str: string) {
     return CoreExtensions.GetFirstLetters(str);
-  }
+}
 
   getCurrentUser() {
     this.subscription = this.accountService.currentUser$.subscribe(res => {
@@ -107,7 +121,21 @@ export class ChatCreateComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void {  console.log('ngOnDestroy')
     this.subscription?.unsubscribe();
+    window.clearInterval(this.timer);
+  }
+
+  startChattingTimer() { debugger;
+    this.timer = window.setInterval(() => {
+      this.callLoadMsgs();
+    }, 5000);
+  }
+
+  callLoadMsgs() { console.log('loadMessages')
+    if(this.currentUserConversation?.conversationSid) {
+      var chId = this.currentUserConversation?.conversationSid;
+      this.loadMessages(chId);
+    }
   }
 }

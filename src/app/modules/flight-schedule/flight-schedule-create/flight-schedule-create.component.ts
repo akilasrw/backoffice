@@ -150,7 +150,7 @@ export class FlightScheduleCreateComponent implements OnInit {
     this.selectedAircraftSubType = AircraftSubTypes.None;
   }
 
-  selectedFlight(value: any) { debugger
+  selectedFlight(value: any) {
     this.flightScheduleForm.get('flightId')?.patchValue(value.id);
     this.getFlightDetails(value.id);
     this.typedFlightNo = value.value;

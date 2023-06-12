@@ -25,6 +25,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
   public showProfileCard: boolean = true;
   @Output() hideMenu = new EventEmitter<any>();
   @Output() publishNotification = new EventEmitter<any>();
+  @Output() showMsg = new EventEmitter<any>();
+
   sideMenuItems=[
                 { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
                   children:[
@@ -53,7 +55,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
                     {title:'ULD Master', menuType:MenuType.ULDMaster}]},
                 { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
                   children:[
-                    {title:'Publish Notifications', menuType:MenuType.Notification}]}
+                    {title:'Publish Notifications', menuType:MenuType.Notification}]},
+                { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
+                  children:[
+                    {title:'Messaging', menuType:MenuType.Messaging}]}
               ]
 
 
@@ -160,6 +165,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case MenuType.StandByCargo:
         this.router.navigate([RouteConstants.StandByCargo])
+        break;
+      case MenuType.Messaging:
+        this.showMsg.emit(true);
         break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);

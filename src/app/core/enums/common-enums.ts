@@ -16,7 +16,8 @@ export enum MenuType {
   LinkAircraft=14,
   FleetReport=15,
   ULDMaster=16,
-  StandByCargo=17
+  StandByCargo=17,
+  Messaging=18
 }
 
 export enum SectorType {

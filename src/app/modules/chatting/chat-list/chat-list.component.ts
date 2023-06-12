@@ -46,10 +46,9 @@ export class ChatListComponent implements OnInit {
   }
 
   initializeChat() {
-
     // get the email of logged user
     this.getCurrentUser();
-    let userName =  this.currentUser?.userName!;
+    let userName =  this.currentUser?.username!;
 
     if(userName) {
       // Get all user from twilio
@@ -61,11 +60,11 @@ export class ChatListComponent implements OnInit {
       // Check exists the user,
       if (user.length == 0) { // user not exists
         // Create user
-        this.chatService.createUser(userName)
-        .subscribe(x=> {
-          this.loadUserConversation(user,userName);
-          this.loadParticipantConversation(userName);
-        });
+        // this.chatService.createUser(userName)
+        // .subscribe(x=> {
+        //   this.loadUserConversation(user,userName);
+        //   this.loadParticipantConversation(userName);
+        // });
       } else { // user exists
         this.loadUserConversation(user,userName);
         this.loadParticipantConversation(userName)
@@ -166,7 +165,6 @@ export class ChatListComponent implements OnInit {
     if(!con || con.messages?.length==0) {
       return 0;
     }
-
     return con.messages?.filter(x=>x.chatStatus?.isRead == undefined || x.chatStatus?.isRead == false).length;
   }
 
