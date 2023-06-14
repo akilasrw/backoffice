@@ -1,4 +1,5 @@
- <div class="sidebar" [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"> <!-- <div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"></div> -->
+<div class="sidebar" [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
+  <!-- <div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"></div> -->
   <div class="logo-details">
     <div class="logo-wrapper" (click)="menuClickEvent(0)">
       <img src="{{logoUrl}}" style="height: 34px;" />
@@ -32,62 +33,46 @@
           <div class="link_name link">{{item.title}}</div>
         </li>
         <li *ngFor="let child of item.children">
-          <div class="link" (click)="menuClickEvent(child.menuType)" [ngClass]="{'selected': selectedMenu == child.menuType}">{{child.title}}
+          <div class="link" (click)="menuClickEvent(child.menuType)"
+            [ngClass]="{'selected': selectedMenu == child.menuType}">{{child.title}}
           </div>
         </li>
       </ul>
     </li>
-    <li>
-      <div class="profile-details">
-        <div class="profile-content">
-          <img src="assets/images/profile.jpg" alt="profileImg">
-        </div>
-        <div class="name-job">
-          <div class="profile_name">David Ellison</div>
-          <div class="job">Operation Manager</div>
-        </div>
-        <i class='bx bx-log-out'></i>
-        <ul class="sub-menu">
-          <li>
-            <div class="link_name link">David Ellison</div>
-          </li>
-          <li>
-            <div class="link">Operation Manager</div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- <div>
-        <div class="profile-card" *ngIf="showProfileCard">
-          <div class="pro-pic">
-              <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
-          </div>
-          <label>{{currentUser?.fullName}}</label>
-          <label>{{currentUser?.email}}</label>
-          <div class="actions">
-              <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
-              <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
-              <span class="ca ca-icn-shutdown" title="Sign Out" (click)="signOut()"></span>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div>
-        <div class="profile-pic" (click)="profileClick()">
-            <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
-        </div>
-        <div class="profile-card" *ngIf="showProfileCard">
-            <div class="pro-pic">
-                <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
-            </div>
-            <label>{{currentUser?.fullName}}</label>
-            <label>{{currentUser?.email}}</label>
-            <div class="actions">
-                <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
-                <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
-                <span class="ca ca-icn-shutdown" title="Sign Out" (click)="signOut()"></span>
-            </div>
-        </div>
-      </div> -->
-    </li>
   </ul>
+  <div class="expand-profile">
+    <div class="expand-profile-info" *ngIf="showProfileCard">
+      <div class="profile-info">
+        <div class="pro-pic">
+          <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
+        </div>
+        <div class="profile-content">
+          <div>{{currentUser?.fullName}}</div>
+          <div class="email">{{currentUser?.email}}</div>
+          <div class="actions">
+            <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
+            <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
+            <span class="ca ca-icn-shutdown" title="Sign Out" (click)="signOut()"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="close-profile">
+    <div class="profile-pic" (click)="profileClick()">
+      <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
+    </div>
+    <div class="profile-card" *ngIf="showProfileCard">
+      <div class="pro-pic">
+        <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
+      </div>
+      <label>{{currentUser?.fullName}}</label>
+      <label>{{currentUser?.email}}</label>
+      <div class="actions">
+        <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
+        <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
+        <span class="ca ca-icn-shutdown" title="Sign Out" (click)="signOut()"></span>
+      </div>
+    </div>
+  </div>
 </div>
