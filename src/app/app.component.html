@@ -1,19 +1,19 @@
 <div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
-  <app-side-nav (hideMenu)="hideMenu($event)" (publishNotification)="showNotificationModal($event)" *ngIf="(accountService.currentUser$ | async) != null"></app-side-nav>
+  <app-side-nav (showMsg)="showChatBox($event)" (hideMenu)="hideMenu($event)" (publishNotification)="showNotificationModal($event)" *ngIf="(accountService.currentUser$ | async) != null"></app-side-nav>
   <div [ngClass]="{'content-container': (accountService.currentUser$ | async) != null}">
       <router-outlet></router-outlet>
       <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
   </div>
-            
+
     <!-- <select name="language" ngModel="selected" (ngModelChange)="switchLang($event)">
       <option [value]="'selected'" hidden disabled>{{'select_language'| translate}}</option>
       <option [value]="'en'" >English</option>
       <option [value]="'vi'">Vietnam</option>
-      
+
     </select>
 
   <h1>{{'hello' | translate }}</h1> -->
-  
+
 </div>
 
 
@@ -28,6 +28,41 @@
             </div>
             <div>
               <app-publish-notification (closePopup)="cancelNotificationModal()"></app-publish-notification>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': chatModalVisibleAnimate}"
+    [ngStyle]="{'display': chatModalVisible ? 'block' : 'none', 'opacity': chatModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-m modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Messaging</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelchatModal()" aria-label="Close"><span
+                        class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+              <app-chat-list (popupCreate)="showMsgCreatePopup($event)" (newChatPopup)="showNewChatPopup()"></app-chat-list>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': chatCreateModalVisible}"
+    [ngStyle]="{'display': chatCreateModalVisible ? 'block' : 'none', 'opacity': chatCreateModalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-m modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">{{isNewChat?'New Chat':'Chat'}}</h2>
+                <!-- <button type="button" class="close btn" data-dismiss="modal" (click)="closeChatCreate()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button> -->
+            </div>
+            <div class="modal-body">
+                <app-chat-create
+                [currentUserConversation]="currentUserConversation"
+                (closeChatCreation)="closeChatCreate()"
+                [isNewConversation]="isNewChat"></app-chat-create>
             </div>
         </div>
     </div>
