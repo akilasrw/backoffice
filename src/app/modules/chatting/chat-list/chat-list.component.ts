@@ -103,7 +103,7 @@ export class ChatListComponent implements OnInit {
     });
   }
 
-  loadUserConversation(user: ChatUser[], userName: string){
+  loadUserConversation(user: ChatUser[], userName: string) {
     if(user.length > 0)
         this.chatService.getUserConversation(userName)
         .subscribe(o=> {
@@ -171,7 +171,7 @@ export class ChatListComponent implements OnInit {
   }
 
   getUserConversation(conversationId: string) {
-    return this.currentUserConversations?.filter(x=> x.conversationSid = conversationId)[0];
+    return this.currentUserConversations?.filter(x=> x.conversationSid == conversationId)[0];
   }
 
   updateMsgReadStatus(con: UserConversation) {
@@ -190,11 +190,17 @@ export class ChatListComponent implements OnInit {
     });
   }
 
-  unreadCount(con: UserConversation) {
+  unreadCount(conversationId: string) {
+    var con = this.getUserConversation(conversationId);
     if(!con || con.messages?.length==0) {
       return 0;
     }
-    return con.messages?.filter(x=>x.chatStatus?.isRead == undefined || x.chatStatus?.isRead == false).length;
+
+    if(con?.messages && con?.messages[con?.messages?.length-1]?.auther != this.currentUser?.username) {
+      return con.messages?.filter(x=>x.chatStatus?.isRead == undefined || x.chatStatus?.isRead == false).length;
+    }
+
+    return 0;
   }
 
   filteredMsg(val?: string) {
@@ -221,7 +227,7 @@ export class ChatListComponent implements OnInit {
         }
       });
     }
-      console.log('filteredMsgs',this.filteredMsgs);
+      //console.log('filteredMsgs',this.filteredMsgs);
       return this.filteredMsgs;
   }
 

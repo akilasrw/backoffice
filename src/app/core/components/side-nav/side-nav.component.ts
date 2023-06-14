@@ -22,7 +22,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   currentUser?: User | null
   subscription?: Subscription;
   public showCollapseMenu: boolean = true;
-  public showProfileCard: boolean = true;
+  public showProfileCard: boolean = false;
   @Output() hideMenu = new EventEmitter<any>();
   @Output() publishNotification = new EventEmitter<any>();
   @Output() showMsg = new EventEmitter<any>();
@@ -226,6 +226,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
     }
     return selectedType;
+  }
+
+  getFullName() {
+    return this.currentUser?.firstName + ' ' + this.currentUser?.lastName
   }
 
 }

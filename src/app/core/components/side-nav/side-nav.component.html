@@ -1,7 +1,5 @@
 <div class="sidebar" [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
-  <!-- <div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"></div> -->
  <div class="sidebar" [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}">
-  <!-- <div [ngClass]="{ 'close':showCollapseMenu,'collapseDeactive':!showCollapseMenu}"></div> -->
   <div class="logo-details">
     <div class="logo-wrapper" (click)="menuClickEvent(0)">
       <img src="{{logoUrl}}" style="height: 34px;" />
@@ -49,8 +47,8 @@
           <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
         </div>
         <div class="profile-content">
-          <div>{{currentUser?.fullName}}</div>
-          <div class="email">{{currentUser?.email}}</div>
+          <div>{{getFullName()}}</div>
+          <div class="email">{{currentUser?.username}}</div>
           <div class="actions">
             <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
             <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
@@ -68,8 +66,8 @@
       <div class="pro-pic">
         <div class="pro-img"><img src="/assets/images/profile-img.png"></div>
       </div>
-      <label>{{currentUser?.fullName}}</label>
-      <label>{{currentUser?.email}}</label>
+      <label>{{getFullName()}}</label>
+      <label>{{currentUser?.username}}</label>
       <div class="actions">
         <span class="ca ca-icn-settings" title="Settings" (click)="settings()"></span>
         <span class="ca ca-icn-edit" title="Edit" (click)="edit()"></span>
