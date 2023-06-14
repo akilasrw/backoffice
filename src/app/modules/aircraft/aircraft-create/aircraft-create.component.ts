@@ -60,15 +60,15 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   initializeForm() {
     this.aircraftForm = new FormGroup({
       id: new FormControl(null),
-      regNo: new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z0-9_]+$")],),
+      regNo: new FormControl(null, [Validators.required],), // Validators.pattern("^[a-zA-Z0-9_]+$")
       aircraftTypeId: new FormControl(null, [Validators.required]),
       aircraftSubTypeId: new FormControl(null, [Validators.required]),
       configurationType: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
-      aCheck: new FormControl(null),
-      bCheck: new FormControl(null),
-      cCheck: new FormControl(null)
+      aCheck: new FormControl(null,[Validators.min(0)]),
+      bCheck: new FormControl(null,[Validators.min(0)]),
+      cCheck: new FormControl(null,[Validators.min(0)])
     });
   }
 
@@ -134,6 +134,10 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
       { id: AircraftConfigType.Freighter.toString(), value: CoreExtensions.GetAircraftConfigType(AircraftConfigType.Freighter) });
     if (this.isEditAircraft) {
       this.editConfigTypeIndex = this.configTypes.findIndex(x => x.id == this.editAircraft.configurationType?.toString());
+    console.log(this.configTypes);
+    console.log(this.editAircraft.configurationType?.toString());
+    console.log(this.editConfigTypeIndex);
+
     }
   }
 
@@ -175,7 +179,7 @@ export class AircraftCreateComponent implements OnInit, OnDestroy{
   selectedConfigType(value: any) {
     this.aircraftForm.get('configurationType')?.patchValue(Number(value.id));
     this.selectedConfigurationType = Number(value.id);
-    this.onClearAircraftType(); 
+    this.onClearAircraftType();
     this.getFileredAircraftTypes(this.selectedConfigurationType);
   }
 

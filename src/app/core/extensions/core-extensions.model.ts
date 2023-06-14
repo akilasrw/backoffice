@@ -1,5 +1,5 @@
-import { LinkAircraftFliterStatus, MasterSheduleReportType } from 'src/app/core/enums/common-enums';
-import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus } from './../enums/common-enums';
+import { CargoType, LinkAircraftFliterStatus, MasterSheduleReportType, ULDLocateStatus, ULDOwnershipType } from 'src/app/core/enums/common-enums';
+import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus, RateType, ULDType } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
 import { AircraftActiveTypes, AircraftConfigType, AircraftStatus, AircraftSubTypes, AircraftTypes, SectorType } from "../enums/common-enums";
@@ -142,6 +142,17 @@ export class CoreExtensions {
   }
 
 
+  public static GetFirstLetters(str: string) {
+    if(str.indexOf(' ')>0) {
+      var res = str.split(' ');
+      if(res.length> 0)
+        return res[0][0]+ ''+ res[1][0];
+    } else if(str.length>0) {
+      return str[0];
+    }
+    return '';
+  }
+
   public static GetAircraftActiveStaus(type: AircraftActiveTypes): string {
     let statusString = "None";
     switch (type) {
@@ -203,7 +214,7 @@ export class CoreExtensions {
         statusString = "Booked";
         break;
       case BookingStatus.Accepted:
-        statusString = "Accepted";
+        statusString = "Received";
         break;
       case BookingStatus.Dispatched:
         statusString = "Dispatched";
@@ -283,7 +294,7 @@ export class CoreExtensions {
     return statusString;
   }
 
-  public static GetLinkAircraftStatus(val: LinkAircraftFliterStatus){
+  public static GetLinkAircraftStatus(val: LinkAircraftFliterStatus) {
     let text = "None";
     switch(val){
       case LinkAircraftFliterStatus.None:
@@ -321,4 +332,99 @@ export class CoreExtensions {
     }
     return statusString;
   }
+
+  public static GetRateType(type:RateType):string{
+    let statusString = "None";
+    switch (type) {
+      case RateType.SpotRate:
+        statusString = "Spot Rate";
+        break;
+      case RateType.ContractRate:
+        statusString = "Contract Rate";
+        break
+      case RateType.PromotionalRate:
+        statusString = "Promotional Rate";
+        break
+      case RateType.MarketPublishRate:
+        statusString = "Market Publish Rate";
+        break
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetCargoType(type:CargoType):string{
+    let statusString = "None";
+    switch (type) {
+      case CargoType.General:
+        statusString = "General";
+        break;
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static IsMinimumDateTimeValue(eta: Date): Boolean {
+      return new Date(eta).getTime() === new Date('1/1/0001 12:00:00 AM').getTime();
+  }
+
+  public static GetULDType(type:ULDType):string{
+    let statusString = "None";
+    switch (type) {
+      case ULDType.Container:
+        statusString = "Container";
+        break;
+      case ULDType.Pallet:
+        statusString = "Pallet";
+        break
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetULDOwnershipType(type:ULDOwnershipType):string{
+    let statusString = "None";
+    switch (type) {
+      case ULDOwnershipType.OwnByAirline:
+        statusString = "Own by airline";
+        break;
+      case ULDOwnershipType.Other:
+        statusString = "Other";
+        break
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetULDLocateStatus(type:ULDLocateStatus):string{
+    let statusString = "None";
+    switch (type) {
+      case ULDLocateStatus.Lend:
+        statusString = "Lend";
+        break;
+      case ULDLocateStatus.Maintenance:
+        statusString = "Maintenance";
+        break
+      case ULDLocateStatus.OnBoard:
+        statusString = "On-Board";
+        break
+      case ULDLocateStatus.OnGround:
+        statusString = "On-Ground";
+        break
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetDimentions(length:number,width:number,height:number):string{
+    return (length == null ? 0 : length)+" x "+(width == null ? 0 : width)+" x "+(height == null ? 0 : height);
+  }
+
+
+
 }

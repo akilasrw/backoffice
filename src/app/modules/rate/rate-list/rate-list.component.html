@@ -1,86 +1,84 @@
-<div class="main-card">
-    <div class="card-header px-0 pt-0">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <h1>Rate Management</h1>
+
+<div class="row">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="filter-wrapper">
+            <div class="filter-group">
+                <label class="form-label">Cargo Agent</label>
+                <app-auto-complete-dropdown #cargoAgentAutoComplete [data]="cargoAgents" [keyword]="keyword"
+                    (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
+                </app-auto-complete-dropdown>
             </div>
-            <div>
-                <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
+            <div class="filter-group">
+                <label class="form-label">Origin</label>
+                <app-auto-complete-dropdown #originAirportAutoComplete [data]="originAirpots" [keyword]="keyword"
+                    (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                    (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
             </div>
+            <div class="filter-group">
+                <label class="form-label">Destination</label>
+                <app-auto-complete-dropdown #destinationAirportAutoComplete [data]="destinationAirpots" [keyword]="keyword"
+                    (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
+                    (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
+            </div>
+            <div class="button">
+                <button class="btn sm btn-primary-outline" (click)="getFilteredList()">Add Filter</button>
+            </div>
+            <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close" *ngIf="isFiltered" (click)="clearFilter()"></i></div>
         </div>
-    </div>
-    <div class="card-body without-footer">
-        <div class="row">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="filter-wrapper">
-                    <div class="filter-group">
-                        <label class="form-label">Cargo Agent</label>
-                        <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
-                            (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
-                        </app-auto-complete-dropdown>
-                    </div>
-                    <div class="filter-group">
-                        <label class="form-label">Origin</label>
-                        <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
-                            (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
-                            (clearSearch)="onClearOrigin()"></app-auto-complete-dropdown>
-                    </div>
-                    <div class="filter-group">
-                        <label class="form-label">Destination</label>
-                        <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
-                            (selectFileOutput)="selectedDestination($event)" (changeSearch)="onClearDestination()"
-                            (clearSearch)="onClearDestination()"></app-auto-complete-dropdown>
-                    </div>
-                    <div class="button">
-                        <button class="btn sm btn-primary-outline" (click)="getRateList()">Add Filter</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="table-content" *ngIf="!isLoading">
-                <table class="table table-responsive">
-                    <thead>
-                        <th>Agent</th>
-                        <th>Origin</th>
-                        <th>Destination</th>
-                        <th>Valid Start Date</th>
-                        <th>Valid End Date</th>
-                        <th class="text-center">Actions</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of this.rates">
-                            <td>{{item.cargoAgentName}}</td>
-                            <td>{{item.originAirportCode}}</td>
-                            <td>{{item.destinationAirportCode}}</td>
-                            <td>{{item.startDate| date}}</td>
-                            <td>{{item.endDate| date}}</td>
-                            <td class="text-center">
-                                <i class="ca ca-icn-view" title="View" (click)="openRateDetail(item.id)"></i>
-                                <i class="ca ca-icn-edit" title="Edit" (click)="onUpdate(item.id)"></i>
-                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="not-available" *ngIf="totalCount == 0">
-                    <img src="./assets/images/no-data.png" alt="No Content Data">
-                    <div>Rates not available.</div>
-                </div>
-                <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
-                    <app-pager [pageSize]="agentRateFilterQuery?.pageSize"
-                        [pageNumber]="agentRateFilterQuery?.pageIndex" [totalCount]="totalCount"
-                        (pageChanged)="onPageChanged($event)"></app-pager>
-                    <app-paging-header [totalCount]="totalCount" [pageSize]="agentRateFilterQuery?.pageSize"
-                        [pageNumber]="agentRateFilterQuery?.pageIndex"></app-paging-header>
-                </div>
-            </div>
-            <app-table-loader [columnCount]="4" [rowCount]="agentRateFilterQuery.pageSize" *ngIf="isLoading">
-            </app-table-loader>
+        <div>
+            <button class="btn btn-primary" type="button" (click)="openAddRate()">Add Rate</button>
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="table-content" *ngIf="!isLoading">
+        <table class="table table-responsive">
+            <thead>
+                <th>Rate Type</th>
+                <th>Cargo Type</th>
+                <th>Agent</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Valid Start Date</th>
+                <th>Valid End Date</th>
+                <th class="text-center">Actions</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of this.rates">
+                    <td>{{GetRateType(item.rateType)}}</td>
+                    <td>{{GetCargoType(item.cargoType)}}</td>
+                    <td>{{item.cargoAgentName}}</td>
+                    <td>{{item.originAirportCode}}</td>
+                    <td>{{item.destinationAirportCode}}</td>
+                    <td>{{item.startDate| date}}</td>
+                    <td>{{item.endDate| date}}</td>
+                    <td class="text-center">
+                        <i class="ca ca-icn-view" title="View" (click)="openRateDetail(item.id)"></i>
+                        <i class="ca ca-icn-edit" title="Edit" (click)="onUpdate(item.id)"></i>
+                        <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
+                        <label class="switch">
+                            <input type="checkbox" (change)="onChecked(item)" [checked]="item.isActive">
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="not-available" *ngIf="totalCount == 0">
+            <img src="./assets/images/no-data.png" alt="No Content Data">
+            <div>Rates not available.</div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
+            <app-pager [pageSize]="agentRateFilterQuery?.pageSize"
+                [pageNumber]="agentRateFilterQuery?.pageIndex" [totalCount]="totalCount"
+                (pageChanged)="onPageChanged($event)"></app-pager>
+            <app-paging-header [totalCount]="totalCount" [pageSize]="agentRateFilterQuery?.pageSize"
+                [pageNumber]="agentRateFilterQuery?.pageIndex"></app-paging-header>
+        </div>
+    </div>
+    <app-table-loader [columnCount]="4" [rowCount]="agentRateFilterQuery.pageSize" *ngIf="isLoading">
+    </app-table-loader>
+</div>
 
 <div class="modal fade" tabindex="-1" [ngClass]="{'in': addRateModalVisibleAnimate}"
     [ngStyle]="{'display': addRatemodalVisible ? 'block' : 'none', 'opacity': addRateModalVisibleAnimate ? 1 : 0}">

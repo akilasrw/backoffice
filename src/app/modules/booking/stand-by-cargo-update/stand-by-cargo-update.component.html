@@ -1,0 +1,130 @@
+<form [formGroup]='flightForm' (ngSubmit)="save()">
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+          <label class="form-label">New Flight Number</label>
+          <div class="form-group" *ngIf="!isLoading">
+            <app-auto-complete-dropdown [data]="flightList" [keyword]="keyword"
+                (selectFileOutput)="selectedFlight($event)" (clearSearch)="onClearFlight()" [tabindex]="2">
+            </app-auto-complete-dropdown>
+        </div>
+        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+      </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group" *ngIf="!isLoading">
+            <label class="form-label">Departure Flight Date</label>
+            <input type="text" [formControl]='flightForm.controls["departureFlightDate"]'
+                          class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
+        </div>
+        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="details">
+            <details open>
+                <summary>Booking Information</summary>
+                <div class="card-details">
+                    <div class="details-group">
+                        <div class="lable">Booking ID</div>
+                        <div>{{cargoBookingDetail?.bookingNumber}}</div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Booking Date</div>
+                        <div>{{cargoBookingDetail?.bookingDate | date}}</div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Status</div>
+                        <div>
+                            <span class="status-chip" [ngClass]="{
+                            'none':cargoBookingDetail?.bookingStatus == bookingStatus.None,
+                            'pending': cargoBookingDetail?.bookingStatus == bookingStatus.Pending,
+                            'dispatch':cargoBookingDetail?.bookingStatus == bookingStatus.Dispatched,
+                            'invoiced':cargoBookingDetail?.bookingStatus == bookingStatus.Invoiced,
+                            'accepted':cargoBookingDetail?.bookingStatus == bookingStatus.Accepted,
+                            'loading':cargoBookingDetail?.bookingStatus == bookingStatus.Loading,
+                            'exported':cargoBookingDetail?.bookingStatus == bookingStatus.Exported
+                        }">{{getBookingStatus(cargoBookingDetail?.bookingStatus)}}</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="details">
+            <details>
+                <summary>Flight Details</summary>
+                <div class="card-details">
+                    <div class="details-group">
+                        <div class="lable">Flight Number</div>
+                        <div>{{cargoBookingDetail?.flightNumber}}</div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Origin and Destination</div>
+                        <div><span
+                                class="status-chip accepted">{{cargoBookingDetail?.originAirportCode
+                                +" - "+ cargoBookingDetail?.destinationAirportCode}}</span></div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Cargo Acceptance Cutoff Time</div>
+                        <div>{{cargoBookingDetail?.scheduledDepartureDateTime | date : 'h:mm a'}}
+                        </div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Cargo Booking Cutoff Time</div>
+                        <div>{{cargoBookingDetail?.scheduledDepartureDateTime | date : 'h:mm a'}}
+                        </div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Flight Date</div>
+                        <div>{{cargoBookingDetail?.scheduledDepartureDateTime | date : 'M/d/yyyy'}}
+                        </div>
+                    </div>
+                    <div class="details-group">
+                        <div class="lable">Flight Time</div>
+                        <div>{{cargoBookingDetail?.scheduledDepartureDateTime | date : 'h:mm a'}}
+                        </div>
+                    </div>
+
+                </div>
+            </details>
+        </div>
+        <div class="row">
+            <h3 class="section-title">Package Details</h3>
+            <div class="details sub-collapse">
+                <details *ngFor="let package of this.cargoBookingDetail?.packageItems">
+                    <summary>Package Number:<span>{{package.packageRefNumber}}</span></summary>
+                    <div class="card-details">
+                        <div class="details-group">
+                            <div class="lable">Width</div>
+                            <div>{{package.width+" cm"}}</div>
+                        </div>
+                        <div class="details-group">
+                            <div class="lable">Height</div>
+                            <div>{{package.height+" cm"}}</div>
+                        </div>
+                        <div class="details-group">
+                            <div class="lable">Length</div>
+                            <div>{{package.length+" cm"}}</div>
+                        </div>
+                        <div class="details-group">
+                            <div class="lable">Weight</div>
+                            <div>{{package.weight+" kg"}}</div>
+                        </div>
+                        <div class="details-group">
+                            <div class="lable">Description</div>
+                            <div>{{package.description}}</div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+</div>
+</form>

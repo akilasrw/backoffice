@@ -21,10 +21,45 @@ export class SideNavComponent implements OnInit, OnDestroy {
   selectedMenu = MenuType.None
   currentUser?: User | null
   subscription?: Subscription;
-  public showCollapseMenu: boolean = false;
+  public showCollapseMenu: boolean = true;
   public showProfileCard: boolean = true;
   @Output() hideMenu = new EventEmitter<any>();
   @Output() publishNotification = new EventEmitter<any>();
+  @Output() showMsg = new EventEmitter<any>();
+
+  sideMenuItems=[
+                { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
+                  children:[
+                    {title:'Booking Summary', menuType:MenuType.BookingSummay},
+                    {title:'Standby Cargo', menuType:MenuType.StandByCargo}]},
+                { title:'Fleet Management',expanded: false, icon:'ca-icn-flight-schedule',
+                  children:[
+                    {title:'Flight Schedule', menuType:MenuType.FlightSchedule},
+                    {title:'Master Schedule', menuType:MenuType.MasterSchedule},
+                    {title:'Assign Aircrafts', menuType:MenuType.LinkAircraft},
+                    {title:'Fleet Analysis', menuType:MenuType.FleetReport}]},
+                { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
+                  children:[
+                    {title:'Cargo Agent', menuType:MenuType.UserManagement},
+                    {title:'Rate Management', menuType:MenuType.Rate},
+                    {title:'AWB Stock Management', menuType:MenuType.AWBStackManagement}]},
+                { title:'Settings',expanded: false, icon:'ca-icn-settings',
+                  children:[
+                    {title:'Manage Airports', menuType:MenuType.Airport},
+                    {title:'Manage Sectors', menuType:MenuType.Sector},
+                    {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
+                    {title:'Flight Creation', menuType:MenuType.Flight}]},
+                { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
+                  children:[
+                    {title:'ULD Assignement', menuType:MenuType.PalletManagement},
+                    {title:'ULD Master', menuType:MenuType.ULDMaster}]},
+                { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
+                  children:[
+                    {title:'Publish Notifications', menuType:MenuType.Notification}]},
+                { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
+                  children:[
+                    {title:'Messaging', menuType:MenuType.Messaging}]}
+              ]
 
 
   constructor(
@@ -125,6 +160,15 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.FleetReport:
         this.router.navigate([RouteConstants.FleetReport])
         break;
+      case MenuType.ULDMaster:
+        this.router.navigate([RouteConstants.ULDMaster])
+        break;
+      case MenuType.StandByCargo:
+        this.router.navigate([RouteConstants.StandByCargo])
+        break;
+      case MenuType.Messaging:
+        this.showMsg.emit(true);
+        break;
       default:
         this.router.navigate([RouteConstants.DashboardRoute]);
         break;
@@ -176,6 +220,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.FleetReport:
         selectedType = MenuType.FleetReport;
+        break;
+      case RouteConstants.ULDMaster:
+        selectedType = MenuType.ULDMaster;
         break;
     }
     return selectedType;

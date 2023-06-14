@@ -67,7 +67,7 @@
                 </table>
                 <div class="not-available" *ngIf="totalCount == 0">
                     <img src="./assets/images/no-data.png" alt="No Content Data">
-                    <div>AWB stock not available.</div>
+                    <div>AWB stocks not available.</div>
                 </div>
                 <div class="d-flex align-items-center justify-content-center" *ngIf="totalCount > 0">
                     <app-pager [pageSize]="awbStackFilterQuery?.pageSize" [pageNumber]="awbStackFilterQuery?.pageIndex"

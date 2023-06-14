@@ -16,9 +16,6 @@ import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/a
 })
 export class AircraftListComponent implements OnInit {
 
-  regNumber?: string;
-  selectedAircraftType?: number;
-  selectedActiveType?: number;
   totalCount: number = 0;
   modalVisible = false;
   modalVisibleAnimate = false;
@@ -50,9 +47,6 @@ export class AircraftListComponent implements OnInit {
 
   getAircraftList() {
     this.isLoading=true;
-    this.aircraftFilterQuery.regNo = this.regNumber;
-    this.aircraftFilterQuery.aircraftType = this.selectedAircraftType;
-    this.aircraftFilterQuery.activeType = this.selectedActiveType;
     this.aircraftService.getFilteredList(this.aircraftFilterQuery).subscribe(
       {
         next: (res) => {
@@ -101,23 +95,23 @@ export class AircraftListComponent implements OnInit {
   }
 
   selectedAircraft(value: any) {
-    this.selectedAircraftType = Number(value.id);
+    this.aircraftFilterQuery.aircraftType= Number(value.id);
   }
 
   onClearAircraft() {
-    this.selectedAircraftType = undefined;
+    this.aircraftFilterQuery.aircraftType = undefined;
   }
 
   selectedActive(value: any) {
-    this.selectedActiveType = Number(value.id);
+    this.aircraftFilterQuery.activeType = Number(value.id);
   }
 
   onClearActive() {
-    this.selectedActiveType = undefined;
+    this.aircraftFilterQuery.activeType = undefined;
   }
 
   onChangeFilterFrm(event: any) {
-    if (this.regNumber !== undefined && this.regNumber !== "") {
+    if (this.aircraftFilterQuery.regNo !== undefined && this.aircraftFilterQuery.regNo !== "") {
       this.filterFormHasValue = true;
     } else {
       this.filterFormHasValue = false;
@@ -125,12 +119,13 @@ export class AircraftListComponent implements OnInit {
   }
 
   clearFilter() {
-    this.regNumber = undefined;
+    this.aircraftFilterQuery.regNo= undefined;
     this.aircraftTypeDropdown.clear();
     this.activeTypeDropdown.clear();
     this.onClearActive();
     this.onClearAircraft();
     this.filterFormHasValue = false;
+    this.getAircraftList();
   }
 
   GetAircraftType(type: number) {

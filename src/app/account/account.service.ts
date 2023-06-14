@@ -61,6 +61,14 @@ export class AccountService  extends BaseService {
     this.router.navigate(['/account']);
   }
 
+  verifyLogin(){
+    const userValue = localStorage.getItem('user');
+    if (userValue && userValue != "null") {
+      return true;
+    }
+    return false;
+  }
+
   setCurrentUser(user: User) {
     this.startRefreshTokenTimer(user);
     var enriptedUser = this.cryptoService.encrypt(JSON.stringify(user));

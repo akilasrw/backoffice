@@ -72,9 +72,9 @@
             <button class="btn btn-primary" type="button" (click)="viewAssignBooking()">Update Information</button>
         </div>
         <div class="booking-summary">
-            <app-al-b737400-type-one [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
-            <app-al-b737800-type-one [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737800TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737800-type-one>
-            <app-al-b737300-type-one [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737300TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737300-type-one>
+            <app-al-b737400-type-one [isCreated]="isAircfatCreated" [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737400TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737400-type-one>
+            <app-al-b737800-type-one [isCreated]="isAircfatCreated" [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737800TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737800-type-one>
+            <app-al-b737300-type-one [isCreated]="isAircfatCreated" [cargoPositions]="this.cargoBookingSummary?.cargoPositions" *ngIf="this.cargoBookingSummary?.aircraftSubType == aircraftSubTypes.B737300TypeOne"  (ULDClick)="onULDClick($event)"></app-al-b737300-type-one>
         </div>
     </div>
 

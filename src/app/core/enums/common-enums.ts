@@ -14,7 +14,10 @@ export enum MenuType {
   Notification=12,
   MasterSchedule=13,
   LinkAircraft=14,
-  FleetReport=15
+  FleetReport=15,
+  ULDMaster=16,
+  StandByCargo=17,
+  Messaging=18
 }
 
 export enum SectorType {
@@ -115,6 +118,15 @@ export enum BookingStatus {
   Exported = 60
 }
 
+export enum VerifyStatus {
+  None = 0,
+  ActualLoad = 1,
+  OffLoad = 2,
+  Dispatched = 3,
+  Deleted = 4,
+  CargoNotDispatched = 5
+}
+
 export enum AWBNumberStatus {
   None = 0,
   All = 1,
@@ -157,3 +169,65 @@ export enum MasterSheduleReportType {
   IdleTimeReport = 1,
   Running = 2
 }
+
+export enum RateType{
+  None=0,
+  SpotRate =1,
+  PromotionalRate=2,
+  ContractRate=3,
+  MarketPublishRate=4
+}
+
+export enum CargoType{
+  None=0,
+  General =1,
+}
+export enum AssignAircraftViewType {
+  None = 0,
+  History = 1,
+  UpcomingFlight =2
+}
+
+export enum RateViewType{
+  None=0,
+  Rate =1,
+  Other=2,
+}
+
+export enum StandByCargoType {
+  None = 0,
+  NotReceived = 1,
+  Offload = 2
+}
+
+export enum ULDType
+{
+    None = 0,
+    Pallet = 1,
+    Container = 2
+}
+
+export enum ULDOwnershipType
+{
+    None = 0,
+    OwnByAirline = 1,
+    Other = 2
+}
+
+export enum ULDLocateStatus
+{
+    None = 0,
+    OnGround = 1,
+    OnBoard = 2,
+    Maintenance = 3,
+    Lend = 4,
+}
+
+export enum VerifyInputBase
+{
+  None = 0,
+  FromHistory = 1,
+  FromUpcoming = 2
+}
+
+

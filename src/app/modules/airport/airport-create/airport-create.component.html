@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Country</label>
+                    <label class="form-label">Country<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="countryList" [keyword]="keyword" [selectedIndex]="editCountryIndex"
                         (selectFileOutput)="selectedCountry($event)" (clearSearch)="onClearCountry()" [tabindex]="1"></app-auto-complete-dropdown>
                 </div>
@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Airport Name</label>
+                    <label class="form-label">Airport Name<span class="compulsory">*</span></label>
                     <app-text-input [formControl]='airportForm.controls["name"]' type="text" [label]='"airport name."'[tabindex]="2">
                     </app-text-input>
                 </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Airport Code</label>
+                    <label class="form-label">Airport Code<span class="compulsory">*</span></label>
                     <app-text-input [formControl]='airportForm.controls["code"]' type="text" [label]='"airport code."'[tabindex]="3">
                     </app-text-input>
                 </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Latitude</label>
+                    <label class="form-label">Latitude<span class="compulsory">*</span></label>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Longitude</label>
+                    <label class="form-label">Longitude<span class="compulsory">*</span></label>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

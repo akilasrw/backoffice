@@ -1,110 +1,141 @@
 <div class="modal-body">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group" *ngIf="!isLoading">
-                <label class="form-label">Cargo Agent</label>
-                <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
-                    (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
-                </app-auto-complete-dropdown>
+    <form [formGroup]='rateForm' (submit)="addRate()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Rate Type<span class="compulsory">*</span></label>
+                    <app-auto-complete-dropdown [data]="rateTypes" [keyword]="keyword" #autoCompleteRateType
+                        (selectFileOutput)="selectedRateType($event)" (clearSearch)="onClearRateType()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
             </div>
-            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            <div class="col-md-4" *ngIf="rateForm.value.rateType != rateType.MarketPublishRate ">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Cargo Agent<span class="compulsory">*</span></label>
+                    <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword" #autoCompleteCargoAgent
+                        (selectFileOutput)="selectedCargoAgent($event)" (clearSearch)="onClearCargoAgent()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Cargo Type<span class="compulsory">*</span></label>
+                    <app-auto-complete-dropdown [data]="cargoTypes" [keyword]="keyword" #autoCompleteCargoType
+                        (selectFileOutput)="selectedCargoType($event)" (clearSearch)="onClearCargoType()">
+                    </app-auto-complete-dropdown>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
         </div>
-        <form [formGroup]='rateForm' (submit)="addRate()">
-            <div class="col-md-12">
-                <div class="add-rate-section">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group" *ngIf="!isLoading">
-                                <label class="form-label">Origin</label>
-                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
-                                    #autoCompleteOrigin (selectFileOutput)="selectedOrigin($event)"
-                                    (changeSearch)="onClearOrigin()" (clearSearch)="onClearOrigin()">
-                                </app-auto-complete-dropdown>
-                            </div>
-                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+        <div class="col-md-12">
+            <div class="add-rate-section">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Origin<span class="compulsory">*</span></label>
+                            <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" #autoCompleteOrigin
+                                (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
+                                (clearSearch)="onClearOrigin()">
+                            </app-auto-complete-dropdown>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group" *ngIf="!isLoading">
-                                <label class="form-label">Destination</label>
-                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
-                                    #autoCompleteDestination (selectFileOutput)="selectedDestination($event)"
-                                    (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
-                                </app-auto-complete-dropdown>
-                            </div>
-                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group" *ngIf="!isLoading">
-                                <label class="form-label">Valid Start Date</label>
-                                <input type="text" [formControl]='rateForm.controls["startDate"]'
-                                    class="form-control" bsDatepicker [minDate]="startMinDate" placement="auto">
-                            </div>
-                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group" *ngIf="!isLoading">
-                                <label class="form-label">Valid End Date</label>
-                                <input type="text" [formControl]='rateForm.controls["endDate"]'
-                                    class="form-control" bsDatepicker [minDate]="endMinDate" placement="auto">
-                            </div>
-                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
-                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
                     </div>
-                    <div>Add rate classes and rates</div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row pt-3">
-                                <div class="col-md-1" *ngFor="let rateItem of agentRates.controls">
-                                    <div [formGroup]="rateItem">
-                                        <div class="form-group">
-                                            <label
-                                                class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
-                                            <app-value-input formControlName="rate" [label]='"rate"' >
-                                            </app-value-input>
-                                        </div>
+                    <div class="col-md-4">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Destination<span class="compulsory">*</span></label>
+                            <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
+                                #autoCompleteDestination (selectFileOutput)="selectedDestination($event)"
+                                (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">
+                            </app-auto-complete-dropdown>
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Valid Start Date<span class="compulsory">*</span></label>
+                            <input type="text" [formControl]='rateForm.controls["startDate"]' class="form-control"
+                                bsDatepicker [minDate]="startMinDate" placement="auto">
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" *ngIf="!isLoading">
+                            <label class="form-label">Valid End Date<span class="compulsory">*</span></label>
+                            <input type="text" [formControl]='rateForm.controls["endDate"]' class="form-control"
+                                bsDatepicker [minDate]="endMinDate" placement="auto">
+                        </div>
+                        <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                    </div>
+                </div>
+                <div>Add rate classes and rates</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row pt-3">
+                            <div class="col-md-1" *ngFor="let rateItem of agentRates.controls">
+                                <div [formGroup]="rateItem">
+                                    <div class="form-group">
+                                        <label
+                                            class="form-label">{{GetWeightType(rateItem.controls['weightType'].value)}}</label>
+                                        <app-value-input formControlName="rate" [label]='"rate"'>
+                                        </app-value-input>
                                     </div>
                                 </div>
-                                <div class="text-end">
-                                    <button type="button" style="margin-right: 5px;" class="btn btn-secondary-outline" (click)="clearFields($event)"> Clear</button>
-                                    <button type="submit" class="btn btn-primary-outline">Add Rate</button>
-                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button type="button" style="margin-right: 5px;" class="btn btn-secondary-outline"
+                                    (click)="clearFields($event)"> Clear</button>
+                                <button type="submit" class="btn btn-primary-outline">Add Rate</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-        <div class="row">
-            <div class="add-rate-table table-content form-group">
-                <table class="table table-responsive">
-                    <thead>
-                        <th>Origin</th>
-                        <th>Destination</th>
-                        <th>Start date</th>
-                        <th>End date</th>
-                        <th>M</th>
-                        <th>-45K</th>
-                        <th>+45K</th>
-                        <th>+100K</th>
-                        <th>+300K</th>
-                        <th>+500K</th>
-                        <th>+1000K</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of this.agentRateManagements">
-                            <td>{{item.originAirportCode}}</td>
-                            <td>{{item.destinationAirportCode}}</td>
-                            <td>{{item.startDate| date}}</td>
-                            <td>{{item.endDate| date}}</td>
-                            <td *ngFor="let rateItem of item.agentRates">{{rateItem.rate}}</td>
-                            <td>
-                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="add-rate-table table-content form-group">
+            <table class="table table-responsive">
+                <thead>
+                    <th>Rate Type</th>
+                    <th>Cargo Agent</th>
+                    <th>Cargo Type</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>M</th>
+                    <th>-45K</th>
+                    <th>+45K</th>
+                    <th>+100K</th>
+                    <th>+300K</th>
+                    <th>+500K</th>
+                    <th>+1000K</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of this.agentRateManagements;let indexOfElement =index">
+
+                        <td>{{GetRateType(item.rateType)}}</td>
+                        <td>{{item.cargoAgentName}}</td>
+                        <td>{{GetCargoType(item.cargoType)}}</td>
+                        <td>{{item.originAirportCode}}</td>
+                        <td>{{item.destinationAirportCode}}</td>
+                        <td>{{item.startDate| date}}</td>
+                        <td>{{item.endDate| date}}</td>
+                        <td *ngFor="let rateItem of item.agentRates;let indexOfRate =index">{{rateItem.rate}}</td>
+                        <td>
+                            <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item)"></i>
+                            <label class="switch">
+                                <input type="checkbox" [(ngModel)]="item.isActive" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

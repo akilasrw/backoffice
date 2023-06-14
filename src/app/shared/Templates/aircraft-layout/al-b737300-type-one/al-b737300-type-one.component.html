@@ -8,7 +8,7 @@
                     <div class="flight-class">Economy</div>
                     <div class="body-seat" (click)="onULDClick(1)" (mouseleave)="leave()" (mouseover)="over(1)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==1" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==1 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P1</div>
                         </div>
@@ -16,21 +16,21 @@
                     <div class="block-1 exit"><img src="/assets/images/flight-icons/flight-exit.svg"></div>
                     <div class="body-seat" (click)="onULDClick(2)" (mouseleave)="leave()" (mouseover)="over(2)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==2" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==2 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P2</div>
                         </div>
                     </div>
                     <div class="body-seat" (click)="onULDClick(3)" (mouseleave)="leave()" (mouseover)="over(3)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==3" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==3 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P3</div>
                         </div>
                     </div>
                     <div class="body-seat" (click)="onULDClick(4)" (mouseleave)="leave()" (mouseover)="over(4)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==4" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==4 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P4</div>
                         </div>
@@ -38,28 +38,28 @@
                     <div class="block-1 exit"><img src="/assets/images/flight-icons/flight-exit.svg"></div>
                     <div class="body-seat" (click)="onULDClick(5)" (mouseleave)="leave()" (mouseover)="over(5)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==5" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==5 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P5</div>
                         </div>
                     </div>
                     <div class="body-seat" (click)="onULDClick(6)" (mouseleave)="leave()" (mouseover)="over(6)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==6" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==6 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P6</div>
                         </div>
                     </div>
                     <div class="body-seat" (click)="onULDClick(7)" (mouseleave)="leave()" (mouseover)="over(7)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==7" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==7 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P7</div>
                         </div>
                     </div>
                     <div class="body-seat" (click)="onULDClick(8)" (mouseleave)="leave()" (mouseover)="over(8)">
                         <div class="seat-row">
-                          <app-uld-info *ngIf="this.selectedPosition==8" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
+                          <app-uld-info *ngIf="this.selectedPosition==8 && !isCreated" [selectedCargoPosition]="selectedCargoPosition"></app-uld-info>
                             <div class="freighter-block"></div>
                             <div class="sr-number">P8</div>
                         </div>

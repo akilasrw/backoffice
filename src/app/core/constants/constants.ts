@@ -1,5 +1,5 @@
 export class Constants{
-    public static get LANGUAGE(): string { return "UserSelectedLanguage"; };  
+    public static get LANGUAGE(): string { return "UserSelectedLanguage"; };
 }
 
 export class RouteConstants{
@@ -20,4 +20,6 @@ export class RouteConstants{
     public static MasterSchedule: string = "master-schedule";
     public static LinkAircraft: string="link-aircraft";
     public static FleetReport: string="fleet-report";
+    public static ULDMaster: string="uld-master";
+    public static StandByCargo: string="booking-summary/stand-by-cargo";
   }

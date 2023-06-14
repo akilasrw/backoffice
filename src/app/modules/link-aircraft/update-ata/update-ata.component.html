@@ -1,0 +1,11 @@
+<form (ngSubmit)="saveATA()">
+  <div class="modal-body">
+      <app-text-input [formControl]='ataForm.controls["actualArrivalDateTime"]' type="time" [label]='"ATA"'[tabindex]="1">
+      </app-text-input>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</form>
+

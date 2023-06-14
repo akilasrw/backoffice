@@ -15,9 +15,9 @@ export class CargoAgentService extends BaseService {
 
   private readonly endpointEntityName = 'CargoAgent';
   private readonly getSelectListEndpoint = `${this.endpointEntityName}/getSelectList`;
+  private readonly getListEndpoint = `${this.endpointEntityName}/getList`;
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
   private readonly statusUpdateEndpoint = `${this.endpointEntityName}/StatusUpdate`;
-
 
   constructor(http: HttpClient){super(http)}
 
@@ -49,6 +49,10 @@ export class CargoAgentService extends BaseService {
 
   statusUpdate(statusUpdateRM: CargoAgentStatusUpdateRM){
     return this.put<any>(this.statusUpdateEndpoint, statusUpdateRM);
+  }
+
+  getList() {
+    return this.get<any>(this.getListEndpoint);
   }
 
 }

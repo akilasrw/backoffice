@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from './account/account.service';
 import { Constants } from './core/constants/constants';
 import { CryptoService } from './core/services/crypto.service';
 import { User } from './_models/user.model';
+import { UserConversation } from './_models/view-models/chatting/user-conversation.model';
+import { ChatListComponent } from './modules/chatting/chat-list/chat-list.component';
 
 
 @Component({
@@ -14,10 +16,17 @@ import { User } from './_models/user.model';
 export class AppComponent implements OnInit{
   title = 'aeroclub cargo backoffice client';
   isLoaded = false;
-  public showCollapseMenu:boolean=false;
+  public showCollapseMenu:boolean=true;
   notificationModalVisible = false;
   notificationModalVisibleAnimate = false;
+  chatModalVisible = false;
+  chatModalVisibleAnimate = false;
+  chatCreateModalVisible = false;
+  chatCreateModalVisibleAnimate = false;
+  currentUserConversation?: UserConversation;
+  isNewChat: boolean = false;
 
+  @ViewChild(ChatListComponent) child:any;
 
   constructor(
     public translate: TranslateService,
@@ -54,8 +63,8 @@ export class AppComponent implements OnInit{
     this.isLoaded = true;
   }
 
-  hideMenu(valu:any){
-    this.showCollapseMenu=valu;
+  hideMenu(value:any){
+    this.showCollapseMenu=value;
   }
 
   showNotificationModal(value:any){
@@ -67,4 +76,35 @@ export class AppComponent implements OnInit{
     this.notificationModalVisibleAnimate = false;
     setTimeout(() => (this.notificationModalVisible = false), 300);
   }
+
+  showChatBox(val: any) {
+    this.chatModalVisible = true;
+    setTimeout(() => (this.chatModalVisibleAnimate = true));
+  }
+
+  showMsgCreatePopup(event: any) {
+    this.isNewChat = false;
+    this.currentUserConversation = event;
+    this.chatCreateModalVisible= true;
+    setTimeout(() => (this.chatCreateModalVisibleAnimate = true));
+  }
+
+  showNewChatPopup(){
+    this.isNewChat = true;
+    this.currentUserConversation = undefined;
+    this.chatCreateModalVisible= true;
+    setTimeout(() => (this.chatCreateModalVisibleAnimate = true));
+  }
+
+  cancelchatModal() {
+    this.chatModalVisibleAnimate = false;
+    setTimeout(() => (this.chatModalVisible = false), 300);
+  }
+
+  closeChatCreate() {
+    this.chatCreateModalVisibleAnimate = false;
+    setTimeout(() => (this.chatCreateModalVisible = false), 300);
+    this.child.initializeChat();
+  }
+
 }

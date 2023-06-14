@@ -1,3 +1,4 @@
+import { UldMasterModule } from './modules/uld-master/uld-master.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
@@ -24,8 +25,8 @@ const routes: Routes = [
   { path: RouteConstants.MasterSchedule, loadChildren: ()=> import('./modules/master-schedule/master-schedule.module').then(mod => mod.MasterScheduleModule),canActivate: [AuthGuard]},
   { path: RouteConstants.LinkAircraft, loadChildren: ()=> import('./modules/link-aircraft/link-aircraft.module').then(mod => mod.LinkAircraftModule),canActivate: [AuthGuard]},
   { path: RouteConstants.FleetReport, loadChildren: ()=> import('./modules/fleet-report/fleet-report.module').then(mod => mod.FleetReportModule),canActivate: [AuthGuard]},
-
-
+  { path: RouteConstants.ULDMaster, loadChildren: ()=> import('./modules/uld-master/uld-master.module').then(mod => mod.UldMasterModule),canActivate: [AuthGuard]},
+  { path: 'message', loadChildren: () => import('./modules/chatting/chatting.module').then(mod => mod.ChattingModule), canActivate: [AuthGuard] },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
 ];

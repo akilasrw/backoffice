@@ -1,37 +1,196 @@
-<div class="modal-body">
-    <div>
-        You can add or edit Aircraft for specific date.
+<div class="modal-body" [formGroup]='linkAircraftForm'>
+  <div class="row">
+    <div class="col-6">Change Aircraft Type</div>
+    <div class="col-6">
+        <label class="switch">
+          <input type="checkbox" disabled>
+          <span class="slider round"></span>
+      </label>
     </div>
-    <div class="row">
-        <div class="table-content" *ngIf="!isLoading" >
-            <div class="">
-                <table class="table">
-                    <thead>
-                        <th>Scheduled Date</th>
-                        <th class="text-end pe-5">Aircraft Reg. Number</th>
-                    </thead>
-                    <tbody *ngIf="flightSchedules">
-                        <tr *ngFor="let f of flightSchedules">
-                            <td>{{f.scheduledDepartureDateTime | date}}</td>
-                            <td class="filter-wrapper d-flex justify-content-end">
-                                <div class="filter-group ms-0" *ngIf="!isTextLoading">
-                                    <app-auto-complete-dropdown [data]="f?.aircraftList" [keyword]="keyword" [selectedIndex]="f?.editAircraftIndex"
-                                      (selectFileOutput)="selectedAircraft($event, f)" (changeSearch)="onClearAircraft()"
-                                      (clearSearch)="onClearAircraft()" [tabindex]="1">
-                                    </app-auto-complete-dropdown>
-                                </div>
-                                <app-text-input-loader *ngIf="isTextLoading"></app-text-input-loader>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+  </div>
+  <div style="margin-top: 20px;">
+
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Flight Number</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["flightNumber"]' [textBoxDisabled]="true"
+        [label]='"Flight Number"' type="text" [tabindex]="1">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Aircraft Type</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["aircraftSubTypeName"]' [textBoxDisabled]="true"
+        [label]='"Aircraft Type"' type="text" [tabindex]="2">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group" *ngIf="!isLoading">
+        <label class="form-label">Acreg</label>
+        <app-auto-complete-dropdown [data]="aircraftList" [keyword]="keyword" [selectedIndex]="editAircraftIndex" #autoCompleteAircraft
+        (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()" [isDisabled]="aircraftInputDisable"
+        (clearSearch)="onClearAircraft()" [tabindex]="3">
+      </app-auto-complete-dropdown>
+      </div>
+      <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Dep. Date</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["scheduledDepartureDate"]' [textBoxDisabled]="true"
+        [label]='"scheduledDepartureDate"' type="text" [tabindex]="4">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Origin</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["originAirportName"]' [textBoxDisabled]="true"
+        [label]='"Origin Airport"' type="text" [tabindex]="5">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Destination</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["destinationAirportName"]' [textBoxDisabled]="true"
+        [label]='"Destination Airport"' type="text" [tabindex]="6">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">STD</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["scheduledDepartureDateTime"]' [textBoxDisabled]="true"
+        [label]='"Scheduled Departure Time"' type="text" [tabindex]="7">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">STA</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["scheduledArrivalDateTime"]' [textBoxDisabled]="true"
+        [label]='"Scheduled Arrival Time"' type="text" [tabindex]="8">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.selectedFlightScheduleLink?.stepCount == 1">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">ETD<span class="compulsory">*</span></label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["estimatedDepartureDateTime"]'
+        [label]='"Estimated Departure Time"' type="time" [tabindex]="9">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">ETA<span class="compulsory">*</span></label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["estimatedArrivalDateTime"]'
+        [label]='"Estimated Arrival Time"' type="time" [tabindex]="10">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.selectedFlightScheduleLink?.stepCount == 2">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">ATD</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["actualDepartureDateTime"]'
+        [label]='"Actual Departure Time"' type="time" [tabindex]="11">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Assign Status</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["assignStatus"]' [textBoxDisabled]="true"
+        [label]='"Assign Status"' type="text" [tabindex]="10">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="booking-status-section">
+    <div class="booking-status">
+      <div>Pre Bookings</div>
+      <span class="assign-aircraft-status-chip" [ngClass]="{'assign': isVerifiedBooking== true, 'notassign': isVerifiedBooking == false}">{{isVerifiedBooking== true? 'Verified':'Not Verify'}}</span>
+    </div>
+    <div class="view-booking-link" (click)="viewBooking()">View Bookings</div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Off Load</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["offLoad"]'  [textBoxDisabled]="true"
+        [label]='"Off Load"' type="text" [tabindex]="11">
+        </app-text-input>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group"  *ngIf="this.selectedFlightScheduleLink?.stepCount == 2">
+        <label class="form-label">Actual load</label>
+        <app-text-input
+        [formControl]='linkAircraftForm?.controls["actualLoad"]'  [textBoxDisabled]="true"
+        [label]='"actualLoad"' type="text" [tabindex]="12">
+        </app-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.selectedFlightScheduleLink?.stepCount == 2">
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Dispatch</label>
+        <div class="d-flex align-items-center">
+          <div class="cu-check pe-5">
+            <label class="cu-checkbox">Yes
+              <input name="dispatch" type="radio" checked="checked" formControlName="dispatch" [value]="1">
+              <span class="checkmark cu-radio"></span>
+            </label>
+          </div>
+          <div class="cu-check">
+            <label class="cu-checkbox">No
+              <input name="dispatch" type="radio" formControlName="dispatch" [value]="0">
+              <span class="checkmark cu-radio"></span>
+            </label>
+          </div>
         </div>
-        <app-table-loader [columnCount]="2" [rowCount]="flightSchedules.lenght" *ngIf="isLoading">
-        </app-table-loader>
+      </div>
     </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="form-label">Document Upload </label>
+        <div class="file-upload">
+          <input type="file" accept=".pdf" (change)="onFileSelected($event)">
+          <span class="ca ca-icn-add" title="Add"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary me-3" (click)="close()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save and Next</button>
 </div>

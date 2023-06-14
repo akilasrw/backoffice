@@ -1,0 +1,188 @@
+<form [formGroup]='uldForm' (ngSubmit)="saveULDDetails()">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="lable mb-3">ULD Type</div>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Pallet
+                            <input type="radio" checked="checked" formControlName="uLDType" [value]="ULDType.Pallet"
+                                (change)="onChangeULDType()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Container
+                            <input type="radio" formControlName="uLDType" [value]="ULDType.Container"
+                                (change)="onChangeULDType()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">ULD Number</label>
+                    <app-text-input [formControl]='uldForm.controls["serialNumber"]' type="text" [label]='"ULD number"' [textBoxDisabled]="isEditULD"
+                        [tabindex]="1">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-12">
+                <div class="lable mb-3">ULD Ownership</div>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Own By Airline
+                            <input type="radio" checked="checked" formControlName="uLDOwnershipType" [value]="ULDOwnershipType.OwnByAirline"
+                            (change)="onChangeULDOwnershipType($event)">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-5">
+                        <label class="cu-checkbox">Other
+                            <input type="radio" formControlName="uLDOwnershipType" [value]="ULDOwnershipType.Other"
+                                (change)="onChangeULDOwnershipType($event)">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedULDOwnershipType == ULDOwnershipType.Other" class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Airline Code</label>
+                    <app-text-input [formControl]='uldForm.controls["ownerAirlineCode"]' type="text"
+                        [label]='"Airline code"' [tabindex]="2">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="form-group mb-0">
+                            <label class="form-label">Dimensions (L x W x H)<span class="compulsory">*</span></label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["length"]' type="number" [label]='"length."' [textBoxDisabled]="isEditULD"
+                                    [tabindex]="4">
+                                </app-text-input>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["width"]' type="number" [label]='"width."' [textBoxDisabled]="isEditULD"
+                                    [tabindex]="5">
+                                </app-text-input>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" *ngIf="!isLoading">
+                                <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["height"]'   type="number" [label]='"height."' [textBoxDisabled]="isEditULD"
+                                    [tabindex]="6">
+                                </app-text-input>
+                            </div>
+                            <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group" *ngIf="!isLoading">
+                        <label class="form-label">Volume Unit</label>
+                        <select name="unit" class="form-control"[formControl]='uldForm.get("uLDMetaData")?.controls["volumeUnitId"]'>
+                            <option *ngFor="let unit of volumeUnits" [ngValue]="unit.id">
+                                {{unit.name}}</option>
+                        </select>
+                    </div>
+                    <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Weight<span class="compulsory">*</span></label>
+                    <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["weight"]'  type="number" [label]='"weight."'
+                        [tabindex]="8">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Max Weight<span class="compulsory">*</span></label>
+                    <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["maxWeight"]'  type="number" [label]='"maxWeight."'
+                        [tabindex]="9">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Weight Unit</label>
+                    <select name="unit" class="form-control" [formControl]='uldForm.get("uLDMetaData")?.controls["weightUnitId"]'>
+                        <option *ngFor="let unit of weightUnits" [ngValue]="unit.id">
+                            {{unit.name}}</option>
+                    </select>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group" *ngIf="!isLoading">
+                  <label class="form-label">Max Volume (M3)<span class="compulsory">*</span></label>
+                  <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["maxVolume"]'  type="number" [label]='"maxVolume."'
+                      [tabindex]="10">
+                  </app-text-input>
+              </div>
+              <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+          </div>
+            <div class="col-md-12">
+                <div class="lable mb-3">Status</div>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="cu-check pe-4">
+                        <label class="cu-checkbox">On-Ground
+                            <input type="radio" checked="checked" formControlName="uLDLocateStatus"
+                                [value]="ULDLocateStatus.OnGround" (change)="onChangeULDStatus()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-4">
+                        <label class="cu-checkbox">On-Board
+                            <input type="radio" formControlName="uLDLocateStatus" [value]="ULDLocateStatus.OnBoard"
+                                (change)="onChangeULDStatus()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-4">
+                        <label class="cu-checkbox">Maintenance
+                            <input type="radio" formControlName="uLDLocateStatus" [value]="ULDLocateStatus.Maintenance"
+                                (change)="onChangeULDStatus()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                    <div class="cu-check pe-4">
+                        <label class="cu-checkbox">Lend
+                            <input type="radio" formControlName="uLDLocateStatus" [value]="ULDLocateStatus.Lend"
+                                (change)="onChangeULDStatus()">
+                            <span class="checkmark cu-radio"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedULDStatus == ULDLocateStatus.Lend " class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Lend Airline Code</label>
+                    <app-text-input [formControl]='uldForm.controls["lendAirlineCode"]' type="text"
+                        [label]='"Lend airline code"' [tabindex]="11">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">{{this.isEditULD== true?'Update':'Save'}}</button>
+    </div>
+</form>

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Reg Number</label>
+                    <label class="form-label">Reg Number<span class="compulsory">*</span></label>
                     <app-text-input [formControl]='aircraftForm.controls["regNo"]' type="text"
                         [label]='"registration number."' [tabindex]="1" [textBoxDisabled]="isEditAircraft">
                     </app-text-input>
@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Config</label>
+                    <label class="form-label">Config<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="configTypes" [keyword]="keyword"
                         [selectedIndex]="editConfigTypeIndex" (selectFileOutput)="selectedConfigType($event)"
                         (changeSearch)="onClearConfigType()" (clearSearch)="onClearConfigType()" [tabindex]="3">
@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-12" *ngIf="this.selectedConfigurationType != aircraftConfigType.None">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Aircraft Type</label>
+                    <label class="form-label">Aircraft Type<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="aircraftTypes" [keyword]="keyword"
                         [selectedIndex]="editAircraftTypeIndex" (selectFileOutput)="selectedAircraftType($event)"
                         (changeSearch)="onClearAircraftType()" (clearSearch)="onClearAircraftType()" [tabindex]="2">
@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-12" *ngIf="this.aircraftSubTypes?.length >0">
                 <div class="form-group" *ngIf="!isLoading">
-                    <label class="form-label">Select Aircraft Sub Type</label>
+                    <label class="form-label">Select Aircraft Sub Type<span class="compulsory">*</span></label>
                     <div class="drawer-chip">
                         <div *ngFor="let subType of this.aircraftSubTypes">
                             <div class="chip" [ngClass]="{'active': subType.isSelected}">
@@ -53,7 +53,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="form-group" *ngIf="!isLoading">
-                            <label class="form-label">Status </label>
+                            <label class="form-label">Status <span class="compulsory">*</span></label>
                             <app-auto-complete-dropdown [data]="statusTypes" [keyword]="keyword"
                                 [selectedIndex]="editStatusTypeIndex" (selectFileOutput)="selectedStatusType($event)"
                                 (changeSearch)="onClearStatusType()" (clearSearch)="onClearStatusType()" [tabindex]="4">
@@ -88,19 +88,19 @@
                     <div class="col-md-4">
                         <label class="form-label">A Check (Hrs) </label>
                         <div class="form-group">
-                            <input  [formControl]='aircraftForm.controls["aCheck"]' type="number" class="form-control">
+                            <app-text-input  [formControl]='aircraftForm.controls["aCheck"]' type="number"></app-text-input>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">B Check (Hrs) </label>
                         <div class="form-group">
-                            <input  [formControl]='aircraftForm.controls["bCheck"]' type="number" class="form-control">
+                            <app-text-input  [formControl]='aircraftForm.controls["bCheck"]' type="number"></app-text-input>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">C Check (Hrs) </label>
                         <div class="form-group">
-                            <input  [formControl]='aircraftForm.controls["cCheck"]' type="number" class="form-control">
+                            <app-text-input  [formControl]='aircraftForm.controls["cCheck"]' type="number"></app-text-input>
                         </div>
                     </div>
                 </div>

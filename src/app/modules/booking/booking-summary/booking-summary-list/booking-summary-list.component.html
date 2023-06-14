@@ -16,7 +16,7 @@
                             (change)="onChangeFilterFrm($event)">
                     </div>
                     <div class="filter-group">
-                        <label class="form-label">Flight Date</label>
+                        <label class="form-label">Departure Date</label>
                         <input [(ngModel)]="flightDate" type="text" class="form-control" bsDatepicker
                             (change)="onChangeFilterFrm($event)">
                     </div>
@@ -33,21 +33,27 @@
                 <table class="table table-responsive">
                     <thead>
                         <th>Flight Number</th>
-                        <th>Aircraft Reg</th>
+                        <th>Departure Date</th>
+                        <th>Departure Time</th>
+                        <th>Cut off Time (Min.)</th>
                         <th>Origin</th>
                         <th>Destination</th>
-                        <th>Departure Date</th>
-                        <th>Aircraft Config</th>
+                        <th>Aircraft Type</th>
+                        <th>Total Booked Weight(Kg)</th>
+                        <th>Total Booked Volume(m3)</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of this.bookingSummarys">
                             <td>{{item.flightNumber}}</td>
-                            <td>{{item.aircraftRegNo}}</td>
-                            <td>{{item.originAirportName}}</td>
-                            <td>{{item.destinationAirportName}}</td>
                             <td>{{item.scheduledDepartureDateTime | date}}</td>
-                            <td>{{GetAircraftConfigType(item.aircraftConfigurationType)}}</td>
+                            <td>{{item.scheduledDepartureDateTime | date :'shortTime'}}</td>
+                            <td>{{item.cutoffTimeMin? item.cutoffTimeMin: 0}}</td>
+                            <td>{{item.originAirportCode}}</td>
+                            <td>{{item.destinationAirportCode}}</td>
+                            <td>{{item.aircraftSubTypeName}}</td>
+                            <td>{{item.totalBookedWeight}}</td>
+                            <td>{{convertcm3Tom3(item.totalBookedVolume)}}</td>
                             <td>
                                 <i class="ca ca-icn-view" title="View" (click)="onViewDetail(item)"></i>
                             </td>

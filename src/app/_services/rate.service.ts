@@ -16,6 +16,7 @@ export class RateService extends BaseService{
 
   private readonly endpointEntityName = 'AgentRateManagement';
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
+  private readonly activeStatusUpdateEndpoint = `${this.endpointEntityName}/UpdateActiveStatus`;
 
   constructor(http: HttpClient) { super(http)}
 
@@ -41,6 +42,11 @@ export class RateService extends BaseService{
   update(agentRateManagementRM: AgentRateManagementRM){
     return this.put<any>(this.endpointEntityName, agentRateManagementRM);
   }
+
+  updateActiveStatus(agentRateManagementRM: AgentRateManagementRM){
+    return this.put<any>(this.activeStatusUpdateEndpoint, agentRateManagementRM);
+  }
+  
 
   getFilteredList(query: AgentRateFilterQuery) {
     var params = new HttpParams();

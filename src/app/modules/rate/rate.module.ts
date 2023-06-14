@@ -8,6 +8,10 @@ import { RateCreateComponent } from './rate-create/rate-create.component';
 import { RateDetailComponent } from './rate-detail/rate-detail.component';
 import { RateUpdateComponent } from './rate-update/rate-update.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { OtherChargesComponent } from './other-charges/other-charges.component';
+import { OtherChargesCreateComponent } from './other-charges-create/other-charges-create.component';
+import { OtherChargesUpdateComponent } from './other-charges-update/other-charges-update.component';
+import { RateMasterViewComponent } from './rate-master-view/rate-master-view.component';
 
 
 @NgModule({
@@ -15,7 +19,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     RateListComponent,
     RateCreateComponent,
     RateDetailComponent,
-    RateUpdateComponent
+    RateUpdateComponent,
+    OtherChargesComponent,
+    OtherChargesCreateComponent,
+    OtherChargesUpdateComponent,
+    RateMasterViewComponent
   ],
   imports: [
     CommonModule,
