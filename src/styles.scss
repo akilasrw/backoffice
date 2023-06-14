@@ -325,19 +325,23 @@ a {
         -ms-user-select: none;
         user-select: none;
         display: inline-block;
+
         input {
             position: absolute;
             opacity: 0;
             cursor: pointer;
             height: 0;
             width: 0;
-            &:checked ~ .checkmark {
+
+            &:checked~.checkmark {
                 background-color: $brand-primary;
             }
-            &:checked ~ .checkmark:after {
+
+            &:checked~.checkmark:after {
                 display: block;
             }
         }
+
         .checkmark {
             &:after {
                 left: 0.563rem;
@@ -352,6 +356,7 @@ a {
             }
         }
     }
+
     .checkmark {
         position: absolute;
         top: 0;
@@ -363,6 +368,7 @@ a {
 
         &.cu-radio {
             border-radius: 50%;
+
             &::after {
                 top: 8px;
                 left: 8px;
@@ -451,15 +457,18 @@ a {
         }
     }
 }
+
 .link {
     color: $brand-primary;
     font-weight: 500;
 }
+
 .icon-btn {
     color: $brand-primary;
     font-size: 16px;
     cursor: pointer;
     margin-right: 16px;
+
     &:last-child {
         margin-right: 0;
     }
@@ -555,6 +564,7 @@ a {
     display: flex;
     align-items: center;
     padding: 16px 0;
+
     .check-label {
         color: $default-white;
         font-size: 14px;
@@ -562,23 +572,28 @@ a {
         width: fit-content;
         border-radius: 5px;
         margin-right: 16px;
+
         &.actual-booking {
             background-color: $green;
         }
+
         &.offload-booking {
             background-color: $orange
         }
     }
 }
+
 .check-booking {
     width: 6px;
     height: 23px;
     display: block;
     margin-left: 35px;
     border-radius: 50px;
+
     &.actual {
         background-color: $green;
     }
+
     &.offload {
         background-color: $orange;
     }
@@ -608,9 +623,11 @@ a {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 16px;
+
     .booking-status {
         display: flex;
         align-items: center;
+
         div {
             &:first-child {
                 font-weight: 500;
@@ -618,6 +635,7 @@ a {
             }
         }
     }
+
     .view-booking-link {
         color: $brand-primary;
         font-weight: 500;
@@ -632,9 +650,11 @@ a {
     border-radius: 5px;
     display: flex;
     align-items: center;
+
     input {
         width: 100%;
     }
+
     span {
         color: $brand-primary;
         cursor: pointer;
@@ -664,6 +684,12 @@ a {
     transition: all 0.5s ease;
     box-shadow: 0px 3px 6px #c3d5e4;
 
+    &.collapseDeactive {
+        .close-profile {
+            display: none;
+        }
+    }
+
     &.close {
         width: 50px;
 
@@ -685,6 +711,8 @@ a {
 
         .nav-links {
             overflow: visible;
+            padding: 30px 0 30px 0;
+            height: calc(100vh - 110px);
 
             li {
                 .iocn-link {
@@ -734,23 +762,18 @@ a {
             }
         }
 
-        .profile-details {
-            background: none;
-            width: 78px;
+        .expand-profile {
+            display: none;
+        }
+
+        .profile-pic {
+            display: block;
+            position: relative;
 
             img {
-                padding: 10px;
-                margin: 0 auto;
-            }
-
-            i,
-            .profile_name,
-            .job {
-                display: none;
-            }
-
-            .sub-menu {
-                left: 66% !important;
+                width: 100%;
+                height: auto;
+                cursor: pointer;
             }
         }
 
@@ -775,9 +798,10 @@ a {
     }
 
     .nav-links {
-        height: 100%;
-        padding: 30px 0 150px 0;
+        // height: 100%;
+        padding: 30px 0 30px 0;
         overflow: auto;
+        height: calc(100vh - 170px);
 
         &::-webkit-scrollbar {
             display: none;
@@ -920,6 +944,51 @@ a {
             font-size: 12px;
         }
     }
+
+    .expand-profile {
+        .expand-profile-info {
+            .profile-info {
+                display: flex;
+
+                .pro-pic {
+                    margin-right: 10px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 30px;
+                        height: auto;
+                    }
+                }
+
+                .profile-content {
+                    background-color: $white-blue;
+                    padding: 10px;
+                    border-radius: 5px;
+                    width: 100%;
+
+                    .email {
+                        color: $gray;
+                    }
+
+                    .actions {
+                        margin-top: 10px;
+
+                        span {
+                            padding-right: 40px;
+                            color: $brand-primary;
+                            cursor: pointer;
+
+                            &:last-child {
+                                padding-right: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 @media screen and (max-width: 400px) {
@@ -947,7 +1016,7 @@ a {
 }
 
 .profile-pic {
-    display: none;
+    display: block;
 }
 
 .profile-card {
@@ -956,6 +1025,10 @@ a {
     padding: 1.875rem 0.938rem 0.938rem;
     color: $form-label;
     border-radius: 0.625rem;
+    position: absolute;
+    bottom: 5px;
+    margin-left: 40px;
+    box-shadow: 1px 1px 10px $blue;
 
     .pro-pic {
         width: 3.938rem;
@@ -2263,6 +2336,7 @@ a {
 .added-other-charges {
     border-top: 1px solid $off-white;
     padding-top: 16px;
+
     h3 {
         font-weight: 600;
     }
