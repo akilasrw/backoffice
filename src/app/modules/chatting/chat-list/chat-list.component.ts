@@ -15,6 +15,9 @@ import { Message } from 'src/app/_models/view-models/chatting/message.model';
 import { MessageRm } from 'src/app/_models/view-models/chatting/message-rm.model';
 import { UserConversation } from 'src/app/_models/view-models/chatting/user-conversation.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { MessageList } from 'src/app/_models/view-models/chatting/message-list';
+import { CargoAgent } from 'src/app/_models/view-models/cargo-agent/CargoAgent';
+import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -32,17 +35,23 @@ export class ChatListComponent implements OnInit {
   conversationId: string = '';
   conversations?: Conversation[]=[];
   currentUserConversations?: UserConversation[] =[];
+  searchText? :string ='';
+  filteredMsgs: MessageList[]=[];
+  agentList: CargoAgent[]=[];
+
   @Output() popupCreate = new EventEmitter<any>();
   @Output() newChatPopup = new EventEmitter<any>();
-  searchText? :string ='';
 
   constructor(private accountService: AccountService,
               private chatService: ChatService,
+              private cargoAgentService: CargoAgentService
               ) { }
 
   ngOnInit(): void {
     // this.LoadConversations()
-    this.initializeChat()
+    this.initializeChat();
+    this.filteredMsg();
+    this.getAgents();
   }
 
   initializeChat() {
@@ -73,6 +82,13 @@ export class ChatListComponent implements OnInit {
     }
   }
 
+  getAgents(){
+    this.cargoAgentService.getList().subscribe(res=> {
+      this.agentList = res;
+      console.log('agents',res)
+    })
+  }
+
   loadParticipantConversation(userName: string) {
     this.chatService.getParticipantConversation(userName)
     .subscribe(s=> {
@@ -89,7 +105,7 @@ export class ChatListComponent implements OnInit {
 
   loadUserConversation(user: ChatUser[], userName: string){
     if(user.length > 0)
-        this.chatService.getUserConversation(userName, user[0].chatServiceSid)
+        this.chatService.getUserConversation(userName)
         .subscribe(o=> {
           if(o.length >0){
             this.currentUserConversations =[]
@@ -140,9 +156,22 @@ export class ChatListComponent implements OnInit {
       return CoreExtensions.GetFirstLetters(str);
   }
 
-  popupMessage(con: any) {
-    this.updateMsgReadStatus(con);
-    this.popupCreate.emit(con);
+  popupMessage(conversationId: string) {
+    var con = this.getUserConversation(conversationId);
+    if(con) {
+      this.updateMsgReadStatus(con);
+      this.popupCreate.emit(con);
+    }else {
+      this.newChat();
+    }
+  }
+
+  newChat() {
+    this.newChatPopup.emit();
+  }
+
+  getUserConversation(conversationId: string) {
+    return this.currentUserConversations?.filter(x=> x.conversationSid = conversationId)[0];
   }
 
   updateMsgReadStatus(con: UserConversation) {
@@ -168,30 +197,39 @@ export class ChatListComponent implements OnInit {
     return con.messages?.filter(x=>x.chatStatus?.isRead == undefined || x.chatStatus?.isRead == false).length;
   }
 
-  newChat() {
-    this.newChatPopup.emit();
+  filteredMsg(val?: string) {
+    this.filteredMsgs =[];
+    if(this.currentUserConversations) {
+      this.currentUserConversations?.forEach(el => {
+        if(el.messages) {
+          this.filteredMsgs.push({
+            'conversationId' : el?.conversationSid!,
+            'created': el?.messages[el?.messages?.length-1]?.created,
+            'lastMessageBody': el?.messages[el?.messages?.length-1]?.body,
+            'userName': el?.messages[el?.messages?.length-1]?.auther,
+            'isNew' : false});
+        }
+      });
+    }
+    // Get All cargo Users
+    var users =this.agentList;
+    if(this.searchText != undefined && this.searchText !='') {
+      var text = this.searchText;
+      users.forEach(user=> {
+        if(this.filteredMsgs.filter(x=>x.userName == user.userName).length == 0 && user?.userName && user?.userName?.indexOf(text)>-1) {
+            this.filteredMsgs.push({'conversationId' : '' ,'created': '', 'lastMessageBody': '', 'userName': user.userName, 'isNew' : true});
+        }
+      });
+    }
+      console.log('filteredMsgs',this.filteredMsgs);
+      return this.filteredMsgs;
   }
 
-  filteredMsg(val?: string) {
-    var cons:UserConversation[]=[];
-    var filteredChats = this.currentUserConversations;
-    if(this.searchText != undefined && this.searchText !='') {
-      cons=[];
-      this.currentUserConversations?.forEach(con => {
-        let text = this.searchText? this.searchText:'';
-        let msgs = con?.messages?.filter(y=>y.body.indexOf(text) > -1);
-        if(msgs)
-          if(msgs.length > 0){
-            cons.push(con);
-            return;
-          }
-      });
-      if(cons.length>0) {
-        return cons;
-      }
-    } else if (this.searchText === '') {
-      return filteredChats;
+  getUserName(username: string) {
+    var agent = this.agentList.filter(x=>x.userName == username);
+    if(agent){
+      return agent[0].agentName;
     }
-    return cons;
+    return username;
   }
 }

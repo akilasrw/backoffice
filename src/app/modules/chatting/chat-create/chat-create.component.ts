@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
@@ -11,6 +11,7 @@ import { MessageRm } from 'src/app/_models/view-models/chatting/message-rm.model
 import { Message } from 'src/app/_models/view-models/chatting/message.model';
 import { UserConversation } from 'src/app/_models/view-models/chatting/user-conversation.model';
 import { ChatService } from 'src/app/_services/chat.service';
+import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 
 @Component({
   selector: 'app-chat-create',
@@ -21,16 +22,18 @@ export class ChatCreateComponent implements OnInit {
 
   currentUser?:User | null;
   subscription?:Subscription;
-  @Input() currentUserConversation?: UserConversation;
-  @Input() set isNewConversation(isNewConversation: boolean) {
-    if(isNewConversation == true) {
-    // if no record
-    //  this.createConversation();
-    }
-  }
   chatbox: string ='';
   msgUser: string = 'agent name';
   timer?:number = 0;
+
+  @Input() currentUserConversation?: UserConversation;
+  @Input() set isNewConversation(isNewConversation: boolean) {
+    if(isNewConversation == true) {
+      // this.createConversation();
+    }
+  }
+  @Output() closeChatCreation = new EventEmitter<any>();
+
 
   constructor(private accountService: AccountService,
     private chatService: ChatService) { }
@@ -40,7 +43,7 @@ export class ChatCreateComponent implements OnInit {
     this.startChattingTimer();
   }
 
-  getChatUsername(){
+  getChatUsername() {
     var msgs = this.currentUserConversation?.messages?.filter(x=>x.auther != this.currentUser?.email);
     if(msgs && msgs?.length>0)
       return msgs[0].auther;
@@ -51,7 +54,7 @@ export class ChatCreateComponent implements OnInit {
   sendMsg(event: any) {
     var msg: MessageRm = new MessageRm();
     msg.auther =  this.currentUser?.username;
-    msg.body = event;
+    msg.body = event?event: this.chatbox;
     msg.pathConversationSid = this.currentUserConversation?.conversationSid;
     msg.chatStatus = new ChatStatus();
     msg.chatStatus.isRead = false;
@@ -126,16 +129,21 @@ createParticipant(username: string, conversationSid: string){
     window.clearInterval(this.timer);
   }
 
-  startChattingTimer() { debugger;
+  startChattingTimer() {
     this.timer = window.setInterval(() => {
       this.callLoadMsgs();
     }, 5000);
   }
 
-  callLoadMsgs() { console.log('loadMessages')
+  callLoadMsgs() {
     if(this.currentUserConversation?.conversationSid) {
       var chId = this.currentUserConversation?.conversationSid;
       this.loadMessages(chId);
     }
+  }
+
+  backButtonClicked() {
+    window.clearInterval(this.timer);
+    this.closeChatCreation.emit();
   }
 }

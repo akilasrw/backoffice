@@ -69,13 +69,10 @@ export class ChatService extends BaseService {
     return this.get<any[]>(this.endpointEntityGetConversations);
   }
 
-  getUserConversation(identity: string, conversationSid: string) {
+  getUserConversation(identity: string) {
     var params = new HttpParams();
     if (identity) {
       params = params.append("identity", identity);
-    }
-    if (conversationSid) {
-      params = params.append("pathConversationSid", conversationSid);
     }
     return this.getWithParams<UserConversation[]>(this.endpointEntityGetUserConversation, params);
   }
