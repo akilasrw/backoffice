@@ -234,7 +234,7 @@ export class ChatListComponent implements OnInit {
   getUserName(username: string) {
     var agent = this.agentList.filter(x=>x.userName == username);
     if(agent){
-      return agent[0].agentName;
+      return agent[0]?.agentName;
     }
     return username;
   }
