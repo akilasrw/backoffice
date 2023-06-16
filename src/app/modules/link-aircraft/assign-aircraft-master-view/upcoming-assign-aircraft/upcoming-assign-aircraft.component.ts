@@ -35,6 +35,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
   ATAValue: string ='';
   stepCount: number= 1;
   inputBase: VerifyInputBase = VerifyInputBase.FromUpcoming;
+  isVerifiedClicked =false;
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
@@ -48,14 +49,12 @@ export class UpcomingAssignAircraftComponent implements OnInit {
   }
 
   loadAirports() {
-    this.isLoading=true;
     this.airportService.getSelectList()
       .subscribe(res => {
         if (res.length > 0) {
           this.originAirpots = res;
           Object.assign(this.destinationAirpots, res);
         }
-        this.isLoading=false;
       });
   }
 
@@ -77,7 +76,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     this.query.destinationAirportId = undefined;
   }
 
-  getFilterList() {
+  getFilterList() { debugger
     this.isLoading = true;
     this.query.isHistory = false;
     this.linkAircraftToScheduleService.getFilteredList(this.query)
@@ -147,7 +146,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
   }
 
   onVerified() {
-    
+    this.isVerifiedClicked = true;
   }
 
 }

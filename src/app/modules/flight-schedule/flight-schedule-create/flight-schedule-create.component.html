@@ -5,7 +5,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Aircraft Type<span class="compulsory">*</span></label>
                     <app-auto-complete-dropdown [data]="aircraftSubTypes" [keyword]="keyword" [selectedIndex]="editAircraftSubType"
-                        (selectFileOutput)="selectAircraftSubType($event)" (clearSearch)="onClearAircraftSubType()"
+                        (selectFileOutput)="selectAircraftSubType($event)" (clearSearch)="onClearAircraftSubType()" (changeSearch)="onChangeAircraftType($event)"
                         [tabindex]="1">
                     </app-auto-complete-dropdown>
                 </div>

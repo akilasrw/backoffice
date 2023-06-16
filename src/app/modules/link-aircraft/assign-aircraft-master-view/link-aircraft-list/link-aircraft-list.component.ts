@@ -51,14 +51,12 @@ export class LinkAircraftListComponent implements OnInit {
   }
 
   loadAirports() {
-    this.isLoading=true;
     this.airportService.getSelectList()
       .subscribe(res => {
         if (res.length > 0) {
           this.originAirpots = res;
           Object.assign(this.destinationAirpots, res);
         }
-        this.isLoading=false;
       });
   }
 

@@ -34,15 +34,17 @@ export class LinkAircraftCreateComponent implements OnInit {
   stepCount?: number = 1;
   selectedFile?: File;
   isVerifiedBooking: boolean = false;
+  @Input() set verifyInput(val: any) {
+    this.checkVerifiedBooking(this.mappedRM());
+  }
 
   @Input() set flightSchedule(val: any) {
-    console.log('LinkAircraftCreateComponent',val);
     this.initialiseForm();
     if(val) {
       this.selectedFlightScheduleLink = val;
       this.patchValues();
       this.fillAircraft();
-      this.CheckVerifiedBooking(this.mappedRM());
+      this.checkVerifiedBooking(this.mappedRM());
     }
   }
   @Output() submitSuccess = new EventEmitter<any>();
@@ -171,7 +173,7 @@ export class LinkAircraftCreateComponent implements OnInit {
   save() {
     if(this.linkAircraftForm.valid) {
       var scheduleAircraftRm = this.mappedRM();
-      this.CheckVerifiedBooking(scheduleAircraftRm);
+      this.checkVerifiedBooking(scheduleAircraftRm);
 
       if(this.isValid()) {
         this.isLoading = true;
@@ -277,7 +279,7 @@ export class LinkAircraftCreateComponent implements OnInit {
     this.viewBookings.emit(this.selectedFlightScheduleLink)
   }
 
-  CheckVerifiedBooking(scheduleAircraftRm: ScheduleAircraftRm) {
+  checkVerifiedBooking(scheduleAircraftRm: ScheduleAircraftRm) {
     this.linkAircraftToScheduleService.isVerifiedBooking(scheduleAircraftRm)
       .subscribe({
         next:(res)=> {

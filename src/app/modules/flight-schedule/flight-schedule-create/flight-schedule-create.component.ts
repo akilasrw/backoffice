@@ -40,6 +40,7 @@ export class FlightScheduleCreateComponent implements OnInit {
   editFlightNumberIndex?:number;
   editAircraftSubType?:number;
   typedFlightNo?: string;
+  enteredAircraftType?: string;
 
 
   constructor(private aircraftService: AircraftService,
@@ -144,6 +145,8 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   selectAircraftSubType(value: any) {
     this.selectedAircraftSubType = value.id;
+    this.enteredAircraftType = value.value;
+
   }
 
   onClearAircraftSubType() {
@@ -163,6 +166,10 @@ export class FlightScheduleCreateComponent implements OnInit {
 
   onChangeSearch(event: any){
     this.typedFlightNo = event;
+  }
+
+  onChangeAircraftType(event: any) {
+    this.enteredAircraftType = event;
   }
 
   saveScheduleDetails() {
@@ -207,9 +214,13 @@ export class FlightScheduleCreateComponent implements OnInit {
       return;
     }
 
-    debugger
     if(this.flightList.findIndex(x=>x.value == this.typedFlightNo) < 0) {
       this.toastr.error('Flight number is not valid.');
+      return;
+    }
+
+    if(this.aircraftSubTypes.findIndex(x=>x.value == this.enteredAircraftType) < 0) {
+      this.toastr.error('Aircraft Sub Type is not valid.');
       return;
     }
 

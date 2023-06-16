@@ -73,7 +73,7 @@ export class VerifyBookingComponent implements OnInit {
 
   }
 
-  checkVerifiedAll() { 
+  checkVerifiedAll() {
     if(this.cargoBookingList.filter(x=>x.verifyStatus != VerifyStatus.None).length > 0 || this.cargoBookingList.length == 0)
       this.isDisabledButton = true;
   }
@@ -109,7 +109,6 @@ export class VerifyBookingComponent implements OnInit {
   }
 
   save() {
-    console.log('VerifyBookingComponent - save', this.cargoBookingList);
     var rm: CargoBookingStatusUpdateListRm = new CargoBookingStatusUpdateListRm();
     rm.cargoBookingStatusUpdateList =[];
 
