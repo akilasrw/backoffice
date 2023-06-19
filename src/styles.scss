@@ -969,10 +969,12 @@ a {
                     background-color: $white-blue;
                     padding: 10px;
                     border-radius: 5px;
-                    width: 100%;
+                    width: 84%;
 
                     .email {
                         color: $gray;
+                        overflow: auto;
+                        @include customScrollbar(1px);
                     }
 
                     .actions {
