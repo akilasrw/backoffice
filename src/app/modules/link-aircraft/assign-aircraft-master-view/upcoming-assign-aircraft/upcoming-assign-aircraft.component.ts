@@ -76,7 +76,7 @@ export class UpcomingAssignAircraftComponent implements OnInit {
     this.query.destinationAirportId = undefined;
   }
 
-  getFilterList() { debugger
+  getFilterList() {
     this.isLoading = true;
     this.query.isHistory = false;
     this.linkAircraftToScheduleService.getFilteredList(this.query)
