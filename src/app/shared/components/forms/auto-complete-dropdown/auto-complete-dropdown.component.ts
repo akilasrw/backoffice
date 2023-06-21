@@ -7,7 +7,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 })
 export class AutoCompleteDropdownComponent implements OnInit {
 
-
   @Input() keyword: string = '';
   @Input() data: any = [];
   @Input() selectedIndex?: number;
@@ -16,6 +15,7 @@ export class AutoCompleteDropdownComponent implements OnInit {
   @Output() changeSearch = new EventEmitter<any>();
   @ViewChild('autocompleteDropdown') autocompleteDropdown: any;
   @Input() isDisabled:Boolean = false;
+  autocompleteValue: string = '';
 
 
   ngOnInit(): void {
@@ -36,14 +36,14 @@ export class AutoCompleteDropdownComponent implements OnInit {
   }
 
   onFocused(e: any) {
-    console.log('onFocused');
+    e.stopPropagation();
+    this.autocompleteDropdown.focus();
   }
   onClearSearch() {
     this.clearSearch.emit();
   }
 
   clear(): void {
-    this.autocompleteDropdown.clear();
-    this.autocompleteDropdown.close();
+    this.autocompleteValue = '';
   }
 }
