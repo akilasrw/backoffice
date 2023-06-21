@@ -50,7 +50,7 @@ export class UldCreateComponent implements OnInit {
     this.uldForm = this.fb.group({
       id: [null],
       uLDType: [this.selectedULDType, [Validators.required]],
-      serialNumber: [null, [Validators.required]],
+      serialNumber: [null, [Validators.required,Validators.pattern(/^[A-Z]{3} \d{4,5} [A-Z0-9]{2}$/)]],
       uLDOwnershipType: [this.selectedULDOwnershipType, [Validators.required]],
       ownerAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
       uLDLocateStatus: [this.selectedULDStatus, [Validators.required]],

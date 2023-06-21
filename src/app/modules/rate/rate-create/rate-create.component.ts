@@ -18,9 +18,6 @@ import { RateService } from 'src/app/_services/rate.service';
   styleUrls: ['./rate-create.component.scss']
 })
 export class RateCreateComponent implements OnInit {
-
-  @Output() closePopup = new EventEmitter<any>();
-  @Output() submitSuccess = new EventEmitter<any>();
   cargoAgents: SelectList[] = [];
   rateTypes:SelectList[]=[];
   cargoTypes:SelectList[]=[];
@@ -33,6 +30,8 @@ export class RateCreateComponent implements OnInit {
   rateForm!: FormGroup;
   startMinDate = new Date();
   endMinDate = new Date();
+  @Output() closePopup = new EventEmitter<any>();
+  @Output() submitSuccess = new EventEmitter<any>();
   @ViewChild('autoCompleteCargoAgent') autoCompleteCargoAgent!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteRateType') autoCompleteRateType!: AutoCompleteDropdownComponent;
   @ViewChild('autoCompleteCargoType') autoCompleteCargoType!: AutoCompleteDropdownComponent;
@@ -233,10 +232,10 @@ export class RateCreateComponent implements OnInit {
   }
 
   clearFields(event: any) {
+    this.clearDropdowns(event);
     this.rateForm.reset();
     this.rateForm.markAsUntouched();
     this.initializeForm();
-    this.clearDropdowns(event);
   }
 
   isFlightExist():boolean{

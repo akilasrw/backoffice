@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.initializeForm();
-    this.verifyUserLogin();
+    //this.verifyUserLogin();
   }
 
   initializeForm() {
@@ -42,10 +42,10 @@ export class LoginComponent implements OnInit {
     this.setSavedCredentials();
   }
 
-  verifyUserLogin(){
-    if(this.accountService.verifyLogin())
-      this.router.navigate([this.returnUrl]);
-  }
+  // verifyUserLogin(){
+  //   if(this.accountService.verifyLogin())
+  //     this.router.navigate([this.returnUrl]);
+  // }
 
   setSavedCredentials(){
     let userCredential: AuthenticateRM;

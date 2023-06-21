@@ -90,6 +90,8 @@ export class LinkAircraftCreateComponent implements OnInit {
     this.linkAircraftForm.patchValue({
       id: this.selectedFlightScheduleLink.id,
       flightNumber: this.selectedFlightScheduleLink.flightNumber,
+      offLoad: this.selectedFlightScheduleLink?.offLoadCount,
+      actualLoad: this.selectedFlightScheduleLink?.actualLoadCount,
       // aircraftId: this.selectedFlightScheduleLink.aircraftId,
       // estimatedArrivalDateTime: this.selectedFlightScheduleLink.estimatedArrivalDateTime,
       // estimatedDepartureDateTime: this.selectedFlightScheduleLink.estimatedDepartureDateTime,
