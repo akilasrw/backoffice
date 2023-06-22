@@ -2,17 +2,14 @@ import { DatePipe, NgForOf } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
-import { ConversationRm } from 'src/app/_models/request-models/chatting/conversation-rm.model';
 import { ParticipantRm } from 'src/app/_models/request-models/chatting/participant-rm.model';
 import { User } from 'src/app/_models/user.model';
 import { ChatUser } from 'src/app/_models/view-models/chatting/chat-user.model';
 import { ParticipantConversation } from 'src/app/_models/view-models/chatting/participant-conversation.model';
 import { Participant } from 'src/app/_models/view-models/chatting/participant.model';
 import { ChatService } from 'src/app/_services/chat.service';
-import { formatDate } from '@angular/common';
 import { Conversation } from 'src/app/_models/view-models/chatting/conversation.model';
 import { Message } from 'src/app/_models/view-models/chatting/message.model';
-import { MessageRm } from 'src/app/_models/view-models/chatting/message-rm.model';
 import { UserConversation } from 'src/app/_models/view-models/chatting/user-conversation.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { MessageList } from 'src/app/_models/view-models/chatting/message-list';
@@ -38,6 +35,7 @@ export class ChatListComponent implements OnInit {
   searchText? :string ='';
   filteredMsgs: MessageList[]=[];
   agentList: CargoAgent[]=[];
+  timer?:number = 0;
 
   @Output() popupCreate = new EventEmitter<any>();
   @Output() newChatPopup = new EventEmitter<any>();
@@ -48,10 +46,10 @@ export class ChatListComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-    // this.LoadConversations()
     this.initializeChat();
     this.filteredMsg();
     this.getAgents();
+    this.startChattingTimer();
   }
 
   initializeChat() {
@@ -138,7 +136,15 @@ export class ChatListComponent implements OnInit {
           messages.push(el);
         });
         const users :UserConversation = {conversationSid: conversationId, messages: messages};
+        // remove if already existed.
+        if(this.currentUserConversations && this.currentUserConversations?.find(c=>c.conversationSid == conversationId)) {
+          const index = this.currentUserConversations.findIndex(obj => obj.conversationSid === conversationId);
+          if (index !== -1) {
+            this.currentUserConversations.splice(index, 1);
+          }
+        }
         this.currentUserConversations?.push(users);
+        console.log('currentUserConversations',this.currentUserConversations)
       });
   }
 
@@ -146,10 +152,6 @@ export class ChatListComponent implements OnInit {
     this.subscription = this.accountService.currentUser$.subscribe(res => {
       this.currentUser = res;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 
   getFirstLetters(str: string) {
@@ -199,7 +201,6 @@ export class ChatListComponent implements OnInit {
     if(con?.messages && con?.messages[con?.messages?.length-1]?.auther != this.currentUser?.username) {
       return con.messages?.filter(x=>x.chatStatus?.isRead == undefined || x.chatStatus?.isRead == false).length;
     }
-
     return 0;
   }
 
@@ -212,7 +213,7 @@ export class ChatListComponent implements OnInit {
             'conversationId' : el?.conversationSid!,
             'created': el?.messages[el?.messages?.length-1]?.created,
             'lastMessageBody': el?.messages[el?.messages?.length-1]?.body,
-            'userName': el?.messages[el?.messages?.length-1]?.auther,
+            'userName': this.getMsgUserName(el?.messages),
             'isNew' : false});
         }
       });
@@ -227,8 +228,15 @@ export class ChatListComponent implements OnInit {
         }
       });
     }
-      //console.log('filteredMsgs',this.filteredMsgs);
-      return this.filteredMsgs;
+    console.log('filteredMsgs',this.filteredMsgs)
+    return this.filteredMsgs;
+  }
+
+  getMsgUserName(messages: Message[]) {
+    var res = messages.filter(x=>x.auther != this.currentUser?.username);
+    if(res)
+      return res[0].auther;
+    return "";
   }
 
   getUserName(username: string) {
@@ -238,4 +246,26 @@ export class ChatListComponent implements OnInit {
     }
     return username;
   }
+
+  startChattingTimer() {
+    this.timer = window.setInterval(() => {
+      this.callLoadMsgs();
+    }, 2000);
+  }
+
+  callLoadMsgs() {
+    this.currentUserConversations?.forEach(currentUserConversation=>{
+      if(currentUserConversation?.conversationSid) {
+        var chId = currentUserConversation?.conversationSid;
+        this.loadMessages(chId);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy-ChatListComponent');
+    window.clearInterval(this.timer);
+    this.subscription?.unsubscribe();
+  }
+
 }

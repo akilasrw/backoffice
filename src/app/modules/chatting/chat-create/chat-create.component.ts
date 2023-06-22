@@ -51,10 +51,10 @@ export class ChatCreateComponent implements OnInit {
     return this.msgUser;
   }
 
-  sendMsg(event: any) {
+  sendMsg() {
     var msg: MessageRm = new MessageRm();
     msg.auther =  this.currentUser?.username;
-    msg.body = event?event: this.chatbox;
+    msg.body = this.chatbox;
     msg.pathConversationSid = this.currentUserConversation?.conversationSid;
     msg.chatStatus = new ChatStatus();
     msg.chatStatus.isRead = false;
@@ -124,7 +124,7 @@ createParticipant(username: string, conversationSid: string){
     });
   }
 
-  ngOnDestroy(): void {  console.log('ngOnDestroy')
+  ngOnDestroy(): void { 
     this.subscription?.unsubscribe();
     window.clearInterval(this.timer);
   }
@@ -132,7 +132,7 @@ createParticipant(username: string, conversationSid: string){
   startChattingTimer() {
     this.timer = window.setInterval(() => {
       this.callLoadMsgs();
-    }, 5000);
+    }, 2000);
   }
 
   callLoadMsgs() {
