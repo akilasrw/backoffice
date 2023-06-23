@@ -12,16 +12,14 @@ export class LoginGuard implements CanActivate {
     private router: Router
   ) { }
 
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.accountService.currentUser$.pipe(map(e => {
       if (e) {
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
         return false;
       } else {
         return true;
       }
     }));
   }
-
 }
