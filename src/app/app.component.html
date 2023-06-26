@@ -47,7 +47,7 @@
               <app-chat-list
               *ngIf="chatModalVisible"
               (popupCreate)="showMsgCreatePopup($event)"
-              (newChatPopup)="showNewChatPopup()"></app-chat-list>
+              (newChatPopup)="showNewChatPopup($event)"></app-chat-list>
             </div>
         </div>
     </div>
@@ -64,6 +64,7 @@
             </div>
             <div class="modal-body">
                 <app-chat-create *ngIf="chatCreateModalVisible"
+                [agentUsername]="agentUserName"
                 [currentUserConversation]="currentUserConversation"
                 (closeChatCreation)="closeChatCreate()"
                 [isNewConversation]="isNewChat"></app-chat-create>

@@ -1,5 +1,5 @@
 import { DatePipe, NgForOf } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
 import { ParticipantRm } from 'src/app/_models/request-models/chatting/participant-rm.model';
@@ -36,6 +36,7 @@ export class ChatListComponent implements OnInit {
   filteredMsgs: MessageList[]=[];
   agentList: CargoAgent[]=[];
   timer?:number = 0;
+  isUpdatedConversation?: boolean = false;
 
   @Output() popupCreate = new EventEmitter<any>();
   @Output() newChatPopup = new EventEmitter<any>();
@@ -47,9 +48,9 @@ export class ChatListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeChat();
-    this.filteredMsg();
     this.getAgents();
     this.startChattingTimer();
+    this.filteredMsg();
   }
 
   initializeChat() {
@@ -83,7 +84,7 @@ export class ChatListComponent implements OnInit {
   getAgents(){
     this.cargoAgentService.getList().subscribe(res=> {
       this.agentList = res;
-      console.log('agents',res)
+      this.filteredMsg();
     })
   }
 
@@ -144,7 +145,7 @@ export class ChatListComponent implements OnInit {
           }
         }
         this.currentUserConversations?.push(users);
-        console.log('currentUserConversations',this.currentUserConversations)
+        this.onConversationChanges(true);
       });
   }
 
@@ -158,18 +159,18 @@ export class ChatListComponent implements OnInit {
       return CoreExtensions.GetFirstLetters(str);
   }
 
-  popupMessage(conversationId: string) {
+  popupMessage(conversationId: string, username: string) {
     var con = this.getUserConversation(conversationId);
     if(con) {
       this.updateMsgReadStatus(con);
       this.popupCreate.emit(con);
     }else {
-      this.newChat();
+      this.newChat(username);
     }
   }
 
-  newChat() {
-    this.newChatPopup.emit();
+  newChat(username: string) {
+    this.newChatPopup.emit(username);
   }
 
   getUserConversation(conversationId: string) {
@@ -204,8 +205,23 @@ export class ChatListComponent implements OnInit {
     return 0;
   }
 
+  onConversationChanges(isUpdated: boolean) {
+    if(isUpdated == true && this.isUpdatedConversation == false) {
+      this.filteredMsg();
+      this.isUpdatedConversation = true;
+    }
+  }
+
   filteredMsg(val?: string) {
     this.filteredMsgs =[];
+    this.fillExistingMsgs();
+    this.fillAgentList(false);
+
+    console.log('filteredMsgs',this.filteredMsgs)
+    return this.filteredMsgs;
+  }
+
+  fillExistingMsgs() {
     if(this.currentUserConversations) {
       this.currentUserConversations?.forEach(el => {
         if(el.messages) {
@@ -218,18 +234,22 @@ export class ChatListComponent implements OnInit {
         }
       });
     }
+  }
+
+  fillAgentList(allUsers: boolean) {
     // Get All cargo Users
     var users =this.agentList;
-    if(this.searchText != undefined && this.searchText !='') {
-      var text = this.searchText;
       users.forEach(user=> {
-        if(this.filteredMsgs.filter(x=>x.userName == user.userName).length == 0 && user?.userName && user?.userName?.indexOf(text)>-1) {
-            this.filteredMsgs.push({'conversationId' : '' ,'created': '', 'lastMessageBody': '', 'userName': user.userName, 'isNew' : true});
+        if(this.filteredMsgs.filter(x=>x.userName == user.userName).length == 0 && user?.userName) {
+          var msg = {'conversationId' : '' ,'created': '', 'lastMessageBody': '', 'userName': user.userName, 'isNew' : true};
+
+          if(allUsers) {
+            this.filteredMsgs.push(msg);
+          } else if((this.searchText != undefined && this.searchText !='') && this.filteredMsgs.filter(x=>x.userName == user.userName).length == 0 && user?.userName && user?.userName?.indexOf(this.searchText)>-1) {
+            this.filteredMsgs.push(msg);
+          }
         }
       });
-    }
-    console.log('filteredMsgs',this.filteredMsgs)
-    return this.filteredMsgs;
   }
 
   getMsgUserName(messages: Message[]) {

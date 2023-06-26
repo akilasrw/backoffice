@@ -12,6 +12,7 @@ import { Message } from 'src/app/_models/view-models/chatting/message.model';
 import { UserConversation } from 'src/app/_models/view-models/chatting/user-conversation.model';
 import { ChatService } from 'src/app/_services/chat.service';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
+import { CargoAgent } from 'src/app/_models/view-models/cargo-agent/CargoAgent';
 
 @Component({
   selector: 'app-chat-create',
@@ -22,36 +23,47 @@ export class ChatCreateComponent implements OnInit {
 
   currentUser?:User | null;
   subscription?:Subscription;
+  agentList: CargoAgent[]=[];
   chatbox: string ='';
-  msgUser: string = 'agent name';
   timer?:number = 0;
 
   @Input() currentUserConversation?: UserConversation;
+  @Input() agentUsername?: string;
   @Input() set isNewConversation(isNewConversation: boolean) {
+    this.getCurrentUser();
     if(isNewConversation == true) {
-      // this.createConversation();
+      this.createConversation();
     }
   }
   @Output() closeChatCreation = new EventEmitter<any>();
 
 
   constructor(private accountService: AccountService,
+    private cargoAgentService: CargoAgentService,
     private chatService: ChatService) { }
 
   ngOnInit(): void {
-    this.getCurrentUser();
+    this.getAgents();
     this.startChattingTimer();
   }
 
   getChatUsername() {
     var msgs = this.currentUserConversation?.messages?.filter(x=>x.auther != this.currentUser?.email);
-    if(msgs && msgs?.length>0)
-      return msgs[0].auther;
+    if(msgs && msgs?.length > 0)
+      return this.getName(msgs[0].auther);
 
-    return this.msgUser;
+    return this.agentUsername? this.getName(this.agentUsername): '';
   }
 
-  sendMsg() {
+  getName(username: string) : string{
+    var agent = this.agentList.filter(x=>x.userName == username);
+    if(agent){
+      return agent[0]?.agentName?agent[0]?.agentName: '';
+    }
+    return username;
+  }
+
+  sendMsg() { debugger
     var msg: MessageRm = new MessageRm();
     msg.auther =  this.currentUser?.username;
     msg.body = this.chatbox;
@@ -82,7 +94,7 @@ export class ChatCreateComponent implements OnInit {
 
 }
 
-createConversation() {
+createConversation() { debugger
   // create conversation
   var conversation: ConversationRm = new ConversationRm();
   var userName = this.currentUser?.username;
@@ -98,8 +110,8 @@ createConversation() {
       // Create particpant
       this.createParticipant(userName, t.sid);
       // add Admin to the conservation
-      if(this.currentUser?.email)
-        this.createParticipant(this.currentUser?.email, t.sid);
+      if(this.currentUser?.username)
+        this.createParticipant(this.currentUser?.username, t.sid);
     }
   });
 }
@@ -124,7 +136,13 @@ createParticipant(username: string, conversationSid: string){
     });
   }
 
-  ngOnDestroy(): void { 
+  getAgents(){
+    this.cargoAgentService.getList().subscribe(res=> {
+      this.agentList = res;
+    })
+  }
+
+  ngOnDestroy(): void {
     this.subscription?.unsubscribe();
     window.clearInterval(this.timer);
   }

@@ -25,6 +25,7 @@ export class AppComponent implements OnInit{
   chatCreateModalVisibleAnimate = false;
   currentUserConversation?: UserConversation;
   isNewChat: boolean = false;
+  agentUserName?: string;
 
   @ViewChild(ChatListComponent) child:any;
 
@@ -89,9 +90,10 @@ export class AppComponent implements OnInit{
     setTimeout(() => (this.chatCreateModalVisibleAnimate = true));
   }
 
-  showNewChatPopup(){
+  showNewChatPopup(username: string){
     this.isNewChat = true;
     this.currentUserConversation = undefined;
+    this.agentUserName = username;
     this.chatCreateModalVisible= true;
     setTimeout(() => (this.chatCreateModalVisibleAnimate = true));
   }
