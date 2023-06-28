@@ -46,7 +46,7 @@
             <div class="modal-body">
               <app-chat-list
               *ngIf="chatModalVisible"
-              (popupCreate)="showMsgCreatePopup($event)"
+              (popupCreate)="showMsgCreatePopup($event, $userName)"
               (newChatPopup)="showNewChatPopup($event)"></app-chat-list>
             </div>
         </div>

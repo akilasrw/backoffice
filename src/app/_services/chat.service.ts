@@ -20,6 +20,7 @@ export class ChatService extends BaseService {
   private readonly endpointEntityCreateParticipant=  `${this.endpointEntityName}/createParticipant`;
   private readonly endpointEntityGetUsers=  `${this.endpointEntityName}/getUserList`;
   private readonly endpointEntityGetParticipantConversation=  `${this.endpointEntityName}/getParticipantConversation`;
+  private readonly endpointEntityGetParticipant=  `${this.endpointEntityName}/GetParticipant`;
   private readonly endpointEntityGetUserConversation=  `${this.endpointEntityName}/getUserConversation`;
   private readonly endpointEntityGetMessages=  `${this.endpointEntityName}/getMessages`;
   private readonly endpointEntityCreateConversation=  `${this.endpointEntityName}/createConversation`;
@@ -63,6 +64,14 @@ export class ChatService extends BaseService {
       params = params.append("userName", userName);
     }
     return this.getWithParams<ParticipantConversation[]>(this.endpointEntityGetParticipantConversation, params);
+  }
+
+  getParticipant(conversationId: string) {
+    var params = new HttpParams();
+    if (conversationId) {
+      params = params.append("pathConversationSid", conversationId);
+    }
+    return this.getWithParams<Participant[]>(this.endpointEntityGetParticipant, params);
   }
 
   getConversations() {

@@ -48,7 +48,7 @@ export class ChatCreateComponent implements OnInit {
   }
 
   getChatUsername() {
-    var msgs = this.currentUserConversation?.messages?.filter(x=>x.auther != this.currentUser?.email);
+    var msgs = this.currentUserConversation?.messages?.filter(x=>x.auther != this.currentUser?.username);
     if(msgs && msgs?.length > 0)
       return this.getName(msgs[0].auther);
 
@@ -64,19 +64,21 @@ export class ChatCreateComponent implements OnInit {
   }
 
   sendMsg() { debugger
-    var msg: MessageRm = new MessageRm();
-    msg.auther =  this.currentUser?.username;
-    msg.body = this.chatbox;
-    msg.pathConversationSid = this.currentUserConversation?.conversationSid;
-    msg.chatStatus = new ChatStatus();
-    msg.chatStatus.isRead = false;
-    this.chatService.createMessage(msg)
-    .subscribe(res=> {
-      if(msg?.pathConversationSid){
-        this.loadMessages(msg?.pathConversationSid);
-        this.chatbox = '';
-      }
-    });
+    if(this.chatbox != '') {
+      var msg: MessageRm = new MessageRm();
+      msg.auther =  this.currentUser?.username;
+      msg.body = this.chatbox;
+      msg.pathConversationSid = this.currentUserConversation?.conversationSid;
+      msg.chatStatus = new ChatStatus();
+      msg.chatStatus.isRead = false;
+      this.chatService.createMessage(msg)
+      .subscribe(res=> {
+        if(msg?.pathConversationSid){
+          this.loadMessages(msg?.pathConversationSid);
+          this.chatbox = '';
+        }
+      });
+    }
   }
 
   // Get all messages by Auther/ identity
@@ -110,8 +112,8 @@ createConversation() { debugger
       // Create particpant
       this.createParticipant(userName, t.sid);
       // add Admin to the conservation
-      if(this.currentUser?.username)
-        this.createParticipant(this.currentUser?.username, t.sid);
+      if(this.agentUsername)
+        this.createParticipant(this.agentUsername, t.sid);
     }
   });
 }

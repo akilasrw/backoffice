@@ -1,6 +1,6 @@
 export interface Participant {
-  sId: string;
+  sid: string;
   accountSid: string;
   identity: string;
-  conversationSid: string;
+  pathConversationSid: string;
 }

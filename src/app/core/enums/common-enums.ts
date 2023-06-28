@@ -17,7 +17,8 @@ export enum MenuType {
   FleetReport=15,
   ULDMaster=16,
   StandByCargo=17,
-  Messaging=18
+  Messaging=18,
+  ManageUser = 19
 }
 
 export enum SectorType {

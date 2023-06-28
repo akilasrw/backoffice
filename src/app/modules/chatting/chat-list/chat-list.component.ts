@@ -1,3 +1,4 @@
+import { Participant } from './../../../_models/view-models/chatting/participant.model';
 import { DatePipe, NgForOf } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -6,7 +7,6 @@ import { ParticipantRm } from 'src/app/_models/request-models/chatting/participa
 import { User } from 'src/app/_models/user.model';
 import { ChatUser } from 'src/app/_models/view-models/chatting/chat-user.model';
 import { ParticipantConversation } from 'src/app/_models/view-models/chatting/participant-conversation.model';
-import { Participant } from 'src/app/_models/view-models/chatting/participant.model';
 import { ChatService } from 'src/app/_services/chat.service';
 import { Conversation } from 'src/app/_models/view-models/chatting/conversation.model';
 import { Message } from 'src/app/_models/view-models/chatting/message.model';
@@ -36,7 +36,7 @@ export class ChatListComponent implements OnInit {
   filteredMsgs: MessageList[]=[];
   agentList: CargoAgent[]=[];
   timer?:number = 0;
-  isUpdatedConversation?: boolean = false;
+  updatedConversationCount?: number = 0;
 
   @Output() popupCreate = new EventEmitter<any>();
   @Output() newChatPopup = new EventEmitter<any>();
@@ -60,24 +60,24 @@ export class ChatListComponent implements OnInit {
 
     if(userName) {
       // Get all user from twilio
-    this.chatService.getUsers()
-    .subscribe(res => {
+      this.chatService.getUsers()
+      .subscribe(res => {
 
-      this.chatUsers = res;
-      var user = this.chatUsers.filter(x=>x.identity == userName);
-      // Check exists the user,
-      if (user.length == 0) { // user not exists
-        // Create user
-        // this.chatService.createUser(userName)
-        // .subscribe(x=> {
-        //   this.loadUserConversation(user,userName);
-        //   this.loadParticipantConversation(userName);
-        // });
-      } else { // user exists
-        this.loadUserConversation(user,userName);
-        this.loadParticipantConversation(userName)
-      }
-    });
+        this.chatUsers = res;
+        var user = this.chatUsers.filter(x=>x.identity == userName);
+        // Check exists the user,
+        if (user.length == 0) { // user not exists
+          // Create user
+          // this.chatService.createUser(userName)
+          // .subscribe(x=> {
+          //   this.loadUserConversation(user,userName);
+          //   this.loadParticipantConversation(userName);
+          // });
+        } else { // user exists
+          this.loadUserConversation(user,userName);
+          this.loadParticipantConversation(userName)
+        }
+      });
     }
   }
 
@@ -94,11 +94,26 @@ export class ChatListComponent implements OnInit {
 
       if(s.length>0) {
         this.participantConversations = s;
+        console.log('participantConversations', this.participantConversations)
       } else {
       }
       // if no exisiting msgs,
       // create new message
       // else show exisiting msgs
+    });
+  }
+
+  loadParticipants(conversationId: string) {
+    this.chatService.getParticipant(conversationId)
+    .subscribe(s=> {
+      if(s.length>0) {
+        s.forEach(x=>{
+          if(this.participants.findIndex(c=>c.sid == x.sid)==-1)
+            this.participants.push(x);
+        });
+        console.log('participantId', s)
+      } else {
+      }
     });
   }
 
@@ -109,8 +124,10 @@ export class ChatListComponent implements OnInit {
           if(o.length >0){
             this.currentUserConversations =[]
             o.forEach(el=> {
-              if(el.conversationSid)
+              if(el.conversationSid){
                 this.loadMessages(el.conversationSid);
+                this.loadParticipants(el.conversationSid)
+              }
             });
           } else {
               // this.createParticipant(userName,)
@@ -163,7 +180,7 @@ export class ChatListComponent implements OnInit {
     var con = this.getUserConversation(conversationId);
     if(con) {
       this.updateMsgReadStatus(con);
-      this.popupCreate.emit(con);
+      this.popupCreate.emit({con:con,username:username});
     }else {
       this.newChat(username);
     }
@@ -206,9 +223,14 @@ export class ChatListComponent implements OnInit {
   }
 
   onConversationChanges(isUpdated: boolean) {
-    if(isUpdated == true && this.isUpdatedConversation == false) {
+    if(isUpdated == true && Number(this.updatedConversationCount) < Number(this.currentUserConversations?.length)) {
       this.filteredMsg();
-      this.isUpdatedConversation = true;
+      this.updatedConversationCount = Number(this.updatedConversationCount) + 1;
+      // this.currentUserConversations?.forEach(con=> {
+      //   if(con?.conversationSid)
+      //     this.loadParticipants(con?.conversationSid)
+      // });
+
     }
   }
 
@@ -254,8 +276,19 @@ export class ChatListComponent implements OnInit {
 
   getMsgUserName(messages: Message[]) {
     var res = messages.filter(x=>x.auther != this.currentUser?.username);
-    if(res)
+    if(res.length > 0)
       return res[0].auther;
+
+      // if backoffice user initialize the chat. messages havent included the other user.
+    if(this.participants.length> 0) {
+      var msg = messages.filter(x=>x.auther == this.currentUser?.username);
+      if(msg.length> 0) {
+        var user = this.participants.filter(c=>c.pathConversationSid == msg[0].pathConversationSid && c.identity != this.currentUser?.username);
+        if(user.length> 0)
+          return user[0].identity;
+      }
+    }
+
     return "";
   }
 

@@ -58,7 +58,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
                     {title:'Publish Notifications', menuType:MenuType.Notification}]},
                 { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
                   children:[
-                    {title:'Messaging', menuType:MenuType.Messaging}]}
+                    {title:'Messaging', menuType:MenuType.Messaging}]},
+                { title:'ManageUser', expanded: false, icon:'ca-icn-settings ',
+                  children:[
+                    {title:'ManageUser', menuType: MenuType.ManageUser}]}
               ]
 
 
@@ -166,6 +169,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.StandByCargo:
         this.router.navigate([RouteConstants.StandByCargo])
         break;
+      case MenuType.ManageUser:
+        this.router.navigate([RouteConstants.ManageUser])
+        break;
       case MenuType.Messaging:
         this.showMsg.emit(true);
         break;
@@ -223,6 +229,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.ULDMaster:
         selectedType = MenuType.ULDMaster;
+        break;
+      case RouteConstants.ManageUser:
+        selectedType = MenuType.ManageUser;
         break;
     }
     return selectedType;

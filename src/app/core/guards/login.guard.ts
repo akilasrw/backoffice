@@ -12,7 +12,7 @@ export class LoginGuard implements CanActivate {
     private router: Router
   ) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> { debugger
     return this.accountService.currentUser$.pipe(map(e => {
       if (e) {
         this.router.navigate(['/']);

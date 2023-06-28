@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { CargoAgentManagementComponent } from './cargo-agent-management/cargo-agent-management.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ManageUserListComponent } from './manage-user/manage-user-list/manage-user-list.component';
+import { CreateUserComponent } from './manage-user/create-user/create-user.component';
 
 
 @NgModule({
   declarations: [
-    CargoAgentManagementComponent
+    CargoAgentManagementComponent,
+    ManageUserListComponent,
+    CreateUserComponent
   ],
   imports: [
     CommonModule,

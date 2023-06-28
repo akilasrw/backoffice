@@ -83,9 +83,11 @@ export class AppComponent implements OnInit{
     setTimeout(() => (this.chatModalVisibleAnimate = true));
   }
 
-  showMsgCreatePopup(event: any) {
+  showMsgCreatePopup(event: any,) { debugger
     this.isNewChat = false;
-    this.currentUserConversation = event;
+    this.currentUserConversation = event.con;
+    this.agentUserName = event.username;
+
     this.chatCreateModalVisible= true;
     setTimeout(() => (this.chatCreateModalVisibleAnimate = true));
   }
