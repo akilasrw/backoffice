@@ -10,8 +10,8 @@
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div>
-                <app-airport-create [airport]="this.selectedAirport" (submitSuccess)="onUserAdd()"
-                    (closePopup)="closeAddAirport()" *ngIf="modalVisible"></app-airport-create>
+                <app-create-user (submitSuccess)="onUserAdd()"
+                    (closePopup)="close()" *ngIf="modalVisible"></app-create-user>
             </div>
         </div>
     </div>
