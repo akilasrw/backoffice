@@ -1,4 +1,4 @@
-import { CargoType, LinkAircraftFliterStatus, MasterSheduleReportType, ULDLocateStatus, ULDOwnershipType } from 'src/app/core/enums/common-enums';
+import { AccessPortalLevel, CargoType, LinkAircraftFliterStatus, MasterSheduleReportType, ULDLocateStatus, ULDOwnershipType, UserRole, UserStatus } from 'src/app/core/enums/common-enums';
 import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus, RateType, ULDType } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
@@ -422,6 +422,78 @@ export class CoreExtensions {
         break;
     }
     return statusString;
+  }
+
+  public static GetAccessPortalLevel(type: AccessPortalLevel): string {
+    let stringValue = "None";
+    switch (type) {
+      case AccessPortalLevel.None:
+        stringValue = "None";
+        break;
+      case AccessPortalLevel.Backoffice:
+        stringValue = "Backoffice";
+        break;
+      case AccessPortalLevel.WareHouse:
+        stringValue = "WareHouse";
+        break;
+      case AccessPortalLevel.Booking:
+        stringValue = "Booking";
+        break;
+      default:
+        break;
+    }
+    return stringValue;
+  }
+
+  public static GetUserRole(type: UserRole): string {
+    let stringValue = "None";
+    switch (type) {
+      case UserRole.None:
+        stringValue = "None";
+        break;
+      case UserRole.BackofficeAdmin:
+        stringValue = "Backoffice Admin";
+        break;
+      case UserRole.BookingAdmin:
+        stringValue = "Booking Admin";
+        break;
+      case UserRole.WarehouseAdmin:
+        stringValue = "Warehouse Admin";
+        break;
+      case UserRole.BackofficeUser:
+        stringValue = "Backoffice User";
+        break;
+      case UserRole.BookingUser:
+        stringValue = "Booking User";
+        break;
+      case UserRole.WarehouseUser:
+        stringValue = "Warehouse User";
+        break;
+      default:
+        break;
+    }
+    return stringValue;
+  }
+
+  public static GetUserStatus(type: UserStatus): string {
+    let stringValue = "None";
+    switch (type) {
+      case UserStatus.None:
+        stringValue = "None";
+        break;
+      case UserStatus.Active:
+        stringValue = "Active";
+        break;
+      case UserStatus.Pending:
+        stringValue = "Pending";
+        break;
+      case UserStatus.Suspended:
+        stringValue = "Suspended";
+        break;
+      default:
+        break;
+    }
+    return stringValue;
   }
 
   public static GetDimentions(length:number,width:number,height:number):string{

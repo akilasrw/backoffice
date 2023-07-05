@@ -5,13 +5,17 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-control">
+                        <app-text-input [formControl]='userForm.controls["firstName"]' type="text"
+                          [label]='"First Name"' [tabindex]="1">
+                        </app-text-input>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control">
+                        <app-text-input [formControl]='userForm.controls["lastName"]' type="text"
+                          [label]='"Last Name"' [tabindex]="2">
+                        </app-text-input>
                     </div>
                 </div>
             </div>
@@ -19,13 +23,17 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">User Name</label>
-                        <input type="text" class="form-control">
+                        <app-text-input [formControl]='userForm.controls["userName"]' type="text"
+                          [label]='"UserName"' [tabindex]="3">
+                        </app-text-input>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control">
+                        <app-text-input [formControl]='userForm.controls["email"]' type="text"
+                          [label]='"Email"' [tabindex]="4">
+                        </app-text-input>
                     </div>
                 </div>
             </div>
@@ -33,17 +41,17 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Phone Number</label>
-                        <input type="number" class="form-control">
+                        <app-text-input [formControl]='userForm.controls["phoneNumber"]' type="text"
+                          [label]='"Phone Number"' [tabindex]="5">
+                        </app-text-input>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Country</label>
-                        <select class="form-control">
-                            <option></option>
-                            <option>Malaysia</option>
-                            <option>Singapore</option>
-                        </select>
+                        <app-auto-complete-dropdown
+                        [data] = "countryList" [keyword] ="keyword" (selectFileOutput)="selectedCountry($event)" [tabindex] ="6"
+                        (changeSearch)="onClearCountry()" (clearSearch)="onClearCountry()"></app-auto-complete-dropdown>
                     </div>
                 </div>
             </div>
@@ -51,21 +59,16 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">City</label>
-                        <select class="form-control">
-                            <option></option>
-                            <option>Malaysia</option>
-                            <option>Singapore</option>
-                        </select>
+                        <app-text-input [formControl]='userForm.controls["city"]' [label]='"city"' [tabindex] ="7">
+                        </app-text-input>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Base Airport</label>
-                        <select class="form-control">
-                            <option></option>
-                            <option>Test 1</option>
-                            <option>Test 2</option>
-                        </select>
+                        <app-auto-complete-dropdown [data]="baseAirpots" [keyword]="keyword" [tabindex]="8"
+                        (selectFileOutput)="selectedBaseAirport($event)" (changeSearch)="onClearBaseAirport()"
+                        (clearSearch)="onClearBaseAirport()"></app-auto-complete-dropdown>
                     </div>
                 </div>
             </div>
