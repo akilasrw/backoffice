@@ -48,7 +48,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
                     {title:'Manage Airports', menuType:MenuType.Airport},
                     {title:'Manage Sectors', menuType:MenuType.Sector},
                     {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
-                    {title:'Flight Creation', menuType:MenuType.Flight}]},
+                    {title:'Flight Creation', menuType:MenuType.Flight},
+                    {title:'User Management', menuType:MenuType.ManageUser}]},
                 { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
                   children:[
                     {title:'ULD Assignement', menuType:MenuType.PalletManagement},
@@ -58,10 +59,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
                     {title:'Publish Notifications', menuType:MenuType.Notification}]},
                 { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
                   children:[
-                    {title:'Messaging', menuType:MenuType.Messaging}]},
-                { title:'ManageUser', expanded: false, icon:'ca-icn-settings ',
-                  children:[
-                    {title:'ManageUser', menuType: MenuType.ManageUser}]}
+                    {title:'Messaging', menuType:MenuType.Messaging}]}
               ]
 
 

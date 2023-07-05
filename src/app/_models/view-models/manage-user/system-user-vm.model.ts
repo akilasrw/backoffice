@@ -5,6 +5,7 @@ export class SystemUserVm {
   countryName?: string;
   email?: string;
   baseAirportName?: string;
+  phoneNumber?: string;
   userName?: string;
   appUserId?: string;
   countryId?: string;

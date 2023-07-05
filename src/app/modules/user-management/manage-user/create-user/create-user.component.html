@@ -76,41 +76,29 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">User Role</label>
-                        <select class="form-control">
-                            <option></option>
-                            <option>Admin</option>
-                            <option>Backoffice Admin</option>
-                        </select>
+                        <app-auto-complete-dropdown [data]="userRoles" [keyword]="keyword" [tabindex]="2"
+                        (selectFileOutput)="selectedRole($event)" (changeSearch)="onClearRole()"
+                        (clearSearch)="onClearRole()"></app-auto-complete-dropdown>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Access Portal</label>
-                        <select class="form-control">
-                            <option></option>
-                            <option>Backoffice</option>
-                            <option>Warehouse Tab</option>
-                        </select>
+                        <app-auto-complete-dropdown [data]="accessLevels" [keyword]="keyword" [tabindex]="2"
+                        (selectFileOutput)="selectedAccessPortal($event)" (changeSearch)="onClearAccessPortal()"
+                        (clearSearch)="onClearAccessPortal()"></app-auto-complete-dropdown>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="lable mb-3">Status</div>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="cu-check pe-4">
-                            <label class="cu-checkbox">Active
-                                <input type="radio">
-                                <span class="checkmark cu-radio"></span>
-                            </label>
-                        </div>
-                        <div class="cu-check pe-4">
-                            <label class="cu-checkbox">Deactivate
-                                <input type="radio">
-                                <span class="checkmark cu-radio"></span>
-                            </label>
-                        </div>
-                    </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <app-auto-complete-dropdown [data]="statusList" [keyword]="keyword" [tabindex]="2"
+                        (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
+                        (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
+                  </div>
+
                 </div>
             </div>
         </div>

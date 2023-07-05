@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { CountryService } from 'src/app/_services/country.service';
 import { AirportService } from 'src/app/_services/airport.service';
+import { AccessPortalLevel, UserRole, UserStatus } from 'src/app/core/enums/common-enums';
+import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 
 @Component({
   selector: 'app-create-user',
@@ -20,6 +22,10 @@ export class CreateUserComponent implements OnInit {
   countryList: SelectList[] = [];
   baseAirpots: SelectList[] = [];
   keyword = 'value';
+  statusList: SelectList[] = [];
+  accessLevels: SelectList[] = [];
+  userRoles: SelectList[] = [];
+
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
 
@@ -33,6 +39,9 @@ export class CreateUserComponent implements OnInit {
     this.initializeForm();
     this.loadCountries();
     this.loadAirports();
+    this.loadStatusList();
+    this.loadAccessPortalLevels();
+    this.loadUserRoles();
   }
 
   initializeForm() {
@@ -42,7 +51,7 @@ export class CreateUserComponent implements OnInit {
       lastName: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       countryId: ['', [Validators.required]],
       baseAirportId: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -50,6 +59,31 @@ export class CreateUserComponent implements OnInit {
       userRole: [0, [Validators.required]],
       userStatus: [0, [Validators.required]],
     });
+  }
+
+  loadStatusList() {
+    this.statusList.push(
+      { id: UserStatus.Active.toString(), value: CoreExtensions.GetUserStatus(UserStatus.Active) },
+      { id: UserStatus.Pending.toString(), value: CoreExtensions.GetUserStatus(UserStatus.Pending) },
+      { id: UserStatus.Suspended.toString(), value: CoreExtensions.GetUserStatus(UserStatus.Suspended) },
+
+    );
+  }
+
+  loadAccessPortalLevels() {
+    this.accessLevels.push(
+      { id: AccessPortalLevel.Backoffice.toString(), value: CoreExtensions.GetAccessPortalLevel(AccessPortalLevel.Backoffice) },
+      { id: AccessPortalLevel.Booking.toString(), value: CoreExtensions.GetAccessPortalLevel(AccessPortalLevel.Booking) },
+      { id: AccessPortalLevel.WareHouse.toString(), value: CoreExtensions.GetAccessPortalLevel(AccessPortalLevel.WareHouse) },
+    );
+  }
+
+  loadUserRoles() {
+    this.userRoles.push(
+      { id: UserRole.BackofficeAdmin.toString(), value: CoreExtensions.GetUserRole(UserRole.BackofficeAdmin) },
+      { id: UserRole.BookingAdmin.toString(), value: CoreExtensions.GetUserRole(UserRole.BookingAdmin) },
+      { id: UserRole.WarehouseAdmin.toString(), value: CoreExtensions.GetUserRole(UserRole.WarehouseAdmin) },
+    );
   }
 
   loadAirports() {
@@ -70,7 +104,6 @@ export class CreateUserComponent implements OnInit {
       });
   }
 
-
   selectedCountry(value: any){
     this.userForm.get('countryId')?.patchValue(value.id);
   }
@@ -87,6 +120,29 @@ export class CreateUserComponent implements OnInit {
     this.userForm.get('baseAirportId')?.patchValue(null);
   }
 
+  selectedStatus(value: any) {
+    this.userForm.get('userStatus')?.patchValue(value.id);
+  }
+
+  onClearStatus() {
+    this.userForm.get('userStatus')?.patchValue(null);
+  }
+
+  selectedAccessPortal(value: any) {
+    this.userForm.get('accessPortalLevel')?.patchValue(value.id);
+  }
+
+  onClearAccessPortal() {
+    this.userForm.get('accessPortalLevel')?.patchValue(null);
+  }
+
+  selectedRole(value: any) {
+    this.userForm.get('userRole')?.patchValue(value.id);
+  }
+
+  onClearRole() {
+    this.userForm.get('userRole')?.patchValue(null);
+  }
 
   onSubmit() {
     if(this.userForm.valid) {
