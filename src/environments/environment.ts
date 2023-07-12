@@ -8,7 +8,7 @@ export const environment = {
   encriptionKey:"123456$#@$^@1ERF",
   mainLogoPath: "/assets/images/ikigai-cargo.svg",
   mainIconPath: "/assets/images/ikigai-logo-icon.svg",
-  loginImgPath: "/assets/images/logo.svg",
+  loginImgPath: "/assets/images/ikigai-white-cargo.svg",
 };
 
 /*

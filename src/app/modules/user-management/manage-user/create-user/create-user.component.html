@@ -1,4 +1,6 @@
-<div class="modal-body">
+
+<form [formGroup]='userForm' (submit)="onSubmit()">
+  <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -76,7 +78,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">User Role</label>
-                        <app-auto-complete-dropdown [data]="userRoles" [keyword]="keyword" [tabindex]="2"
+                        <app-auto-complete-dropdown [data]="userRoles" [keyword]="keyword" [tabindex]="9"
                         (selectFileOutput)="selectedRole($event)" (changeSearch)="onClearRole()"
                         (clearSearch)="onClearRole()"></app-auto-complete-dropdown>
                     </div>
@@ -84,7 +86,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Access Portal</label>
-                        <app-auto-complete-dropdown [data]="accessLevels" [keyword]="keyword" [tabindex]="2"
+                        <app-auto-complete-dropdown [data]="accessLevels" [keyword]="keyword" [tabindex]="10"
                         (selectFileOutput)="selectedAccessPortal($event)" (changeSearch)="onClearAccessPortal()"
                         (clearSearch)="onClearAccessPortal()"></app-auto-complete-dropdown>
                     </div>
@@ -94,17 +96,17 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-label">Status</label>
-                    <app-auto-complete-dropdown [data]="statusList" [keyword]="keyword" [tabindex]="2"
+                    <app-auto-complete-dropdown [data]="statusList" [keyword]="keyword" [tabindex]="11"
                         (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
                         (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
                   </div>
-
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary me-3">Cancel</button>
-    <button type="submit" class="btn btn-primary">Save</button>
-</div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary me-3">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</form>

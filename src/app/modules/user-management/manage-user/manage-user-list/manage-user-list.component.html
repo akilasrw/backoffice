@@ -15,16 +15,18 @@
                 <div class="filter-wrapper">
                     <div class="filter-group">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" [(ngModel)]="query.name">
+                        <input type="text" class="form-control"  (change)="onChangeFilterFrm($event)" [(ngModel)]="query.name">
                     </div>
                     <div class="filter-group">
                         <label class="form-label">Status</label>
-                        <input type="text" class="form-control" [(ngModel)]="query.status">
+                        <app-auto-complete-dropdown [data]="statusList" [keyword]="keyword" #statusDropdown
+                        (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
+                        (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
                     </div>
                     <div class="button">
                         <button class="btn sm btn-primary-outline" (click)="getFilterList()">Add Filter</button>
                     </div>
-                    <div class="filter-clear" title="Filter Clear"><i class="ca ca-icn-close"></i></div>
+                    <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i class="ca ca-icn-close" (click)="clearFilter()"></i></div>
                 </div>
             </div>
         </div>
@@ -55,13 +57,17 @@
                             <td>{{user.countryName}}</td>
                             <td>{{user.city}}</td>
                             <td>{{user.baseAirportName}}</td>
-                            <td>{{user.userRole}}</td>
-                            <td>{{user.accessPortalLevel}}</td>
+                            <td>{{getUserRole(user.userRole)}}</td>
+                            <td>{{getAccessPortalLevel(user.accessPortalLevel)}}</td>
                             <td>
-                                <span class="agent-status-chip active">{{user.userStatus}}</span>
+                                <span class="agent-status-chip active">{{getUserStatus(user.userStatus)}}</span>
                             </td>
                             <td>
-                                <i class="ca ca-icn-suspend text-red" title="Suspend"></i>
+                              <i class="ca ca-icn-active-user" title="Active"
+                              *ngIf="user.userStatus == UserStatus.Suspended || user.userStatus == UserStatus.Pending"
+                              (click)="onActive(user.id)"></i>
+                                <i class="ca ca-icn-suspend text-red" title="Suspend" (click)="onSuspend()"
+                                *ngIf="user.userStatus == UserStatus.Active || user.userStatus == UserStatus.Pending"></i>
                                 <i class="ca ca-icn-edit" title="Edit"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
                             </td>
@@ -87,6 +93,46 @@
             <div>
                 <app-create-user (submitSuccess)="onUserAdd()"
                     (closePopup)="close()" *ngIf="modalVisible"></app-create-user>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateSuspendUser}"
+    [ngStyle]="{'display': modalVisibleSuspendUser ? 'block' : 'none', 'opacity': modalVisibleAnimateSuspendUser ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Suspend User</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelSuspend()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to suspend this user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelSuspend()">Cancel</button>
+                <button class="btn btn-primary" (click)="onAction()" type="button">Suspend</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateAcceptUser}"
+    [ngStyle]="{'display': modalVisibleAcceptUser ? 'block' : 'none', 'opacity': modalVisibleAnimateAcceptUser ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Active User</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelActive()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to active this user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelActive()">Cancel</button>
+                <button class="btn btn-primary" (click)="onAction()" type="button">Active</button>
             </div>
         </div>
     </div>

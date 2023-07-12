@@ -49,7 +49,7 @@ export class CreateUserComponent implements OnInit {
       id:[null],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      userName: ['', [Validators.required]],
+      userName: ['', [Validators.required,Validators.pattern("^[a-z._]+$")]],
       phoneNumber: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       countryId: ['', [Validators.required]],
@@ -83,6 +83,9 @@ export class CreateUserComponent implements OnInit {
       { id: UserRole.BackofficeAdmin.toString(), value: CoreExtensions.GetUserRole(UserRole.BackofficeAdmin) },
       { id: UserRole.BookingAdmin.toString(), value: CoreExtensions.GetUserRole(UserRole.BookingAdmin) },
       { id: UserRole.WarehouseAdmin.toString(), value: CoreExtensions.GetUserRole(UserRole.WarehouseAdmin) },
+      { id: UserRole.BackofficeUser.toString(), value: CoreExtensions.GetUserRole(UserRole.BackofficeUser) },
+      { id: UserRole.WarehouseUser.toString(), value: CoreExtensions.GetUserRole(UserRole.WarehouseUser) },
+      { id: UserRole.BookingUser.toString(), value: CoreExtensions.GetUserRole(UserRole.BookingUser) },
     );
   }
 
@@ -121,7 +124,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   selectedStatus(value: any) {
-    this.userForm.get('userStatus')?.patchValue(value.id);
+    this.userForm.get('userStatus')?.patchValue(+value.id);
   }
 
   onClearStatus() {
@@ -129,7 +132,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   selectedAccessPortal(value: any) {
-    this.userForm.get('accessPortalLevel')?.patchValue(value.id);
+    this.userForm.get('accessPortalLevel')?.patchValue(+value.id);
   }
 
   onClearAccessPortal() {
@@ -137,7 +140,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   selectedRole(value: any) {
-    this.userForm.get('userRole')?.patchValue(value.id);
+    this.userForm.get('userRole')?.patchValue(+value.id);
   }
 
   onClearRole() {
@@ -147,6 +150,7 @@ export class CreateUserComponent implements OnInit {
   onSubmit() {
     if(this.userForm.valid) {
       this.createUser = this.userForm.value;
+      console.log(this.createUser)
         this.systemUserService.create(this.createUser).subscribe(
           {
             next: (res) => {

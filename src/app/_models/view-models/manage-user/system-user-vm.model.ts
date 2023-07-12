@@ -1,6 +1,7 @@
 import { AccessPortalLevel, UserRole, UserStatus } from "src/app/core/enums/common-enums";
+import { BaseVM } from "src/app/shared/models/base-vm.model";
 
-export class SystemUserVm {
+export class SystemUserVm extends BaseVM {
   city?: string;
   countryName?: string;
   email?: string;

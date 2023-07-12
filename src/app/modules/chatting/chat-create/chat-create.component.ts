@@ -63,7 +63,7 @@ export class ChatCreateComponent implements OnInit {
     return username;
   }
 
-  sendMsg() { debugger
+  sendMsg() {
     if(this.chatbox != '') {
       var msg: MessageRm = new MessageRm();
       msg.auther =  this.currentUser?.username;
@@ -96,7 +96,7 @@ export class ChatCreateComponent implements OnInit {
 
 }
 
-createConversation() { debugger
+createConversation() {
   // create conversation
   var conversation: ConversationRm = new ConversationRm();
   var userName = this.currentUser?.username;
