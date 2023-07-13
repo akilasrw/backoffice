@@ -6,7 +6,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, canActivate: [LoginGuard]},
-  { path: 'new-password', component: NewPasswordComponent}
+  { path: 'new-password/:id', component: NewPasswordComponent}
 ];
 
 @NgModule({

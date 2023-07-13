@@ -9,6 +9,7 @@ import { CryptoService } from '../core/services/crypto.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenData } from '../_models/token-data.model';
 import { AuthenticateRM } from '../_models/request-models/login/authenticate-rm.model';
+import { UserPasswordRm } from '../_models/request-models/login/user-password-rm.model';
 
 
 @Injectable({
@@ -108,6 +109,14 @@ export class AccountService  extends BaseService {
     }else{
       localStorage.removeItem('UserCredential');
     }
+  }
+
+  updatePassword(model: UserPasswordRm) {
+    return this.http.post(this.baseUrl + 'user/updatePassword', model, { withCredentials: true }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
   }
 
 }
