@@ -25,6 +25,7 @@ export class VerifyBookingComponent implements OnInit {
   verifyStatus = VerifyStatus;
   isDisabledButton: boolean = false;
 
+
   @Output() closePopup = new EventEmitter<any>();
   @Output() submitSuccess = new EventEmitter<any>();
 

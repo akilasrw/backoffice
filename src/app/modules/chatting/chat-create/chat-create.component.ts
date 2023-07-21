@@ -152,7 +152,7 @@ createParticipant(username: string, conversationSid: string){
   startChattingTimer() {
     this.timer = window.setInterval(() => {
       this.callLoadMsgs();
-    }, 2000);
+    }, 1000);
   }
 
   callLoadMsgs() {

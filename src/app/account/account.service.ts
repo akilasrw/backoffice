@@ -10,6 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenData } from '../_models/token-data.model';
 import { AuthenticateRM } from '../_models/request-models/login/authenticate-rm.model';
 import { UserPasswordRm } from '../_models/request-models/login/user-password-rm.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -22,6 +23,7 @@ export class AccountService  extends BaseService {
 
   constructor(http: HttpClient,
     private cryptoService: CryptoService,
+    private toastr: ToastrService,
     private router: Router) {
     super(http);
     this.currentUserSource = new BehaviorSubject<User|null>(null);
@@ -59,6 +61,8 @@ export class AccountService  extends BaseService {
   }
 
   logout(optionalErrorMessage? : string) {
+    if(optionalErrorMessage)
+      this.toastr.error(optionalErrorMessage);
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.router.navigate(['/account']);
