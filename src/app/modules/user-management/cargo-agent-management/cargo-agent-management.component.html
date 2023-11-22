@@ -39,7 +39,6 @@
                         <th>Telephone Number</th>
                         <th>Country</th>
                         <th>City</th>
-                        <th>Base Airport</th>
                         <th>Agent IATA Code</th>
                         <th>Status</th>
                         <th class="text-center">Actions</th>
@@ -52,7 +51,6 @@
                             <td>{{item.primaryTelephoneNumber}}</td>
                             <td>{{item.countryName}}</td>
                             <td><div class="table-textlenth"><span title="{{item.city}}">{{item.city}}</span></div></td>
-                            <td><div class="table-textlenth"><span title="{{item.baseAirportName}}">{{item.baseAirportName}}</span></div></td>
                             <td>{{item.agentIATACode}}</td>
                             <td>
                                 <span class="agent-status-chip" [ngClass]="{
@@ -64,17 +62,10 @@
                                 </span>
                             </td>
                             <td class="text-center">
-                                <!-- <button
-                                    *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending"
-                                    (click)="onActive(item.id)" class="btn sm btn-primary-outline">Active</button>
-                                <button
-                                    *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending"
-                                    (click)="onSuspend(item.id)" class="btn sm btn-primary-outline">Suspend</button> -->
-                                <i class="ca ca-icn-active-user" title="Active" *ngIf="item.status == CagentStatus.Suspended || item.status == CagentStatus.Pending"
-                                (click)="onActive(item.id)"></i>
-                                <i class="ca ca-icn-suspend text-red" title="Suspend" *ngIf="item.status == CagentStatus.Active || item.status == CagentStatus.Pending"
-                                (click)="onSuspend(item.id)"></i>
-                            </td>
+                                <i class="ca ca-icn-edit col-md-4" title="Edit" (click)="openEditModal(item.id, item.agentName, item.userName, item.primaryTelephoneNumber, item.agentIATACode, item.city)"></i>
+                                <i class="ca ca-icn-active-user col-md-4" title="Active" (click)="onActive(item.id)" [ngClass]="{'hidden-icon ': !(item.status === CagentStatus.Suspended || item.status === CagentStatus.Pending)}"></i>
+                                <i class="ca ca-icn-suspend text-red col-md-4" title="Suspend" (click)="onSuspend(item.id)" [ngClass]="{'hidden-icon ': !(item.status === CagentStatus.active || item.status === CagentStatus.Pending)}"></i>
+                           </td>
                         </tr>
                     </tbody>
                 </table>
@@ -116,22 +107,81 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateSuspendAgent}"
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateSuspendAgent}"
     [ngStyle]="{'display': modalVisibleSuspendAgent ? 'block' : 'none', 'opacity': modalVisibleAnimateSuspendAgent ? 1 : 0}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Suspend Cargo Agent</h2>
-                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelSuspend()"
+                <button type="button" class="close btn" data-dismiss="modal" 
                     aria-label="Close"><span class="ca ca-icn-close"></span></button>
             </div>
             <div class="modal-body">
                 Are you sure you want to suspend this user?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary me-3" type="button" (click)="cancelSuspend()">Cancel</button>
+                <button class="btn btn-secondary me-3" type="button">Cancel</button>
                 <button class="btn btn-primary" (click)="onAction()" type="button">Suspend</button>
             </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': isEditModalVisible}"
+    [ngStyle]="{'display': isEditModalVisible ? 'block' : 'none', 'opacity': isEditModalAnimateVisible ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+          <div class="update-user">    
+            <form  class="update-form"  [formGroup]="agentForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Agent Name<span class="compulsory">*</span></label>
+                    <input   [tabindex] ="1" formControlName="agentName" >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">User Name<span class="compulsory">*</span></label>
+                    <input   [tabindex] ="1" formControlName="userName">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Telephone Number<span class="compulsory">*</span></label>
+                    <input   [tabindex] ="1" formControlName="phoneNumber" >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">IATA Code<span class="compulsory">*</span></label>
+                    <input   [tabindex] ="1"  formControlName="iataCode" >
+                  </div>
+                </div>
+               
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">City<span class="compulsory">*</span></label>
+                    <input   [tabindex] ="1" formControlName="city" >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label">Agreement<span class="compulsory">*</span></label>
+                    <input   [tabindex] ="1" type="file" (change)="onFileChange($event)">
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="modal-footer">
+              <button class="btn btn-secondary me-3" type="button" (click)="closeEditModel()">Cancel</button>
+              <button class="btn btn-primary" type="button" (click)="onSubmit()" >Update</button>
+          </div>
+        </div>
         </div>
     </div>
 </div>

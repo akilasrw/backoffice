@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BaseService } from './../core/services/base.service';
 import { Injectable } from '@angular/core';
 import { SelectList } from '../shared/models/select-list.model';
@@ -18,6 +18,7 @@ export class CargoAgentService extends BaseService {
   private readonly getListEndpoint = `${this.endpointEntityName}/getList`;
   private readonly getFilteredListEndpoint = `${this.endpointEntityName}/GetFilteredList`;
   private readonly statusUpdateEndpoint = `${this.endpointEntityName}/StatusUpdate`;
+  private readonly agentUpdateEndpoint = `${this.endpointEntityName}`;
 
   constructor(http: HttpClient){super(http)}
 
@@ -53,6 +54,15 @@ export class CargoAgentService extends BaseService {
 
   getList() {
     return this.get<any>(this.getListEndpoint);
+  }
+
+  updateAgent(agentUpdateRM:FormData){
+    const headers = new HttpHeaders();
+headers.append('Content-Type', 'multipart/form-data');
+
+
+    console.log(agentUpdateRM)
+    return this.http.put<any>('https://localhost:7130/api/v1/CargoAgent', agentUpdateRM, { headers });
   }
 
 }

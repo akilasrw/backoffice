@@ -1,11 +1,14 @@
 import { CargoAgent } from './../../../_models/view-models/cargo-agent/CargoAgent';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CargoAgentFilterQuery } from 'src/app/_models/queries/cargo-agent/cargo-agent-filter-query';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
 import { CargoAgentStatus } from 'src/app/core/enums/common-enums';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { CountryService } from 'src/app/_services/country.service';
+import { AirportService } from 'src/app/_services/airport.service';
 
 @Component({
   selector: 'app-cargo-agent-management',
@@ -14,13 +17,14 @@ import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 })
 export class CargoAgentManagementComponent implements OnInit {
 
+ 
   isLoading: boolean=false;
   filterFormHasValue:boolean=false;
   cargoAgentName?:string;
   cargoAgentFilterQuery: CargoAgentFilterQuery = new CargoAgentFilterQuery();
   cargoAgentStatus?: CargoAgentStatus=CargoAgentStatus.None;
   agentStatus: SelectList[] = [];
-  cargoAgents: CargoAgent[]=[];
+  cargoAgents: CargoAgent[]= [];
   totalCount: number = 0;
   keyword = 'value';
   modalVisibleAnimateAcceptAgent:boolean=false;
@@ -28,14 +32,125 @@ export class CargoAgentManagementComponent implements OnInit {
   selectedAgent?:CargoAgent =new CargoAgent();
   modalVisibleAnimateSuspendAgent:boolean=false;
   modalVisibleSuspendAgent:boolean=false;
+  isEditModalVisible: boolean = false;
+  isEditModalAnimateVisible: boolean = false;
+  selectedId: string = '';
+  countryList: SelectList[] = [];
+  baseAirpots: SelectList[] = [];
 
+  constructor(private cargoAgentService: CargoAgentService, private toastr: ToastrService, private countryService:CountryService, private airportService:AirportService) { }
 
-  constructor(private cargoAgentService: CargoAgentService, private toastr: ToastrService) { }
+  agentForm: FormGroup | undefined;
+  selectedFile: File | null = null;
+
+  onFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  loadAirports() {
+    this.airportService.getSelectList()
+      .subscribe(res => {
+        if (res.length > 0) {
+          this.baseAirpots = res;
+        }
+      });
+  }
+
+  loadCountries(){
+    this.countryService.getCountryList()
+      .subscribe(res => {
+        if(res.length > 0) {
+          this.countryList = res;
+        }
+      });
+  }
+
+  selectedCountry(value: any){
+    this.agentForm?.get('countryId')?.patchValue(value.id);
+  }
+
+  onClearCountry() {
+    this.agentForm?.get('countryId')?.patchValue(null);
+  }
+
+  selectedBaseAirport(value: any) {
+    this.agentForm?.get('baseAirportId')?.patchValue(value.id);
+  }
+
+  
+
+  onClearBaseAirport() {
+    this.agentForm?.get('baseAirportId')?.patchValue(null);
+  }
+
 
   ngOnInit(): void {
     this.getCargoAgentList();
     this.loadStatusTypes();
+    this.agentForm = new FormGroup({
+      agentName: new FormControl(null),
+      userName: new FormControl(null),
+      phoneNumber: new FormControl(null),
+      iataCode: new FormControl(null),
+      country: new FormControl(null),
+      city: new FormControl(null),
+      baseAirPort: new FormControl(null),
+      Agreement: new FormControl(null)
+    })
+    this.loadAirports()
+    this.loadCountries()
   }
+
+  onSubmit() {
+    // Create a new FormData object
+    const formData = new FormData();
+  
+    // Append form control values to the FormData object if they exist
+
+    formData.append('id', this.selectedId)
+
+    if (this?.agentForm?.get('agentName')?.value != null) {
+      formData.append('agentName', this.agentForm.get('agentName')!.value);
+    }
+  
+    if (this?.agentForm?.get('userName')?.value != null) {
+      formData.append('userName', this.agentForm.get('userName')!.value);
+    }
+  
+    if (this?.agentForm?.get('phoneNumber')?.value != null) {
+      formData.append('PrimaryTelephoneNumber', this.agentForm.get('phoneNumber')!.value);
+    }
+  
+    if (this?.agentForm?.get('iataCode')?.value != null) {
+      formData.append('iataCode', this.agentForm.get('iataCode')!.value);
+    }
+  
+    if (this?.agentForm?.get('country')?.value != null) {
+      formData.append('country', this.agentForm.get('country')!.value);
+    }
+  
+    if (this?.agentForm?.get('city')?.value != null) {
+      formData.append('city', this.agentForm.get('city')!.value);
+    }
+  
+    if (this?.agentForm?.get('baseAirPort')?.value != null) {
+      formData.append('baseAirPort', this.agentForm.get('baseAirPort')!.value);
+    }
+  
+    if (this.selectedFile) {
+      formData.append('AgreementFile', this.selectedFile)
+    }
+
+    if (this?.agentForm?.get('city')?.value != null) {
+      formData.append('City', this.agentForm.get('city')!.value);
+    }
+  
+     this.cargoAgentService.updateAgent(formData).subscribe((x)=> console.log(x))
+   
+  }
+
+
+ 
 
   loadStatusTypes() {
     this.agentStatus.push({ id: CargoAgentStatus.None.toString(), value: "All" },
@@ -44,6 +159,20 @@ export class CargoAgentManagementComponent implements OnInit {
       { id: CargoAgentStatus.Suspended.toString(), value: CoreExtensions.GetCargoAgentStaus(CargoAgentStatus.Suspended) });
   }
 
+  openEditModal(id:string, name:string, username:string, telephone:string, iataCode:string, city:string) {
+    this?.agentForm?.get('agentName')?.setValue(name);
+  this?.agentForm?.get('userName')?.setValue(username);
+  this?.agentForm?.get('phoneNumber')?.setValue(telephone);
+  this?.agentForm?.get('iataCode')?.setValue(iataCode);
+  this?.agentForm?.get('city')?.setValue(city);
+    this.isEditModalVisible = true;
+    this.selectedId = id;
+    setTimeout(() => (this.isEditModalAnimateVisible = true));
+  }
+
+  closeEditModel(){
+    this.isEditModalVisible = false;
+  }
 
   getCargoAgentList() {
     this.isLoading=true;
