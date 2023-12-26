@@ -152,8 +152,8 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
       this.isOffloadButtonDisabled = true;
     }
 
-    var selectedBookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Pending && x.selected);
-    var selectedRecBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Accepted && x.selected);
+    var selectedBookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Booking_Made && x.selected);
+    var selectedRecBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Cargo_Received && x.selected);
 
     if(selectedBookedBookings.length > 0 && selectedRecBookings.length == 0) {
       this.isStandByButtonDisabled = false;
@@ -172,8 +172,8 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
   }
 
   enableDisableSelectAllCheckBox() {
-    var bookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Pending);
-    var recBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Accepted);
+    var bookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Booking_Made);
+    var recBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Cargo_Received);
 
     if(bookedBookings.length > 0 && recBookings.length == 0) {
       this.selectAllCheckBoxHidden = false;

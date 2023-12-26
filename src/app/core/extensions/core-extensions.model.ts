@@ -210,23 +210,26 @@ export class CoreExtensions {
       case BookingStatus.None:
         statusString = "None";
         break;
-      case BookingStatus.Pending:
+      case BookingStatus.Booking_Made:
         statusString = "Booked";
         break;
-      case BookingStatus.Accepted:
+      case BookingStatus.AWB_Added:
+        statusString = "AWB Added";
+        break;
+      case BookingStatus.Cargo_Received:
         statusString = "Received";
         break;
-      case BookingStatus.Dispatched:
+      case BookingStatus.Flight_Dispatched:
         statusString = "Dispatched";
         break;
-      case BookingStatus.Exported:
-        statusString = "Exported";
+      case BookingStatus.Cancelled:
+        statusString = "Cancelled";
         break;
-      case BookingStatus.Invoiced:
-        statusString = "Invoiced";
+      case BookingStatus.Flight_Arrived:
+        statusString = "Arrived";
         break;
-      case BookingStatus.Loading:
-        statusString = "Loading";
+      case BookingStatus.Off_Loaded:
+        statusString = "Off Loaded";
         break;
       default:
         break;

@@ -59,13 +59,17 @@
     border-color: $brand-primary;
     color: $brand-primary;
   }
+  &.awb_added  {
+    border-color: $brand-primary;
+    color: $brand-primary;
+  }
   &.dispatch {
     border-color: $purple;
     color: $purple;
   }
-  &.exported  {
-    border-color: $orange;
-    color: $orange;
+  &.cancelled  {
+    border-color: $red;
+    color: $red;
   }
   &.invoiced  {
     border-color: $green;
