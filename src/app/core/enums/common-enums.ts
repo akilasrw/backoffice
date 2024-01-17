@@ -241,7 +241,8 @@ export enum UserRole
     WarehouseAdmin = 3,
     BookingUser = 4,
     BackofficeUser = 5,
-    WarehouseUser = 6
+    WarehouseUser = 6,
+    TruckDriver
 }
 
 export enum AccessPortalLevel

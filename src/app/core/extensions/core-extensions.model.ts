@@ -472,6 +472,9 @@ export class CoreExtensions {
       case UserRole.WarehouseUser:
         stringValue = "Warehouse User";
         break;
+      case UserRole.TruckDriver:
+        stringValue = "Truck Driver";
+        break;
       default:
         break;
     }
