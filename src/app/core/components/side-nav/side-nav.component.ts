@@ -31,6 +31,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
                 { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
                   children:[
                     {title:'Booking Summary', menuType:MenuType.BookingSummay},
+                    {title:'Track Booking', menuType:MenuType.TrackBooking},
                     {title:'Standby Cargo', menuType:MenuType.StandByCargo}]},
                 { title:'Fleet Management',expanded: false, icon:'ca-icn-flight-schedule',
                   children:[
@@ -170,6 +171,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.ManageUser:
         this.router.navigate([RouteConstants.ManageUser])
         break;
+      case MenuType.TrackBooking:
+        this.router.navigate([RouteConstants.TrackBookingRoute])
+        break;
       case MenuType.Messaging:
         this.showMsg.emit(true);
         break;
@@ -188,6 +192,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.BookingSummaryRoute:
         selectedType = MenuType.BookingSummay;
+        break;
+      case RouteConstants.TrackBookingRoute:
+        selectedType = MenuType.TrackBooking;
         break;
       case RouteConstants.AirWaybillRoute:
         selectedType = MenuType.AWBStackManagement;
