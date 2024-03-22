@@ -8,6 +8,8 @@ import { CargoBookingUld } from '../_models/view-models/booking-summary/cargo-bo
 import { CargoBookingStatusUpdateListRm } from '../_models/view-models/cargo-bookings/cargo-booking-status-update-list-rm.model';
 import { CargoBookingUpdateRm } from '../_models/view-models/cargo-bookings/cargo-booking-update-rm.model';
 import { CargoBookingDetailQuery } from '../_models/queries/cargo-bookings/cargo-booking-detail-query.model';
+import {CargoBookingShipmentQuery} from "../_models/queries/booking-shipment/cargo-booking-shipment-query.model";
+import {BookingShipment} from "../_models/view-models/booking-shipment/booking-shipment.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,7 @@ export class BookingService extends BaseService {
   private readonly updateDeleteCargoEndpoint = `${this.endpointEntityName}/UpdateDeleteCargo`;
   private readonly getCargoEndpoint = `${this.endpointEntityName}/GetDetail`;
   private readonly getVerifyBookingListEndpoint = `${this.endpointEntityName}/GetVerifyBookingList`;
+  private readonly getShipmentListEndpoint = `${this.endpointEntityName}/getShipments`;
 
 
   constructor(http: HttpClient) {
@@ -123,4 +126,16 @@ export class BookingService extends BaseService {
 
     return this.getWithParams<any>(this.getCargoEndpoint,params);
   }
+  getBookingShipmentDetail(query: CargoBookingShipmentQuery) {
+    var params = new HttpParams();
+    if (query.packageID) {
+      params = params.append("packageID", query.packageID);
+    }
+
+    if (query.AWBNumber) {
+      params = params.append("AWBNumber", query.AWBNumber);
+    }
+    return this.getWithParams<Array<BookingShipment>>(this.getShipmentListEndpoint,params);
+  }
+
 }
