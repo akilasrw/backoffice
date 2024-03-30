@@ -10,28 +10,19 @@
     <div class="row  second-box-tracking d-flex justify-content-between align-items-center" style="margin-left: 5px; margin-right: 5px">
       <div class="col-6">
         <form [formGroup]='searchForm' (ngSubmit)="getBookingDetail()">
-          <div class="d-flex align-items-center ">
-            <div class="form-group col-6" *ngIf="isAWBChecked">
-
-              <label class="form-label">Package ID</label>
-              <input [formControl]='searchForm.controls["referenceNumber"]' type="text" class="form-control" style="height: 30px" >
-            </div>
-            <div class="form-group col-6" *ngIf="!isAWBChecked">
+          <div class="d-flex align-items-center col-6 ">
+            <div class="form-group col-6">
               <label class="form-label">AWB Number</label>
-              <input [formControl]='searchForm.controls["referenceNumber"]' type="text" class="form-control" style="height: 30px">
+              <input [formControl]='searchForm.controls["awb"]' [(ngModel)]="awbnumber" type="text" class="form-control" style="height: 30px">
             </div>
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary-outline ms-5 mb-2">Find</button>
+            <div class="col-1"></div>
+
+            <div class="form-group col-6" >
+              <label class="form-label">Package ID</label>
+              <input [formControl]='searchForm.controls["packageRef"]' [(ngModel)]="packageRefNo" type="text" class="form-control" style="height: 30px" >
             </div>
-          </div>
-          <div class="row awb_checked ms-auto">
-            <div class="col-md-11">
-              <div class="cu-check">
-                <label class="cu-checkbox">Search With Package ID
-                  <input type="checkbox" (change)="check()" value="isAWBChecked">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
+            <div class=" col-2">
+              <button type="submit" class="btn btn-primary-outline ms-2 mb-1" style="height: 30px">Find</button>
             </div>
           </div>
         </form>

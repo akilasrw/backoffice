@@ -27,6 +27,8 @@ export class TrackBookingComponent implements OnInit {
   packageStatus: number = 0;
   isSplitBooking: boolean = false;
   packageItemShipment: number = 0;
+  packageRefNo: string = '';
+  awbnumber: string = '';
 
 
 
@@ -54,7 +56,8 @@ export class TrackBookingComponent implements OnInit {
 
   initializeForm() {
     this.searchForm = this.fb.group({
-      referenceNumber: new FormControl(null)
+      awb: new FormControl(null),
+      packageRef: new FormControl(null)
     });
   }
 
@@ -70,12 +73,15 @@ export class TrackBookingComponent implements OnInit {
   }
 
   getBookingDetail() {
-    if (this.searchForm.value.referenceNumber != null) {
+    if ( this.awbnumber != '' || this.packageRefNo != '') {
       var query = new CargoBookingShipmentQuery();
-      if (this.isAWBChecked) {
-        query.packageID = this.searchForm.value.referenceNumber;
+      if (this.packageRefNo != '') {
+        query.packageID = this.searchForm.value.packageRef;
+        query.AWBNumber = this.searchForm.value.awb;
+      } else if(this.awbnumber != ''){
+        query.AWBNumber = this.awbnumber;
       } else {
-        query.AWBNumber = this.searchForm.value.referenceNumber;
+        query.AWBNumber = this.searchForm.value.awb;
       }
 
       this.bookingService.getBookingShipmentDetail(query).subscribe(
