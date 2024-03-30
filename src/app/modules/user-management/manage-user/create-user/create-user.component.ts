@@ -86,6 +86,7 @@ export class CreateUserComponent implements OnInit {
       { id: UserRole.BackofficeUser.toString(), value: CoreExtensions.GetUserRole(UserRole.BackofficeUser) },
       { id: UserRole.WarehouseUser.toString(), value: CoreExtensions.GetUserRole(UserRole.WarehouseUser) },
       { id: UserRole.BookingUser.toString(), value: CoreExtensions.GetUserRole(UserRole.BookingUser) },
+      { id: UserRole.TruckDriver.toString(), value: CoreExtensions.GetUserRole(UserRole.TruckDriver) },
     );
   }
 
