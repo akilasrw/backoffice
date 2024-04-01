@@ -1,0 +1,81 @@
+<div class="main-card">
+    <div class="card-header px-0 pt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Truck Master</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body without-footer">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="filter-wrapper">
+                    <div class="filter-group">
+                        <label class="form-label">Truck Number</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="button">
+                        <button class="btn sm btn-primary-outline">Add Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-content">
+                <table class="table table-responsive">
+                    <thead>
+                        <th>Truck No</th>
+                        <th>Last Used Agent</th>
+                        <th>Last Used AWB</th>
+                        <th>Last Used Date</th>
+                        <th>Pickup Cargo Cunt</th>
+                        <th>Handover Cargo Cunt</th>
+                        <th>Last Transport Package Count</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let truck of this.trucks">
+                          <td>{{ truck.truckID }}</td>
+                          <td>{{ truck.CreatedBy }}</td>
+                          <td>{{ truck.BookingID }}</td>
+                          <td>{{ truck.lastUsedDate }}</td>
+                          <td>{{ truck.pickupCargoCount }}</td>
+                          <td>{{ truck.handoverCargoCount }}</td>
+                          <td>{{ truck.lastTransportPackageCount }}</td>
+                          <td>
+                            <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(truck)"></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                </table>
+                <div class="d-flex align-items-center justify-content-center">
+                    <app-pager [pageNumber]="1"
+                        ></app-pager>
+                    <app-paging-header 
+                        [pageNumber]="1"></app-paging-header>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Truck</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeEditTruck()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-truck-form [truck]="selectedTruck" *ngIf="modalVisible" (closePopup)="closeEditTruck()">
+
+                </app-truck-form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -54,7 +54,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
                 { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
                   children:[
                     {title:'ULD Assignement', menuType:MenuType.PalletManagement},
-                    {title:'ULD Master', menuType:MenuType.ULDMaster}]},
+                    {title:'ULD Master', menuType:MenuType.ULDMaster},
+                    {title:'Truck Master', menuType:MenuType.TruckMaster}]},
                 { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
                   children:[
                     {title:'Publish Notifications', menuType:MenuType.Notification}]},
@@ -165,6 +166,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.ULDMaster:
         this.router.navigate([RouteConstants.ULDMaster])
         break;
+      case MenuType.TruckMaster:
+        this.router.navigate([RouteConstants.TruckMaster])
+        break;
       case MenuType.StandByCargo:
         this.router.navigate([RouteConstants.StandByCargo])
         break;
@@ -234,6 +238,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.ULDMaster:
         selectedType = MenuType.ULDMaster;
+        break;
+      case RouteConstants.TruckMaster:
+        selectedType = MenuType.TruckMaster;
         break;
       case RouteConstants.ManageUser:
         selectedType = MenuType.ManageUser;
