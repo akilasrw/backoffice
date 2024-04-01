@@ -13,6 +13,7 @@ export class TruckMasterListComponent implements OnInit {
   modalVisibleAnimate = false;
   selectedTruck?: TRUCK;
   isLoading:boolean=false;
+  totalCount: number = 0;
 
   constructor(private truckService: TruckService) { }
 
@@ -26,9 +27,9 @@ export class TruckMasterListComponent implements OnInit {
     this.truckService.getFilteredList().subscribe(
       {
         next: (res) => {
-          console.log("Trcuk Info1", res);
           this.trucks = res.data;
-          console.log("Trcuk Info", this.trucks);
+          this.totalCount = res.count
+          console.log("Trcuk Info", this.trucks, "count",this.totalCount );
           this.isLoading=false;
         },
         error: (error) => {
