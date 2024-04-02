@@ -8,37 +8,54 @@
   </div>
   <div class="card-body without-footer">
     <div class="row">
+      <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px">
+        <div class="filter-wrapper">
+          <div class="filter-group">
+            <label class="form-label">Departure Date</label>
+            <input  type="text" class="form-control" bsDatepicker
+                   >
+          </div>
+          <div class="button">
+            <button  class="btn sm btn-primary-outline">Add Filter</button>
+          </div>
+<!--          <div aria-label="right">-->
+<!--            <label>Summery for: 03/02/2024</label>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-3">
-        <button type="button" class="btn btn-primary top-btn-left"><i class="fa fa-podcast" aria-hidden="true"></i> User Dashboard 1</button>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem;"><h1 style="font-weight: bolder; font-size: x-large">1501</h1>
+          <label style="font-weight: normal; font-size: small">Number of parcel collected</label></button>
       </div>
       <div class="col-3">
-        <button type="button" class="btn btn-primary top-btn-left"><i class="fa fa-podcast" aria-hidden="true"></i> User Dashboard 1</button>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem;"><h1 style="font-weight: bolder; font-size: x-large">103</h1>
+          <label style="font-weight: normal; font-size: small">Total parcel to be returned</label></button>
       </div>
       <div class="col-3">
-        <button type="button" class="btn btn-primary top-btn-left"><i class="fa fa-podcast" aria-hidden="true"></i> User Dashboard 1</button>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem;"><h1 style="font-weight: bolder; font-size: x-large">100</h1>
+          <label style="font-weight: normal; font-size: small">Total parcels on hold </label></button>
       </div>
       <div class="col-3">
-        <button type="button" class="btn btn-primary top-btn-left"><i class="fa fa-podcast" aria-hidden="true"></i> User Dashboard 1</button>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem;"><h1 style="font-weight: bolder; font-size: x-large">86%</h1>
+          <label style="font-weight:normal ; font-size: small">Successful delivery</label></button>
       </div>
-
-
-
-
 </div>
     <div class="row">
-      <div class="col-4">
-        <div class="second-box" style="height: 350px">
-
+      <div class="col-4" >
+        <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
+          <div class="chart-container">
+            <canvas height="300" id="MyChart" >{{ chart }}</canvas>
+          </div>
         </div>
       </div>
       <div class="col-4" >
-        <div class="second-box" style="height: 350px">
-
+        <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
         </div>
       </div>
       <div class="col-4">
-        <div class="second-box" style="height: 350px">
-
+        <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
         </div>
       </div>
     </div>
