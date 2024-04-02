@@ -42,9 +42,76 @@
         </div>
       </div>
     </div>
-    <div class="row">
-<!--      table-->
+
+    <div class="row pt-5">
+      <div class="row">
+        <div class="col-2">
+            <h4>Parcels Delivered</h4>
+        </div>
+        <div class="col-1">
+          <div class="filter-group">
+            <div>
+              <label *ngIf="!isLoading">
+                <input type="checkbox">
+                <span class="checkmark">Time Period</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-1">
+          <div  class="filter-group">
+            From 
+            <span class="status-chip accepted" bsDatepicker [(ngModel)]="fileterDate">1-April
+            </span>
+          </div>
+        </div>
+        <div class="col-1">
+          <div  class="filter-group">
+            To 
+            <span class="status-chip accepted" bsDatepicker [(ngModel)]="fileterDate">2-April
+            </span>
+          </div>
+        </div>   
+      </div>
+
+      <div class="row">
+        <div *ngIf="!isLoading" class="table-content">
+          <table class="table table-responsive">
+            <thead>
+              <th>Collected Date</th>
+              <th>AWB's</th>
+              <th>Parceles Collected</th>
+              <th>Parceles Returned</th>
+              <th>Parceles on Hold</th>
+              <th>ULD Packed</th>
+              <th>On Route</th>
+              <th>Parceles Delivered</th>
+              <th>24 hrs</th>
+              <th>24 to 36 hrs</th>
+              <th>36 hrs</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of this.parcelDelivered">
+                <td>{{ item.collectedDate }}</td>
+                <td>{{ item.AWBs }}</td>
+                <td>{{ item.parcelsCollected }}</td>
+                <td>{{ item.parcelsReturned }}</td>
+                <td>{{ item.parcelsOnHold }}</td>
+                <td>{{ item.ULDPacked }}</td>
+                <td>{{ item.onRoute }}</td>
+                <td>{{ item.parcelsDelivered }}</td>
+                <td>{{ item['24hrs'] }}</td>
+                <td>{{ item['24to36hrs'] }}</td>
+                <td>{{ item['36hrs'] }}</td>
+            </tr>
+            </tbody>
+          </table>
+            
+        </div>
+      </div>
     </div>
+
+
   </div>
 </div>
 
