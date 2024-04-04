@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,15 @@ export class HomeComponent implements OnInit {
   public chart: any;
   isLoading: boolean = false;
   parcelDelivered: any[] = [];
-  fileterDate?: Date = new Date(); 
+  filterDateFrom: any;
+  filterDateTo: any;
   filterFormHasValue:boolean=false;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.filterDateFrom = this.getYesterdayDate();
+    this.filterDateTo = new Date();
     this.createChart();
     this.parcelDelivered = [
       {
@@ -34,8 +38,12 @@ export class HomeComponent implements OnInit {
     ];
   }
 
+  getYesterdayDate(): Date {
+    return moment().subtract(1, 'days').toDate();
+  }
+
   onChangeFilterFrm(event: any) {
-    if ((this.fileterDate !== null))
+    if ((this.filterDateTo !== null))
     {
       this.filterFormHasValue = true;
     } else {
@@ -49,7 +57,7 @@ export class HomeComponent implements OnInit {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12'],
+        labels: ['24', '24-36', '36'],
         datasets: [
           {
             label: "Total Delivery",
@@ -61,7 +69,7 @@ export class HomeComponent implements OnInit {
         ]
       },
       options: {
-        aspectRatio:1.3
+        aspectRatio:1.5
       }
 
     })
