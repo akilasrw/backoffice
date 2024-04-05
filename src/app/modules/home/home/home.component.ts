@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['24', '24-36', '36'],
+        labels: ['Less Than 24', '24 To 36', 'More Than 36'],
         datasets: [
           {
             label: "Total Delivery",

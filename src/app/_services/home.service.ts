@@ -7,8 +7,11 @@ import {BaseService} from "../core/services/base.service";
 })
 export class HomeService extends BaseService{
   private readonly endpointEntityName = 'CargoBookingLookup';
+  private readonly deliveryAudit = `${this.endpointEntityName}/DelirveryAudit`;
 
   constructor(http: HttpClient) {
     super(http);
   }
+
+  
 }

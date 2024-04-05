@@ -83,31 +83,36 @@
       <div *ngIf="!isLoading" class="table-content">
         <table class="table table-responsive">
           <thead>
-            <th>Collected Date</th>
-            <th>AWB's</th>
-            <th>Parceles Collected</th>
-            <th>Parceles Returned</th>
-            <th>Parceles on Hold</th>
-            <th>ULD Packed</th>
-            <th>On Route</th>
-            <th>Parceles Delivered</th>
-            <th>24 hrs</th>
-            <th>24 to 36 hrs</th>
-            <th>36 hrs</th>
+            <th style="text-align: left">Collected Date</th>
+            <th style="text-align: center">AWB's</th>
+            <th style="text-align: center">Parceles Collected</th>
+            <th style="text-align: center">Parceles Returned</th>
+            <th style="text-align: center">Parceles on Hold</th>
+            <th style="text-align: center">ULD Packed</th>
+            <th style="text-align: center">On Route</th>
+            <th style="text-align: center">Parceles Delivered</th>
+            <th style="text-align: center">24 hrs</th>
+            <th style="text-align: center">24 to 36 hrs</th>
+            <th style="text-align: center">36 hrs</th>
+            <th style="text-align: center">Action</th>
           </thead>
           <tbody>
             <tr *ngFor="let item of this.parcelDelivered">
-              <td>{{ item.collectedDate }}</td>
-              <td>{{ item.AWBs }}</td>
-              <td>{{ item.parcelsCollected }}</td>
-              <td>{{ item.parcelsReturned }}</td>
-              <td>{{ item.parcelsOnHold }}</td>
-              <td>{{ item.ULDPacked }}</td>
-              <td>{{ item.onRoute }}</td>
-              <td>{{ item.parcelsDelivered }}</td>
-              <td>{{ item['24hrs'] }}</td>
-              <td>{{ item['24to36hrs'] }}</td>
-              <td>{{ item['36hrs'] }}</td>
+              <td style="text-align: left">{{ item.collectedDate }}</td>
+              <td style="text-align: center">{{ item.AWBs }}</td>
+              <td style="text-align: center">{{ item.parcelsCollected }}</td>
+              <td style="text-align: center">{{ item.parcelsReturned }}</td>
+              <td style="text-align: center">{{ item.parcelsOnHold }}</td>
+              <td style="text-align: center">{{ item.ULDPacked }}</td>
+              <td style="text-align: center">{{ item.onRoute }}</td>
+              <td style="text-align: center">{{ item.parcelsDelivered }}</td>
+              <td style="text-align: center">{{ item['24hrs'] }}</td>
+              <td style="text-align: center">{{ item['24to36hrs'] }}</td>
+              <td style="text-align: center">{{ item['36hrs'] }}</td>
+              <td style="text-align: center">
+                <i class="ca ca-icn-print" title="Print"></i>
+              </td>
+              
           </tr>
           </tbody>
         </table>
