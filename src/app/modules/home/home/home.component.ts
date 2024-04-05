@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import * as moment from 'moment';
+import {HomeService} from "../../../_services/home.service";
+import {DeliveryAuditQueryModel} from "../../../_models/queries/dashboard/delivery-audit-query.model";
+import {DeliveryAudit} from "../../../_models/view-models/dashboard/delivery-audit";
 
 @Component({
   selector: 'app-home',
@@ -14,13 +17,17 @@ export class HomeComponent implements OnInit {
   filterDateFrom: any;
   filterDateTo: any;
   filterFormHasValue:boolean=false;
+  chartData: DeliveryAudit | undefined;
 
-  constructor() { }
+  constructor(private homeService: HomeService) {
+
+}
 
   ngOnInit(): void {
     this.filterDateFrom = this.getYesterdayDate();
     this.filterDateTo = new Date();
     this.createChart();
+    this.getChatData();
     this.parcelDelivered = [
       {
         collectedDate: '1-April',
@@ -73,6 +80,19 @@ export class HomeComponent implements OnInit {
       }
 
     })
- 
-
-}}
+  }
+  getChatData(){
+    let query = new DeliveryAuditQueryModel();
+    query.start = new Date('2024-04-03');
+    query.end = new Date();
+    this.homeService.getChartData(query).subscribe(
+      {
+        next: (res) => {
+          this.chartData = res;
+        },
+        error: (error) => {
+          this.chartData = undefined;
+        }
+      });
+  }
+}
