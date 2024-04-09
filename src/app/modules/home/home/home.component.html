@@ -98,24 +98,24 @@
             <th style="text-align: center">24 hrs</th>
             <th style="text-align: center">24 to 36 hrs</th>
             <th style="text-align: center">36 hrs</th>
-            <th style="text-align: center">Action</th>
+            <!-- <th style="text-align: center">Action</th> -->
           </thead>
           <tbody>
-            <tr *ngFor="let item of this.parcelDelivered">
-              <td style="text-align: left">{{ item.collectedDate }}</td>
-              <td style="text-align: center">{{ item.AWBs }}</td>
-              <td style="text-align: center">{{ item.parcelsCollected }}</td>
-              <td style="text-align: center">{{ item.parcelsReturned }}</td>
-              <td style="text-align: center">{{ item.parcelsOnHold }}</td>
-              <td style="text-align: center">{{ item.ULDPacked }}</td>
+            <tr *ngFor="let item of this.deliveryAuditData">
+              <td style="text-align: left">{{ item.collectedDate | date: 'dd/MM/yy' }}</td>
+              <td style="text-align: center">{{ item.awBs }}</td>
+              <td style="text-align: center">{{ item.parcellsCollected }}</td>
+              <td style="text-align: center">{{ item.parcellsRetured }}</td>
+              <td style="text-align: center">{{ item.parcellsOnHold }}</td>
+              <td style="text-align: center">{{ item.uldPacked }}</td>
               <td style="text-align: center">{{ item.onRoute }}</td>
-              <td style="text-align: center">{{ item.parcelsDelivered }}</td>
-              <td style="text-align: center">{{ item['24hrs'] }}</td>
-              <td style="text-align: center">{{ item['24to36hrs'] }}</td>
-              <td style="text-align: center">{{ item['36hrs'] }}</td>
-              <td style="text-align: center">
+              <td style="text-align: center">{{ item.parcellsDeliverd }}</td>
+              <td style="text-align: center">{{ item.oneDay }}</td>
+              <td style="text-align: center">{{ item.oneDayToOneAndHalf }}</td>
+              <td style="text-align: center">{{ item.afterOneAndHalf }}</td>
+              <!-- <td style="text-align: center">
                 <i class="ca ca-icn-print" title="Print"></i>
-              </td>
+              </td> -->
               
           </tr>
           </tbody>

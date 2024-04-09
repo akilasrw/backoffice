@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import {HomeService} from "../../../_services/home.service";
 import {DeliveryAuditQueryModel} from "../../../_models/queries/dashboard/delivery-audit-query.model";
 import {DeliveryAudit} from "../../../_models/view-models/dashboard/delivery-audit";
+import { DeliveryAuditData } from 'src/app/_models/view-models/dashboard/delivery-audit-data';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   filterDateTo: any;
   filterFormHasValue:boolean=false;
   chartData: DeliveryAudit | undefined;
+  deliveryAuditData: DeliveryAuditData[] = [];
 
   constructor(private homeService: HomeService) {
 
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
     this.filterDateTo = new Date();
     this.createChart();
     this.getChatData();
+    this.getDeliveryData();
     this.parcelDelivered = [
       {
         collectedDate: '1-April',
@@ -95,4 +98,23 @@ export class HomeComponent implements OnInit {
         }
       });
   }
+
+  getDeliveryData() {
+    const yesterday = moment().subtract(1, 'day').toDate();
+    let query = new DeliveryAuditQueryModel();
+    query.start = yesterday;
+    query.end = yesterday;
+    this.homeService.getDeliveryData(query).subscribe(
+      {
+        next: (res: DeliveryAuditData[]) => { 
+          this.deliveryAuditData = res;
+          console.log(this.deliveryAuditData);
+        },
+        error: (error: any) => { 
+          console.error('Error fetching delivery audit data:', error);
+        }
+      }
+    );
+  }
+  
 }
