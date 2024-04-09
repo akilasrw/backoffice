@@ -1,15 +1,15 @@
 export interface DeliveryAuditData{
-    CollectedDate?:Date;
-    AWBs?:number;
-    ParcellsCollected?:number;
-    ParcellsRetured?:number;
-    ParcellsOnHold?:number;
-    ULDPacked?:number;
-    OnRoute?:number;
-    ParcellsDeliverd?:number;
-    OneDay?:number;
-    OneDayToOneAndHalf?:number;
-    AfterOneAndHalf?:number;
+    collectedDate?:Date;
+    aWBs?:number;
+    parcellsCollected?:number;
+    parcellsRetured?:number;
+    parcellsOnHold?:number;
+    uLDPacked?:number;
+    onRoute?:number;
+    parcellsDeliverd?:number;
+    oneDay?:number;
+    oneDayToOneAndHalf?:number;
+    afterOneAndHalf?:number;
   }
 
   // export interface DeliveryAuditData{
