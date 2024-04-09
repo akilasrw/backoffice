@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnChanges} from '@angular/core';
 import Chart from 'chart.js/auto';
 import * as moment from 'moment';
 import {HomeService} from "../../../_services/home.service";
 import {DeliveryAuditQueryModel} from "../../../_models/queries/dashboard/delivery-audit-query.model";
 import {DeliveryAudit} from "../../../_models/view-models/dashboard/delivery-audit";
+import {observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -12,37 +13,61 @@ import {DeliveryAudit} from "../../../_models/view-models/dashboard/delivery-aud
 })
 export class HomeComponent implements OnInit {
   public chart: any;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
   parcelDelivered: any[] = [];
   filterDateFrom: any;
   filterDateTo: any;
-  filterFormHasValue:boolean=false;
-  chartData: DeliveryAudit | undefined;
+  filterFormHasValue: boolean = false;
+  chartData: any;
+  subscription?: Subscription;
+  oneDay: any = 0;
+  oneAndHalfDay: any = 0;
+  graterThanOneAndHalfDay: any = 0;
+
 
   constructor(private homeService: HomeService) {
-
-}
+  }
 
   ngOnInit(): void {
     this.filterDateFrom = this.getYesterdayDate();
-    this.filterDateTo = new Date();
+    this.filterDateTo = this.getYesterdayDate();
     this.createChart();
     this.getChatData();
+
     this.parcelDelivered = [
       {
-        collectedDate: '1-April',
-        AWBs: 12,
-        parcelsCollected: 1588,
-        parcelsReturned: 27,
-        parcelsOnHold: 230,
+        collectedDate: '7-April',
+        AWBs: 1212313,
+        parcelsCollected: 1076,
+        parcelsReturned: 0,
+        parcelsOnHold: 0,
         ULDPacked: 12,
         onRoute: 12,
-        parcelsDelivered: 1588,
-        '24hrs': 1588,
-        '24to36hrs': 12,
-        '36hrs': 87
+        parcelsDelivered: 1076,
+        '24hrs': 400,
+        '24to36hrs': 576,
+        '36hrs': 100
+      },
+      {
+        collectedDate: '4-April',
+        AWBs: 1214343,
+        parcelsCollected: 1000,
+        parcelsReturned: 0,
+        parcelsOnHold: 0,
+        ULDPacked: 12,
+        onRoute: 12,
+        parcelsDelivered: 1000,
+        '24hrs': 500,
+        '24to36hrs': 100,
+        '36hrs': 400
       },
     ];
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   getYesterdayDate(): Date {
@@ -50,15 +75,14 @@ export class HomeComponent implements OnInit {
   }
 
   onChangeFilterFrm(event: any) {
-    if ((this.filterDateTo !== null))
-    {
+    if ((this.filterDateTo !== null)) {
       this.filterFormHasValue = true;
     } else {
       this.filterFormHasValue = false;
     }
   }
 
-  createChart(){
+  createChart() {
 
     this.chart = new Chart("MyChart", {
       type: 'bar', //this denotes tha type of chart
@@ -68,27 +92,37 @@ export class HomeComponent implements OnInit {
         datasets: [
           {
             label: "Total Delivery",
-            data: ['400','576', '100'],
+            data: [this.oneDay, this.oneAndHalfDay, this.oneAndHalfDay],
             backgroundColor: '#338CE5',
             borderRadius: 6,
-            barThickness:30
+            barThickness: 30
           }
         ]
       },
       options: {
-        aspectRatio:1.5
+        aspectRatio: 1.8
       }
 
     })
   }
-  getChatData(){
+
+  getChatData() {
+    this.isLoading = true;
     let query = new DeliveryAuditQueryModel();
-    query.start = new Date('2024-04-03');
-    query.end = new Date();
-    this.homeService.getChartData(query).subscribe(
+    query.start = this.filterDateFrom;
+    query.end = this.filterDateTo;
+    this.subscription = this.homeService.getChartData(query).subscribe(
       {
         next: (res) => {
           this.chartData = res;
+          this.oneDay = res.oneDay;
+          this.oneAndHalfDay = res.oneAndHalf;
+          this.graterThanOneAndHalfDay = res.afterOneAndHalf;
+          if (res != null || res != undefined) {
+            this.chart.data.datasets[0].data = [res.oneDay, res.oneAndHalf, res.afterOneAndHalf];
+            this.chart.update();
+          }
+          this.isLoading = false;
         },
         error: (error) => {
           this.chartData = undefined;

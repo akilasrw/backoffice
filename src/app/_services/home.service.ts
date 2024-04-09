@@ -9,7 +9,7 @@ import {DeliveryAudit} from "../_models/view-models/dashboard/delivery-audit";
 })
 export class HomeService extends BaseService{
   private readonly endpointEntityName = 'CargoBookingLookup';
-  private readonly getChatDataEndpoint = `${this.endpointEntityName}/ChartDate`;
+  private readonly getChatDataEndpoint = `${this.endpointEntityName}/ChartData`;
 
   constructor(http: HttpClient) {
     super(http);

@@ -3,11 +3,11 @@ export interface BarData{
   count?:number;
 }
 export interface DeliveryAudit{
-  Collected?:number;
-  Returned?:number;
-  OnHold?:number;
-  SuccessRate?:number;
-  BarData?:BarData[];
+  collected?:number;
+  deliverd?:number;
+  oneDay?:number;
+  oneAndHalf?:number;
+  afterOneAndHalf?:number;
 }
 
 

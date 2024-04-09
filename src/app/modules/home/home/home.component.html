@@ -8,72 +8,64 @@
   </div>
   <div class="card-body without-footer">
     <div class="row" style="margin-bottom: 20px">
-      <!-- <div class="col-2">
-        <h4>Parcels Delivered</h4>
-      </div> -->
 
       <div class="col-8">
-        <div class="d-flex justify-content-between align-items-center" >
+        <div class="d-flex justify-content-between align-items-center">
           <div class="filter-wrapper">
             <div class="filter-group">
               <label class="form-label">From</label>
               <input [(ngModel)]="filterDateFrom" type="text" class="form-control" bsDatepicker
-                  (change)="onChangeFilterFrm($event)">
+                     (change)="onChangeFilterFrm($event)">
             </div>
             <div class="filter-group">
-                <label class="form-label">To</label>
-                <input [(ngModel)]="filterDateTo" type="text" class="form-control" bsDatepicker
-                    (change)="onChangeFilterFrm($event)">
+              <label class="form-label">To</label>
+              <input [(ngModel)]="filterDateTo" type="text" class="form-control" bsDatepicker
+                     (change)="onChangeFilterFrm($event)">
             </div>
-            <!-- <div  class="filter-group">
-              <label class="form-label">From</label>
-              <span class="status-chip accepted" bsDatepicker [(ngModel)]="fileterDate">2-April
-              </span>
-            </div>
-            <div  class="filter-group">
-              <label class="form-label">From</label>
-              <span class="status-chip accepted" bsDatepicker [(ngModel)]="fileterDate">-April
-              </span>
-            </div> -->
             <div class="button">
-              <button  class="btn sm btn-primary-outline">Add Filter</button>
+              <button class="btn sm btn-primary-outline" (click)="getChatData()">Add Filter</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row d-flex justify-content-between align-items-center">
+    <div *ngIf="!isLoading" class="row d-flex justify-content-between align-items-center">
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1 style="font-weight: bolder; font-size: x-large">1501</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+          style="font-weight: bolder; font-size: x-large">{{ this.chartData.collected }}</h1>
           <label style="font-weight: normal; font-size: medium">Number of parcel collected</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1 style="font-weight: bolder; font-size: x-large">103</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+          style="font-weight: bolder; font-size: x-large">{{ this.chartData.deliverd }}</h1>
           <label style="font-weight: normal; font-size: medium">Number of parcel delivered</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1 style="font-weight: bolder; font-size: x-large">100</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+          style="font-weight: bolder; font-size: x-large">{{ this.chartData.oneDay }}</h1>
           <label style="font-weight: normal; font-size: medium">24hrs</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1 style="font-weight: bolder; font-size: x-large">86%</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+          style="font-weight: bolder; font-size: x-large">{{ this.chartData.oneAndHalf }}</h1>
           <label style="font-weight:normal ; font-size: medium">24 - 36hrs</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1 style="font-weight: bolder; font-size: x-large">86%</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+          style="font-weight: bolder; font-size: x-large">{{ this.chartData.afterOneAndHalf }}</h1>
           <label style="font-weight:normal ; font-size: medium">> 36hrs</label></button>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-4" >
+      <div class="col-4">
         <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
           <div class="chart-container">
-            <canvas height="300" id="MyChart" >{{ chart }}</canvas>
+            <canvas height="300" id="MyChart">{{ chart }}</canvas>
           </div>
         </div>
       </div>
-      <div class="col-4" >
+      <div class="col-4">
         <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
         </div>
       </div>
@@ -87,31 +79,31 @@
       <div *ngIf="!isLoading" class="table-content">
         <table class="table table-responsive">
           <thead>
-            <th>Collected Date</th>
-            <th>AWB's</th>
-            <th>Parceles Collected</th>
-            <th>Parceles Returned</th>
-            <th>Parceles on Hold</th>
-            <th>ULD Packed</th>
-            <th>On Route</th>
-            <th>Parceles Delivered</th>
-            <th>24 hrs</th>
-            <th>24 to 36 hrs</th>
-            <th>36 hrs</th>
+          <th>Collected Date</th>
+          <th>AWB's</th>
+          <th>Parceles Collected</th>
+          <th>Parceles Returned</th>
+          <th>Parceles on Hold</th>
+          <th>ULD Packed</th>
+          <th>On Route</th>
+          <th>Parceles Delivered</th>
+          <th>24 hrs</th>
+          <th>24 to 36 hrs</th>
+          <th>36 hrs</th>
           </thead>
           <tbody>
-            <tr *ngFor="let item of this.parcelDelivered">
-              <td>{{ item.collectedDate }}</td>
-              <td>{{ item.AWBs }}</td>
-              <td>{{ item.parcelsCollected }}</td>
-              <td>{{ item.parcelsReturned }}</td>
-              <td>{{ item.parcelsOnHold }}</td>
-              <td>{{ item.ULDPacked }}</td>
-              <td>{{ item.onRoute }}</td>
-              <td>{{ item.parcelsDelivered }}</td>
-              <td>{{ item['24hrs'] }}</td>
-              <td>{{ item['24to36hrs'] }}</td>
-              <td>{{ item['36hrs'] }}</td>
+          <tr *ngFor="let item of this.parcelDelivered">
+            <td>{{ item.collectedDate }}</td>
+            <td>{{ item.AWBs }}</td>
+            <td>{{ item.parcelsCollected }}</td>
+            <td>{{ item.parcelsReturned }}</td>
+            <td>{{ item.parcelsOnHold }}</td>
+            <td>{{ item.ULDPacked }}</td>
+            <td>{{ item.onRoute }}</td>
+            <td>{{ item.parcelsDelivered }}</td>
+            <td>{{ item['24hrs'] }}</td>
+            <td>{{ item['24to36hrs'] }}</td>
+            <td>{{ item['36hrs'] }}</td>
           </tr>
           </tbody>
         </table>
@@ -121,6 +113,9 @@
 
 
   </div>
+  <!--  <div *ngIf="isLoading" class="spinner-border" role="status" >-->
+  <!--    <span class="sr-only"></span>-->
+  <!--  </div>-->
 </div>
 
 
