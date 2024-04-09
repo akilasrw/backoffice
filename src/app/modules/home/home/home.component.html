@@ -1,1 +1,156 @@
-<p>home works!</p>
+<div class="main-card">
+  <div class="card-header px-0 pt-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h1>Dashboard</h1>
+      </div>
+    </div>
+  </div>
+  <div class="card-body without-footer">
+    <div class="row" style="margin-bottom: 20px">
+
+      <div class="col-8">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="filter-wrapper">
+            <div class="filter-group">
+              <label class="form-label">From</label>
+              <input [(ngModel)]="filterDateFrom" type="text" class="form-control" bsDatepicker
+                     (change)="onChangeFilterFrm($event)">
+            </div>
+            <div class="filter-group">
+              <label class="form-label">To</label>
+              <input [(ngModel)]="filterDateTo" type="text" class="form-control" bsDatepicker
+                     (change)="onChangeFilterFrm($event)">
+            </div>
+            <div class="button">
+              <button class="btn sm btn-primary-outline" (click)="getData()">Add Filter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isLoading" class="row d-flex justify-content-between align-items-center">
+      <div class="col-2">
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+          style="font-weight: bolder; font-size: x-large">{{ this.chartData.collected }}</h1>
+          <label style="font-weight: normal; font-size: medium">Number of parcel collected</label></button>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.deliverd }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var1? this.var1: "0" }}%</h1>
+            </div>
+          </div>
+          <label style="font-weight: normal; font-size: medium">Number of parcel delivered</label>
+        </button>
+      </div>
+
+      <div class="col-2">
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.oneDay }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var2? this.var2: "0" }}%</h1>
+            </div>
+          </div>
+          <label style="font-weight: normal; font-size: medium">24hrs</label></button>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.oneAndHalf }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var3? this.var3: "0" }}%</h1>
+            </div>
+          </div>
+          <label style="font-weight:normal ; font-size: medium">24 - 36hrs</label></button>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.afterOneAndHalf }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var4? this.var4: "0" }}%</h1>
+            </div>
+          </div>
+          <label style="font-weight:normal ; font-size: medium">> 36hrs</label></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
+          <div class="chart-container">
+            <canvas height="300" id="MyChart">{{ chart }}</canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card-body shadow p-3 mb-5 bg-body rounded border border-1" style="margin-top: 20px; height: 350px">
+        </div>
+      </div>
+    </div>
+
+    <div class="row pt-5">
+      <div *ngIf="!isLoading" class="table-content">
+        <table class="table table-responsive">
+          <thead>
+            <th style="text-align: left">Collected Date</th>
+            <th style="text-align: center">AWB's</th>
+            <th style="text-align: center">Parceles Collected</th>
+            <th style="text-align: center">Parceles Returned</th>
+            <th style="text-align: center">Parceles on Hold</th>
+            <th style="text-align: center">ULD Packed</th>
+            <th style="text-align: center">On Route</th>
+            <th style="text-align: center">Parceles Delivered</th>
+            <th style="text-align: center">24 hrs</th>
+            <th style="text-align: center">24 to 36 hrs</th>
+            <th style="text-align: center">36 hrs</th>
+            <!-- <th style="text-align: center">Action</th> -->
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of this.deliveryAuditData">
+              <td style="text-align: left">{{ item.collectedDate | date: 'dd/MM/yy' }}</td>
+              <td style="text-align: center">{{ item.aWBs }}</td>
+              <td style="text-align: center">{{ item.parcellsCollected }}</td>
+              <td style="text-align: center">{{ item.parcellsRetured }}</td>
+              <td style="text-align: center">{{ item.parcellsOnHold }}</td>
+              <td style="text-align: center">{{ item.uLDPacked }}</td>
+              <td style="text-align: center">{{ item.onRoute }}</td>
+              <td style="text-align: center">{{ item.parcellsDeliverd }}</td>
+              <td style="text-align: center">{{ item.oneDay }}</td>
+              <td style="text-align: center">{{ item.oneDayToOneAndHalf }}</td>
+              <td style="text-align: center">{{ item.afterOneAndHalf }}</td>
+              <!-- <td style="text-align: center">
+                <i class="ca ca-icn-print" title="Print"></i>
+              </td> -->
+
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>
+  <!--  <div *ngIf="isLoading" class="spinner-border" role="status" >-->
+  <!--    <span class="sr-only"></span>-->
+  <!--  </div>-->
+</div>
+
+
