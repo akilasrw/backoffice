@@ -1,10 +1,10 @@
 export interface DeliveryAuditData{
     collectedDate?:Date;
-    aWBs?:number;
+    awBs?:number;
     parcellsCollected?:number;
     parcellsRetured?:number;
     parcellsOnHold?:number;
-    uLDPacked?:number;
+    uldPacked?:number;
     onRoute?:number;
     parcellsDeliverd?:number;
     oneDay?:number;
