@@ -23,7 +23,7 @@
                      (change)="onChangeFilterFrm($event)">
             </div>
             <div class="button">
-              <button class="btn sm btn-primary-outline" (click)="getChatData()">Add Filter</button>
+              <button class="btn sm btn-primary-outline" (click)="getData()">Add Filter</button>
             </div>
           </div>
         </div>
@@ -36,23 +36,53 @@
           <label style="font-weight: normal; font-size: medium">Number of parcel collected</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
-          style="font-weight: bolder; font-size: x-large">{{ this.chartData.deliverd }}</h1>
-          <label style="font-weight: normal; font-size: medium">Number of parcel delivered</label></button>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.deliverd }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var1? this.var1: "0" }}%</h1>
+            </div>
+          </div>
+          <label style="font-weight: normal; font-size: medium">Number of parcel delivered</label>
+        </button>
       </div>
+
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
-          style="font-weight: bolder; font-size: x-large">{{ this.chartData.oneDay }}</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.oneDay }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var2? this.var2: "0" }}%</h1>
+            </div>
+          </div>
           <label style="font-weight: normal; font-size: medium">24hrs</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
-          style="font-weight: bolder; font-size: x-large">{{ this.chartData.oneAndHalf }}</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.oneAndHalf }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var3? this.var3: "0" }}%</h1>
+            </div>
+          </div>
           <label style="font-weight:normal ; font-size: medium">24 - 36hrs</label></button>
       </div>
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
-          style="font-weight: bolder; font-size: x-large">{{ this.chartData.afterOneAndHalf }}</h1>
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.chartData.afterOneAndHalf }}</h1>
+            </div>
+            <div class="col-6">
+              <h1 style="font-weight: bolder; font-size: x-large; display: inline-block;">{{ this.var4? this.var4: "0" }}%</h1>
+            </div>
+          </div>
           <label style="font-weight:normal ; font-size: medium">> 36hrs</label></button>
       </div>
     </div>

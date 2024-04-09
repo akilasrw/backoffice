@@ -25,6 +25,10 @@ export class HomeComponent implements OnInit {
   oneAndHalfDay: any = 0;
   graterThanOneAndHalfDay: any = 0;
   deliveryAuditData: DeliveryAuditData[] = [];
+  var1:number = 0;
+  var2:number = 0;
+  var3:number = 0;
+  var4:number = 0;
 
 
   constructor(private homeService: HomeService) {
@@ -37,21 +41,7 @@ export class HomeComponent implements OnInit {
     this.getChatData();
 
     this.getDeliveryData();
-    this.parcelDelivered = [
-      {
-        collectedDate: '1-April',
-        AWBs: 12,
-        parcelsCollected: 1588,
-        parcelsReturned: 27,
-        parcelsOnHold: 230,
-        ULDPacked: 12,
-        onRoute: 12,
-        parcelsDelivered: 1588,
-        '24hrs': 1588,
-        '24to36hrs': 12,
-        '36hrs': 87
-      },
-    ];
+    this.parcelDelivered = [];
   }
 
   ngOnDestroy(): void {
@@ -95,7 +85,10 @@ export class HomeComponent implements OnInit {
 
     })
   }
-
+getData(){
+    this.getChatData();
+    this.getDeliveryData();
+}
   getChatData() {
     this.isLoading = true;
     let query = new DeliveryAuditQueryModel();
@@ -113,6 +106,22 @@ export class HomeComponent implements OnInit {
             this.chart.update();
           }
           this.isLoading = false;
+          this.var1 = (this.chartData.deliverd / this.chartData.collected) * 100 ;
+          var formattedValue1 = this.var1.toFixed(2);
+          this.var1 = parseFloat(formattedValue1);
+
+          this.var2 = (this.chartData.oneDay / this.chartData.collected) * 100;
+          var formattedValue2 = this.var2.toFixed(2);
+          this.var2 = parseFloat(formattedValue2);
+
+          this.var3 = (this.chartData.oneAndHalf / this.chartData.collected) * 100;
+          var formattedValue3 = this.var3.toFixed(2);
+          this.var3 = parseFloat(formattedValue3);
+
+          this.var4 = (this.chartData.afterOneAndHalf / this.chartData.collected) * 100;
+          var formattedValue4 = this.var4.toFixed(2);
+          this.var4 = parseFloat(formattedValue4);
+
         },
         error: (error) => {
           this.chartData = undefined;
@@ -121,14 +130,16 @@ export class HomeComponent implements OnInit {
   }
 
   getDeliveryData() {
-    const yesterday = moment().subtract(1, 'day').toDate();
+    this.isLoading = true;
+
     let query = new DeliveryAuditQueryModel();
-    query.start = yesterday;
-    query.end = yesterday;
+    query.start = this.filterDateFrom;
+    query.end = this.filterDateTo;
     this.homeService.getDeliveryData(query).subscribe(
       {
         next: (res: DeliveryAuditData[]) => {
           this.deliveryAuditData = res;
+          this.isLoading = false;
           console.log(this.deliveryAuditData);
         },
         error: (error: any) => {
