@@ -1,9 +1,10 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import * as moment from 'moment';
 import {HomeService} from "../../../_services/home.service";
 import {DeliveryAuditQueryModel} from "../../../_models/queries/dashboard/delivery-audit-query.model";
 import {DeliveryAudit} from "../../../_models/view-models/dashboard/delivery-audit";
+import { DeliveryAuditData } from 'src/app/_models/view-models/dashboard/delivery-audit-data';
 import {observable, Subscription} from "rxjs";
 
 @Component({
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   oneDay: any = 0;
   oneAndHalfDay: any = 0;
   graterThanOneAndHalfDay: any = 0;
+  deliveryAuditData: DeliveryAuditData[] = [];
 
 
   constructor(private homeService: HomeService) {
@@ -34,32 +36,20 @@ export class HomeComponent implements OnInit {
     this.createChart();
     this.getChatData();
 
+    this.getDeliveryData();
     this.parcelDelivered = [
       {
-        collectedDate: '7-April',
-        AWBs: 1212313,
-        parcelsCollected: 1076,
-        parcelsReturned: 0,
-        parcelsOnHold: 0,
+        collectedDate: '1-April',
+        AWBs: 12,
+        parcelsCollected: 1588,
+        parcelsReturned: 27,
+        parcelsOnHold: 230,
         ULDPacked: 12,
         onRoute: 12,
-        parcelsDelivered: 1076,
-        '24hrs': 400,
-        '24to36hrs': 576,
-        '36hrs': 100
-      },
-      {
-        collectedDate: '4-April',
-        AWBs: 1214343,
-        parcelsCollected: 1000,
-        parcelsReturned: 0,
-        parcelsOnHold: 0,
-        ULDPacked: 12,
-        onRoute: 12,
-        parcelsDelivered: 1000,
-        '24hrs': 500,
-        '24to36hrs': 100,
-        '36hrs': 400
+        parcelsDelivered: 1588,
+        '24hrs': 1588,
+        '24to36hrs': 12,
+        '36hrs': 87
       },
     ];
   }
@@ -88,7 +78,7 @@ export class HomeComponent implements OnInit {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['24', '24-36', '36'],
+        labels: ['Less Than 24', '24 To 36', 'More Than 36'],
         datasets: [
           {
             label: "Total Delivery",
@@ -129,4 +119,23 @@ export class HomeComponent implements OnInit {
         }
       });
   }
+
+  getDeliveryData() {
+    const yesterday = moment().subtract(1, 'day').toDate();
+    let query = new DeliveryAuditQueryModel();
+    query.start = yesterday;
+    query.end = yesterday;
+    this.homeService.getDeliveryData(query).subscribe(
+      {
+        next: (res: DeliveryAuditData[]) => {
+          this.deliveryAuditData = res;
+          console.log(this.deliveryAuditData);
+        },
+        error: (error: any) => {
+          console.error('Error fetching delivery audit data:', error);
+        }
+      }
+    );
+  }
+
 }
