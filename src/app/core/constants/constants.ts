@@ -24,5 +24,6 @@ export class RouteConstants{
     public static StandByCargo: string="booking-summary/stand-by-cargo";
     public static MessageRoute: string="message";
     public static TrackBookingRoute : string = "booking-summary/track-booking";
+  public static AgentBookingRoute : string = "booking-summary/booking-agent";
     public static ManageUser: string="user-management/manage-user";
   }

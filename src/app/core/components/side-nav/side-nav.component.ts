@@ -1,12 +1,11 @@
-import { Aircraft } from './../../../_models/view-models/aircrafts/aircraft.model';
-import { environment } from 'src/environments/environment';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { User } from 'src/app/_models/user.model';
-import { Subscription } from 'rxjs';
-import { RouteConstants } from '../../constants/constants';
-import { MenuType } from '../../enums/common-enums';
-import { Router } from '@angular/router';
-import { AccountService } from 'src/app/account/account.service';
+import {environment} from 'src/environments/environment';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {User} from 'src/app/_models/user.model';
+import {Subscription} from 'rxjs';
+import {RouteConstants} from '../../constants/constants';
+import {MenuType} from '../../enums/common-enums';
+import {Router} from '@angular/router';
+import {AccountService} from 'src/app/account/account.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -27,41 +26,64 @@ export class SideNavComponent implements OnInit, OnDestroy {
   @Output() publishNotification = new EventEmitter<any>();
   @Output() showMsg = new EventEmitter<any>();
 
+  // sideMenuItems=[
+  //               { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
+  //                 children:[
+  //                   {title:'Booking Summary', menuType:MenuType.BookingSummay},
+  //                   {title:'Track Booking', menuType:MenuType.TrackBooking},
+  //                   {title:'Agent Bookings', menuType:MenuType.AgentBooking},
+  //                   {title:'Standby Cargo', menuType:MenuType.StandByCargo}]},
+  //               { title:'Fleet Management',expanded: false, icon:'ca-icn-flight-schedule',
+  //                 children:[
+  //                   {title:'Flight Schedule', menuType:MenuType.FlightSchedule},
+  //                   {title:'Master Schedule', menuType:MenuType.MasterSchedule},
+  //                   {title:'Assign Aircrafts', menuType:MenuType.LinkAircraft},
+  //                   {title:'Fleet Analysis', menuType:MenuType.FleetReport}]},
+  //               { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
+  //                 children:[
+  //                   {title:'Cargo Agent', menuType:MenuType.UserManagement},
+  //                   {title:'Rate Management', menuType:MenuType.Rate},
+  //                   {title:'AWB Stock Management', menuType:MenuType.AWBStackManagement}]},
+  //               { title:'Settings',expanded: false, icon:'ca-icn-settings',
+  //                 children:[
+  //                   {title:'Manage Airports', menuType:MenuType.Airport},
+  //                   {title:'Manage Sectors', menuType:MenuType.Sector},
+  //                   {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
+  //                   {title:'Flight Creation', menuType:MenuType.Flight},
+  //                   {title:'User Management', menuType:MenuType.ManageUser}]},
+  //               { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
+  //                 children:[
+  //                   {title:'ULD Assignement', menuType:MenuType.PalletManagement},
+  //                   {title:'ULD Master', menuType:MenuType.ULDMaster}]},
+  //               { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
+  //                 children:[
+  //                   {title:'Publish Notifications', menuType:MenuType.Notification}]},
+  //               { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
+  //                 children:[
+  //                   {title:'Messaging', menuType:MenuType.Messaging}]}
+  //             ]
   sideMenuItems=[
-                { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
-                  children:[
-                    {title:'Booking Summary', menuType:MenuType.BookingSummay},
-                    {title:'Track Booking', menuType:MenuType.TrackBooking},
-                    {title:'Standby Cargo', menuType:MenuType.StandByCargo}]},
-                { title:'Fleet Management',expanded: false, icon:'ca-icn-flight-schedule',
-                  children:[
-                    {title:'Flight Schedule', menuType:MenuType.FlightSchedule},
-                    {title:'Master Schedule', menuType:MenuType.MasterSchedule},
-                    {title:'Assign Aircrafts', menuType:MenuType.LinkAircraft},
-                    {title:'Fleet Analysis', menuType:MenuType.FleetReport}]},
-                { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
-                  children:[
-                    {title:'Cargo Agent', menuType:MenuType.UserManagement},
-                    {title:'Rate Management', menuType:MenuType.Rate},
-                    {title:'AWB Stock Management', menuType:MenuType.AWBStackManagement}]},
-                { title:'Settings',expanded: false, icon:'ca-icn-settings',
-                  children:[
-                    {title:'Manage Airports', menuType:MenuType.Airport},
-                    {title:'Manage Sectors', menuType:MenuType.Sector},
-                    {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
-                    {title:'Flight Creation', menuType:MenuType.Flight},
-                    {title:'User Management', menuType:MenuType.ManageUser}]},
-                { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
-                  children:[
-                    {title:'ULD Assignement', menuType:MenuType.PalletManagement},
-                    {title:'ULD Master', menuType:MenuType.ULDMaster}]},
-                { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
-                  children:[
-                    {title:'Publish Notifications', menuType:MenuType.Notification}]},
-                { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
-                  children:[
-                    {title:'Messaging', menuType:MenuType.Messaging}]}
-              ]
+    { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
+      children:[
+        {title:'Agent Bookings', menuType:MenuType.AgentBooking},
+        {title:'Track Booking', menuType:MenuType.TrackBooking},]},
+    { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
+      children:[
+        {title:'Cargo Agent', menuType:MenuType.UserManagement},]},
+    { title:'Settings',expanded: false, icon:'ca-icn-settings',
+      children:[
+        {title:'Manage Airports', menuType:MenuType.Airport},
+        {title:'Manage Sectors', menuType:MenuType.Sector},
+        {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
+        {title:'Flight Creation', menuType:MenuType.Flight},
+        {title:'User Management', menuType:MenuType.ManageUser}]},
+    { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
+      children:[
+        {title:'ULD Master', menuType:MenuType.ULDMaster}]},
+    { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
+      children:[
+        {title:'Messaging', menuType:MenuType.Messaging}]}
+  ]
 
 
   constructor(
@@ -174,6 +196,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.TrackBooking:
         this.router.navigate([RouteConstants.TrackBookingRoute])
         break;
+      case MenuType.AgentBooking:
+        this.router.navigate([RouteConstants.AgentBookingRoute])
+        break;
       case MenuType.Messaging:
         this.showMsg.emit(true);
         break;
@@ -195,6 +220,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.TrackBookingRoute:
         selectedType = MenuType.TrackBooking;
+        break;
+      case RouteConstants.AgentBookingRoute:
+        selectedType = MenuType.AgentBooking;
         break;
       case RouteConstants.AirWaybillRoute:
         selectedType = MenuType.AWBStackManagement;

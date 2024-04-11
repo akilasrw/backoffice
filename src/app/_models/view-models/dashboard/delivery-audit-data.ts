@@ -10,6 +10,7 @@ export interface DeliveryAuditData{
     oneDay?:number;
     oneDayToOneAndHalf?:number;
     afterOneAndHalf?:number;
+    whRec?:number;
   }
 
   // export interface DeliveryAuditData{

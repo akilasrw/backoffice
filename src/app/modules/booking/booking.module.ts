@@ -15,6 +15,7 @@ import { FreighterBookingSummaryDetailV2Component } from './booking-summary/book
 import { StandByCargoMasterComponent } from './stand-by-cargo-master/stand-by-cargo-master.component';
 import { StandByCargoUpdateComponent } from './stand-by-cargo-update/stand-by-cargo-update.component';
 import { TrackBookingComponent } from './track-booking/track-booking.component';
+import { BookingAgentComponent } from './booking-agent/booking-agent.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TrackBookingComponent } from './track-booking/track-booking.component';
     FreighterBookingSummaryDetailV2Component,
     StandByCargoMasterComponent,
     StandByCargoUpdateComponent,
-    TrackBookingComponent
+    TrackBookingComponent,
+    BookingAgentComponent
   ],
   imports: [
     CommonModule,
