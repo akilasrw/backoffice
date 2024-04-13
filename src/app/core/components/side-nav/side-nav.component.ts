@@ -63,27 +63,41 @@ export class SideNavComponent implements OnInit, OnDestroy {
   //                   {title:'Messaging', menuType:MenuType.Messaging}]}
   //             ]
   sideMenuItems=[
-    { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
-      children:[
-        {title:'Agent Bookings', menuType:MenuType.AgentBooking},
-        {title:'Track Booking', menuType:MenuType.TrackBooking},]},
-    { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
-      children:[
-        {title:'Cargo Agent', menuType:MenuType.UserManagement},]},
-    { title:'Settings',expanded: false, icon:'ca-icn-settings',
-      children:[
-        {title:'Manage Airports', menuType:MenuType.Airport},
-        {title:'Manage Sectors', menuType:MenuType.Sector},
-        {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
-        {title:'Flight Creation', menuType:MenuType.Flight},
-        {title:'User Management', menuType:MenuType.ManageUser}]},
-    { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
-      children:[
-        {title:'ULD Master', menuType:MenuType.ULDMaster}]},
-    { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
-      children:[
-        {title:'Messaging', menuType:MenuType.Messaging}]}
-  ]
+                { title:'Manage Booking',expanded: false, icon:'ca-icn-booking',
+                  children:[
+                    {title:'Booking Summary', menuType:MenuType.BookingSummay},
+                    {title:'Track Booking', menuType:MenuType.TrackBooking},
+                    {title:'Standby Cargo', menuType:MenuType.StandByCargo}]},
+                { title:'Fleet Management',expanded: false, icon:'ca-icn-flight-schedule',
+                  children:[
+                    {title:'Flight Schedule', menuType:MenuType.FlightSchedule},
+                    {title:'Master Schedule', menuType:MenuType.MasterSchedule},
+                    {title:'Assign Aircrafts', menuType:MenuType.LinkAircraft},
+                    {title:'Fleet Analysis', menuType:MenuType.FleetReport}]},
+                { title:'Agent and Rate',expanded: false, icon:'ca-icn-dollar',
+                  children:[
+                    {title:'Cargo Agent', menuType:MenuType.UserManagement},
+                    {title:'Rate Management', menuType:MenuType.Rate},
+                    {title:'AWB Stock Management', menuType:MenuType.AWBStackManagement}]},
+                { title:'Settings',expanded: false, icon:'ca-icn-settings',
+                  children:[
+                    {title:'Manage Airports', menuType:MenuType.Airport},
+                    {title:'Manage Sectors', menuType:MenuType.Sector},
+                    {title:'Manage Aircrafts', menuType:MenuType.Aircraft},
+                    {title:'Flight Creation', menuType:MenuType.Flight},
+                    {title:'User Management', menuType:MenuType.ManageUser}]},
+                { title:'ULD Management',expanded: false, icon:'ca-icn-pallet',
+                  children:[
+                    {title:'ULD Assignement', menuType:MenuType.PalletManagement},
+                    {title:'ULD Master', menuType:MenuType.ULDMaster},
+                    {title:'Truck Master', menuType:MenuType.TruckMaster}]},
+                { title:'Manage Notifications',expanded: false, icon:'ca-icn-bell',
+                  children:[
+                    {title:'Publish Notifications', menuType:MenuType.Notification}]},
+                { title:'Messaging',expanded: false, icon:'ca-icn-chat ',
+                  children:[
+                    {title:'Messaging', menuType:MenuType.Messaging}]}
+              ]
 
 
   constructor(
@@ -187,6 +201,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       case MenuType.ULDMaster:
         this.router.navigate([RouteConstants.ULDMaster])
         break;
+      case MenuType.TruckMaster:
+        this.router.navigate([RouteConstants.TruckMaster])
+        break;
       case MenuType.StandByCargo:
         this.router.navigate([RouteConstants.StandByCargo])
         break;
@@ -262,6 +279,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
         break;
       case RouteConstants.ULDMaster:
         selectedType = MenuType.ULDMaster;
+        break;
+      case RouteConstants.TruckMaster:
+        selectedType = MenuType.TruckMaster;
         break;
       case RouteConstants.ManageUser:
         selectedType = MenuType.ManageUser;
