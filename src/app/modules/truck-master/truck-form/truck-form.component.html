@@ -1,0 +1,79 @@
+<form [formGroup]='truckForm'>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Truck Number</label>
+                    <app-text-input [formControl]='truckForm.controls["truckNumber"]' type="text" [label]='"Truck number"'
+                        [tabindex]="1">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Last Used Agent</label>
+                    <app-text-input [formControl]='truckForm.controls["lastUsedAgent"]' type="text" [label]='"Last Used Agent"'
+                        [tabindex]="2">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Last Used AWB</label>
+                    <app-text-input [formControl]='truckForm.controls["lastUsedAWB"]' type="text" [label]='"Last Used AWB"'
+                        [tabindex]="3">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Last Used Date</label>
+                    <app-text-input [formControl]='truckForm.controls["lastUsedDate"]' type="text" [label]='"Last Used AWB"'
+                        [tabindex]="3">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Pickup Cargo Count</label>
+                    <app-text-input [formControl]='truckForm.controls["pickupCargoCount"]' type="text" [label]='"Last Used AWB"'
+                        [tabindex]="3">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Handeover Cargo Count</label>
+                    <app-text-input [formControl]='truckForm.controls["handoverCargoCount"]' type="text" [label]='"Last Used AWB"'
+                        [tabindex]="3">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Last Transport Package Count</label>
+                    <app-text-input [formControl]='truckForm.controls["lastTransportPackageCount"]' type="text" [label]='"Last Transport Package Count"'
+                        [tabindex]="4">
+                    </app-text-input>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>

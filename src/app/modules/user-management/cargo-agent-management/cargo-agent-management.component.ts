@@ -37,6 +37,8 @@ export class CargoAgentManagementComponent implements OnInit {
   selectedId: string = '';
   countryList: SelectList[] = [];
   baseAirpots: SelectList[] = [];
+  modalVisible = false;
+  modalVisibleAnimate = false;
 
   constructor(private cargoAgentService: CargoAgentService, private toastr: ToastrService, private countryService:CountryService, private airportService:AirportService) { }
 
@@ -281,6 +283,16 @@ export class CargoAgentManagementComponent implements OnInit {
       this.cargoAgentFilterQuery.pageIndex = event;
       this.getCargoAgentList();
     }
+  }
+
+  addAgent() {
+    this.modalVisible = true;
+    setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  close() {
+    this.modalVisibleAnimate = false;
+    setTimeout(() => (this.modalVisible = false), 300);
   }
 
 }

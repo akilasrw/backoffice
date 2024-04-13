@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: RouteConstants.FleetReport, loadChildren: ()=> import('./modules/fleet-report/fleet-report.module').then(mod => mod.FleetReportModule),canActivate: [AuthGuard]},
   { path: RouteConstants.ULDMaster, loadChildren: ()=> import('./modules/uld-master/uld-master.module').then(mod => mod.UldMasterModule),canActivate: [AuthGuard]},
   { path: RouteConstants.MessageRoute, loadChildren: () => import('./modules/chatting/chatting.module').then(mod => mod.ChattingModule), canActivate: [AuthGuard] },
+  { path: RouteConstants.TruckMaster, loadChildren: ()=> import('./modules/truck-master/truck-master.module').then(mod => mod.TruckMasterModule),canActivate: [AuthGuard]},
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent }
 ];

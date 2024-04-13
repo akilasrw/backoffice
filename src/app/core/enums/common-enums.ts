@@ -19,7 +19,9 @@ export enum MenuType {
   StandByCargo=17,
   Messaging=18,
   ManageUser = 19,
+  TruckMaster = 20,
   TrackBooking
+  
 }
 
 export enum SectorType {

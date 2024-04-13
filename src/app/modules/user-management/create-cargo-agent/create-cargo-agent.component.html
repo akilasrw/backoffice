@@ -1,0 +1,130 @@
+
+<form [formGroup]='cargoAgentForm'>
+    <div class="modal-body">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label class="form-label">Agent Name<span class="compulsory">*</span></label>
+                          <app-text-input [formControl]='cargoAgentForm.controls["agentName"]' type="text"
+                            [label]='"Agent Name"' [tabindex]="1">
+                          </app-text-input>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="form-label">Username<span class="compulsory">*</span></label>
+                          <app-text-input [formControl]='cargoAgentForm.controls["userName"]' type="text"
+                            [label]='"UserName"' [tabindex]="3">
+                          </app-text-input>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="form-label">Email<span class="compulsory">*</span></label>
+                          <app-text-input [formControl]='cargoAgentForm.controls["email"]' type="text"
+                            [label]='"Email"' [tabindex]="4">
+                          </app-text-input>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Primary Telephone Number<span class="compulsory">*</span></label>
+                        <app-text-input [formControl]='cargoAgentForm.controls["primaryTelephoneNumber"]' type="text"
+                        [label]='"Primary Telephone Number"' [tabindex]="5">
+                        </app-text-input>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Secondary Telephone Number</label>
+                    <app-text-input [formControl]='cargoAgentForm.controls["secondaryTelephoneNumber"]' type="text"
+                        [label]='"Secondary Telephone Number"' [tabindex]="6">
+                    </app-text-input>
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="form-label">Cargo Agent Number</label>
+                        <app-text-input [formControl]='cargoAgentForm.controls["cargoaAgentNumber"]' type="text"
+                          [label]='"Cargo Agent Number"' [tabindex]="7">
+                        </app-text-input>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="form-label">Address<span class="compulsory">*</span></label>
+                        <app-text-input [formControl]='cargoAgentForm.controls["address"]' [label]='"address"' [tabindex] ="8">
+                        </app-text-input>
+                    </div>
+                </div>
+            </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Country<span class="compulsory">*</span></label>
+                        <app-auto-complete-dropdown
+                            [data] = "countryList" [keyword] ="keyword" (selectFileOutput)="selectedCountry($event)" [tabindex] ="9"
+                            (changeSearch)="onClearCountry()" (clearSearch)="onClearCountry()"></app-auto-complete-dropdown>
+                      </div>
+                </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="form-label">City<span class="compulsory">*</span></label>
+                          <app-text-input [formControl]='cargoAgentForm.controls["city"]' [label]='"city"' [tabindex] ="10">
+                          </app-text-input>
+                      </div>
+                  </div>
+                  
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Base Airport<span class="compulsory">*</span></label>
+                        <app-auto-complete-dropdown [data]="baseAirpots" [keyword]="keyword" [tabindex]="11"
+                        (selectFileOutput)="selectedBaseAirport($event)" (changeSearch)="onClearBaseAirport()"
+                        (clearSearch)="onClearBaseAirport()"></app-auto-complete-dropdown>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Agent IATA Code</label>
+                        <app-text-input [formControl]='cargoAgentForm.controls["agentIATACode"]' [label]='"agent IATA code"' [tabindex] ="11">
+                        </app-text-input>
+                      </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Password<span class="compulsory">*</span></label>
+                        <app-white-space-input [formControl]='cargoAgentForm.controls["password"]' [type]="'password'" [label]='"password"' [tabindex] ="12">
+                        </app-white-space-input>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Re-Enter Password<span class="compulsory">*</span></label>
+                        <app-white-space-input [formControl]='cargoAgentForm.controls["confirmPassword"]' [type]="'password'" [label]='"re-enter password"' [tabindex] ="13">
+                        </app-white-space-input>
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-3" (click)="close()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+  

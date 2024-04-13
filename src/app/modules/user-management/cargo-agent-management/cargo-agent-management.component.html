@@ -4,6 +4,9 @@
             <div>
                 <h1>Cargo Agent Management</h1>
             </div>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="addAgent()" >Create Cargo Agent</button>
+            </div>
         </div>
     </div>
     <div class="card-body without-footer">
@@ -83,6 +86,23 @@
             </div>
             <app-table-loader [columnCount]="10" [rowCount]="cargoAgentFilterQuery.pageSize" *ngIf="isLoading">
             </app-table-loader>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleAnimate}"
+    [ngStyle]="{'display': modalVisible ? 'block' : 'none', 'opacity': modalVisibleAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Cargo Agent</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="close()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-create-cargo-agent 
+                    (closePopup)="close()" *ngIf="modalVisible"></app-create-cargo-agent>
+            </div>
         </div>
     </div>
 </div>
