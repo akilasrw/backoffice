@@ -10,6 +10,9 @@ import { CargoBookingUpdateRm } from '../_models/view-models/cargo-bookings/carg
 import { CargoBookingDetailQuery } from '../_models/queries/cargo-bookings/cargo-booking-detail-query.model';
 import {CargoBookingShipmentQuery} from "../_models/queries/booking-shipment/cargo-booking-shipment-query.model";
 import {BookingShipment} from "../_models/view-models/booking-shipment/booking-shipment.model";
+import {CargoBookingFilterQuery} from "../_models/queries/cargo-bookings/cargo-booking-filter-query.model";
+import {IPagination} from "../shared/models/pagination.model";
+import {CargoBookingAgent} from "../_models/view-models/cargo-bookings/cargo-booking-agent.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +29,7 @@ export class BookingService extends BaseService {
   private readonly getCargoEndpoint = `${this.endpointEntityName}/GetDetail`;
   private readonly getVerifyBookingListEndpoint = `${this.endpointEntityName}/GetVerifyBookingList`;
   private readonly getShipmentListEndpoint = `${this.endpointEntityName}/getShipments`;
+  private readonly getFilteredListEndpoint = `${this.endpointEntityName}/getFilteredList`;
 
 
   constructor(http: HttpClient) {
@@ -136,6 +140,35 @@ export class BookingService extends BaseService {
       params = params.append("AWBNumber", query.AWBNumber);
     }
     return this.getWithParams<Array<BookingShipment>>(this.getShipmentListEndpoint,params);
+  }
+  getFilteredBookingList(query: CargoBookingFilterQuery){
+    var params = new HttpParams();
+    // if (query.bookingId) {
+    //   params = params.append("bookingId", query.bookingId);
+    // }
+    if (query.bookingId) {
+      params = params.append("awbNumber", query.bookingId);
+    }
+    if (query.userId) {
+      params = params.append("userId", query.userId);
+    }
+
+    if (query.destination) {
+      params = params.append("destination", query.destination);
+    }
+
+    if (query.fromDate) {
+      params = params.append("fromDate", query.fromDate.toDateString());
+    }
+    if (query.toDate) {
+      params = params.append("toDate", query.toDate.toDateString());
+    }
+    params = CoreExtensions.AsPaginate(params, query);
+
+    return this.getWithParams<IPagination<CargoBookingAgent>>(
+      this.getFilteredListEndpoint,
+      params
+    );
   }
 
 }

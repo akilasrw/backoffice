@@ -6,13 +6,15 @@ import { P2cBookingSummaryDetailsComponent } from './booking-summary/booking-sum
 import { BookingSummaryListComponent } from './booking-summary/booking-summary-list/booking-summary-list.component';
 import { StandByCargoMasterComponent } from './stand-by-cargo-master/stand-by-cargo-master.component';
 import {TrackBookingComponent} from "./track-booking/track-booking.component";
+import {BookingAgentComponent} from "./booking-agent/booking-agent.component";
 
 const routes: Routes = [
   { path: '', component: BookingSummaryListComponent},
   { path: 'p2cSummaryDetails/:id', component: P2cBookingSummaryDetailsComponent},
   { path: 'freighterSummaryDetails/:id', component: FreighterBookingSummaryDetailV2Component},
   { path: 'stand-by-cargo', component: StandByCargoMasterComponent},
-  { path: 'track-booking', component: TrackBookingComponent}
+  { path: 'track-booking', component: TrackBookingComponent},
+  { path: 'booking-agent', component: BookingAgentComponent}
 ];
 
 @NgModule({

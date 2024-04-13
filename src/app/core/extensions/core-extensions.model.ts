@@ -1,4 +1,14 @@
-import { AccessPortalLevel, CargoType, LinkAircraftFliterStatus, MasterSheduleReportType, ULDLocateStatus, ULDOwnershipType, UserRole, UserStatus } from 'src/app/core/enums/common-enums';
+import {
+  AccessPortalLevel,
+  CargoType,
+  LinkAircraftFliterStatus,
+  MasterSheduleReportType,
+  PackageItemStatus,
+  ULDLocateStatus,
+  ULDOwnershipType,
+  UserRole,
+  UserStatus
+} from 'src/app/core/enums/common-enums';
 import { BookingStatus, WeightType, AWBNumberStatus, CargoAgentStatus, ScheduleStatus, RateType, ULDType } from './../enums/common-enums';
 import { HttpParams } from "@angular/common/http";
 import { BasePaginationQuery } from "src/app/shared/models/base-pagination-query.model";
@@ -504,6 +514,51 @@ export class CoreExtensions {
 
   public static GetDimentions(length:number,width:number,height:number):string{
     return (length == null ? 0 : length)+" x "+(width == null ? 0 : width)+" x "+(height == null ? 0 : height);
+  }
+
+  public static GetPackageStatus(packageStatus: PackageItemStatus): string {
+    let statusString = "None";
+    switch (packageStatus) {
+      case PackageItemStatus.None:
+        statusString = "None";
+        break;
+      case PackageItemStatus.Pending:
+        statusString = "Pending";
+        break;
+      case PackageItemStatus.Booking_Made:
+        statusString = "Booked with AWB";
+        break;
+      case PackageItemStatus.Cargo_Received:
+        statusString = "Received";
+        break;
+      case PackageItemStatus.InDestinationWarehouse:
+        statusString = "In destination Warehouse";
+        break;
+      case PackageItemStatus.FlightDispatched:
+        statusString = "Dispatched";
+        break;
+      case PackageItemStatus.Returned:
+        statusString = "Returned";
+        break;
+      case PackageItemStatus.Arrived:
+        statusString = "Arrived";
+        break;
+      case PackageItemStatus.Offloaded:
+        statusString = "Off Loaded";
+        break;
+      case PackageItemStatus.AcceptedForFlight:
+        statusString = "Accepted for Flight";
+        break;
+      case PackageItemStatus.TruckForDelivery:
+        statusString = "Delivered to Agent";
+        break;
+      case PackageItemStatus.Delivered:
+        statusString = "Delivered to Agent";
+        break;
+      default:
+        break;
+    }
+    return statusString;
   }
 
 
