@@ -16,6 +16,7 @@ import { StandByCargoMasterComponent } from './stand-by-cargo-master/stand-by-ca
 import { StandByCargoUpdateComponent } from './stand-by-cargo-update/stand-by-cargo-update.component';
 import { TrackBookingComponent } from './track-booking/track-booking.component';
 import { BookingAgentComponent } from './booking-agent/booking-agent.component';
+import { AppBookingViewDetailComponent } from './app-booking-view-detail/app-booking-view-detail.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { BookingAgentComponent } from './booking-agent/booking-agent.component';
     StandByCargoMasterComponent,
     StandByCargoUpdateComponent,
     TrackBookingComponent,
-    BookingAgentComponent
+    BookingAgentComponent,
+    AppBookingViewDetailComponent
   ],
   imports: [
     CommonModule,

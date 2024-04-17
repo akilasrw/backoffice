@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'freighterSummaryDetails/:id', component: FreighterBookingSummaryDetailV2Component},
   { path: 'stand-by-cargo', component: StandByCargoMasterComponent},
   { path: 'track-booking', component: TrackBookingComponent},
-  { path: 'booking-agent', component: BookingAgentComponent}
+  { path: 'booking-agent', component: BookingAgentComponent},
+  { path: 'track-booking/:id', component: TrackBookingComponent}
 ];
 
 @NgModule({

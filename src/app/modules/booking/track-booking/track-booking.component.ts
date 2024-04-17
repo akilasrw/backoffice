@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
 import {NgxSpinnerService} from "ngx-spinner";
 import {BookingShipment} from "../../../_models/view-models/booking-shipment/booking-shipment.model";
 import {CargoBookingShipmentQuery} from "../../../_models/queries/booking-shipment/cargo-booking-shipment-query.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-track-booking',
@@ -36,7 +37,15 @@ export class TrackBookingComponent implements OnInit {
               private bookingService: BookingService,
               private accountService: AccountService,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService,
+              private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (null != id && id && id !="0") {
+        this.awbnumber = id;
+        this.getBookingDetail();
+      }
+    });
   }
 
   ngOnInit(): void {

@@ -128,7 +128,7 @@ export class BookingAgentComponent implements OnInit {
   showTrackBooking(awbNumber: any){
     // this.redirectToTrackBooking = true;
     console.log(awbNumber)
-    this.router.navigate(['booking-lookup', awbNumber])
+    this.router.navigate(['booking-summary/track-booking', awbNumber])
   }
 
 }
