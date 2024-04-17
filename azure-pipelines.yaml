@@ -25,4 +25,4 @@ steps:
       app_build_command: $(build_command_dev)
       output_location: "dist/aeroclub-scs-backoffice-client"
   env:
-      azure_static_web_apps_api_token: $(deployment_token_qa)
+      azure_static_web_apps_api_token: $(deployment_token_dev)

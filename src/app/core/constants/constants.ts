@@ -21,6 +21,7 @@ export class RouteConstants{
     public static LinkAircraft: string="link-aircraft";
     public static FleetReport: string="fleet-report";
     public static ULDMaster: string="uld-master";
+    public static TruckMaster: string="truck-master";
     public static StandByCargo: string="booking-summary/stand-by-cargo";
     public static MessageRoute: string="message";
     public static TrackBookingRoute : string = "booking-summary/track-booking";

@@ -6,13 +6,15 @@ import { CargoAgentManagementComponent } from './cargo-agent-management/cargo-ag
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ManageUserListComponent } from './manage-user/manage-user-list/manage-user-list.component';
 import { CreateUserComponent } from './manage-user/create-user/create-user.component';
+import { CreateCargoAgentComponent } from './create-cargo-agent/create-cargo-agent.component';
 
 
 @NgModule({
   declarations: [
     CargoAgentManagementComponent,
     ManageUserListComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    CreateCargoAgentComponent
   ],
   imports: [
     CommonModule,
