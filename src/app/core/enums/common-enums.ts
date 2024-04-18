@@ -130,6 +130,12 @@ export enum BookingStatus {
   Deliverd = 90
 }
 
+export enum AWBStatus {
+  None = 0,
+  Pending = 1,
+  AddedAWB = 2
+}
+
 export enum VerifyStatus {
   None = 0,
   ActualLoad = 1,
@@ -270,6 +276,14 @@ export enum UserStatus
     Active = 2,
     Suspended = 3
 }
+
+export enum PackageItemCategory {
+  None = 0,
+  General = 1,
+  Animal = 2,
+  Artwork = 3,
+  Dgr = 4
+}
 export enum PackageItemStatus {
   Booking_Made = 0,
   Cargo_Received = 1,
@@ -284,6 +298,7 @@ export enum PackageItemStatus {
   Pending = 10,
   None = 11,
 }
+
 
 
 

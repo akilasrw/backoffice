@@ -170,5 +170,8 @@ export class BookingService extends BaseService {
       params
     );
   }
+  getPackageAuditStatus(bookingId:string){
+    return this.get(`Package/AuditByBooking?bookingID=${bookingId}`)
+  }
 
 }
