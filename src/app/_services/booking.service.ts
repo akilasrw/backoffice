@@ -149,9 +149,6 @@ export class BookingService extends BaseService {
     if (query.bookingId) {
       params = params.append("awbNumber", query.bookingId);
     }
-    if (query.userId) {
-      params = params.append("userId", query.userId);
-    }
 
     if (query.destination) {
       params = params.append("destination", query.destination);

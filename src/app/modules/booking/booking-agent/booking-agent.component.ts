@@ -49,7 +49,6 @@ export class BookingAgentComponent implements OnInit {
     this.bookingListfilterQuery.destination = this.destination;
     this.bookingListfilterQuery.fromDate = this.fromDate;
     this.bookingListfilterQuery.toDate = this.toDate;
-    this.bookingListfilterQuery.userId = this.currentUser?.id != null ? this.currentUser?.id : "";
 
     this.bookingService.getFilteredBookingList(this.bookingListfilterQuery).subscribe(
       {
