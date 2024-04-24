@@ -1,4 +1,5 @@
 import {
+  AWBStatus,
   AccessPortalLevel,
   CargoType,
   LinkAircraftFliterStatus,
@@ -50,6 +51,24 @@ export class CoreExtensions {
         break;
       case SectorType.International:
         statusString = "International";
+        break;
+      default:
+        break;
+    }
+    return statusString;
+  }
+
+  public static GetAWBStatus(awbStatus: AWBStatus): string {
+    let statusString = "None";
+    switch (awbStatus) {
+      case AWBStatus.None:
+        statusString = "None";
+        break;
+      case AWBStatus.Pending:
+        statusString = "Pending";
+        break;
+      case AWBStatus.AddedAWB:
+        statusString = "Added AWB";
         break;
       default:
         break;
