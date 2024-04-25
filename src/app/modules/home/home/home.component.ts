@@ -161,7 +161,7 @@ getData(){
   
     const PDF = new jsPDF('p', 'mm', 'a4', true);
   
-    const headerText = 'Transaction Summary';
+    const headerText = `Transaction Summary: ${new Date(this.filterDateFrom).toLocaleDateString()} to ${new Date(this.filterDateTo).toLocaleDateString()}`;
     const headerHeight = 10;
   
     PDF.setFontSize(14);
