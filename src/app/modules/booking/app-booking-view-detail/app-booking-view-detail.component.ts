@@ -1,94 +1,207 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CargoBooking} from "../../../_models/view-models/cargo-bookings/cargo-booking.model";
-import {CargoBookingAgent} from "../../../_models/view-models/cargo-bookings/cargo-booking-agent.model";
-import {Subscription} from "rxjs";
-import {User} from "../../../_models/user.model";
-import {CargoAgent} from "../../../_models/view-models/cargo-agent/CargoAgent";
-import {BookingService} from "../../../_services/booking.service";
-import {AccountService} from "../../../account/account.service";
-import {ToastrService} from "ngx-toastr";
-import {AwbService} from "../../../_services/awb.service";
-import {CargoBookingDetail} from "../../../_models/view-models/cargo-bookings/cargo-booking-detail";
-import {PackageModel} from "../../../_models/view-models/cargo-bookings/package-model";
-import {AWBStatus, PackageItemStatus} from "../../../core/enums/common-enums";
-import {BookingStatus} from "../../../core/enums/common-enums";
-import {CoreExtensions} from "../../../core/extensions/core-extensions.model";
+import { Component, Input, OnInit } from '@angular/core';
+import { CargoBooking } from '../../../_models/view-models/cargo-bookings/cargo-booking.model';
+import { CargoBookingAgent } from '../../../_models/view-models/cargo-bookings/cargo-booking-agent.model';
+import { Subscription } from 'rxjs';
+import { User } from '../../../_models/user.model';
+import { CargoAgent } from '../../../_models/view-models/cargo-agent/CargoAgent';
+import { BookingService } from '../../../_services/booking.service';
+import { AccountService } from '../../../account/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { AwbService } from '../../../_services/awb.service';
+import { CargoBookingDetail } from '../../../_models/view-models/cargo-bookings/cargo-booking-detail';
+import { AWBStatus, PackageAudit, PackageItemStatus } from '../../../core/enums/common-enums';
+import { BookingStatus } from '../../../core/enums/common-enums';
+import { CoreExtensions } from '../../../core/extensions/core-extensions.model';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-app-booking-view-detail',
   templateUrl: './app-booking-view-detail.component.html',
-  styleUrls: ['./app-booking-view-detail.component.scss']
+  styleUrls: ['./app-booking-view-detail.component.scss'],
 })
 export class AppBookingViewDetailComponent implements OnInit {
-
   @Input() cargoBooking?: CargoBookingAgent;
-  cargoBookingDetail?: CargoBookingDetail
+  cargoBookingDetail?: CargoBookingDetail;
   modalVisible = false;
   modalVisibleAnimate = false;
   subscription?: Subscription;
-  currentUser?: User | null
-  cargoAgent?:CargoAgent;
-  pickedUpBoxes:PackageModel[] = [];
-  wh_rec:PackageModel[] = [];
-  dWh_rec:PackageModel[] = [];
-  uld_packed:PackageModel[] = [];
-  dispached:PackageModel[] = [];
-  offloaded:PackageModel[] = [];
-  uld_unpacked:PackageModel[] = [];
-  delivered:PackageModel[] = [];
-  dUld_packed:PackageModel[] = [];
-  dDispached:PackageModel[] = [];
-  dUld_unpacked:PackageModel[] = [];
-  dDelivered:PackageModel[] = [];
-  openList?:string | null = null
+  currentUser?: User | null;
+  cargoAgent?: CargoAgent;
+  pickedUpBoxes: PackageAudit[] = [];
+  wh_rec: PackageAudit[] = [];
+  dWh_rec: PackageAudit[] = [];
+  uld_packed: PackageAudit[] = [];
+  dispached: PackageAudit[] = [];
+  offloaded: PackageAudit[] = [];
+  uld_unpacked: PackageAudit[] = [];
+  delivered: PackageAudit[] = [];
+  dUld_packed: PackageAudit[] = [];
+  dDispached: PackageAudit[] = [];
+  dUld_unpacked: PackageAudit[] = [];
+  dDelivered: PackageAudit[] = [];
+  openList?: string | null = null;
 
-
-  constructor(private bookingSerice: BookingService,
-              private accountService: AccountService,
-              private toastr: ToastrService,
-              private awbService: AwbService) { }
+  constructor(
+    private bookingSerice: BookingService,
+    private accountService: AccountService,
+    private toastr: ToastrService,
+    private awbService: AwbService
+  ) {
+    //@ts-ignore
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    //@ts-ignore
+    pdfMake.fonts = {
+      Roboto: {
+        normal: 'Roboto-Regular.ttf',
+        bold: 'Roboto-Medium.ttf',
+        italics: 'Roboto-Italic.ttf',
+        bolditalics: 'Roboto-MediumItalic.ttf',
+      },
+    };
+  }
 
   ngOnInit(): void {
-   // this.getCurrentUser();
+    // this.getCurrentUser();
     this.getBookingDetail();
   }
 
-  setOpenList(x:string){
-    if(x == this.openList){
-      this.openList = null
-    }else{
-      this.openList = x
+  setOpenList(x: string) {
+    if (x == this.openList) {
+      this.openList = null;
+    } else {
+      this.openList = x;
     }
   }
 
   getBookingDetail() {
     if (this.cargoBooking?.id != null) {
-
-
-
-      this.bookingSerice.getPackageAuditStatus(this.cargoBooking.id).subscribe(
-        (res:any) => {
-          console.log(res)
-          this.cargoBookingDetail= res
-          this.pickedUpBoxes = res.filter((x:any)=> x.packageItemStatus == PackageItemStatus.Booking_Made)
-          this.wh_rec = res.filter((x:any)=> x.packageItemStatus == PackageItemStatus.Cargo_Received)
-          this.uld_packed = res.filter((x:PackageModel)=> x.packageItemStatus == PackageItemStatus.AcceptedForFlight)
-          this.offloaded = res.filter((x:PackageModel)=> x.packageItemStatus == PackageItemStatus.Offloaded)
-          this.uld_unpacked = res.filter((x:PackageModel)=> x.packageItemStatus == PackageItemStatus.InDestinationWarehouse)
-          this.dispached = res.filter((x:PackageModel)=> x.packageItemStatus == PackageItemStatus.FlightDispatched)
-          this.delivered = res.filter((x:PackageModel)=> x.packageItemStatus == PackageItemStatus.Delivered)
-          this.dWh_rec = this.wh_rec.length >0 ? this.pickedUpBoxes.filter((x)=>  this.wh_rec.filter((y)=> y.packageID == x.packageID).length==0):[]
-          this.dUld_packed = this.uld_packed.length >0 ? (this.wh_rec.filter((x)=>  this.uld_packed.filter((y)=> y.packageID == x.packageID).length==0)).filter((i)=> this.offloaded.filter((o)=> o.packageID == i.packageID).length == 0):[]
-          this.dDispached = this.dispached.length>0 ? this.uld_packed.filter((x)=>  this.dispached.filter((y)=> y.packageID == x.packageID).length==0).filter((i)=> this.offloaded.filter((o)=> o.packageID == i.packageID).length == 0):[]
-          this.dUld_unpacked =this.dispached.length>0? this.dispached.filter((x)=>  this.uld_unpacked.filter((y)=> y.packageID == x.packageID).length==0):[]
-          this.dDelivered = this.delivered.length>0 ? this.uld_unpacked.filter((x)=>  this.delivered.filter((y)=> y.packageID == x.packageID).length==0):[]
-        }
-      );
+      this.bookingSerice
+        .getPackageAuditStatus(this.cargoBooking.id)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.cargoBookingDetail = res;
+          this.pickedUpBoxes = res.filter(
+            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Booking_Made
+          );
+          this.wh_rec = res.filter(
+            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Cargo_Received
+          );
+          this.uld_packed = res.filter(
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.AcceptedForFlight
+          );
+          this.offloaded = res.filter(
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.Offloaded
+          );
+          this.uld_unpacked = res.filter(
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.InDestinationWarehouse
+          );
+          this.dispached = res.filter(
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.FlightDispatched
+          );
+          this.delivered = res.filter(
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.Delivered
+          );
+          this.dWh_rec =
+            1 > 0
+              ? this.pickedUpBoxes.filter(
+                  (x) =>
+                    this.wh_rec.filter((y) => y.packageId == x.packageId)
+                      .length == 0
+                )
+              : [];
+          this.dUld_packed =
+            1 > 0
+              ? this.wh_rec
+                  .filter(
+                    (x) =>
+                      this.uld_packed.filter((y) => y.packageId == x.packageId)
+                        .length == 0
+                  )
+                  .filter(
+                    (i) =>
+                      this.offloaded.filter((o) => o.packageId == i.packageId)
+                        .length == 0
+                  )
+              : [];
+          this.dDispached =
+            1 > 0
+              ? this.uld_packed
+                  .filter(
+                    (x) =>
+                      this.dispached.filter((y) => y.packageId == x.packageId)
+                        .length == 0
+                  )
+                  .filter(
+                    (i) =>
+                      this.offloaded.filter((o) => o.packageId == i.packageId)
+                        .length == 0
+                  )
+              : [];
+          this.dUld_unpacked =
+            1 > 0
+              ? this.dispached.filter(
+                  (x) =>
+                    this.uld_unpacked.filter((y) => y.packageId == x.packageId)
+                      .length == 0
+                )
+              : [];
+          this.dDelivered =
+            1 > 0
+              ? this.uld_unpacked.filter(
+                  (x) =>
+                    this.delivered.filter((y) => y.packageId == x.packageId)
+                      .length == 0
+                )
+              : [];
+        });
     }
   }
 
+  generatePDF(x:PackageAudit[]) {
+
+    console.log(x, 'audit')
+
+    let body = [['Package ID', 'Collected Date', 'Flight Number', "AwbNumber"]]
+    x.forEach((y:PackageAudit) => {
+        body.push([y.packageNumber, y.collectedDate, y.flightNumber,y.awb.toString()])     
+    });
+    const documentDefinition = {
+
+      
+
+      content: [
+        {
+          text: 'Package List',
+          style: 'header',
+        },
+        {
+          table: {
+            widths: [100, '*', '*', 100],
+            body: body,
+          },
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 0, 10],
+        },
+      },
+    };
+    // @ts-ignore
+    pdfMake.createPdf(documentDefinition).download('package_list.pdf');
+  }
+
   getBookingStatus(status: number): string {
-    return CoreExtensions.GetBookingStatus(status)
+    return CoreExtensions.GetBookingStatus(status);
   }
 
   // getAWBStatus(status:number):string{
@@ -158,7 +271,7 @@ export class AppBookingViewDetailComponent implements OnInit {
   //   return AWBStatus;
   // }
   getPackageStatus(status: number): string {
-    return CoreExtensions.GetPackageStatus(status)
+    return CoreExtensions.GetPackageStatus(status);
   }
 
   get packageItemStatus(): typeof PackageItemStatus {
@@ -184,5 +297,4 @@ export class AppBookingViewDetailComponent implements OnInit {
   // }
 
   public readonly BookingStatus = BookingStatus;
-
 }

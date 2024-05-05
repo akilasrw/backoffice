@@ -24,6 +24,15 @@ export enum MenuType {
   TruckMaster = 22
 }
 
+export interface PackageAudit {
+  packageId: string;
+  packageNumber: string;
+  collectedDate: string;
+  packageStatus: number;
+  awb: number;
+  flightNumber: string;
+}
+
 export enum SectorType {
   None = 0,
   Domestic = 1,
