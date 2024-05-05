@@ -108,7 +108,7 @@ export class AppBookingViewDetailComponent implements OnInit {
               x.packageStatus == PackageItemStatus.Delivered
           );
           this.dWh_rec =
-            1 > 0
+            this.wh_rec.length > 0
               ? this.pickedUpBoxes.filter(
                   (x) =>
                     this.wh_rec.filter((y) => y.packageId == x.packageId)
@@ -116,7 +116,7 @@ export class AppBookingViewDetailComponent implements OnInit {
                 )
               : [];
           this.dUld_packed =
-            1 > 0
+            this.uld_packed.length > 0
               ? this.wh_rec
                   .filter(
                     (x) =>
@@ -130,7 +130,7 @@ export class AppBookingViewDetailComponent implements OnInit {
                   )
               : [];
           this.dDispached =
-            1 > 0
+            this.dispached.length > 0
               ? this.uld_packed
                   .filter(
                     (x) =>
@@ -144,7 +144,7 @@ export class AppBookingViewDetailComponent implements OnInit {
                   )
               : [];
           this.dUld_unpacked =
-            1 > 0
+            this.uld_unpacked.length > 0
               ? this.dispached.filter(
                   (x) =>
                     this.uld_unpacked.filter((y) => y.packageId == x.packageId)
@@ -152,7 +152,7 @@ export class AppBookingViewDetailComponent implements OnInit {
                 )
               : [];
           this.dDelivered =
-            1 > 0
+            this.delivered.length > 0
               ? this.uld_unpacked.filter(
                   (x) =>
                     this.delivered.filter((y) => y.packageId == x.packageId)
@@ -165,7 +165,7 @@ export class AppBookingViewDetailComponent implements OnInit {
 
   generatePDF(x:PackageAudit[]) {
 
-    console.log(x, 'audit')
+    console.log(x, )
 
     let body = [['Package ID', 'Collected Date', 'Flight Number', "AwbNumber"]]
     x.forEach((y:PackageAudit) => {
