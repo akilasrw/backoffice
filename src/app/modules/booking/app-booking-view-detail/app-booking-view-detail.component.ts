@@ -80,6 +80,11 @@ export class AppBookingViewDetailComponent implements OnInit {
         .getPackageAuditStatus(this.cargoBooking.id)
         .subscribe((res: any) => {
           console.log(res);
+          res.forEach((x:PackageAudit)=>{
+            if(x.flightDate&&new Date(x.flightDate).getFullYear() == 1){
+              x.flightDate = null
+            }
+          })
           this.cargoBookingDetail = res;
           this.pickedUpBoxes = res.filter(
             (x: PackageAudit) => x.packageStatus == PackageItemStatus.Booking_Made
@@ -167,9 +172,9 @@ export class AppBookingViewDetailComponent implements OnInit {
 
     console.log(x, )
 
-    let body = [['Package ID', 'Collected Date', 'Flight Number', "AwbNumber"]]
+    let body = [['Package ID', 'Collected Date', 'Flight Number','Flight Date',"AwbNumber"]]
     x.forEach((y:PackageAudit) => {
-        body.push([y.packageNumber, y.collectedDate, y.flightNumber,y.awb.toString()])     
+        body.push([y.packageNumber, y.collectedDate, y.flightNumber || "N/A",y.flightDate?.toString() || "N/A",  y.awb.toString()])     
     });
     const documentDefinition = {
 
@@ -182,7 +187,7 @@ export class AppBookingViewDetailComponent implements OnInit {
         },
         {
           table: {
-            widths: [100, '*', '*', 100],
+            widths: [100, 100, 100, 100, 100],
             body: body,
           },
         },

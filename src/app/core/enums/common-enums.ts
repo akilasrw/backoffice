@@ -31,6 +31,7 @@ export interface PackageAudit {
   packageStatus: number;
   awb: number;
   flightNumber: string;
+  flightDate:Date | null;
 }
 
 export enum SectorType {
