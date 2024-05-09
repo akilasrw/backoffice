@@ -5,6 +5,7 @@ import {DeliveryAuditQueryModel} from "../_models/queries/dashboard/delivery-aud
 import {DeliveryAudit} from "../_models/view-models/dashboard/delivery-audit";
 import { DeliveryAuditData } from '../_models/view-models/dashboard/delivery-audit-data';
 import { Observable } from 'rxjs';
+import { PackageAudit } from '../core/enums/common-enums';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
 export class HomeService extends BaseService{
   private readonly endpointEntityName = 'CargoBookingLookup';
   private readonly getChatDataEndpoint = `${this.endpointEntityName}/ChartData`;
+  private readonly getPackagesByDateEndpoint = `${this.endpointEntityName}/PackageByDate`;
   private readonly getDeliveryDataEndpoint = `${this.endpointEntityName}/DelirveryAudit`;
 
   constructor(http: HttpClient) {
@@ -26,6 +28,16 @@ export class HomeService extends BaseService{
     if(query.end)
     params = params.append("end", new Date(query.end).toDateString());
     return this.getWithParams<DeliveryAudit>(this.getChatDataEndpoint, params);
+
+  }
+
+  getPackageData(query: DeliveryAuditQueryModel):Observable<PackageAudit[]>{
+    var params = new HttpParams();
+    if(query.start)
+    params = params.append("start", new Date(query.start).toDateString());
+    if(query.end)
+    params = params.append("end", new Date(query.end).toDateString());
+    return this.getWithParams<PackageAudit[]>(this.getPackagesByDateEndpoint, params);
 
   }
 

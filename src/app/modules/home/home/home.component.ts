@@ -8,6 +8,9 @@ import { DeliveryAuditData } from 'src/app/_models/view-models/dashboard/deliver
 import {observable, Subscription} from "rxjs";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { PackageAudit } from 'src/app/core/enums/common-enums';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +30,7 @@ export class HomeComponent implements OnInit {
   oneAndHalfDay: any = 0;
   graterThanOneAndHalfDay: any = 0;
   deliveryAuditData: DeliveryAuditData[] = [];
+  packageAuditData: PackageAudit[] = [];
   var1:number = 0;
   var2:number = 0;
   var3:number = 0;
@@ -34,6 +38,17 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private homeService: HomeService) {
+     //@ts-ignore
+     pdfMake.vfs = pdfFonts.pdfMake.vfs;
+     //@ts-ignore
+     pdfMake.fonts = {
+       Roboto: {
+         normal: 'Roboto-Regular.ttf',
+         bold: 'Roboto-Medium.ttf',
+         italics: 'Roboto-Italic.ttf',
+         bolditalics: 'Roboto-MediumItalic.ttf',
+       },
+     };
   }
 
   ngOnInit(): void {
@@ -41,7 +56,7 @@ export class HomeComponent implements OnInit {
     this.filterDateTo = this.getYesterdayDate();
     this.createChart();
     this.getChatData();
-
+    this.getPackageData();
     this.getDeliveryData();
     this.parcelDelivered = [];
   }
@@ -90,6 +105,7 @@ export class HomeComponent implements OnInit {
 getData(){
     this.getChatData();
     this.getDeliveryData();
+    this.getPackageData()
 }
   getChatData() {
     this.isLoading = true;
@@ -150,6 +166,26 @@ getData(){
       }
     );
   }
+
+  getPackageData() {
+    this.isLoading = true;
+
+    let query = new DeliveryAuditQueryModel();
+    query.start = this.filterDateFrom;
+    query.end = this.filterDateTo;
+    this.homeService.getPackageData(query).subscribe(
+      {
+        next: (res: PackageAudit[]) => {
+          this.packageAuditData = res;
+          this.isLoading = false;
+          console.log(this.packageAuditData, 'p o data');
+        },
+        error: (error: any) => {
+          console.error('Error fetching delivery audit data:', error);
+        }
+      }
+    );
+  }
   
   generatePDF(): void {
     const tableElement: any = document.querySelector('.table-content');
@@ -182,5 +218,41 @@ getData(){
     });
   }
  
+  generatePackagePDF(x:PackageAudit[]) {
+
+    console.log(x, )
+
+    let body = [['Package ID', 'Collected Date', 'Flight Number','Flight Date',"AwbNumber"]]
+    x.forEach((y:PackageAudit) => {
+        body.push([y.packageNumber, y.collectedDate, y.flightNumber || "N/A",y.flightDate?.toString() || "N/A",  y.awb.toString()])     
+    });
+    const documentDefinition = {
+
+      
+
+      content: [
+        {
+          text: 'Package List',
+          style: 'header',
+        },
+        {
+          table: {
+            widths: [100, 100, 100, 100, 100],
+            body: body,
+          },
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 0, 10],
+        },
+      },
+    };
+    // @ts-ignore
+    pdfMake.createPdf(documentDefinition).download('package_list.pdf');
+  }
 
 }

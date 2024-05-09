@@ -37,7 +37,7 @@
     </div>
     <div *ngIf="!isLoading" class="row d-flex justify-content-between align-items-center">
       <div class="col-2">
-        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;"><h1
+        <button type="button" class="btn btn-primary top-btn-left" style="border-radius: 0.5rem; width: 100%;" (click)="generatePackagePDF(packageAuditData)"><h1
           style="font-weight: bolder; font-size: x-large">{{ this.chartData.collected  | number: '1.0-0' }}</h1>
           <label style="font-weight: normal; font-size: medium">Packages Collected</label></button>
       </div>
