@@ -9,7 +9,11 @@ import { AccountService } from '../../../account/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { AwbService } from '../../../_services/awb.service';
 import { CargoBookingDetail } from '../../../_models/view-models/cargo-bookings/cargo-booking-detail';
-import { AWBStatus, PackageAudit, PackageItemStatus } from '../../../core/enums/common-enums';
+import {
+  AWBStatus,
+  PackageAudit,
+  PackageItemStatus,
+} from '../../../core/enums/common-enums';
 import { BookingStatus } from '../../../core/enums/common-enums';
 import { CoreExtensions } from '../../../core/extensions/core-extensions.model';
 import * as pdfMake from 'pdfmake/build/pdfmake';
@@ -34,6 +38,7 @@ export class AppBookingViewDetailComponent implements OnInit {
   uld_packed: PackageAudit[] = [];
   dispached: PackageAudit[] = [];
   offloaded: PackageAudit[] = [];
+  returned: PackageAudit[] = [];
   uld_unpacked: PackageAudit[] = [];
   delivered: PackageAudit[] = [];
   dUld_packed: PackageAudit[] = [];
@@ -80,26 +85,35 @@ export class AppBookingViewDetailComponent implements OnInit {
         .getPackageAuditStatus(this.cargoBooking.id)
         .subscribe((res: any) => {
           console.log(res);
-          res.forEach((x:PackageAudit)=>{
-            if(x.flightDate&&new Date(x.flightDate).getFullYear() == 1){
-              x.flightDate = null
+          res.forEach((x: PackageAudit) => {
+            if (x.flightDate && new Date(x.flightDate).getFullYear() == 1) {
+              x.flightDate = null;
             }
-          })
+          });
           this.cargoBookingDetail = res;
+          this.returned = res.filter(
+            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Returned
+          );
           this.pickedUpBoxes = res.filter(
-            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Booking_Made
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.Booking_Made
           );
           this.wh_rec = res.filter(
-            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Cargo_Received
+            (x: PackageAudit) =>
+              x.packageStatus == PackageItemStatus.Cargo_Received &&
+              this.returned.filter((y) => y.packageId == x.packageId).length <=
+                0
           );
           this.uld_packed = res.filter(
             (x: PackageAudit) =>
-              x.packageStatus == PackageItemStatus.AcceptedForFlight
+              x.packageStatus == PackageItemStatus.AcceptedForFlight &&
+              this.returned.filter((y) => y.packageId == x.packageId).length <=
+                0
           );
           this.offloaded = res.filter(
-            (x: PackageAudit) =>
-              x.packageStatus == PackageItemStatus.Offloaded
+            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Offloaded
           );
+
           this.uld_unpacked = res.filter(
             (x: PackageAudit) =>
               x.packageStatus == PackageItemStatus.InDestinationWarehouse
@@ -109,15 +123,16 @@ export class AppBookingViewDetailComponent implements OnInit {
               x.packageStatus == PackageItemStatus.FlightDispatched
           );
           this.delivered = res.filter(
-            (x: PackageAudit) =>
-              x.packageStatus == PackageItemStatus.Delivered
+            (x: PackageAudit) => x.packageStatus == PackageItemStatus.Delivered
           );
           this.dWh_rec =
             this.wh_rec.length > 0
               ? this.pickedUpBoxes.filter(
                   (x) =>
                     this.wh_rec.filter((y) => y.packageId == x.packageId)
-                      .length == 0
+                      .length == 0 &&
+                    this.returned.filter((y) => y.packageId == x.packageId)
+                      .length <= 0
                 )
               : [];
           this.dUld_packed =
@@ -131,7 +146,9 @@ export class AppBookingViewDetailComponent implements OnInit {
                   .filter(
                     (i) =>
                       this.offloaded.filter((o) => o.packageId == i.packageId)
-                        .length == 0
+                        .length == 0 &&
+                      this.returned.filter((y) => y.packageId == i.packageId)
+                        .length <= 0
                   )
               : [];
           this.dDispached =
@@ -168,18 +185,28 @@ export class AppBookingViewDetailComponent implements OnInit {
     }
   }
 
-  generatePDF(x:PackageAudit[]) {
+  generatePDF(x: PackageAudit[]) {
+    console.log(x);
 
-    console.log(x, )
-
-    let body = [['Package ID', 'Collected Date', 'Flight Number','Flight Date',"AwbNumber"]]
-    x.forEach((y:PackageAudit) => {
-        body.push([y.packageNumber, y.collectedDate, y.flightNumber || "N/A",y.flightDate?.toString() || "N/A",  y.awb.toString()])     
+    let body = [
+      [
+        'Package ID',
+        'Collected Date',
+        'Flight Number',
+        'Flight Date',
+        'AwbNumber',
+      ],
+    ];
+    x.forEach((y: PackageAudit) => {
+      body.push([
+        y.packageNumber,
+        y.collectedDate,
+        y.flightNumber || 'N/A',
+        y.flightDate?.toString() || 'N/A',
+        y.awb.toString(),
+      ]);
     });
     const documentDefinition = {
-
-      
-
       content: [
         {
           text: 'Package List',

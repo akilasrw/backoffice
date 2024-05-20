@@ -224,8 +224,8 @@ getData(){
 
     let body = [['Package ID', 'Collected Date', 'Flight Number','Flight Date',"AwbNumber"]]
     x.forEach((y:PackageAudit) => {
-        body.push([y.packageNumber, y.collectedDate, y.flightNumber || "N/A",y.flightDate?.toString() || "N/A",  y.awb.toString()])     
-    });
+      body.push([y.packageNumber, y.collectedDate, y.flightNumber || "N/A",y.flightDate?.toString() || "N/A",  y.awb.toString()])
+  });
     const documentDefinition = {
 
       
