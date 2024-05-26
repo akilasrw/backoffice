@@ -118,6 +118,7 @@
             <th style="text-align: left">Collected Date</th>
             <th style="text-align: center">AWB's</th>
             <th style="text-align: center">Packages Collected</th>
+            <th style="text-align: center">In Truck</th>
             <th style="text-align: center">In WH</th>
             <th style="text-align: center">Packages Rtn'd</th>
             <th style="text-align: center">Packages on Hold</th>
@@ -134,6 +135,7 @@
               <td style="text-align: left">{{ item.collectedDate | date: 'dd/MM/yy' }}</td>
               <td style="text-align: center">{{ item.awBs }}</td>
               <td style="text-align: center">{{ item.parcellsCollected | number: '1.0-0'}}</td>
+              <td style="text-align: center">{{ item.bookingMade | number: '1.0-0'}}</td>
               <td style="text-align: center">{{ item.whRec | number: '1.0-0'}}</td>
               <td style="text-align: center">{{ item.parcellsRetured | number: '1.0-0'}}</td>
               <td style="text-align: center">{{ item.parcellsOnHold | number: '1.0-0'}}</td>

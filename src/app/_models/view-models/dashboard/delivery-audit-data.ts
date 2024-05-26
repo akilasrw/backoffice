@@ -2,6 +2,7 @@ export interface DeliveryAuditData{
     collectedDate?:Date;
     awBs?:number;
     parcellsCollected?:number;
+    bookingMade?:number;
     parcellsRetured?:number;
     parcellsOnHold?:number;
     uldPacked?:number;
