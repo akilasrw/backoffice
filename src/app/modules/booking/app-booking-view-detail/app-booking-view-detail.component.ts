@@ -102,6 +102,7 @@ export class AppBookingViewDetailComponent implements OnInit {
             (x: PackageAudit) =>
               x.packageStatus == PackageItemStatus.Cargo_Received &&
               this.returned.filter((y) => y.packageId == x.packageId).length <=
+                0 && this.offloaded.filter((y) => y.packageId == x.packageId).length <=
                 0
           );
           this.uld_packed = res.filter(
