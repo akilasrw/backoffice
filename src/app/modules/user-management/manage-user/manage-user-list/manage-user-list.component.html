@@ -66,7 +66,7 @@
                               <i class="ca ca-icn-active-user" title="Active"
                               *ngIf="user.userStatus == UserStatus.Suspended || user.userStatus == UserStatus.Pending"
                               (click)="onActive(user.id)"></i>
-                                <i class="ca ca-icn-suspend text-red" title="Suspend" (click)="onSuspend()"
+                                <i class="ca ca-icn-suspend text-red" title="Suspend" (click)="onSuspend(user.id)"
                                 *ngIf="user.userStatus == UserStatus.Active || user.userStatus == UserStatus.Pending"></i>
                                 <i class="ca ca-icn-edit" title="Edit"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
@@ -118,8 +118,30 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateAcceptUser}"
-    [ngStyle]="{'display': modalVisibleAcceptUser ? 'block' : 'none', 'opacity': modalVisibleAnimateAcceptUser ? 1 : 0}">
+
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateActiveUser}"
+    [ngStyle]="{'display': modalVisibleActiveUser ? 'block' : 'none', 'opacity': modalVisibleAnimateActiveUser ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Active User</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelActive()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to active this user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelActive()">Cancel</button>
+                <button class="btn btn-primary" (click)="onAction()" type="button">Active</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateActiveUser}"
+    [ngStyle]="{'display': modalVisibleActiveUser ? 'block' : 'none', 'opacity': modalVisibleAnimateActiveUser ? 1 : 0}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

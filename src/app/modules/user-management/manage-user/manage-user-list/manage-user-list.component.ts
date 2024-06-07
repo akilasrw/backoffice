@@ -18,8 +18,8 @@ export class ManageUserListComponent implements OnInit {
   modalVisibleAnimate = false;
   modalVisibleAnimateSuspendUser = false;
   modalVisibleSuspendUser = false;
-  modalVisibleAnimateAcceptUser= false;
-  modalVisibleAcceptUser= false;
+  modalVisibleAnimateActiveUser = false;
+  modalVisibleActiveUser = false;
   query: SystemUserFilterQuery = new SystemUserFilterQuery();
   users: SystemUserVm[] = [];
   totalCount: number = 0;
@@ -100,6 +100,16 @@ export class ManageUserListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleAnimateSuspendUser = true));
   }
 
+
+  onActive(id:string) {
+    var user = new SystemUserVm();
+    user.id = id;
+    user.userStatus = UserStatus.Active;
+    this.selectedUser = user;
+    this.modalVisibleActiveUser = true;
+    setTimeout(() => (this.modalVisibleAnimateActiveUser = true));
+  }
+
   onAction() {
     if (this.selectedUser != undefined) {
       this.isLoading=true;
@@ -123,8 +133,8 @@ export class ManageUserListComponent implements OnInit {
 
   cancelActive() {
     this.selectedUser = undefined;
-    this.modalVisibleAnimateAcceptUser = false;
-    setTimeout(() => (this.modalVisibleAcceptUser = false), 300);
+    this.modalVisibleAnimateActiveUser = false;
+    setTimeout(() => (this.modalVisibleActiveUser = false), 300);
   }
 
   cancelSuspend() {
@@ -132,6 +142,8 @@ export class ManageUserListComponent implements OnInit {
     this.modalVisibleAnimateSuspendUser= false;
     setTimeout(() => (this.modalVisibleSuspendUser = false), 300);
   }
+
+  
 
   onChangeFilterFrm(event: any) {
     if ((this.query.name !== undefined && this.query.name !== "") ||
