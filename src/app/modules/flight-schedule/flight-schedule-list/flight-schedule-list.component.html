@@ -61,7 +61,7 @@
                             <td>{{item.scheduledTime | date :'shortTime'}}</td>
                             <td>{{item.scheduleStartDate| date}}</td>
                             <td>{{item.scheduleEndDate| date}}</td>
-                            <td>{{item.daysOfWeek}}</td>
+                            <td>{{item.daysOfWeek.split(',').sort().join(',')}}</td>
                             <td class="text-center">
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onEditFlightSchedule(item)"></i>
                                 <i class="ca ca-icn-bin" title="Delete"></i>
