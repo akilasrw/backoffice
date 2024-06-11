@@ -64,7 +64,7 @@
                             <td>{{item.daysOfWeek.split(',').sort().join(',')}}</td>
                             <td class="text-center">
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onEditFlightSchedule(item)"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(item.id)"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -101,6 +101,27 @@
             <div>
                 <app-flight-schedule-create [editFlightSchedule]="this.selectedEditFlightSchedule" 
                     (closePopup)="closeAddFlightSchedule()" (submitSuccess)="onAddFlightSchedule()" *ngIf="modalVisible"></app-flight-schedule-create>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateDelete}"
+    [ngStyle]="{'display': modalVisibleDelete ? 'block' : 'none', 'opacity': modalVisibleAnimateDelete ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Delete Schedule</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelDelete()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Schedule?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelDelete()">Cancel</button>
+                <button class="btn btn-primary" (click)="deleteSchedule()" type="button">Delete</button>
             </div>
         </div>
     </div>

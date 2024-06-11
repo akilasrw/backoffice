@@ -8,3 +8,7 @@ export class FlightScheduleManagementUpdateRM{
     daysOfWeek?:string;
     flightScheduleIds?:string[];
 }
+
+export interface FlightScheduleDeleteRM{
+    id:string;
+}
