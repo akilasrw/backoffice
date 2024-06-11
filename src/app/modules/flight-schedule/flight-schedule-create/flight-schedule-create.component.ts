@@ -211,18 +211,22 @@ export class FlightScheduleCreateComponent implements OnInit {
 
     if (this.flightScheduleForm.get('daysOfWeek')?.value === null || this.flightScheduleForm.get('daysOfWeek')?.value === "") {
       this.toastr.error('Please select day(s) Of week.');
-      return;
+      return; 
     }
 
-    if(this.flightList.findIndex(x=>x.value == this.typedFlightNo) < 0) {
+    if(this.flightList.findIndex(x=>x.id == this.flightScheduleForm.get('flightId')?.value) < 0) {
       this.toastr.error('Flight number is not valid.');
       return;
     }
 
-    if(this.aircraftSubTypes.findIndex(x=>x.value == this.enteredAircraftType) < 0) {
-      this.toastr.error('Aircraft Sub Type is not valid.');
-      return;
-    }
+    //commented out this, coz this is useless
+    // console.log(this.flightScheduleForm.get("aircraftSubTypeId")?.value, 'sid')
+    // console.log(this.aircraftSubTypes)
+
+    // if(this.aircraftSubTypes.findIndex(x=>x.id == this.flightScheduleForm.get('aircraftSubTypeId')?.value) < 0) {
+    //   this.toastr.error('Aircraft Sub Type is not valid.');
+    //   return;
+    // }
 
     if (this.flightScheduleForm.valid) {
       this.isLoading = true;
