@@ -7,6 +7,7 @@ import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { UserStatus } from 'src/app/core/enums/common-enums';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
 
 @Component({
   selector: 'app-manage-user-list',
@@ -18,8 +19,11 @@ export class ManageUserListComponent implements OnInit {
   modalVisibleAnimate = false;
   modalVisibleAnimateSuspendUser = false;
   modalVisibleSuspendUser = false;
+  modalVisibleAnimateDeleteUser = false;
+  modalVisibleDeleteUser = false;
   modalVisibleAnimateActiveUser = false;
   modalVisibleActiveUser = false;
+  selectedDeletedID?: string;
   query: SystemUserFilterQuery = new SystemUserFilterQuery();
   users: SystemUserVm[] = [];
   totalCount: number = 0;
@@ -110,6 +114,44 @@ export class ManageUserListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleAnimateActiveUser = true));
   }
 
+  onDelete(userId: string) {
+    
+    this.selectedDeletedID = userId;
+    this.showDelete();
+  }
+
+  showDelete() {
+    this.modalVisibleDeleteUser = true;
+    setTimeout(() => (this.modalVisibleAnimateDeleteUser = true));
+  }
+
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDeleteUser = false;
+    setTimeout(() => (this.modalVisibleDeleteUser = false), 300);
+  }
+
+  deleteUser(){
+    console.log("working")
+    console.log(this.selectedDeletedID)
+    if (this.selectedDeletedID) {
+      
+      this.systemUserService.deleteUser(this.selectedDeletedID)
+        .subscribe({
+          next: (res:any) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.users = [];
+            this.getFilterList();
+          },
+          error: (error:any) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+          }
+        });
+    }
+  } 
+  
   onAction() {
     if (this.selectedUser != undefined) {
       this.isLoading=true;

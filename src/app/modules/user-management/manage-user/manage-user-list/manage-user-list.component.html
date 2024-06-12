@@ -69,7 +69,7 @@
                                 <i class="ca ca-icn-suspend text-red" title="Suspend" (click)="onSuspend(user.id)"
                                 *ngIf="user.userStatus == UserStatus.Active || user.userStatus == UserStatus.Pending"></i>
                                 <i class="ca ca-icn-edit" title="Edit"></i>
-                                <i class="ca ca-icn-bin" title="Delete"></i>
+                                <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(user.id)"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -159,3 +159,24 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': modalVisibleAnimateDeleteUser}"
+    [ngStyle]="{'display': modalVisibleDeleteUser ? 'block' : 'none', 'opacity': modalVisibleAnimateDeleteUser ? 1 : 0}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Delete User</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="cancelDelete()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary me-3" type="button" (click)="cancelDelete()">Cancel</button>
+                <button class="btn btn-primary" (click)="deleteUser()" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+

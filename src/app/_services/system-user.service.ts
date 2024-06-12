@@ -50,4 +50,8 @@ export class SystemUserService extends BaseService {
     return this.put<any>(this.statusUpdateEndpoint, statusUpdateRM);
   }
 
+  deleteUser(id:string){
+    return this.delete<any>(`${this.endpointEntityName}/${id}`,null);
+  }
+
 }
