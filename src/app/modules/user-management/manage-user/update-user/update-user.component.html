@@ -6,60 +6,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="form-label">First Name</label>
-                        <app-text-input [formControl]='userForm.controls["firstName"]' type="text"
-                          [label]='"First Name"' [tabindex]="1">
-                        </app-text-input>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Last Name</label>
-                        <app-text-input [formControl]='userForm.controls["lastName"]' type="text"
-                          [label]='"Last Name"' [tabindex]="2">
-                        </app-text-input>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">User Name</label>
-                        <app-text-input [formControl]='userForm.controls["userName"]' type="text"
-                          [label]='"UserName"' [tabindex]="3">
-                        </app-text-input>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <app-text-input [formControl]='userForm.controls["email"]' type="text"
-                          [label]='"Email"' [tabindex]="4">
-                        </app-text-input>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Phone Number</label>
-                        <app-text-input [formControl]='userForm.controls["phoneNumber"]' type="text"
-                          [label]='"Phone Number"' [tabindex]="5">
-                        </app-text-input>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Country</label>
-                        <app-auto-complete-dropdown
-                        [data] = "countryList" [keyword] ="keyword" (selectFileOutput)="selectedCountry($event)" [tabindex] ="6"
-                        (changeSearch)="onClearCountry()" [selectedIndex]="selectedCountryValue" (clearSearch)="onClearCountry()"></app-auto-complete-dropdown>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
                         <label class="form-label">City</label>
                         <app-text-input [formControl]='userForm.controls["city"]' [label]='"city"' [tabindex] ="7">
                         </app-text-input>
@@ -100,6 +46,14 @@
                         (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
                         (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
                   </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Country</label>
+                        <app-auto-complete-dropdown
+                        [data] = "countryList" [keyword] ="keyword" (selectFileOutput)="selectedCountry($event)" [tabindex] ="6"
+                        (changeSearch)="onClearCountry()" [selectedIndex]="selectedCountryValue" (clearSearch)="onClearCountry()"></app-auto-complete-dropdown>
+                    </div>
                 </div>
             </div>
         </div>
