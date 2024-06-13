@@ -68,7 +68,7 @@
                               (click)="onActive(user.id)"></i>
                                 <i class="ca ca-icn-suspend text-red" title="Suspend" (click)="onSuspend(user.id)"
                                 *ngIf="user.userStatus == UserStatus.Active || user.userStatus == UserStatus.Pending"></i>
-                                <i class="ca ca-icn-edit" title="Edit"></i>
+                                <i class="ca ca-icn-edit" title="Edit" (click)="viewUpdateUser(user)"></i>
                                 <i class="ca ca-icn-bin" title="Delete" (click)="onDelete(user.id)"></i>
                             </td>
                         </tr>
@@ -93,6 +93,24 @@
             <div>
                 <app-create-user (submitSuccess)="onUserAdd()"
                     (closePopup)="close()" *ngIf="modalVisible"></app-create-user>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade right" tabindex="-1" [ngClass]="{'in': modalVisibleUpdateAnimate}"
+    [ngStyle]="{'display': modalVisibleUpdate ? 'block' : 'none', 'opacity': modalVisibleUpdateAnimate ? 1 : 0}">
+    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Update User</h2>
+                <button type="button" class="close btn" data-dismiss="modal" (click)="closeUpdate()"
+                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
+            </div>
+            <div>
+                <app-update-user [userData]="updateUserData" [userID]="updateUserData.id" (submitSuccess)="onUserAdd()"
+                    (closePopup)="close()" *ngIf="modalVisibleUpdate"></app-update-user>
             </div>
         </div>
     </div>
@@ -179,4 +197,6 @@
         </div>
     </div>
 </div>
+
+
 

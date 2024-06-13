@@ -24,6 +24,10 @@ export class SystemUserService extends BaseService {
     return this.post<any>(this.endpointEntityName, systemUserCreateRm);
   }
 
+  update(systemUserCreateRm: SystemUserCreateRm, id:string){
+    return this.put<any>(`${this.endpointEntityName}/${id}`, systemUserCreateRm);
+  }
+
   getFilteredList(query: SystemUserFilterQuery){
     var params = new HttpParams();
 

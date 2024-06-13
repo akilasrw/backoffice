@@ -16,13 +16,16 @@ import { CommonMessages } from 'src/app/core/constants/common-messages';
 })
 export class ManageUserListComponent implements OnInit {
   modalVisible = false;
+  modalVisibleUpdate = false;
   modalVisibleAnimate = false;
+  modalVisibleUpdateAnimate = false;
   modalVisibleAnimateSuspendUser = false;
   modalVisibleSuspendUser = false;
   modalVisibleAnimateDeleteUser = false;
   modalVisibleDeleteUser = false;
   modalVisibleAnimateActiveUser = false;
   modalVisibleActiveUser = false;
+  updateUserData = null;
   selectedDeletedID?: string;
   query: SystemUserFilterQuery = new SystemUserFilterQuery();
   users: SystemUserVm[] = [];
@@ -93,6 +96,12 @@ export class ManageUserListComponent implements OnInit {
   viewAddNewUser() {
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+  viewUpdateUser(user:any) {
+    this.modalVisibleUpdate = true;
+    this.updateUserData = user;
+    setTimeout(() => (this.modalVisibleUpdateAnimate = true));
   }
 
   onSuspend(id:string) {
@@ -205,8 +214,13 @@ export class ManageUserListComponent implements OnInit {
   }
 
   close() {
-    this.modalVisibleAnimate = false;
-    setTimeout(() => (this.modalVisible = false), 300);
+    this.modalVisibleUpdateAnimate = false;
+    setTimeout(() => (this.modalVisibleUpdate = false), 300);
+  }
+
+  closeUpdate() {
+    this.modalVisibleUpdateAnimate = false;
+    setTimeout(() => (this.modalVisibleUpdate = false), 300);
   }
 
   onUserAdd() {
