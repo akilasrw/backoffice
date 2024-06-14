@@ -15,7 +15,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Cargo Agent</label>
                     <app-auto-complete-dropdown [data]="cargoAgents" [keyword]="keyword"
-                        [selectedIndex]="editAgentIndex" (selectFileOutput)="selectedCargoAgent($event)"
+                        [selectedIndex]="editAgentIndex" (selectFileOutput)="selectedCargoAgent($event)" [isDisabled]="isDisabled"
                         (clearSearch)="onClearCargoAgent()">
                     </app-auto-complete-dropdown>
                 </div>
