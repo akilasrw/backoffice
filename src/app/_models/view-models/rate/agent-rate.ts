@@ -33,6 +33,18 @@ export interface AgentOtherRatesType {
     id: string;
 }
 
+export interface CreateAgentOtherRate {
+    SubCategoryID: string;
+    rateName: string;
+    description: string;
+    rateDescription: string;
+    minPreceptionRate: number;
+    ratePerKG: number;
+    fixRate: number;
+    trancheRate: number;
+    iataCode: string;
+}
+
 export enum MainRateType {
     ExportFees = 0,
     ImportFees = 1,
