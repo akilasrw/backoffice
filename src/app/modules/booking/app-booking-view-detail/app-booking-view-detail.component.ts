@@ -96,7 +96,7 @@ export class AppBookingViewDetailComponent implements OnInit {
           );
           this.pickedUpBoxes = res.filter(
             (x: PackageAudit) =>
-              x.packageStatus == PackageItemStatus.Booking_Made
+              x.packageStatus == PackageItemStatus.Picked_Up
           );
           this.wh_rec = res.filter(
             (x: PackageAudit) =>
