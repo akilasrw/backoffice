@@ -4,7 +4,7 @@ import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/ca
 import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-booking.model';
 import { BookingService } from 'src/app/_services/booking.service';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
-import { BookingStatus, StandByCargoType } from 'src/app/core/enums/common-enums';
+import { BookingStatus, PackageItemStatus, StandByCargoType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
 import { SelectList } from 'src/app/shared/models/select-list.model';
@@ -19,7 +19,7 @@ export class StandByCargoMasterComponent implements OnInit {
   query: CargoBookingListQuery = new CargoBookingListQuery();
   cargoBookingList: CargoBooking[] = [];
   selectedStandByStatus = StandByCargoType;
-  standByCargoType: StandByCargoType = StandByCargoType.Offload;
+  standByCargoType: PackageItemStatus = PackageItemStatus.Offloaded;
   bookingStatus = BookingStatus;
   updateStandByModalVisibleAnimate: boolean = false;
   updateStandByModalVisible: boolean = false;
@@ -56,13 +56,15 @@ export class StandByCargoMasterComponent implements OnInit {
       );
   }
 
+
   getBookingList() {
+    console.log(this.standByCargoType)
     this.isLoading = true;
-    this.query.standByStatus = Number(this.standByCargoType);
-    this.bookingService.getstandByStatusList(this.query).subscribe(
+    //this.query.standByStatus = Number(this.standByCargoType);
+    this.bookingService.getBookingByPackage(this.standByCargoType).subscribe(
       {
         next: (res) => {
-          this.cargoBookingList = res;
+          this.cargoBookingList = res
           this.isLoading = false;
         },
         error: () => {
@@ -73,7 +75,7 @@ export class StandByCargoMasterComponent implements OnInit {
     )
   }
 
-  changeMenu(type: StandByCargoType) {
+  changeMenu(type: PackageItemStatus) {
     if(this.standByCargoType != type) {
       this.standByCargoType = type;
       this.getBookingList();

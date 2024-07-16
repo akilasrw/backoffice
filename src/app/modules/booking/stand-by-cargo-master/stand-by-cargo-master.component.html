@@ -31,11 +31,11 @@
             <div class="booking-summary">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" [ngClass]="{'active':standByCargoType == selectedStandByStatus.Offload}" id="offloaded-bookings-tab" data-bs-toggle="tab" (click)="changeMenu(selectedStandByStatus.Offload)"
+                      <button class="nav-link" [ngClass]="{'active':standByCargoType == 5}" id="offloaded-bookings-tab" data-bs-toggle="tab" (click)="changeMenu(5)"
                       data-bs-target="#offloaded-bookings" type="button" role="tab" aria-controls="offloaded-bookings" aria-selected="true">Offloaded Bookings</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" [ngClass]="{'active':standByCargoType == selectedStandByStatus.NotReceived}" id="cargo-not-received-tab" data-bs-toggle="tab" (click)="changeMenu(selectedStandByStatus.NotReceived)"
+                      <button class="nav-link" [ngClass]="{'active':standByCargoType == 1}" id="cargo-not-received-tab" data-bs-toggle="tab" (click)="changeMenu(1)"
                       data-bs-target="#cargo-not-received" type="button" role="tab" aria-controls="cargo-not-received" aria-selected="false">Cargo Not Received</button>
                     </li>
                   </ul>
@@ -49,10 +49,7 @@
                                   <th>Booking Agent</th>
                                   <th>From to</th>
                                   <th>Booking Date</th>
-                                  <th>Status</th>
                                   <th>No.Rec. Pcs</th>
-                                  <th>Total Rec. Weight (kg)</th>
-                                  <th>Total Rec. Volume (m3)</th>
                                   <th>Actions</th>
                               </thead>
                               <tbody>
@@ -64,20 +61,7 @@
                                           <span class="status-chip accepted">{{book.origin}} - {{book.destination}} </span>
                                       </td>
                                       <td>{{book.bookingDate| date}}</td>
-                                      <td>
-                                        <span class="status-chip" [ngClass]="{
-                                          'none':book?.bookingStatus == bookingStatus.None,
-                                          'pending': book?.bookingStatus == bookingStatus.Pending,
-                                          'dispatch':book?.bookingStatus == bookingStatus.Dispatched,
-                                          'invoiced':book?.bookingStatus == bookingStatus.Invoiced,
-                                          'accepted':book?.bookingStatus == bookingStatus.Accepted,
-                                          'loading':book?.bookingStatus == bookingStatus.Loading,
-                                          'exported':book?.bookingStatus == bookingStatus.Exported
-                                      }">{{getBookingStatus(book?.bookingStatus)}}</span>
-                                      </td>
                                       <td>{{book.numberOfRecBoxes}}</td>
-                                      <td>{{book.totalRecWeight}}</td>
-                                      <td>{{convertcm3Tom3(book.totalRecVolume)}}</td>
                                       <td>
                                           <i class="ca ca-icn-view" title="View"></i>
                                           <i class="ca ca-icn-chat" title="Chat"></i>

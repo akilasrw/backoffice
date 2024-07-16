@@ -1,4 +1,4 @@
-import { BookingStatus, VerifyStatus } from "src/app/core/enums/common-enums";
+import { BookingStatus, PackageItemStatus, VerifyStatus } from "src/app/core/enums/common-enums";
 
 export interface CargoBooking {
   id:string;
@@ -9,7 +9,7 @@ export interface CargoBooking {
   numberOfBoxes:number;
   totalWeight:number;
   totalVolume:number;
-  bookingStatus: BookingStatus;
+  bookingStatus: PackageItemStatus;
   numberOfRecBoxes:number;
   totalRecWeight:number;
   totalRecVolume:number;
