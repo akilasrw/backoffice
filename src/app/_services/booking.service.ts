@@ -13,6 +13,7 @@ import {BookingShipment} from "../_models/view-models/booking-shipment/booking-s
 import {CargoBookingFilterQuery} from "../_models/queries/cargo-bookings/cargo-booking-filter-query.model";
 import {IPagination} from "../shared/models/pagination.model";
 import {CargoBookingAgent} from "../_models/view-models/cargo-bookings/cargo-booking-agent.model";
+import { BasePaginationQuery } from '../shared/models/base-pagination-query.model';
 
 @Injectable({
   providedIn: 'root'
@@ -92,8 +93,12 @@ export class BookingService extends BaseService {
   }
 
 
-  getBookingByPackage(type:number) {
-    return this.get<CargoBooking[]>(`${this.bookingsByPackageStatus}/${type}`);
+  getBookingByPackage(type:number, query:BasePaginationQuery) {
+
+    var params = new HttpParams();
+    params = CoreExtensions.AsPaginate(params, query);
+
+    return this.getWithParams(`${this.bookingsByPackageStatus}/${type}`, params);
   }
 
   getFreighterBookingList(query: CargoBookingListQuery) {
