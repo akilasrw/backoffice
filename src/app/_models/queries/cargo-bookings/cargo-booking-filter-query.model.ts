@@ -6,3 +6,9 @@ export class CargoBookingFilterQuery extends BasePaginationQuery {
   fromDate?: Date;
   toDate?: Date;
 }
+
+
+export class StandyBookingFilterQuery extends BasePaginationQuery {
+  CargoBooking?: string;
+  CargoAgent?:string;
+}

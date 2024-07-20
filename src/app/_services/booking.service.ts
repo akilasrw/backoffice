@@ -10,7 +10,7 @@ import { CargoBookingUpdateRm } from '../_models/view-models/cargo-bookings/carg
 import { CargoBookingDetailQuery } from '../_models/queries/cargo-bookings/cargo-booking-detail-query.model';
 import {CargoBookingShipmentQuery} from "../_models/queries/booking-shipment/cargo-booking-shipment-query.model";
 import {BookingShipment} from "../_models/view-models/booking-shipment/booking-shipment.model";
-import {CargoBookingFilterQuery} from "../_models/queries/cargo-bookings/cargo-booking-filter-query.model";
+import {CargoBookingFilterQuery, StandyBookingFilterQuery} from "../_models/queries/cargo-bookings/cargo-booking-filter-query.model";
 import {IPagination} from "../shared/models/pagination.model";
 import {CargoBookingAgent} from "../_models/view-models/cargo-bookings/cargo-booking-agent.model";
 import { BasePaginationQuery } from '../shared/models/base-pagination-query.model';
@@ -93,9 +93,18 @@ export class BookingService extends BaseService {
   }
 
 
-  getBookingByPackage(type:number, query:BasePaginationQuery) {
+  getBookingByPackage(type:number, query:StandyBookingFilterQuery) {
 
     var params = new HttpParams();
+
+    if(query.CargoAgent){
+      params = params.append("CargoAgent", query.CargoAgent)
+    }
+
+    if(query.CargoBooking){
+      params = params.append("CargoBooking", query.CargoBooking)
+    }
+
     params = CoreExtensions.AsPaginate(params, query);
 
     return this.getWithParams(`${this.bookingsByPackageStatus}/${type}`, params);
