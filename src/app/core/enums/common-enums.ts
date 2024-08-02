@@ -252,6 +252,15 @@ export enum ULDLocateStatus
     Lend = 4,
 }
 
+
+export enum ULDStatus
+{
+    None = 0,
+    ULDPacked = 1,
+    Flightloaded = 2,
+    ULDUnpacked = 3,
+}
+
 export enum VerifyInputBase
 {
   None = 0,
