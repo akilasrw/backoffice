@@ -7,7 +7,6 @@ import {
   PackageItemStatus,
   ULDLocateStatus,
   ULDOwnershipType,
-  ULDStatus,
   UserRole,
   UserStatus
 } from 'src/app/core/enums/common-enums';
@@ -436,20 +435,20 @@ export class CoreExtensions {
     return statusString;
   }
 
-  public static GetULDLocateStatus(type:ULDStatus):string{
+  public static GetULDLocateStatus(type:ULDLocateStatus):string{
     let statusString = "None";
     switch (type) {
-      case ULDStatus.None:
-        statusString = "None";
+      case ULDLocateStatus.Lend:
+        statusString = "Lend";
         break;
-      case ULDStatus.Flightloaded:
-        statusString = "Flight Loaded";
+      case ULDLocateStatus.Maintenance:
+        statusString = "Maintenance";
         break
-      case ULDStatus.ULDPacked:
-        statusString = "ULD Packed";
+      case ULDLocateStatus.OnBoard:
+        statusString = "On-Board";
         break
-      case ULDStatus.ULDUnpacked:
-        statusString = "ULD Unpacked";
+      case ULDLocateStatus.OnGround:
+        statusString = "On-Ground";
         break
       default:
         break;
