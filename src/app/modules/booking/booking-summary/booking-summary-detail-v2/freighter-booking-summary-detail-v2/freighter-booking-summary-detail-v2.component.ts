@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CargoPositionDetail } from './../../../../../_models/view-models/booking-summary/cargo-position-detail.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AircraftSubTypes, BookingStatus } from 'src/app/core/enums/common-enums';
+import { AircraftSubTypes, BookingStatus, PackageItemStatus } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { BookingSummaryDetailQuery } from 'src/app/_models/queries/booking-summary/booking-summary-detail-query.model';
 import { CargoBookingSummaryDetail } from 'src/app/_models/view-models/booking-summary/cargo-booking-summary-detail.model';
@@ -152,8 +152,8 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
       this.isOffloadButtonDisabled = true;
     }
 
-    var selectedBookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Booking_Made && x.selected);
-    var selectedRecBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Cargo_Received && x.selected);
+    var selectedBookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == PackageItemStatus.Booking_Made && x.selected);
+    var selectedRecBookings = this.cargoBookingList.filter(x=> x.bookingStatus == PackageItemStatus.Cargo_Received && x.selected);
 
     if(selectedBookedBookings.length > 0 && selectedRecBookings.length == 0) {
       this.isStandByButtonDisabled = false;
@@ -172,8 +172,8 @@ export class FreighterBookingSummaryDetailV2Component implements OnInit {
   }
 
   enableDisableSelectAllCheckBox() {
-    var bookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Booking_Made);
-    var recBookings = this.cargoBookingList.filter(x=> x.bookingStatus == BookingStatus.Cargo_Received);
+    var bookedBookings = this.cargoBookingList.filter(x=> x.bookingStatus == PackageItemStatus.Booking_Made);
+    var recBookings = this.cargoBookingList.filter(x=> x.bookingStatus == PackageItemStatus.Cargo_Received);
 
     if(bookedBookings.length > 0 && recBookings.length == 0) {
       this.selectAllCheckBoxHidden = false;

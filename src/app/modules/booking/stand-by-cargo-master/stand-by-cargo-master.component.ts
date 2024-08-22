@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { CargoBookingFilterQuery, StandyBookingFilterQuery } from 'src/app/_models/queries/cargo-bookings/cargo-booking-filter-query.model';
 import { CargoBookingListQuery } from 'src/app/_models/queries/cargo-bookings/cargo-booking-list-query.model';
 import { CargoBooking } from 'src/app/_models/view-models/cargo-bookings/cargo-booking.model';
 import { BookingService } from 'src/app/_services/booking.service';
 import { CargoAgentService } from 'src/app/_services/cargo-agent.service';
-import { BookingStatus, StandByCargoType } from 'src/app/core/enums/common-enums';
+import { BookingStatus, PackageItemStatus, StandByCargoType } from 'src/app/core/enums/common-enums';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { NumberExtension } from 'src/app/core/extensions/number-extension.model';
+import { BasePaginationQuery } from 'src/app/shared/models/base-pagination-query.model';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 
 @Component({
@@ -19,11 +21,13 @@ export class StandByCargoMasterComponent implements OnInit {
   query: CargoBookingListQuery = new CargoBookingListQuery();
   cargoBookingList: CargoBooking[] = [];
   selectedStandByStatus = StandByCargoType;
-  standByCargoType: StandByCargoType = StandByCargoType.Offload;
+  standByCargoType: PackageItemStatus = PackageItemStatus.Offloaded;
   bookingStatus = BookingStatus;
+  bookingListfilterQuery: StandyBookingFilterQuery = new StandyBookingFilterQuery();
   updateStandByModalVisibleAnimate: boolean = false;
   updateStandByModalVisible: boolean = false;
   bookingId?: string;
+  total_count:number = 0;
   isLoading: boolean = false;
   filterFormHasValue?: boolean= false;
   keyword = 'value';
@@ -44,6 +48,7 @@ export class StandByCargoMasterComponent implements OnInit {
     this.cargoAgentService.getAgentList()
       .subscribe({
         next: (res) => {
+          console.log(res, 'res')
           if (res.length > 0) {
             this.cargoAgents = res;
           }
@@ -56,13 +61,28 @@ export class StandByCargoMasterComponent implements OnInit {
       );
   }
 
+
   getBookingList() {
+    console.log(this.standByCargoType)
     this.isLoading = true;
-    this.query.standByStatus = Number(this.standByCargoType);
-    this.bookingService.getstandByStatusList(this.query).subscribe(
+    //this.query.standByStatus = Number(this.standByCargoType);
+
+    if(this.query.bookingNumber){
+      this.bookingListfilterQuery.CargoBooking = this.query.bookingNumber
+    }
+
+    if(this.query.agentId){
+      this.bookingListfilterQuery.CargoAgent = this.query.agentId
+    }
+
+    this.bookingService.getBookingByPackage(this.standByCargoType, this.bookingListfilterQuery).subscribe(
       {
-        next: (res) => {
-          this.cargoBookingList = res;
+        next: (res:any) => {
+
+          console.log(res, 'data')
+
+          this.cargoBookingList = res.data
+          this.total_count = res.count;
           this.isLoading = false;
         },
         error: () => {
@@ -73,9 +93,16 @@ export class StandByCargoMasterComponent implements OnInit {
     )
   }
 
-  changeMenu(type: StandByCargoType) {
+  changeMenu(type: PackageItemStatus) {
     if(this.standByCargoType != type) {
       this.standByCargoType = type;
+      this.getBookingList();
+    }
+  }
+
+  public onPageChanged(event: any) {
+    if (this.bookingListfilterQuery?.pageIndex !== event) {
+      this.bookingListfilterQuery.pageIndex = event;
       this.getBookingList();
     }
   }

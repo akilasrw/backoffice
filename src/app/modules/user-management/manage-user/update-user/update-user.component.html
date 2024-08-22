@@ -1,0 +1,66 @@
+
+<form [formGroup]='userForm' (submit)="onSubmit()">
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <app-text-input [formControl]='userForm.controls["city"]' [label]='"city"' [tabindex] ="7">
+                        </app-text-input>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Base Airport</label>
+                        <app-auto-complete-dropdown [data]="baseAirpots" [selectedIndex]="selectedAirportValue" [keyword]="keyword" [tabindex]="8"
+                        (selectFileOutput)="selectedBaseAirport($event)" (changeSearch)="onClearBaseAirport()"
+                        (clearSearch)="onClearBaseAirport()"></app-auto-complete-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">User Role</label>
+                        <app-auto-complete-dropdown [data]="userRoles" [selectedIndex]="selectedUserRoleValue"  [keyword]="keyword" [tabindex]="9"
+                        (selectFileOutput)="selectedRole($event)" (changeSearch)="onClearRole()"
+                        (clearSearch)="onClearRole()"></app-auto-complete-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Access Portal</label>
+                        <app-auto-complete-dropdown [data]="accessLevels"  [selectedIndex]="selectedAccessPortalValue" [keyword]="keyword" [tabindex]="10"
+                        (selectFileOutput)="selectedAccessPortal($event)" (changeSearch)="onClearAccessPortal()"
+                        (clearSearch)="onClearAccessPortal()"></app-auto-complete-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <app-auto-complete-dropdown [data]="statusList" [keyword]="keyword" [selectedIndex]="selectedStatusValue"  [tabindex]="11"
+                        (selectFileOutput)="selectedStatus($event)" (changeSearch)="onClearStatus()"
+                        (clearSearch)="onClearStatus()"></app-auto-complete-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Country</label>
+                        <app-auto-complete-dropdown
+                        [data] = "countryList" [keyword] ="keyword" (selectFileOutput)="selectedCountry($event)" [tabindex] ="6"
+                        (changeSearch)="onClearCountry()" [selectedIndex]="selectedCountryValue" (clearSearch)="onClearCountry()"></app-auto-complete-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary me-3">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</form>

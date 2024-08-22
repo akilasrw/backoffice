@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
-import { SelectList } from 'src/app/shared/models/select-list.model';
+import { SelectItemList, SelectList } from 'src/app/shared/models/select-list.model';
 import { AgentRateManagementRM } from 'src/app/_models/request-models/rate/agent-rate-management-rm';
 import { AgentRateManagement } from 'src/app/_models/view-models/rate/agent-rate-management';
 import { AirportService } from 'src/app/_services/airport.service';
@@ -37,7 +37,7 @@ export class RateUpdateComponent implements OnInit {
   startMinDate = new Date();
   endMinDate = new Date();
   isDisabled = true;
-  rateTypes:SelectList[]=[];
+  rateTypes:SelectItemList[]=[];
   cargoTypes:SelectList[]=[];
 
   constructor(
@@ -108,10 +108,10 @@ export class RateUpdateComponent implements OnInit {
   }
 
   loadRateTypes(){
-    this.rateTypes = [{id:RateType.SpotRate.toString(),value:this.GetRateType(RateType.SpotRate)},
-      {id:RateType.PromotionalRate.toString(),value:this.GetRateType(RateType.PromotionalRate)},
-      {id:RateType.ContractRate.toString(),value:this.GetRateType(RateType.ContractRate)},
-      {id:RateType.MarketPublishRate.toString(),value:this.GetRateType(RateType.MarketPublishRate)}]
+    this.rateTypes = [{id:RateType.SpotRate,value:this.GetRateType(RateType.SpotRate)},
+      {id:RateType.PromotionalRate,value:this.GetRateType(RateType.PromotionalRate)},
+      {id:RateType.ContractRate,value:this.GetRateType(RateType.ContractRate)},
+      {id:RateType.MarketPublishRate,value:this.GetRateType(RateType.MarketPublishRate)}]
 
       this.editRateTypeIndex = this.rateTypes.findIndex(x=>x.id==this.rateDetail?.rateType);
   }
@@ -234,44 +234,43 @@ export class RateUpdateComponent implements OnInit {
       this.toastr.error('Please select cargo agent.');
       return;
     }
-
+    
     if (this.rateForm.get('originAirportId')?.value === null || this.rateForm.get('originAirportId')?.value === "") {
       this.toastr.error('Please select origin airport.');
       return;
     }
-
+    
     if (this.rateForm.get('destinationAirportId')?.value === null || this.rateForm.get('destinationAirportId')?.value === "") {
       this.toastr.error('Please select destination airport.');
       return;
     }
-
+    
     if (this.rateForm.get('originAirportId')?.value === this.rateForm.get('destinationAirportId')?.value) {
       this.toastr.error('Origin and destination same.');
       return;
     }
-
+    
     if (this.rateForm.get('startDate')?.value === null) {
       this.toastr.error('Please start date.');
       return;
     }
-
+    
     if (this.rateForm.get('agentRates')?.value === null) {
       this.toastr.error('Please add rates.');
       return;
     }
-
+    
     if (this.rateForm.get('endDate')?.value === null) {
       this.toastr.error('Please end date.');
       return;
     }
-
+    
     if (this.rateForm.get('startDate')?.value >= this.rateForm.get('endDate')?.value) {
       this.toastr.error('The end date should be greater than the start date.');
       return;
     }
-   
+    
     if (this.rateForm.valid) {
-      console.log("Hello");
       this.isLoading = true;
       var rateManagement: AgentRateManagementRM = new AgentRateManagementRM();
       rateManagement = this.rateForm.value;

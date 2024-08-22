@@ -1,152 +1,103 @@
-
-    <div class="other-charges">
-      <div class="add-other-charges text-end pt-3">
-        <button class="btn btn-primary-outline" type="button"(click)="openAddRate()">Add New Other Rate</button>
-      </div>
-      <div class="charges-block">
-        <h3>Select other charges main categories </h3>
-        <div class="chek-chip">
-          <div class="cu-check">
-            <label class="chip-button cu-checkbox checked">Export Fees
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Import Fees
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Miscellaneous Fees
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="charges-block pt-4">
-        <h3>Select export fees categories </h3>
-        <div class="chek-chip">
-          <div class="cu-check">
-            <label class="chip-button cu-checkbox checked">Document Charges
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Customs Charges
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Airfreight Security Charge
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Physical Handling
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Dangerous Goods Charges
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Human Remains Fees
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Pharmaceutical Shipments
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="charges-block pt-4 pb-4">
-        <h3>Select document charges categories</h3>
-        <div class="chek-chip">
-          <div class="cu-check">
-            <label class="chip-button cu-checkbox checked">Fixed Fees
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Awb Issuing By Afkl (af or kl)
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Document Ammendements C.C.A.
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Paper Awb Fee
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Disbursement Fees
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            <label class="chip-button cu-checkbox">Non-Booked Express Awb
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="added-other-charges">
-        <div class="d-flex align-items-center justify-content-between">
-          <h3>Fixed Fees</h3>
-          <div>
-            <i class="ca ca-icn-edit icon-btn" title="Edit" (click)="onUpdate()"></i>
-            <i class="ca ca-icn-bin icon-btn" title="Delete"></i>
-          </div>
-        </div>
-        <div class="description">Fixed fees, (including stamp duty, for all products excluding express) :</div>
-        <div class="table-content">
-          <table class="table table-responsive">
-            <thead>
-              <th>Description</th>
-              <th>Rate</th>
-              <th>IATA Code</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Airline registration, Handling</td>
-                <td><strong>29.50 USD</strong></td>
-                <td>CH</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="other-charges">
+  <div class="add-other-charges text-end pt-3">
+    <button class="btn btn-primary-outline" type="button" (click)="openAddRate()">Add New Other Rate</button>
+  </div>
+  <div class="charges-block">
+    <h3>Select other charges main categories</h3>
+    <div class="chek-chip">
+      <div class="cu-check">
+        <label *ngFor="let category of mainCategories" class="chip-button cu-radio" [class.checked]="selectedMainCategory === category.categoryType">
+          {{ category.categoryName }}
+          <input type="radio" name="mainCategory" [value]="category.categoryType" [(ngModel)]="selectedMainCategory" (ngModelChange)="onMainCategoryChange()">
+          <span class="checkmark"></span>
+        </label>
       </div>
     </div>
+  </div>
 
+  <div *ngIf="subCategories.length>0" class="charges-block pt-4">
+    <h3>Select export fees categories</h3>
+    <div class="chek-chip">
+      <div class="cu-check">
+        <label *ngFor="let subCategory of subCategories" class="chip-button cu-radio" [class.checked]="selectedSubCategory === subCategory.id">
+          {{ subCategory.categoryName | titlecase }}
+          <input type="radio" name="exportFeesCategory" [value]="subCategory.id" [(ngModel)]="selectedSubCategory" (ngModelChange)="onSubCategoryChange()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="childCategories.length>0" class="charges-block pt-4 pb-4">
+    <h3>Select document charges categories</h3>
+    <div class="chek-chip">
+      <div class="cu-check">
+        <label *ngFor="let childCategory of childCategories" class="chip-button cu-radio" [class.checked]="selectedChildCategory === childCategory.id">
+          {{ childCategory.categoryName | titlecase }}
+          <input type="radio" name="documentChargesCategory" [value]="childCategory.id" [(ngModel)]="selectedChildCategory" (ngModelChange)="onChildCategoryChange()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="added-other-charges">
+    <div class="d-flex align-items-center justify-content-between">
+     
+      <!-- <div>
+        <i class="ca ca-icn-edit icon-btn" title="Edit" (click)="onUpdate()"></i>
+        <i class="ca ca-icn-bin icon-btn" title="Delete"></i>
+      </div> -->
+    </div>
+    <div class="table-content">
+      <table class="table table-responsive">
+        <thead>
+          <th>Description</th>
+          <th>Rate</th>
+          <th>IATA Code</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rate of agentOtherRates">
+            <td>{{ rate.description }}</td>
+            <td><strong>{{ rate.fixRate }}</strong></td>
+            <td>{{ rate.iataCode }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade right" tabindex="-1" [ngClass]="{'in': addRateModalVisibleAnimate}"
-    [ngStyle]="{'display': addRatemodalVisible ? 'block' : 'none', 'opacity': addRateModalVisibleAnimate ? 1 : 0}">
-    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Add New Other Rate</h2>
-                <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddRate()"
-                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
-            </div>
-            <div>
-                <app-other-charges-create (submitSuccess)="onRateAdd()" (closePopup)="closeAddRate()"
-                    *ngIf="addRatemodalVisible"></app-other-charges-create>
-            </div>
-        </div>
+  [ngStyle]="{'display': addRatemodalVisible ? 'block' : 'none', 'opacity': addRateModalVisibleAnimate ? 1 : 0}">
+  <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Add New Other Rate</h2>
+        <button type="button" class="close btn" data-dismiss="modal" (click)="closeAddRate()"
+          aria-label="Close"><span class="ca ca-icn-close"></span></button>
+      </div>
+      <div>
+        <app-other-charges-create (submitSuccess)="onRateAdd()" (closePopup)="closeAddRate()"
+          *ngIf="addRatemodalVisible"></app-other-charges-create>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade right" tabindex="-1" [ngClass]="{'in': rateUpdateModalVisibleAnimate}"
-    [ngStyle]="{'display': rateUpdateModalVisible ? 'block' : 'none', 'opacity': rateUpdateModalVisibleAnimate ? 1 : 0}">
-    <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Rate Update</h2>
-                <button type="button" class="close btn" data-dismiss="modal" (click)="closeRateUpdate()"
-                    aria-label="Close"><span class="ca ca-icn-close"></span></button>
-            </div>
-            <div>
-                <app-other-charges-update [rateId]="selectedRateId" (submitSuccess)="onRateUpdate()"
-                    (closePopup)="closeRateUpdate()" *ngIf="rateUpdateModalVisible"></app-other-charges-update>
-            </div>
-        </div>
+  [ngStyle]="{'display': rateUpdateModalVisible ? 'block' : 'none', 'opacity': rateUpdateModalVisibleAnimate ? 1 : 0}">
+  <div class="modal-dialog modal-lg modal-dialog-m modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Rate Update</h2>
+        <button type="button" class="close btn" data-dismiss="modal" (click)="closeRateUpdate()"
+          aria-label="Close"><span class="ca ca-icn-close"></span></button>
+      </div>
+      <div>
+        <app-other-charges-update [rateId]="selectedRateId" (submitSuccess)="onRateUpdate()"
+          (closePopup)="closeRateUpdate()" *ngIf="rateUpdateModalVisible"></app-other-charges-update>
+      </div>
     </div>
+  </div>
 </div>

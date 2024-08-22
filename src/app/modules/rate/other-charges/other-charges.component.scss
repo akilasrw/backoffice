@@ -1,0 +1,57 @@
+.cu-radio {
+    position: relative;
+    display: inline-block;
+    padding-left: 30px;
+    margin-right: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+  }
+  
+  .cu-radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .cu-radio .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    display: none;
+    border-radius: 50%;
+  }
+  
+  .cu-radio.checked .checkmark {
+    display: none;
+  }
+  
+  .cu-radio .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .cu-radio input[type="radio"]:checked ~ .checkmark:after {
+    display: none;
+  }
+  
+  .cu-radio .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    display: none;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+  }
+  
+  .checked {
+    font-weight: bold;
+    color: #2196F3;
+  }
+  

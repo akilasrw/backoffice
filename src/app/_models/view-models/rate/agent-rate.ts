@@ -6,3 +6,48 @@ export class AgentRate extends BaseVM{
     rate?: number;
     weightType?:WeightType;
 }
+
+export interface SubCategorytype {
+    categoryName: string,
+    categoryType: number,
+    id: string
+}
+
+export interface ChildCategorytype {
+    categoryName: string,
+    categoryID: number,
+    id: string
+}
+
+export interface AgentOtherRatesType {
+    childCategoryID: string;
+    rateName: string;
+    description: string;
+    rateDescription: string;
+    minPreceptionRate: number;
+    ratePerKG: number;
+    fixRate: number;
+    trancheRate: number;
+    iataCode: string;
+    childCategory: any | null;
+    id: string;
+}
+
+export interface CreateAgentOtherRate {
+    SubCategoryID: string;
+    rateName: string;
+    description: string;
+    rateDescription: string;
+    minPreceptionRate: number;
+    ratePerKG: number;
+    fixRate: number;
+    trancheRate: number;
+    iataCode: string;
+}
+
+export enum MainRateType {
+    ExportFees = 0,
+    ImportFees = 1,
+    MiscellaneousFees = 2
+}
+

@@ -24,6 +24,10 @@ export class SystemUserService extends BaseService {
     return this.post<any>(this.endpointEntityName, systemUserCreateRm);
   }
 
+  update(systemUserCreateRm: SystemUserCreateRm, id:string){
+    return this.put<any>(`${this.endpointEntityName}/${id}`, systemUserCreateRm);
+  }
+
   getFilteredList(query: SystemUserFilterQuery){
     var params = new HttpParams();
 
@@ -48,6 +52,10 @@ export class SystemUserService extends BaseService {
 
   statusUpdate(statusUpdateRM: SystemUserStatusUpdateRm){
     return this.put<any>(this.statusUpdateEndpoint, statusUpdateRM);
+  }
+
+  deleteUser(id:string){
+    return this.delete<any>(`${this.endpointEntityName}/${id}`,null);
   }
 
 }

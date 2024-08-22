@@ -5,7 +5,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Rate Type</label>
                     <app-auto-complete-dropdown [data]="rateTypes" [keyword]="keyword"
-                        [selectedIndex]="editRateTypeIndex" (selectFileOutput)="selectedRateType($event)" [isDisabled]="isDisabled"
+                        [selectedIndex]="editRateTypeIndex" (selectFileOutput)="selectedRateType($event)"
                         (clearSearch)="onClearRateType()">
                     </app-auto-complete-dropdown>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Cargo Type</label>
                     <app-auto-complete-dropdown [data]="cargoTypes" [keyword]="keyword"
-                        [selectedIndex]="editCargoTypeIndex" (selectFileOutput)="selectedCargoType($event)" [isDisabled]="isDisabled"
+                        [selectedIndex]="editCargoTypeIndex" (selectFileOutput)="selectedCargoType($event)"
                         (clearSearch)="onClearCargoType()">
                     </app-auto-complete-dropdown>
                 </div>
@@ -37,7 +37,7 @@
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Origin</label>
-                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword" [isDisabled]="isDisabled"
+                                <app-auto-complete-dropdown [data]="originAirpots" [keyword]="keyword"
                                     [selectedIndex]="editOriginIndex" #autoCompleteOrigin
                                     (selectFileOutput)="selectedOrigin($event)" (changeSearch)="onClearOrigin()"
                                     (clearSearch)="onClearOrigin()">
@@ -48,7 +48,7 @@
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
                                 <label class="form-label">Destination</label>
-                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword" [isDisabled]="isDisabled"
+                                <app-auto-complete-dropdown [data]="destinationAirpots" [keyword]="keyword"
                                     [selectedIndex]="editDestinationIndex" #autoCompleteDestination
                                     (selectFileOutput)="selectedDestination($event)"
                                     (changeSearch)="onClearDestination()" (clearSearch)="onClearDestination()">

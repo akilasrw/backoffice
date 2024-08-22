@@ -5,6 +5,9 @@ import { FlightScheduleManagement } from 'src/app/_models/view-models/flight-sch
 import { FlightScheduleManagementService } from 'src/app/_services/flight-schedule-management.service';
 import { FlightScheduleManagementFilterQuery } from 'src/app/_models/queries/flight-schedules-management/flight-schedule-management-filter-query.model';
 import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
+import { ToastrService } from 'ngx-toastr';
+import { FlightScheduleDeleteRM } from 'src/app/_models/request-models/flight-schedule-management/flight-schedule-management-update-rm';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -20,9 +23,12 @@ export class FlightScheduleListComponent implements OnInit {
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   originAirportId?: string;
+  selectedDeletedID?: string;
   destinationAirportId?: string;
   keyword = 'value';
   isLoading:boolean=false;
+  modalVisibleDelete = false;
+  modalVisibleAnimateDelete = false;
   flightScheduleFilterQuery: FlightScheduleManagementFilterQuery = new FlightScheduleManagementFilterQuery();
   totalCount: number = 0;
   flightSchedule: FlightScheduleManagement[] = [];
@@ -30,12 +36,54 @@ export class FlightScheduleListComponent implements OnInit {
 
 
   constructor(private airportService:AirportService,
-    private flightScheduleService:FlightScheduleManagementService) { }
+    private flightScheduleService:FlightScheduleManagementService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadAirports();
     this.getFlightScheduleList();
   }
+
+  onDelete(sectorId: string) {
+    
+    this.selectedDeletedID = sectorId;
+    this.showDelete();
+  }
+
+  showDelete() {
+    this.modalVisibleDelete = true;
+    setTimeout(() => (this.modalVisibleAnimateDelete = true));
+  }
+
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDelete = false;
+    setTimeout(() => (this.modalVisibleDelete = false), 300);
+  }
+
+  deleteSchedule(){
+    console.log("working")
+    console.log(this.selectedDeletedID)
+    if (this.selectedDeletedID) {
+      let rm:FlightScheduleDeleteRM = {
+          id:this.selectedDeletedID
+      }
+      this.flightScheduleService.deleteSchedule(rm)
+        .subscribe({
+          next: (res:any) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.flightSchedule = [];
+            this.getFlightScheduleList();
+          },
+          error: (error:any) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+          }
+        });
+    }
+  } 
+  
+
 
   loadAirports() {
     this.isLoading=true;

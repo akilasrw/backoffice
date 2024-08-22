@@ -252,6 +252,15 @@ export enum ULDLocateStatus
     Lend = 4,
 }
 
+
+export enum ULDStatus
+{
+    None = 0,
+    ULDPacked = 1,
+    Flightloaded = 2,
+    ULDUnpacked = 3,
+}
+
 export enum VerifyInputBase
 {
   None = 0,
@@ -296,17 +305,18 @@ export enum PackageItemCategory {
 }
 export enum PackageItemStatus {
   Booking_Made = 0,
-  Returned = 1,
-  Cargo_Received = 2,
-  AcceptedForFlight = 3,
-  Offloaded = 4,
-  FlightDispatched = 5,
-  Arrived = 6,
-  InDestinationWarehouse = 7,
-  TruckForDelivery = 8,
-  Delivered = 9,
-  Pending = 10,
-  None = 11,
+  Picked_Up = 1,
+  Returned = 2,
+  Cargo_Received = 3,
+  AcceptedForFlight = 4,
+  Offloaded = 5,
+  FlightDispatched = 6,
+  Arrived = 7,
+  InDestinationWarehouse = 8,
+  TruckForDelivery = 9,
+  Delivered = 10,
+  Pending = 11,
+  None = 12,
 }
 
 

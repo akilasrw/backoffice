@@ -7,6 +7,7 @@ import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { UserStatus } from 'src/app/core/enums/common-enums';
 import { SelectList } from 'src/app/shared/models/select-list.model';
 import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
+import { CommonMessages } from 'src/app/core/constants/common-messages';
 
 @Component({
   selector: 'app-manage-user-list',
@@ -15,11 +16,17 @@ import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/a
 })
 export class ManageUserListComponent implements OnInit {
   modalVisible = false;
+  modalVisibleUpdate = false;
   modalVisibleAnimate = false;
+  modalVisibleUpdateAnimate = false;
   modalVisibleAnimateSuspendUser = false;
   modalVisibleSuspendUser = false;
-  modalVisibleAnimateAcceptUser= false;
-  modalVisibleAcceptUser= false;
+  modalVisibleAnimateDeleteUser = false;
+  modalVisibleDeleteUser = false;
+  modalVisibleAnimateActiveUser = false;
+  modalVisibleActiveUser = false;
+  updateUserData = null;
+  selectedDeletedID?: string;
   query: SystemUserFilterQuery = new SystemUserFilterQuery();
   users: SystemUserVm[] = [];
   totalCount: number = 0;
@@ -91,6 +98,12 @@ export class ManageUserListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleAnimate = true));
   }
 
+  viewUpdateUser(user:any) {
+    this.modalVisibleUpdate = true;
+    this.updateUserData = user;
+    setTimeout(() => (this.modalVisibleUpdateAnimate = true));
+  }
+
   onSuspend(id:string) {
     var user = new SystemUserVm();
     user.id = id;
@@ -100,6 +113,54 @@ export class ManageUserListComponent implements OnInit {
     setTimeout(() => (this.modalVisibleAnimateSuspendUser = true));
   }
 
+
+  onActive(id:string) {
+    var user = new SystemUserVm();
+    user.id = id;
+    user.userStatus = UserStatus.Active;
+    this.selectedUser = user;
+    this.modalVisibleActiveUser = true;
+    setTimeout(() => (this.modalVisibleAnimateActiveUser = true));
+  }
+
+  onDelete(userId: string) {
+    
+    this.selectedDeletedID = userId;
+    this.showDelete();
+  }
+
+  showDelete() {
+    this.modalVisibleDeleteUser = true;
+    setTimeout(() => (this.modalVisibleAnimateDeleteUser = true));
+  }
+
+  cancelDelete() {
+    this.selectedDeletedID = '';
+    this.modalVisibleAnimateDeleteUser = false;
+    setTimeout(() => (this.modalVisibleDeleteUser = false), 300);
+  }
+
+  deleteUser(){
+    console.log("working")
+    console.log(this.selectedDeletedID)
+    if (this.selectedDeletedID) {
+      
+      this.systemUserService.deleteUser(this.selectedDeletedID)
+        .subscribe({
+          next: (res:any) => {
+            this.toastr.success(CommonMessages.DeletedSuccessMsg);
+            this.cancelDelete();
+            this.users = [];
+            this.getFilterList();
+          },
+          error: (error:any) => {
+            this.toastr.error(CommonMessages.DeleteFailMsg);
+            this.cancelDelete();
+          }
+        });
+    }
+  } 
+  
   onAction() {
     if (this.selectedUser != undefined) {
       this.isLoading=true;
@@ -123,8 +184,8 @@ export class ManageUserListComponent implements OnInit {
 
   cancelActive() {
     this.selectedUser = undefined;
-    this.modalVisibleAnimateAcceptUser = false;
-    setTimeout(() => (this.modalVisibleAcceptUser = false), 300);
+    this.modalVisibleAnimateActiveUser = false;
+    setTimeout(() => (this.modalVisibleActiveUser = false), 300);
   }
 
   cancelSuspend() {
@@ -132,6 +193,8 @@ export class ManageUserListComponent implements OnInit {
     this.modalVisibleAnimateSuspendUser= false;
     setTimeout(() => (this.modalVisibleSuspendUser = false), 300);
   }
+
+  
 
   onChangeFilterFrm(event: any) {
     if ((this.query.name !== undefined && this.query.name !== "") ||
@@ -151,8 +214,13 @@ export class ManageUserListComponent implements OnInit {
   }
 
   close() {
-    this.modalVisibleAnimate = false;
-    setTimeout(() => (this.modalVisible = false), 300);
+    this.modalVisibleUpdateAnimate = false;
+    setTimeout(() => (this.modalVisibleUpdate = false), 300);
+  }
+
+  closeUpdate() {
+    this.modalVisibleUpdateAnimate = false;
+    setTimeout(() => (this.modalVisibleUpdate = false), 300);
   }
 
   onUserAdd() {
