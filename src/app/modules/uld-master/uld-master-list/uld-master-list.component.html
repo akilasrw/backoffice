@@ -34,13 +34,13 @@
                         <th>ULD Number</th>
                         <th>Ownership</th>
                         <th>Airline Code</th>
+                        <th>Station</th>
                         <th>Last Used Date</th>
                         <th>Last Used Flight</th>
                         <th>Dimensions (L x W x H) cm</th>
                         <th>Weight</th>
                         <th>Max Weight</th>
                         <th>Max Volume</th>
-                        <th>ULD Locator</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </thead>
@@ -50,6 +50,7 @@
                             <td>{{item.serialNumber}}</td>
                             <td>{{GetULDOwnershipType(item.uldOwnershipType)}}</td>
                             <td>{{(item.ownerAirlineCode =="" || item.ownerAirlineCode ==null)?'-':item.ownerAirlineCode}}</td>
+                            <td>{{item.station}}</td>
                             <td>{{(item.lastUsedDate=='0001-01-01T00:00:00')?'-':item.lastUsedDate| date}}</td>
                             <td>{{(item.lastUsedFlightNumber =="" || item.lastUsedFlightNumber ==null)?'-':item.lastUsedFlightNumber}}</td>
                             <td>{{GetDimentions(item)}}</td>
@@ -57,7 +58,6 @@
                             <td>{{item.maxWeight}}</td>
                             <td>{{convertcm3Tom3(item.maxVolume)|number :'1.2-2'}}</td>
                             <td>{{(item.lastLocatedAirportCode =="" || item.lastLocatedAirportCode ==null)?'-':item.lastLocatedAirportCode}}</td>
-                            <td>{{GetULDLocateStatus(item.uldLocateStatus)}}</td>
                             <td>
                                 <!-- <i class="ca ca-icn-view" title="View"></i> -->
                                 <i class="ca ca-icn-edit" title="Edit" (click)="onEdit(item)"></i>

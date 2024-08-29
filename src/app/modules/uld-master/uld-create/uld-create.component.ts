@@ -8,6 +8,8 @@ import { ULDService } from 'src/app/_services/uld.service';
 import { ToastrService } from 'ngx-toastr';
 import { ULD } from 'src/app/_models/view-models/uld-master/ulsd.model';
 import { UldUpdateRM } from 'src/app/_models/request-models/uld-master/uld-update-rm';
+import { SelectList } from 'src/app/shared/models/select-list.model';
+import { AirportService } from 'src/app/_services/airport.service';
 
 @Component({
   selector: 'app-uld-create',
@@ -21,6 +23,7 @@ export class UldCreateComponent implements OnInit {
   selectedULDType: ULDType = ULDType.Pallet;
   selectedULDStatus: ULDLocateStatus = ULDLocateStatus.OnGround;
   selectedULDOwnershipType: ULDOwnershipType = ULDOwnershipType.OwnByAirline;
+  airports: SelectList[] = []; 
   volumeUnits: Unit[] = [];
   weightUnits: Unit[] = [];
   @Output() closePopup = new EventEmitter<any>();
@@ -31,11 +34,13 @@ export class UldCreateComponent implements OnInit {
   constructor(private unitService: UnitService,
     private fb: FormBuilder,
     private uldService: ULDService,
+    private airportService: AirportService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializForm();
     this.getUnits();
+    this.loadAirports();
     if (this.uld != null) {
       this.isEditULD = true;
       this.editForm(this.uld);
@@ -45,6 +50,10 @@ export class UldCreateComponent implements OnInit {
       }, 1000);
     }
   }
+  
+   airportKeyword: string = '';
+   selectedAirportId: string | null = null;
+  
 
   initializForm() {
     this.uldForm = this.fb.group({
@@ -55,6 +64,7 @@ export class UldCreateComponent implements OnInit {
       ownerAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
       uLDLocateStatus: [this.selectedULDStatus, [Validators.required]],
       lendAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
+      airportId: [null, Validators.required],
       uldMetaDataId: [null],
       uLDMetaData: this.fb.group({
         id: [null],
@@ -68,6 +78,16 @@ export class UldCreateComponent implements OnInit {
         weightUnitId: ['bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c', [Validators.required]],
       })
     });
+  }
+
+  loadAirports() {
+    this.airportService.getSelectList()
+      .subscribe(res => {
+        console.log(res);
+        if (res.length > 0) {
+          this.airports = res; // Assign the response to the airports property
+        }
+      });
   }
 
   editForm(uld: ULD) {
@@ -86,6 +106,7 @@ export class UldCreateComponent implements OnInit {
       this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(uld.length);
       this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(uld.height);
       this.uldForm.get('uLDMetaData')?.get('weight')?.patchValue(uld.weight);
+      this.uldForm.get('airportId')?.patchValue(uld.airportId);
       this.uldForm.get('uLDMetaData')?.get('maxWeight')?.patchValue(uld.maxWeight);
       this.uldForm.get('uLDMetaData')?.get('maxVolume')?.patchValue(uld.maxVolume);
       this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.patchValue('9f0928df-5d33-4e5d-affc-f7e2e2b72680');
@@ -95,6 +116,22 @@ export class UldCreateComponent implements OnInit {
       this.selectedULDOwnershipType = uld.uldOwnershipType? uld.uldOwnershipType: ULDOwnershipType.OwnByAirline;
       this.disableInputForEdit();
     }
+  }
+
+  selectedAirport(airport: SelectList) {
+    console.log('Selected airport:', airport);
+    this.selectedAirportId = airport.id || null;
+    this.uldForm.get('airportId')?.patchValue(airport.id);
+  }
+
+  onChangeAirportSearch(keyword: string) {
+    this.airportKeyword = keyword;
+  }
+
+  onClearAirport() {
+    this.airportKeyword = '';
+    this.selectedAirportId = null;
+    this.uldForm.get('airportId')?.patchValue(null);
   }
 
   disableInputForEdit() {

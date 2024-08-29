@@ -9,6 +9,8 @@ export class ULD extends BaseVM{
     uldLocateStatus?:ULDLocateStatus;
     lendAirlineCode?: string;
     lastUsedDate?:Date;
+    airportId?: string;
+    station?:string;
     lastUsedFlightNumber?:string;
     lastLocatedAirportCode?:string;
     width?:number;
