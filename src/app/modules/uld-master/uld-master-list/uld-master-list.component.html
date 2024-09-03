@@ -51,8 +51,8 @@
                             <td>{{GetULDOwnershipType(item.uldOwnershipType)}}</td>
                             <td>{{(item.ownerAirlineCode =="" || item.ownerAirlineCode ==null)?'-':item.ownerAirlineCode}}</td>
                             <td>{{item.station}}</td>
-                            <td>{{(item.lastUsedDate=='0001-01-01T00:00:00')?'-':item.lastUsedDate| date}}</td>
-                            <td>{{(item.lastUsedFlightNumber =="" || item.lastUsedFlightNumber ==null)?'-':item.lastUsedFlightNumber}}</td>
+                            <td>{{(item.lastUsed=='0001-01-01T00:00:00')?'-':item.lastUsed| date}}</td>
+                            <td>{{(item.lastFlight =="" || item.lastFligt ==null)?'-':item.lastFlight}}</td>
                             <td>{{GetDimentions(item)}}</td>
                             <td>{{item.weight}}</td>
                             <td>{{item.maxWeight}}</td>
