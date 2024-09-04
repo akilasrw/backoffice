@@ -53,6 +53,9 @@ export class UldCreateComponent implements OnInit {
   
    airportKeyword: string = '';
    selectedAirportId: string | null = null;
+   selectedAirportIndex: number | null = null; 
+
+   
   
 
   initializForm() {
@@ -64,7 +67,7 @@ export class UldCreateComponent implements OnInit {
       ownerAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
       uLDLocateStatus: [this.selectedULDStatus, [Validators.required]],
       lendAirlineCode: [null, [Validators.pattern("^[a-zA-Z]+$"), Validators.maxLength(2)]],
-      airportId: [null, Validators.required],
+      airportID: [null, Validators.required],
       uldMetaDataId: [null],
       uLDMetaData: this.fb.group({
         id: [null],
@@ -106,8 +109,10 @@ export class UldCreateComponent implements OnInit {
       this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(uld.length);
       this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(uld.height);
       this.uldForm.get('uLDMetaData')?.get('weight')?.patchValue(uld.weight);
-      this.uldForm.get('airportId')?.patchValue(uld.airportId);
-      this.uldForm.get('uLDMetaData')?.get('maxWeight')?.patchValue(uld.maxWeight);
+      this.uldForm.get('airportID')?.patchValue(uld.airportID);
+      console.log(this.airports)
+      this.selectedAirportIndex = 1
+      this.selectedAirportId = uld.airportID || null; 
       this.uldForm.get('uLDMetaData')?.get('maxVolume')?.patchValue(uld.maxVolume);
       this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.patchValue('9f0928df-5d33-4e5d-affc-f7e2e2b72680');
       this.uldForm.get('uLDMetaData')?.get('weightUnitId')?.patchValue('bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c');
@@ -121,7 +126,7 @@ export class UldCreateComponent implements OnInit {
   selectedAirport(airport: SelectList) {
     console.log('Selected airport:', airport);
     this.selectedAirportId = airport.id || null;
-    this.uldForm.get('airportId')?.patchValue(airport.id);
+    this.uldForm.get('airportID')?.patchValue(airport.id);
   }
 
   onChangeAirportSearch(keyword: string) {
@@ -131,7 +136,7 @@ export class UldCreateComponent implements OnInit {
   onClearAirport() {
     this.airportKeyword = '';
     this.selectedAirportId = null;
-    this.uldForm.get('airportId')?.patchValue(null);
+    this.uldForm.get('airportID')?.patchValue(null);
   }
 
   disableInputForEdit() {
@@ -191,6 +196,9 @@ export class UldCreateComponent implements OnInit {
           metadata.volumeUnitId ='9f0928df-5d33-4e5d-affc-f7e2e2b72680';
           metadata.weightUnitId ='bc1e3d49-5c26-4de5-9cd4-576bbf6e9d0c';
         }
+
+
+        console.log(editUld)
 
         this.uldService.update(editUld).subscribe({
           next: (res) => {

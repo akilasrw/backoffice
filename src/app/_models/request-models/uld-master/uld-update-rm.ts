@@ -11,4 +11,5 @@ export class UldUpdateRM {
     lendAirlineCode?: string;
     uLDMetaData?: UldMetadataUpdateRM;
     uldMetaDataId?: string;
+    airportID?:string;
 }
