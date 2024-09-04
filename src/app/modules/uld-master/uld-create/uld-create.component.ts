@@ -190,6 +190,9 @@ export class UldCreateComponent implements OnInit {
         console.log(this.uldForm.value);
         editUld.uLDType = this.selectedULDType;
         editUld.uLDOwnershipType = this.selectedULDOwnershipType;
+        editUld.lastUsed = this.uld.lastUsed;
+        editUld.lastFlight = this.uld.lastFlight
+
         var metadata = editUld.uLDMetaData
         if(metadata != undefined) {
           metadata.volumeUnitId ='9f0928df-5d33-4e5d-affc-f7e2e2b72680';
