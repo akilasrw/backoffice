@@ -110,8 +110,7 @@ export class UldCreateComponent implements OnInit {
       this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(uld.height);
       this.uldForm.get('uLDMetaData')?.get('weight')?.patchValue(uld.weight);
       this.uldForm.get('airportID')?.patchValue(uld.airportID);
-      console.log(this.airports)
-      this.selectedAirportIndex = 1
+      this.uldForm.get('uLDMetaData')?.get('maxWeight')?.patchValue(uld.maxWeight);
       this.selectedAirportId = uld.airportID || null; 
       this.uldForm.get('uLDMetaData')?.get('maxVolume')?.patchValue(uld.maxVolume);
       this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.patchValue('9f0928df-5d33-4e5d-affc-f7e2e2b72680');
