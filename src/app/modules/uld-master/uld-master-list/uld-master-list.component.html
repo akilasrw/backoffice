@@ -50,7 +50,7 @@
                             <td>{{item.serialNumber}}</td>
                             <td>{{GetULDOwnershipType(item.uldOwnershipType)}}</td>
                             <td>{{(item.ownerAirlineCode =="" || item.ownerAirlineCode ==null)?'-':item.ownerAirlineCode}}</td>
-                            <td>{{item.station}}</td>
+                            <td>{{GetULDLocateStatus(item.uldLocateStatus) === 'On-Board' ? '': item.station}}</td>
                             <td>{{(item.lastUsed=='0001-01-01T00:00:00')?'-':item.lastUsed| date}}</td>
                             <td>{{(item.lastFlight =="" || item.lastFlight ==null)?'-':item.lastFlight}}</td>
                             <td>{{GetDimentions(item)}}</td>
