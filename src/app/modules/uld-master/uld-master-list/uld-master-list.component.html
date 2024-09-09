@@ -19,19 +19,20 @@
                         <input [(ngModel)]="uldNumber" type="text" class="form-control"
                             (change)="onChangeFilterFrm($event)">
                     </div>
-                    <div class="filter-wrapper">
-                        <div class="button">
-                          <button class="btn sm btn-primary-outline" (click)="generatePDF()">Download PDF</button>
-                        </div>
-                      </div>
-                    <div>
                     <div class="button">
                         <button (click)="getFilteredList()" class="btn sm btn-primary-outline">Add Filter</button>
                     </div>
                     <div class="filter-clear" title="Filter Clear" [hidden]="!filterFormHasValue"><i
                             class="ca ca-icn-close" (click)="clearFilter()"></i></div>
                 </div>
+                <div class="filter-wrapper" style="margin-right: -900px;">
+                    <div class="button">
+                      <button class="btn sm btn-primary-outline" (click)="generatePDF()">Download PDF</button>
+                    </div>
+                  </div>
+                <div>
             </div>
+          
         </div>
         <div class="row">
             <div *ngIf="!isLoading" class="table-content">
