@@ -2,4 +2,5 @@ import { BasePaginationQuery } from 'src/app/shared/models/base-pagination-query
 
 export class ULDFilterQuery extends BasePaginationQuery {
   uLDNumber?: string;
+  station?: string;
 }
