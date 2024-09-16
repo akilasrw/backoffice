@@ -4,6 +4,8 @@ import { NumberExtension } from 'src/app/core/extensions/number-extension.model'
 import { ULDFilterQuery } from 'src/app/_models/queries/uld/uld-filter-query.model';
 import { ULD } from 'src/app/_models/view-models/uld-master/ulsd.model';
 import { ULDService } from 'src/app/_services/uld.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-uld-master-list',
@@ -108,6 +110,38 @@ export class UldMasterListComponent implements OnInit {
     this.selectedULD = uld;
     this.modalVisible = true;
     setTimeout(() => (this.modalVisibleAnimate = true));
+  }
+
+
+  generatePDF(): void {
+    const tableElement: any = document.querySelector('.table-content');
+  
+    if (!tableElement) {
+      console.error('Table element not found.');
+      return;
+    }
+  
+    const PDF = new jsPDF('p', 'mm', 'a4', true);
+  
+    const headerText = `ULD List`;
+    const headerHeight = 10;
+  
+    PDF.setFontSize(14);
+    PDF.text(headerText, PDF.internal.pageSize.getWidth() / 2, headerHeight, { align: 'center' });
+
+    const footerText = `Printed on: ${new Date().toLocaleDateString()}`;
+    const footerHeight = 10;
+
+    PDF.setFontSize(12);
+    PDF.text(footerText, PDF.internal.pageSize.getWidth() / 2, PDF.internal.pageSize.getHeight() - footerHeight + 5, { align: 'center' });
+  
+    html2canvas(tableElement, { scale: 1 }).then((canvas) => {
+      const imageData = canvas.toDataURL('image/png');
+  
+      PDF.addImage(imageData, 'PNG', 10, headerHeight + 10, 190, 0);
+  
+      PDF.save('uld.pdf');
+    });
   }
 
 }

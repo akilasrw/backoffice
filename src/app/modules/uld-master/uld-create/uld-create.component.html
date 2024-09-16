@@ -18,8 +18,23 @@
                             <span class="checkmark cu-radio"></span>
                         </label>
                     </div>
+                    
                 </div>
             </div>
+
+
+            <div class="col-md-12">
+                <div class="form-group" *ngIf="!isLoading">
+                    <label class="form-label">Statation<span class="compulsory">*</span></label>
+                    <select formControlName="airportID" class="form-control custom-select">
+                        <option *ngFor="let airport of airports; let i = index" [value]="airport.id">
+                          {{ airport.value }}
+                        </option>
+                    </select>
+                </div>
+                <app-text-input-loader *ngIf="isLoading"></app-text-input-loader>
+            </div>
+            
             <div class="col-md-12">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">ULD Number</label>
@@ -48,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="selectedULDOwnershipType == ULDOwnershipType.Other" class="col-md-12">
+            <div class="col-md-12">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Airline Code</label>
                     <app-text-input [formControl]='uldForm.controls["ownerAirlineCode"]' type="text"
