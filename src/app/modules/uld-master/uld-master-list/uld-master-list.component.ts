@@ -18,6 +18,7 @@ export class UldMasterListComponent implements OnInit {
   isLoading:boolean=false;
   filterFormHasValue:boolean=false;
   uldNumber?: string;
+  station?: string; // Renamed uslStation to station
   totalCount: number = 0;
   modalVisible = false;
   modalVisibleAnimate = false;
@@ -33,6 +34,7 @@ export class UldMasterListComponent implements OnInit {
   getFilteredList(){
     this.isLoading=true;
     this.uldFilterQuery.uLDNumber = this.uldNumber;
+    this.uldFilterQuery.station = this.station; // Renamed uslStation to station
 
     this.uldService.getFilteredList(this.uldFilterQuery).subscribe(
       {
@@ -52,7 +54,7 @@ export class UldMasterListComponent implements OnInit {
   }
 
   onChangeFilterFrm(event: any) {
-    if (this.uldNumber !== undefined && this.uldNumber !== "")
+    if (this.uldNumber !== undefined && this.uldNumber !== "" || this.station !== undefined && this.station !== "") // Renamed uslStation to station
     {
       this.filterFormHasValue = true;
     } else {
@@ -62,6 +64,7 @@ export class UldMasterListComponent implements OnInit {
 
   clearFilter(){
     this.uldNumber=undefined;
+    this.station=undefined; // Renamed uslStation to station
   }
 
   addULD() {

@@ -26,6 +26,9 @@ export class ULDService  extends BaseService{
     if (query.uLDNumber) {
       params = params.append("uLDNumber", query.uLDNumber);
     }
+    if (query.station) {
+      params = params.append("station", query.station);
+    }
 
     params = CoreExtensions.AsPaginate(params, query);
 

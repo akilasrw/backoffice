@@ -19,6 +19,11 @@
                         <input [(ngModel)]="uldNumber" type="text" class="form-control"
                             (change)="onChangeFilterFrm($event)">
                     </div>
+                    <div class="filter-group">
+                        <label class="form-label">Station</label>
+                        <input [(ngModel)]="station" type="text" class="form-control"
+                            (change)="onChangeFilterFrm($event)">
+                    </div>
                     <div class="button">
                         <button (click)="getFilteredList()" class="btn sm btn-primary-outline">Add Filter</button>
                     </div>
