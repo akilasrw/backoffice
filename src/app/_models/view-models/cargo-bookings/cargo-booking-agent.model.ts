@@ -11,6 +11,7 @@ export interface CargoBookingAgent{
   flightDate:Date | null;
   numberOfBoxes:number;
   totalWeight:number;
+  agentName:string;
   bookingStatus:PackageItemStatus;
   shipmentCount:number;
 }
