@@ -54,6 +54,7 @@
           <th style="text-align: center">Flight Number</th>
           <th style="text-align: center">Flight Date</th>
           <th style="text-align: center">Status</th>
+          <th style="text-align: center">Agent</th>
           <th style="text-align: center">No. Boxes</th>
           <th style="text-align: center">Shipped</th>
           <th style="text-align: center">Actions </th>
@@ -79,6 +80,7 @@
                   'delivered': booking?.bookingStatus == bookingStatus.Delivered,
                   'returned': booking?.bookingStatus == bookingStatus.Returned
               }">{{getBookingStatus(booking.bookingStatus)}}</span></td>
+            <td style="text-align: center">{{booking.agentName}}</td>
             <td style="text-align: center">{{booking.numberOfBoxes}}</td>
             <td style="text-align: center">{{booking.shipmentCount}}</td>
             <td style="text-align: center">
