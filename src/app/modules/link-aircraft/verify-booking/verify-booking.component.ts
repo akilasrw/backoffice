@@ -47,6 +47,7 @@ export class VerifyBookingComponent implements OnInit {
       {
         next: (res) => {
           this.cargoBookingList = res;
+          console.log(res, 'res')
           this.checkVerifiedAll();
           this.setDefaultVerifyStatus();
           if(this.inputBase == VerifyInputBase.FromHistory) {
@@ -75,6 +76,7 @@ export class VerifyBookingComponent implements OnInit {
   }
 
   checkVerifiedAll() {
+    console.log(this.cargoBookingList)
     if(this.cargoBookingList.filter(x=>x.verifyStatus != VerifyStatus.None).length > 0 || this.cargoBookingList.length == 0)
       this.isDisabledButton = true;
   }

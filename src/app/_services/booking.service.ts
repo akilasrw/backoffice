@@ -65,7 +65,7 @@ export class BookingService extends BaseService {
       params = params.append("flightScheduleId", flightScheduleId );
     }
 
-    return this.getWithParams<CargoBooking[]>(
+    return this.getWithParams<any[]>(
       this.getVerifyBookingListEndpoint,
       params
     );
