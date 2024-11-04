@@ -35,7 +35,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
     { title:'Fleet Management', expanded: false, icon:'ca-icn-flight-schedule',
       children:[
         {title:'Flight Schedule', menuType:MenuType.FlightSchedule},
-        {title:'Master Schedule', menuType:MenuType.MasterSchedule},
+        {title:'Aircraft Availability', menuType:MenuType.MasterSchedule},
         {title:'Assign Aircrafts', menuType:MenuType.LinkAircraft},
         {title:'Fleet Analysis', menuType:MenuType.FleetReport}]},
     { title:'Agent and Rate', expanded: false, icon:'ca-icn-dollar',

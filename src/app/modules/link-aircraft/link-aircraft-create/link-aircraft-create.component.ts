@@ -257,12 +257,7 @@ export class LinkAircraftCreateComponent implements OnInit {
             this.toastr.error('Please select aircraft.');
             return false;
       }
-    } else if (this.stepCount == 2) {
-      if(this.isVerifiedBooking == false) {
-        this.toastr.warning('Booking items are not verified. Please verify them.');
-        return false;
-      }
-    }
+    } 
     // Can not compare, bcz next can arrive the plane
     // if(this.linkAircraftForm.value.estimatedArrivalDateTime != undefined &&
     //   this.linkAircraftForm.value.estimatedDepartureDateTime != undefined) {

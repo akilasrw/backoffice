@@ -132,33 +132,6 @@
       </div>
     </div>
   </div>
-  <div class="booking-status-section">
-    <div class="booking-status">
-      <div>Pre Bookings</div>
-      <span class="assign-aircraft-status-chip" [ngClass]="{'assign': isVerifiedBooking== true, 'notassign': isVerifiedBooking == false}">{{isVerifiedBooking== true? 'Verified':'Not Verify'}}</span>
-    </div>
-    <div class="view-booking-link" (click)="viewBooking()">View Bookings</div>
-  </div>
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group">
-        <label class="form-label">Off Load</label>
-        <app-text-input
-        [formControl]='linkAircraftForm?.controls["offLoad"]'  [textBoxDisabled]="true"
-        [label]='"Off Load"' type="text" [tabindex]="11">
-        </app-text-input>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group"  *ngIf="this.selectedFlightScheduleLink?.stepCount == 2">
-        <label class="form-label">Actual load</label>
-        <app-text-input
-        [formControl]='linkAircraftForm?.controls["actualLoad"]'  [textBoxDisabled]="true"
-        [label]='"actualLoad"' type="text" [tabindex]="12">
-        </app-text-input>
-      </div>
-    </div>
-  </div>
   <div class="row" *ngIf="this.selectedFlightScheduleLink?.stepCount == 2">
     <div class="col-6">
       <div class="form-group">
