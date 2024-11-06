@@ -129,6 +129,10 @@ export class LinkAircraftCreateComponent implements OnInit {
       this.loadAircraft(fs.id).subscribe( res=> {
         this.aircrafts = res;
         this.aircraftList =[];
+
+        console.log('this.aircrafts',this.aircrafts);
+
+
         res.forEach(r=>{
           let selectList = new SelectList();
           selectList.id= r.id;
