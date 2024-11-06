@@ -8,7 +8,8 @@ import { CoreExtensions } from 'src/app/core/extensions/core-extensions.model';
 import { LinkAircraftToScheduleService } from 'src/app/_services/link-aircraft-to-schedule.service';
 import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/auto-complete-dropdown/auto-complete-dropdown.component';
 import { AirportService } from 'src/app/_services/airport.service';
-
+import { NgForm } from '@angular/forms';
+import { FlightScheduleService } from 'src/app/_services/flight-schedule.service';
 
 @Component({
   selector: 'app-link-aircraft-list',
@@ -17,13 +18,14 @@ import { AirportService } from 'src/app/_services/airport.service';
 })
 export class LinkAircraftListComponent implements OnInit {
 
-
   modalVisible = false;
   modalVisibleAnimate = false;
   updateATAModalVisible = false;
   updateATAModalVisibleAnimate = false;
   verifyBookingModalVisible = false;
   verifyBookingModalVisibleAnimate = false;
+  editFlightModalVisible = false;
+  editFlightModalVisibleAnimate = false;
   flightScheduleLinks: FlightScheduleLink[]=[];
   query: FlightScheduleManagementLinkFilterList=  new FlightScheduleManagementLinkFilterList();
   selectedId?: string;
@@ -31,18 +33,24 @@ export class LinkAircraftListComponent implements OnInit {
   totalCount: number = 0;
   isFiltered: boolean = false;
   keyword = 'value';
-  //selectedStatus?: number;
   statusList: SelectList[] = [];
   originAirpots: SelectList[] = [];
   destinationAirpots: SelectList[] = [];
   ATAValue: string ='';
   inputBase: VerifyInputBase = VerifyInputBase.FromHistory;
+  editFlightData: any = {
+    flightNumber: '',
+    scheduledDepartureDateTime: '',
+    scheduledArrivalDateTime: '',
+    actualDepartureDateTime: '',
+    actualArrivalDateTime: ''
+  };
 
   @ViewChild('originAirportAutoComplete') originAirportDropdown!: AutoCompleteDropdownComponent;
   @ViewChild('destinationAirportAutoComplete') destinationAirportDropdown!: AutoCompleteDropdownComponent;
 
   constructor(private linkAircraftToScheduleService: LinkAircraftToScheduleService,
-    private airportService: AirportService) { }
+    private airportService: AirportService, private flightScheduleService: FlightScheduleService) { }
 
   ngOnInit(): void {
     this.loadAirports();
@@ -74,9 +82,6 @@ export class LinkAircraftListComponent implements OnInit {
 
   showSummary(id:string) {
     this.selectedId=id;
-    // this.updateATAModalVisible = true;
-    // setTimeout(() => (this.updateATAModalVisibleAnimate = true));
-
   }
 
   close() {
@@ -89,13 +94,56 @@ export class LinkAircraftListComponent implements OnInit {
     setTimeout(() => (this.updateATAModalVisible = false), 300);
   }
 
+  editFlight(id: string) {
+    this.selectedId = id;
+    const flight = this.flightScheduleLinks.find(f => f.id === id);
+    if (flight) {
+
+      console.log(flight);
+
+      this.editFlightData = {
+        flightNumber: flight.flightNumber,
+        scheduledDepartureDateTime: flight.scheduledDepartureDateTime,
+        scheduledArrivalDateTime: flight.scheduledArrivalDateTime,
+        actualDepartureDateTime: flight.actualDepartureDateTime,
+        actualArrivalDateTime: flight.actualArrivalDateTime
+      };
+    }
+    this.editFlightModalVisible = true;
+    setTimeout(() => (this.editFlightModalVisibleAnimate = true));
+  }
+
+  closeEditFlight() {
+    this.editFlightModalVisibleAnimate = false;
+    setTimeout(() => (this.editFlightModalVisible = false), 300);
+  }
+ 
+  formatDateForInput(date: string | null): string {
+    if (!date) return '';
+    return new Date(date).toISOString().slice(0, 16);
+  }
+
+  onSubmitEditFlight(form: NgForm) {
+    if (form.valid && this.selectedId) {
+      this.flightScheduleService.updateFlight(this.selectedId, this.editFlightData)
+        .subscribe({
+          next: () => {
+            this.closeEditFlight();
+            this.getFilterList();
+          },
+          error: (error) => {
+            console.error('Error updating flight:', error);
+          }
+        });
+    }
+  }
+
   getFilterList() {
     this.isLoading = true;
     this.query.isHistory = true;
     this.linkAircraftToScheduleService.getFilteredList(this.query)
     .subscribe(res => {
       if (res != null) { console.log(res);
-
         this.flightScheduleLinks = res.data;
         this.totalCount = res.count
         this.onChangeFilter();
@@ -113,12 +161,10 @@ export class LinkAircraftListComponent implements OnInit {
   }
 
   selectedStatusValue(value: any) {
-    //this.selectedStatus = Number(value.id);
     this.query.status = Number(value.id);
   }
 
   onClearStatus() {
-    //this.selectedStatus = undefined;
     this.query.status = undefined;
   }
 

@@ -51,6 +51,10 @@ export class FlightScheduleService extends BaseService {
     return this.get<Aircraft[]>(`${this.getAircraftsBy_FlightScheduleIdEndPoint}/${flightScheduleId}`);
   }
 
+  updateFlight(id: string, flightData: any) {
+    return this.put<any>(`${this.endpointEntityName}/${id}`, flightData);
+  }
+
   updateATA(updateAtaRm: UpdateAtaRm) {
     return this.put<any>(`${this.updateATAEndPoint}/${updateAtaRm.id}`, updateAtaRm);
   }
