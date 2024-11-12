@@ -78,6 +78,7 @@ export class LinkAircraftCreateComponent implements OnInit {
       assignStatus:[''],
       offLoad:[''],
       actualDepartureDateTime:[''],
+      ActualDepartureDateTimeOtherSide:[''],
       stepCount: [],
       actualLoad:[],
       dispatch:[1],
@@ -229,6 +230,7 @@ export class LinkAircraftCreateComponent implements OnInit {
     scheduleAircraftRm.estimatedArrivalDateTime = fs?.estimatedArrivalDateTime;
     scheduleAircraftRm.estimatedDepartureDateTime = fs?.estimatedDepartureDateTime;
     scheduleAircraftRm.actualDepartureDateTime = fs?.actualDepartureDateTime;
+    scheduleAircraftRm.ActualDepartureDateTimeOtherSide = fs?.ActualDepartureDateTimeOtherSide;
     scheduleAircraftRm.stepCount = this.stepCount;
     scheduleAircraftRm.isDispatched = fs?.dispatch ==1 ? true: false;
     scheduleAircraftRm.file = fs?.file;

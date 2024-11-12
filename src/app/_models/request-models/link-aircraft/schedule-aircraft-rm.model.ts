@@ -5,6 +5,7 @@ export class ScheduleAircraftRm {
   estimatedDepartureDateTime?: string;
   estimatedArrivalDateTime?: string;
   actualDepartureDateTime?: string;
+  ActualDepartureDateTimeOtherSide?: string;
   stepCount?: number;
   isDispatched?: boolean;
   file?: File;
