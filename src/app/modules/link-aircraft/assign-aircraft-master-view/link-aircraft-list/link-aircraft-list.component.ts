@@ -190,12 +190,17 @@ export class LinkAircraftListComponent implements OnInit {
     }
   }
 
-  timeDiff(date1: string, date2: string) {
-    if(date1 == null || date2 == null)
-      return 'n/a';
-    const diffInMs = Date.parse(date2) - Date.parse(date1);
-    const diffInHours = diffInMs / 1000 / 60 / 60;
-    return (Math.round(diffInHours * 100) / 100).toFixed(2);;
+  
+
+  timeDiff(date1:string, date2:string, exMins:number) {
+    if (!date1 || !date2) return 'n/a';
+  
+    const diffInMs = Math.abs(Date.parse(date2) - Date.parse(date1));
+    const diffInMinutes = Math.floor(diffInMs / (1000 * 60)) + exMins; // Add exMins to total minutes
+    const hours = Math.floor(diffInMinutes / 60);
+    const minutes = diffInMinutes % 60;
+  
+    return `${hours}h ${minutes}m`;
   }
 
   selectedOrigin(value: any) {

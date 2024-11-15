@@ -117,17 +117,18 @@
       <div class="form-group">
         <label class="form-label">Origin ATD</label>
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["ActualDepartureDateTimeOtherSide"]'
-        [label]='"Actual Departure Time"' type="time" [tabindex]="11">
+        [formControl]='linkAircraftForm?.controls["actualDepartureDateTime"]'
+        [label]='"Destination Actual Departure Time"' type="time" [tabindex]="12">
         </app-text-input>
       </div>
     </div>
     <div class="col-6">
       <div class="form-group">
         <label class="form-label">Destination ATD</label>
+        
         <app-text-input
-        [formControl]='linkAircraftForm?.controls["actualDepartureDateTime"]'
-        [label]='"Destination Actual Departure Time"' type="time" [tabindex]="12">
+        [formControl]='linkAircraftForm?.controls["ActualDepartureDateTimeOtherSide"]'
+        [label]='"Actual Departure Time"' type="time" [tabindex]="11">
         </app-text-input>
       </div>
     </div>

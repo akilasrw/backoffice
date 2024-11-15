@@ -64,7 +64,7 @@
                       <td>{{fs.scheduledArrivalDateTime | date :'shortTime'}}</td>
                       <td>{{(fs.actualDepartureDateTime!==null)?  (fs.actualDepartureDateTime| date :'shortTime'):"-"}}</td>
                       <td>{{(fs.actualArrivalDateTime !== null) ? (fs.actualArrivalDateTime | date: 'shortTime') : "-" }}</td>
-                      <td>{{timeDiff(fs.actualArrivalDateTime,fs.ActualDepartureDateTimeOtherSide)}}</td>
+                      <td>{{timeDiff(fs.actualDepartureDateTimeOpposite,fs.actualArrivalDateTime, fs.blockHrs)}}</td>
                       <td>{{(fs.totalWeight!==0)? (fs.totalWeight)+' kg':"-"}} </td>
                       <td>
                         <i class="ca ca-icn-view" title="View" (click)="show(fs.id)"></i>
