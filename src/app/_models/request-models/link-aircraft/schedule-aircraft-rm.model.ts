@@ -9,5 +9,6 @@ export class ScheduleAircraftRm {
   stepCount?: number;
   isDispatched?: boolean;
   file?: File;
+  flightDelayed?: boolean;
 
 }

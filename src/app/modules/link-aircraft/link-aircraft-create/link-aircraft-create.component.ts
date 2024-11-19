@@ -82,7 +82,8 @@ export class LinkAircraftCreateComponent implements OnInit {
       stepCount: [],
       actualLoad:[],
       dispatch:[1],
-      file: [null]
+      file: [null],
+      flightDelayed: [false]
     });
   }
 
@@ -102,7 +103,8 @@ export class LinkAircraftCreateComponent implements OnInit {
       originAirportName: this.selectedFlightScheduleLink.originAirportName,
       scheduledDepartureDate: this.selectedFlightScheduleLink.scheduledDepartureDateTime? formatDate(this.selectedFlightScheduleLink.scheduledDepartureDateTime!.toString(), 'MM-dd-yyyy', 'en-US'):'',
       scheduledArrivalDateTime: this.selectedFlightScheduleLink.scheduledArrivalDateTime? formatDate(this.selectedFlightScheduleLink.scheduledArrivalDateTime, 'shortTime', 'en'):'',
-      scheduledDepartureDateTime: this.selectedFlightScheduleLink.scheduledDepartureDateTime? formatDate(this.selectedFlightScheduleLink.scheduledDepartureDateTime, 'shortTime', 'en'):''
+      scheduledDepartureDateTime: this.selectedFlightScheduleLink.scheduledDepartureDateTime? formatDate(this.selectedFlightScheduleLink.scheduledDepartureDateTime, 'shortTime', 'en'):'',
+      flightDelayed: false
     });
     this.linkAircraftForm.get('assignStatus')?.patchValue("Not Assign");
 
@@ -234,6 +236,7 @@ export class LinkAircraftCreateComponent implements OnInit {
     scheduleAircraftRm.stepCount = this.stepCount;
     scheduleAircraftRm.isDispatched = fs?.dispatch ==1 ? true: false;
     scheduleAircraftRm.file = fs?.file;
+    scheduleAircraftRm.flightDelayed = fs?.flightDelayed;
     return scheduleAircraftRm
   }
 
