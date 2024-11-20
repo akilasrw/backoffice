@@ -95,17 +95,19 @@
   <div class="row" *ngIf="this.selectedFlightScheduleLink?.stepCount == 1">
     <div class="col-6">
       <div class="form-group">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
         <label class="form-label">ETD<span class="compulsory">*</span></label>
+          <div class="col-12">
+            <div class="d-flex align-items-center" style="margin-left: 20px;">
+              <input type="checkbox" formControlName="flightDelayed">
+              <span class="ms-2">Flight Delayed</span>
+            </div>
+          </div>
+        </div>
         <app-text-input
         [formControl]='linkAircraftForm?.controls["estimatedDepartureDateTime"]'
         [label]='"Estimated Departure Time"' type="time" [tabindex]="9">
         </app-text-input>
-      </div>
-      <div class="form-group mt-2">
-        <label class="form-label">Flight Delayed</label>
-        <div class="d-flex align-items-center">
-          <input type="checkbox" formControlName="flightDelayed">
-        </div>
       </div>
     </div>
     <div class="col-6">
