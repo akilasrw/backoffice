@@ -92,7 +92,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-12" *ngIf="this.selectedFlightScheduleLink?.stepCount == 1">
     <div style="display: flex; align-items: center; margin-bottom: 10px;">
       <span style="margin-right: 8px;">Flight Delayed</span>
       <input type="checkbox" formControlName="flightDelayed" style="width: 16px; height: 16px;">
