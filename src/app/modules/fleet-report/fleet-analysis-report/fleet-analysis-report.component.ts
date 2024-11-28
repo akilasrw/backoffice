@@ -18,15 +18,17 @@ import { FleetAnalysisService } from 'src/app/_services/fleet-analysis.service';
 })
 export class FleetAnalysisReportComponent implements OnInit {
 
-
   pickerDate = new Date();
   query: FlightScheduleReportQuery = new FlightScheduleReportQuery();
   aircraftIdleReport?: AircraftIdleReport[]=[];
   reportTypes: SelectList[] = [];
+  aircrafts: SelectList[] = [];
   keyword = 'value';
+  aircraftKeyword = 'value';
   selectedType?: number;
   reportType? = MasterSheduleReportType;
   reportTypeIndex?: number = MasterSheduleReportType.IdleTimeReport;
+  aircraftIndex?: number;
   totalReportHours?: number = 0;
   isLoading :boolean= false;
   startDayPicked?: string ='1';
@@ -42,6 +44,7 @@ export class FleetAnalysisReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadReportType();
+    this.loadAircrafts();
     if(!this.query.reportType){
       this.query.reportType = MasterSheduleReportType.IdleTimeReport;
       this.getReports();
@@ -53,6 +56,15 @@ export class FleetAnalysisReportComponent implements OnInit {
     { id: MasterSheduleReportType.None.toString(), value: '' },
     {id: MasterSheduleReportType.IdleTimeReport.toString(), value: CoreExtensions.GetReportType(MasterSheduleReportType.IdleTimeReport)},
     {id: MasterSheduleReportType.Running.toString(), value: CoreExtensions.GetReportType(MasterSheduleReportType.Running)})
+  }
+
+  loadAircrafts() {
+    this.fleetAnalysisService.getAircrafts().subscribe(res => {
+      this.aircrafts = res.map(aircraft => ({
+        id: aircraft.id,
+        value: aircraft.value
+      }));
+    });
   }
 
   onOpenCalendar(container :any) {
@@ -110,6 +122,17 @@ export class FleetAnalysisReportComponent implements OnInit {
     this.query.reportType = Number(value.id);
   }
 
+  onClearAircraft() {
+    this.reportData = undefined;
+    this.query.aircraftId = undefined;
+    this.aircraftIndex = undefined;
+  }
+
+  selectedAircraft(value: any) {
+    this.reportData = undefined;
+    this.query.aircraftId = value.id;
+  }
+
   getLastDay() {
     var date = new Date(this.pickerDate.getFullYear(), this.pickerDate.getMonth()+1, 0);
     return date.getDate();
@@ -137,7 +160,6 @@ export class FleetAnalysisReportComponent implements OnInit {
   }
 
   mouseEnter(event: any) {
-
     this.overedAircraftIdleReport.totalFlightTimeHrs = event.totalFlightTimeHrs;
     this.overedAircraftIdleReport.origin = event.origin;
     this.overedAircraftIdleReport.destination = event.destination;
@@ -152,6 +174,5 @@ export class FleetAnalysisReportComponent implements OnInit {
   getHoursLable() {
     return this.overedAircraftIdleReport.scheduleStatus == 3? 'Maintainance ':'Idle ' + 'Hour(s)';
   }
-
 
 }

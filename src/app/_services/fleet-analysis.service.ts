@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../core/services/base.service';
 import { FlightScheduleReportQuery } from '../_models/queries/flight-schedule/flight-schedule-report-query.model';
 import { AircraftIdleReport } from '../_models/view-models/aircraft-schedule/aircraft-idle-report.model';
+import { SelectList } from '../shared/models/select-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,16 @@ export class FleetAnalysisService extends BaseService {
   private readonly getAircraftsIdleReportEndpoint = `${this.endpointEntityName}/GetAircraftsIdleReport`;
 
 
+  private readonly getAircraftsEndpoint = `Aircraft/getSelectList`;
+
+
   constructor(http: HttpClient) { super(http)
 
+  }
+
+
+  getAircrafts(){
+    return this.get<SelectList[]>(this.getAircraftsEndpoint);
   }
 
   getAircraftScheduleList(query: FlightScheduleReportQuery){

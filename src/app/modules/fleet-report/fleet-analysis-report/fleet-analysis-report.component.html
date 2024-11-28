@@ -26,6 +26,12 @@
                             (selectFileOutput)="selectedReportType($event)" (changeSearch)="onClearReportType()"
                             (clearSearch)="onClearReportType()"></app-auto-complete-dropdown>
                         </div>
+                        <div class="filter-group">
+                            <label class="form-label">Aircraft</label>
+                            <app-auto-complete-dropdown [data]="aircrafts" [keyword]="aircraftKeyword" [selectedIndex]="aircraftIndex"
+                            (selectFileOutput)="selectedAircraft($event)" (changeSearch)="onClearAircraft()"
+                            (clearSearch)="onClearAircraft()"></app-auto-complete-dropdown>
+                        </div>
                         <div class="button">
                             <button class="btn sm btn-primary-outline" (click)="addFilter()">Add Filter</button>
                         </div>
@@ -119,5 +125,3 @@
         </div>
     </div>
 </div>
-
-

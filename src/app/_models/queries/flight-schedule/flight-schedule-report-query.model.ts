@@ -3,5 +3,6 @@ export class FlightScheduleReportQuery {
   year?: number;
   startDate?: Date;
   endDate?: Date;
-  reportType? : number
+  reportType? : number;
+  aircraftId?: number;
 }
