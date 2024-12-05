@@ -10,6 +10,7 @@ import { AutoCompleteDropdownComponent } from 'src/app/shared/components/forms/a
 import { AirportService } from 'src/app/_services/airport.service';
 import { NgForm } from '@angular/forms';
 import { FlightScheduleService } from 'src/app/_services/flight-schedule.service';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-link-aircraft-list',
@@ -190,17 +191,12 @@ export class LinkAircraftListComponent implements OnInit {
     }
   }
 
-  
-
-  timeDiff(date1:string, date2:string, exMins:number) {
-    if (!date1 || !date2) return 'n/a';
-  
-    const diffInMs = Math.abs(Date.parse(date2) - Date.parse(date1));
-    const diffInMinutes = Math.floor(diffInMs / (1000 * 60)) + exMins; // Add exMins to total minutes
-    const hours = Math.floor(diffInMinutes / 60);
-    const minutes = diffInMinutes % 60;
-  
-    return `${hours}h ${minutes}m`;
+  timeDiff(date1: string, date2: string) {
+    if(date1 == null || date2 == null)
+      return 'n/a';
+    const diffInMs = Date.parse(date2) - Date.parse(date1);
+    const diffInHours = diffInMs / 1000 / 60 / 60;
+    return (Math.round(diffInHours * 100) / 100).toFixed(2);;
   }
 
   selectedOrigin(value: any) {
@@ -240,6 +236,182 @@ export class LinkAircraftListComponent implements OnInit {
   closeVerifyBooking(){
     this.verifyBookingModalVisibleAnimate = false;
     setTimeout(() => (this.verifyBookingModalVisible = false), 300);
+  }
+
+  printLIR(id: string): void {
+    this.isLoading = true;
+
+    interface CargoPosition {
+      name: string;
+      zoneAreaId: string;
+      cargoPositionType: number;
+      maxWeight: number;
+      currentWeight: number;
+      maxVolume: number;
+      currentVolume: number;
+      seatId: string | null;
+      overheadCompartmentId: string | null;
+      height: number;
+      length: number;
+      breadth: number;
+      priority: number;
+      flightLeg: number;
+      id: string;
+    }
+
+    interface TableRow {
+      label: string;
+      data: string[];
+    }
+
+    this.flightScheduleService.getCargoPositionList(id).subscribe((res: CargoPosition[]) => {
+      // Create PDF document in landscape orientation with margins
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+     
+      });
+
+      // Common settings
+      const startY = 30; // Increased from 20 for top margin
+      const cellPadding = 3; // Increased padding
+      doc.setFontSize(8);
+
+      // First table (Positions 1-10)
+      let currentY = startY;
+      doc.setFontSize(14);
+      doc.text('LOAD DISTRIBUTION MAIN DECK COMPARTMENT', 20, currentY - 10); // Added gap before table
+      doc.setFillColor('#000000');
+
+      // Headers with padding
+      currentY += 5; // Gap between heading and table
+      let currentX = 45;
+      doc.setFontSize(8);
+      ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10'].forEach((pos, i) => {
+        doc.text(pos, currentX + (i * 25) + cellPadding, currentY);
+      });
+
+      // Grid lines for first table
+      doc.line(40, currentY - 5, 290, currentY - 5);
+      doc.line(40, currentY + 80, 290, currentY + 80);
+      for(let i = 0; i <= 10; i++) {
+        doc.line(40 + (i * 25), currentY - 5, 40 + (i * 25), currentY + 80);
+      }
+
+      // Horizontal lines with padding
+      for(let i = 0; i <= 5; i++) {
+        doc.line(40, currentY + (i * 15), 290, currentY + (i * 15));
+      }
+
+      // Data for positions 1-10
+      const mainPositions = res.filter(p => !p.name.startsWith('b')).sort((a,b) => Number(a.name) - Number(b.name));
+      const rows: TableRow[] = [
+        {label: 'Max Weight', data: mainPositions.map(p => p.maxWeight.toString())},
+        {label: 'ULD No.', data: mainPositions.map(() => '')}, 
+        {label: 'Weight', data: mainPositions.map(p => p.currentWeight.toString())},
+        {label: 'Dest', data: mainPositions.map(() => '')},
+        {label: 'Remarks', data: mainPositions.map(() => '')}
+      ];
+
+      doc.setFontSize(8);
+      rows.forEach((row, index) => {
+        currentY = startY + (15 * (index + 1));
+        doc.text(row.label, 20 + cellPadding, currentY);
+        row.data.forEach((cell, i) => {
+          doc.text(cell, 45 + (i * 25) + cellPadding, currentY);
+        });
+      });
+
+      // Lower Hold Tables Header with increased gap
+      currentY = startY + 120; // Increased gap between tables
+      doc.setFontSize(14);
+      doc.text('LOAD DISTRIBUTION LOWER HOLD', 20, currentY - 10);
+      doc.setFillColor('#000000');
+
+      // Forward Hold Table
+      doc.setFontSize(12);
+      doc.text('FORWARD HOLD', 20, currentY + 5); // Adjusted spacing
+      
+      const bulkPositions1 = res.filter(p => ['b1','b2','b3'].includes(p.name)).sort((a,b) => a.name.localeCompare(b.name));
+      const bulkRows1: TableRow[] = [
+        {label: 'Max Weight', data: bulkPositions1.map(p => p.maxWeight.toString())},
+        {label: 'ULD No.', data: bulkPositions1.map(() => '')},
+        {label: 'Weight', data: bulkPositions1.map(p => p.currentWeight.toString())},
+        {label: 'Dest', data: bulkPositions1.map(() => '')},
+        {label: 'Remarks', data: bulkPositions1.map(() => '')}
+      ];
+
+      currentY += 10; // Gap between heading and table
+      doc.setFontSize(8);
+      ['B1', 'B2', 'B3'].forEach((pos, i) => {
+        doc.text(pos, 45 + (i * 25) + cellPadding, currentY );
+      });
+
+      doc.line(40, currentY + 10, 115, currentY + 10);
+      doc.line(40, currentY + 95, 115, currentY + 95);
+      for(let i = 0; i <= 3; i++) {
+        doc.line(40 + (i * 25), currentY + 10, 40 + (i * 25), currentY + 95);
+      }
+
+      // Horizontal lines with padding
+      for(let i = 0; i <= 5; i++) {
+        doc.line(40, currentY + 25 + (i * 15), 115, currentY + 25 + (i * 15));
+      }
+
+      bulkRows1.forEach((row, index) => {
+        currentY = startY + 145 + (15 * index); // Adjusted for new spacing
+        doc.text(row.label, 20 + cellPadding, currentY);
+        row.data.forEach((cell, i) => {
+          doc.text(cell, 45 + (i * 25) + cellPadding, currentY);
+        });
+      });
+
+      // Aft Hold Table
+      currentY = startY + 120; // Reset to match Forward Hold
+      doc.setFontSize(12);
+      doc.text('AFT HOLD', 140, currentY + 5);
+
+      const bulkPositions2 = res.filter(p => ['b4','b5','b6'].includes(p.name)).sort((a,b) => a.name.localeCompare(b.name));
+      const bulkRows2: TableRow[] = [
+        {label: 'Max Weight', data: bulkPositions2.map(p => p.maxWeight.toString())},
+        {label: 'ULD No.', data: bulkPositions2.map(() => '')},
+        {label: 'Weight', data: bulkPositions2.map(p => p.currentWeight.toString())},
+        {label: 'Dest', data: bulkPositions2.map(() => '')},
+        {label: 'Remarks', data: bulkPositions2.map(() => '')}
+      ];
+
+      currentY += 10; // Gap between heading and table
+      doc.setFontSize(8);
+      ['B4', 'B5', 'B6'].forEach((pos, i) => {
+        doc.text(pos, 165 + (i * 25) + cellPadding, currentY);
+      });
+
+      doc.line(160, currentY + 10, 235, currentY + 10);
+      doc.line(160, currentY + 95, 235, currentY + 95);
+      for(let i = 0; i <= 3; i++) {
+        doc.line(160 + (i * 25), currentY + 10, 160 + (i * 25), currentY + 95);
+      }
+
+      // Horizontal lines with padding
+      for(let i = 0; i <= 5; i++) {
+        doc.line(160, currentY + 25 + (i * 15), 235, currentY + 25 + (i * 15));
+      }
+
+      bulkRows2.forEach((row, index) => {
+        currentY = startY + 145 + (15 * index); // Adjusted for new spacing
+        doc.text(row.label, 140 + cellPadding, currentY);
+        row.data.forEach((cell, i) => {
+          doc.text(cell, 165 + (i * 25) + cellPadding, currentY);
+        });
+      });
+
+      try {
+        doc.save(`LIR_${id}.pdf`);
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+      }
+      this.isLoading = false;
+    });
   }
 
 }
