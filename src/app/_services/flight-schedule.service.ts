@@ -51,6 +51,10 @@ export class FlightScheduleService extends BaseService {
     return this.get<any>(`CargoPosition/GetSummaryCargoPositionsBySector/?FlightScheduleSectorId=${sectorId}`);
   }
 
+  getPalletsBySectorId(sectorId: string) {
+    return this.get<any>(`ULDCargoBooking/GetPalletsByFlightScheduleId/?FlightScheduleSectorId=${sectorId}`);
+  }
+
   getAircraftsByFlightScheduleId(flightScheduleId: string) {
     return this.get<Aircraft[]>(`${this.getAircraftsBy_FlightScheduleIdEndPoint}/${flightScheduleId}`);
   }

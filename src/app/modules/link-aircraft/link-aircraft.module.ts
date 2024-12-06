@@ -9,6 +9,7 @@ import { UpdateATAComponent } from './update-ata/update-ata.component';
 import { ViewAircraftSummaryComponent } from './view-aircraft-summary/view-aircraft-summary.component';
 import { UpcomingAssignAircraftComponent } from './assign-aircraft-master-view/upcoming-assign-aircraft/upcoming-assign-aircraft.component';
 import { VerifyBookingComponent } from './verify-booking/verify-booking.component';
+import { ViewLirComponent } from './view-lir/view-lir.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { VerifyBookingComponent } from './verify-booking/verify-booking.componen
     UpdateATAComponent,
     ViewAircraftSummaryComponent,
     UpcomingAssignAircraftComponent,
-    VerifyBookingComponent
+    VerifyBookingComponent,
+    ViewLirComponent
   ],
   imports: [
     CommonModule,

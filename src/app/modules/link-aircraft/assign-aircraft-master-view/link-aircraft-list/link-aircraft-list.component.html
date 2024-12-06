@@ -70,7 +70,8 @@
                         <i class="ca ca-icn-view" title="View" (click)="show(fs.id)"></i>
                         <i class="ca ca-icn-add" (click)="showATA(fs.id)" title="Add" *ngIf="fs.actualArrivalDateTime === null"></i>
                         <i class="ca ca-icn-edit" title="Edit" (click)="editFlight(fs.id)"></i>
-                        <i class="ca ca-icn-print" title="Print LIR" (click)="printLIR(fs.sectorID)"></i>
+
+                        <i class="ca ca-icn-document" title="View LIR" [routerLink]="['/link-aircraft/view-lir', fs.sectorID]"></i>
                       </td>
                     </tr>
                 </tbody>

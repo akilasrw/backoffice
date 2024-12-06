@@ -1,0 +1,171 @@
+<div class="container" style="padding: 10px; max-height: 100vh; overflow-y: auto;">
+  <!-- Download Button -->
+  <div class="row mb-3">
+    <div class="col-12 text-end">
+      <button class="btn btn-primary" (click)="downloadPDF()">
+        <i class="fas fa-download me-2"></i>Download PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-12">
+        <h1 class="text-center" style="margin-bottom: 15px; font-size: 28px; font-weight: bold;">Load Instruction Report</h1>
+        <h2 class="text-center" style="margin-bottom: 20px; color: #444;">Beoing 737-400</h2>
+      <div class="box" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 15px;">
+        <div class="inner-box" style="padding: 10px;">
+          <table class="table" style="width: 100%; border-collapse: collapse;">
+            <tbody>
+              <tr>
+               <td style="border: 1px solid #ddd; padding: 10px;"><div class="col">
+                  <div class="col-12" style="font-weight: 500; margin-bottom: 5px;">FLIGHT NUMBER: ABC123</div>
+                  <div class="col-12">STATION: LAX</div>
+                    </div></td>
+                <td style="border: 1px solid #ddd; padding: 10px;">
+                    <div class="col">
+                        <div class="col-12" style="font-weight: 500; margin-bottom: 5px;">Date: 2024-01-01</div>
+                        <div class="col-12">DESTINATION: LAX</div>
+                    </div>
+                </td>
+                <td style="border: 1px solid #ddd; padding: 10px;"><div class="col">
+                    <div class="col-12" style="font-size: 13px;">PREPARED BY: Signature of Loadmaster / Load planner</div>
+                </div></td>
+                <td style="border: 1px solid #ddd; padding: 10px;">
+                    <div class="col">
+                        <div class="col-12" style="font-weight: bold;">SPECIAL INSTRUCTION / REPORT</div>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="box" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 15px;">
+        <h2 class="text-center" style="margin-bottom: 15px; color: #333;">LOAD DISTRIBUTION MAIN DECK COMPARTMENT</h2>
+        <div class="inner-box" style="padding: 10px;">
+          <div class="table-responsive">
+            <table class="table" style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: #f8f9fa;">
+                  <th style="padding: 8px; border: 1px solid #ddd;"></th>
+                  <th *ngFor="let data of displayData" style="padding: 8px; border: 1px solid #ddd;">{{data.position}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">MAX WEIGHT LIMIT</td>
+                  <td *ngFor="let data of displayData" style="padding: 8px; border: 1px solid #ddd;">{{data.maxWeight}}</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">ULD NUMBER</td>
+                  <td *ngFor="let data of displayData" style="padding: 8px; border: 1px solid #ddd;">{{data.uldNumber}}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">GROSS WEIGHT</td>
+                  <td *ngFor="let data of displayData" style="padding: 8px; border: 1px solid #ddd;">{{data.grossWeight}}</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">DESTINATION</td>
+                  <td *ngFor="let data of displayData" style="padding: 8px; border: 1px solid #ddd;">{{data.destination}}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">REMARKS</td>
+                  <td *ngFor="let data of displayData" style="padding: 8px; border: 1px solid #ddd;">{{data.remarks}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <h1 class="text-center" style="width: 100%; margin-bottom: 20px; font-size: 24px;">LOAD DISTRIBUTION LOWER HOLD</h1>
+    <div class="col-6">
+        <h2 style="margin-bottom: 15px; color: #444;">FOWARD HOLD</h2>
+      <div class="box" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 15px;">
+        <div class="table-responsive">
+          <table class="table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #f8f9fa;">
+                <th style="padding: 8px; border: 1px solid #ddd;"></th>
+                <th *ngFor="let data of displayData | slice:0:3" style="padding: 8px; border: 1px solid #ddd;">{{data.position}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">MAX WEIGHT LIMIT</td>
+                <td *ngFor="let data of displayData | slice:0:3" style="padding: 8px; border: 1px solid #ddd;">{{data.maxWeight}}</td>
+              </tr>
+              <tr style="background: #f8f9fa;">
+                <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">ULD NUMBER</td>
+                <td *ngFor="let data of displayData | slice:0:3" style="padding: 8px; border: 1px solid #ddd;">{{data.uldNumber}}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">GROSS WEIGHT</td>
+                <td *ngFor="let data of displayData | slice:0:3" style="padding: 8px; border: 1px solid #ddd;">{{data.grossWeight}}</td>
+              </tr>
+              <tr style="background: #f8f9fa;">
+                <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">DESTINATION</td>
+                <td *ngFor="let data of displayData | slice:0:3" style="padding: 8px; border: 1px solid #ddd;">{{data.destination}}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">REMARKS</td>
+                <td *ngFor="let data of displayData | slice:0:3" style="padding: 8px; border: 1px solid #ddd;">{{data.remarks}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+        <h2 style="margin-bottom: 15px; color: #444;">AFT HOLD</h2>
+        <div class="box" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 15px;">
+          <div class="table-responsive">
+            <table class="table" style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: #f8f9fa;">
+                  <th style="padding: 8px; border: 1px solid #ddd;"></th>
+                  <th *ngFor="let data of displayData | slice:3:6" style="padding: 8px; border: 1px solid #ddd;">{{data.position}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">MAX WEIGHT LIMIT</td>
+                  <td *ngFor="let data of displayData | slice:3:6" style="padding: 8px; border: 1px solid #ddd;">{{data.maxWeight}}</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">ULD NUMBER</td>
+                  <td *ngFor="let data of displayData | slice:3:6" style="padding: 8px; border: 1px solid #ddd;">{{data.uldNumber}}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">GROSS WEIGHT</td>
+                  <td *ngFor="let data of displayData | slice:3:6" style="padding: 8px; border: 1px solid #ddd;">{{data.grossWeight}}</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">DESTINATION</td>
+                  <td *ngFor="let data of displayData | slice:3:6" style="padding: 8px; border: 1px solid #ddd;">{{data.destination}}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd; font-weight: 500;">REMARKS</td>
+                  <td *ngFor="let data of displayData | slice:3:6" style="padding: 8px; border: 1px solid #ddd;">{{data.remarks}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+       
+    </div>
+    <div style="margin-top: 10px;">
+        <p style="margin: 8px 0; font-size: 14px;">This aircraft has been loaded according to these instructions including deviations shown on the report.</p>
+        <p style="margin: 8px 0; font-weight: bold; font-size: 16px;">Total Gross Weight: 10000 lbs</p>
+        <p style="margin: 8px 0; font-style: italic; font-size: 14px;">Name of signature of loading supervisor or person responsible for loading</p>
+    </div>
+  </div>
+</div>
