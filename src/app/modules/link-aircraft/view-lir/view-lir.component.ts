@@ -107,10 +107,17 @@ export class ViewLirComponent implements OnInit {
     });
 
     // Split positions into their respective sections
-    this.mainDeckPositions = mappedData.filter(d => d.position.match(/^[1-9]|10$/));
-    this.forwardHoldPositions = mappedData.filter(d => d.position.match(/^b[1-3]$/));
-    this.aftHoldPositions = mappedData.filter(d => d.position.match(/^b[4-6]$/));
+    this.mainDeckPositions = mappedData
+      .filter(d => d.position.match(/^[1-9]|10$/))
+      .sort((a, b) => parseInt(a.position) - parseInt(b.position));
 
+    this.forwardHoldPositions = mappedData
+      .filter(d => d.position.match(/^b[1-3]$/))
+      .sort((a, b) => parseInt(a.position.substring(1)) - parseInt(b.position.substring(1)));
+
+    this.aftHoldPositions = mappedData
+      .filter(d => d.position.match(/^b[4-6]$/))
+      .sort((a, b) => parseInt(a.position.substring(1)) - parseInt(b.position.substring(1)));
 
     console.log(this.mainDeckPositions);
     console.log(this.forwardHoldPositions);
