@@ -46,6 +46,10 @@ export class ViewLirComponent implements OnInit {
   cargoPositions: CargoPosition[] = [];
   pallets: ULD[] = [];
   displayData: DisplayData[] = [];
+  mainDeckPositions: DisplayData[] = [];
+  forwardHoldPositions: DisplayData[] = [];
+  aftHoldPositions: DisplayData[] = [];
+  totalGrossWeight: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,15 +80,20 @@ export class ViewLirComponent implements OnInit {
     this.flightScheduleService.getPalletsBySectorId(this.sectorId).subscribe(
       (response: ULD[]) => {
         this.pallets = response;
+        this.calculateTotalGrossWeight();
         this.mapDisplayData();
       }
     );
   }
 
+  calculateTotalGrossWeight() {
+    this.totalGrossWeight = this.pallets.reduce((total, pallet) => total + pallet.weight, 0);
+  }
+
   mapDisplayData() {
     if (!this.cargoPositions.length || !this.pallets.length) return;
 
-    this.displayData = this.cargoPositions.map(position => {
+    const mappedData = this.cargoPositions.map(position => {
       const matchingPallet = this.pallets.find(p => p.cargoPositionID === position.id);
       
       return {
@@ -92,10 +101,23 @@ export class ViewLirComponent implements OnInit {
         maxWeight: `${position.maxWeight}KG`,
         uldNumber: matchingPallet?.serialNumber || '-',
         grossWeight: matchingPallet ? `${matchingPallet.weight}KG` : '-',
-        destination: 'N/A', // Hardcoded for now
+        destination: 'N/A',
         remarks: 'N/A'
       };
     });
+
+    // Split positions into their respective sections
+    this.mainDeckPositions = mappedData.filter(d => d.position.match(/^[1-9]|10$/));
+    this.forwardHoldPositions = mappedData.filter(d => d.position.match(/^b[1-3]$/));
+    this.aftHoldPositions = mappedData.filter(d => d.position.match(/^b[4-6]$/));
+
+
+    console.log(this.mainDeckPositions);
+    console.log(this.forwardHoldPositions);
+    console.log(this.aftHoldPositions);
+
+    // Combine all for the full display data
+    this.displayData = [...this.mainDeckPositions, ...this.forwardHoldPositions, ...this.aftHoldPositions];
   }
 
   downloadPDF() {
