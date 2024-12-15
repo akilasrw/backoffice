@@ -165,6 +165,12 @@ export class UldCreateComponent implements OnInit {
       });
   }
 
+  setTheDementions() {
+    this.uldForm.get('uLDMetaData')?.get('width')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('width')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
+    this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('length')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
+    this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('height')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
+  }
+
   get ULDType(): typeof ULDType {
     return ULDType;
   }
@@ -194,12 +200,7 @@ export class UldCreateComponent implements OnInit {
     this.closePopup.emit();
   }
 
-  setTheDementions() {
-    this.uldForm.get('uLDMetaData')?.get('width')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('width')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
-    this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('length')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
-    this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('height')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
-    this.uldForm.get('uldMetaData')?.get('unitId')?.patchValue('fe919429-80ea-4a0e-a218-5db6e16f690c');
-  }
+ 
 
   saveULDDetails() {
     if (this.uldForm.valid) {
@@ -246,6 +247,12 @@ export class UldCreateComponent implements OnInit {
 
         this.isLoading = true;
         var uld: UldCreateRM = this.uldForm.value;
+        if (uld.uLDMetaData) {
+          uld.uLDMetaData.volumeUnitId = '9f0928df-5d33-4e5d-affc-f7e2e2b72680';
+          uld.uLDMetaData.height = this.convertToMeters(uld.uLDMetaData.height || 0, uld.uLDMetaData.volumeUnitId);
+          uld.uLDMetaData.length = this.convertToMeters(uld.uLDMetaData.length || 0, uld.uLDMetaData.volumeUnitId);
+          uld.uLDMetaData.width = this.convertToMeters(uld.uLDMetaData.width || 0, uld.uLDMetaData.volumeUnitId);
+        }
 
         this.uldService.create(uld).subscribe({
           next: (res) => {
