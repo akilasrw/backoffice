@@ -55,7 +55,19 @@ export class UldCreateComponent implements OnInit {
    selectedAirportId: string | null = null;
    selectedAirportIndex: number | null = null; 
 
-   
+
+   convertToMeters(value: number, fromUnitId: string): number {
+  switch(fromUnitId) {
+    case '9f0928df-5d33-4e5d-affc-f7e2e2b72680': // cm
+      return value / 100;
+    case '11c39205-4153-49f1-ab50-bba8913c5bb9': // inch
+      return value * 0.0254;
+    case 'fe919429-80ea-4a0e-a218-5db6e16f690c': // m
+      return value;
+    default:
+      return value;
+  }
+}
   
 
   initializForm() {
@@ -180,6 +192,13 @@ export class UldCreateComponent implements OnInit {
   closeModal() {
     this.uldForm.reset();
     this.closePopup.emit();
+  }
+
+  setTheDementions() {
+    this.uldForm.get('uLDMetaData')?.get('width')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('width')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
+    this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('length')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
+    this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('height')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
+    this.uldForm.get('uldMetaData')?.get('unitId')?.patchValue('fe919429-80ea-4a0e-a218-5db6e16f690c');
   }
 
   saveULDDetails() {

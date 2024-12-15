@@ -107,7 +107,7 @@
                 <div class="col-md-3">
                     <div class="form-group" *ngIf="!isLoading">
                         <label class="form-label">Volume Unit</label>
-                        <select name="unit" class="form-control"[formControl]='uldForm.get("uLDMetaData")?.controls["volumeUnitId"]'>
+                        <select name="unit" class="form-control"[formControl]='uldForm.get("uLDMetaData")?.controls["volumeUnitId"]' (change)="setTheDementions()">
                             <option *ngFor="let unit of volumeUnits" [ngValue]="unit.id">
                                 {{unit.name}}</option>
                         </select>
