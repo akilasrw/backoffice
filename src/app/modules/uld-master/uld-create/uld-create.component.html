@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
-                                <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["length"]' type="number" [label]='"length."' [textBoxDisabled]="isEditULD"
+                                <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["length"]' type="number" step="0.01" [label]='"length."' [textBoxDisabled]="isEditULD"
                                     [tabindex]="4">
                                 </app-text-input>
                             </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
-                                <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["width"]' type="number" [label]='"width."' [textBoxDisabled]="isEditULD"
+                                <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["width"]' type="number" step="0.01" [label]='"width."' [textBoxDisabled]="isEditULD"
                                     [tabindex]="5">
                                 </app-text-input>
                             </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group" *ngIf="!isLoading">
-                                <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["height"]'   type="number" [label]='"height."' [textBoxDisabled]="isEditULD"
+                                <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["height"]' type="number" step="0.01" [label]='"height."' [textBoxDisabled]="isEditULD"
                                     [tabindex]="6">
                                 </app-text-input>
                             </div>
@@ -118,7 +118,7 @@
             <div class="col-md-3">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Weight<span class="compulsory">*</span></label>
-                    <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["weight"]'  type="number" [label]='"weight."'
+                    <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["weight"]' type="number" step="0.01" [label]='"weight."'
                         [tabindex]="8">
                     </app-text-input>
                 </div>
@@ -127,7 +127,7 @@
             <div class="col-md-3">
                 <div class="form-group" *ngIf="!isLoading">
                     <label class="form-label">Max Weight<span class="compulsory">*</span></label>
-                    <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["maxWeight"]'  type="number" [label]='"maxWeight."'
+                    <app-text-input [formControl]='uldForm.get("uLDMetaData")?.controls["maxWeight"]' type="number" step="0.01" [label]='"maxWeight."'
                         [tabindex]="9">
                     </app-text-input>
                 </div>
@@ -146,7 +146,7 @@
             <div class="col-md-3">
               <div class="form-group" *ngIf="!isLoading">
                   <label class="form-label">Max Volume (M3)<span class="compulsory">*</span></label>
-                  <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["maxVolume"]'  type="number" [label]='"maxVolume."'
+                  <app-text-input  [formControl]='uldForm.get("uLDMetaData")?.controls["maxVolume"]' type="number" step="0.01" [label]='"maxVolume."'
                       [tabindex]="10">
                   </app-text-input>
               </div>

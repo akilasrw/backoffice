@@ -59,13 +59,13 @@ export class UldCreateComponent implements OnInit {
    convertToMeters(value: number, fromUnitId: string): number {
   switch(fromUnitId) {
     case '9f0928df-5d33-4e5d-affc-f7e2e2b72680': // cm
-      return value / 100;
+      return Number((value / 100).toFixed(2));
     case '11c39205-4153-49f1-ab50-bba8913c5bb9': // inch
-      return value * 0.0254;
+      return Number((value * 0.0254).toFixed(2));
     case 'fe919429-80ea-4a0e-a218-5db6e16f690c': // m
-      return value;
+      return Number(value.toFixed(2));
     default:
-      return value;
+      return Number(value.toFixed(2));
   }
 }
   
