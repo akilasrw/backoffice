@@ -14,7 +14,7 @@ export class FleetAnalysisService extends BaseService {
   private readonly getAircraftsIdleReportEndpoint = `${this.endpointEntityName}/GetAircraftsIdleReport`;
 
 
-  private readonly getAircraftsEndpoint = `Aircraft/getSelectList`;
+  private readonly getAircraftsEndpoint = `Aircraft/getAssignedList`;
 
 
   constructor(http: HttpClient) { super(http)
@@ -42,6 +42,10 @@ export class FleetAnalysisService extends BaseService {
     }
     if (query.reportType) {
       params = params.append("flightScheduleReportType", query.reportType.toString());
+    }
+
+    if (query.aircraftId) {
+      params = params.append("AircraftID", query.aircraftId);
     }
     return this.getWithParams<AircraftIdleReport[]>(this.getAircraftsIdleReportEndpoint,params);
   }

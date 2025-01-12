@@ -68,7 +68,7 @@
                                 <td>{{item.aircraftRegNo}}</td>
                                 <td *ngFor="let data of item?.aircraftData"   (mouseenter)="mouseEnter(data)" (mouseleave)="mouseLeave()" >
                                   <div class="table-label" [ngClass]="{'idle': this.query.reportType == reportType.IdleTimeReport, 'flight-time': this.query.reportType == reportType.Running}" >
-                                        <lable>{{data?.noOfHours| number : '1.2-2'}} h</lable>
+                                        <lable *ngIf="data?.noOfHours > 0">{{data?.noOfHours| number : '1.2-2'}} h</lable>
                                         <div class="marker-hover" *ngIf="this.overedAircraftIdleReport.showHover==true">
                                           <div class="hover-body">
                                               <div class="details-group" *ngIf="this.query.reportType == reportType.IdleTimeReport">

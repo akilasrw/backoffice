@@ -191,11 +191,14 @@ export class LinkAircraftListComponent implements OnInit {
     }
   }
 
-  timeDiff(date1: string, date2: string) {
+  timeDiff(date1: string, date2: string, blockH:number) {
+    console.log(blockH)
     if(date1 == null || date2 == null)
       return 'n/a';
-    const diffInMs = Date.parse(date2) - Date.parse(date1);
-    const diffInHours = diffInMs / 1000 / 60 / 60;
+    const diffInMs = Date.parse(date2) - Date.parse(date1) 
+    
+    const diffInHours = (diffInMs + (blockH * 60 * 1000)) / 1000 / 60 / 60;
+
     return (Math.round(diffInHours * 100) / 100).toFixed(2);;
   }
 

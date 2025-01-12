@@ -31,7 +31,7 @@ interface DisplayData {
   position: string;
   maxWeight: string;
   uldNumber: string;
-  grossWeight: string;
+  grossWeight: number;
   destination: string;
   remarks: string;
 }
@@ -80,31 +80,32 @@ export class ViewLirComponent implements OnInit {
     this.flightScheduleService.getPalletsBySectorId(this.sectorId).subscribe(
       (response: ULD[]) => {
         this.pallets = response;
-        this.calculateTotalGrossWeight();
         this.mapDisplayData();
       }
     );
   }
 
-  calculateTotalGrossWeight() {
-    this.totalGrossWeight = this.pallets.reduce((total, pallet) => total + pallet.weight, 0);
-  }
 
   mapDisplayData() {
     if (!this.cargoPositions.length || !this.pallets.length) return;
 
     const mappedData = this.cargoPositions.map(position => {
       const matchingPallet = this.pallets.find(p => p.cargoPositionID === position.id);
+
       
       return {
         position: position.name,
         maxWeight: `${position.maxWeight}KG`,
         uldNumber: matchingPallet?.serialNumber || '-',
-        grossWeight: matchingPallet ? `${matchingPallet.weight}KG` : '-',
+        grossWeight: matchingPallet ? matchingPallet.weight : 0,
         destination: 'N/A',
         remarks: 'N/A'
       };
     });
+
+    this.totalGrossWeight = this.pallets.reduce((total, pallet) => total + pallet.weight, 0);
+
+    this.totalGrossWeight = mappedData.reduce((x,y) =>  (x || 0) + (y.grossWeight || 0), 0) || 0;
 
     // Split positions into their respective sections
     this.mainDeckPositions = mappedData
@@ -119,12 +120,9 @@ export class ViewLirComponent implements OnInit {
       .filter(d => d.position.match(/^b[4-6]$/))
       .sort((a, b) => parseInt(a.position.substring(1)) - parseInt(b.position.substring(1)));
 
-    console.log(this.mainDeckPositions);
-    console.log(this.forwardHoldPositions);
-    console.log(this.aftHoldPositions);
-
     // Combine all for the full display data
     this.displayData = [...this.mainDeckPositions, ...this.forwardHoldPositions, ...this.aftHoldPositions];
+
   }
 
   downloadPDF() {

@@ -166,6 +166,7 @@ export class UldCreateComponent implements OnInit {
   }
 
   setTheDementions() {
+
     this.uldForm.get('uLDMetaData')?.get('width')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('width')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
     this.uldForm.get('uLDMetaData')?.get('length')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('length')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
     this.uldForm.get('uLDMetaData')?.get('height')?.patchValue(this.convertToMeters(this.uldForm.get('uLDMetaData')?.get('height')?.value, this.uldForm.get('uLDMetaData')?.get('volumeUnitId')?.value));
@@ -203,8 +204,12 @@ export class UldCreateComponent implements OnInit {
  
 
   saveULDDetails() {
+    console.log("method calling")
     if (this.uldForm.valid) {
+      console.log("form valid")
       if (this.isEditULD) {
+
+        console.log("edit uld")
 
         var editUld: UldUpdateRM = this.uldForm.value;
         console.log(this.uldForm.value);
@@ -235,6 +240,7 @@ export class UldCreateComponent implements OnInit {
           }
         })
       } else {
+        console.log("add uld")
         if (this.uldForm.get('uLDOwnershipType')?.value ===  ULDOwnershipType.Other && this.uldForm.get('ownerAirlineCode')?.value == null) {
           this.toastr.error('Please enter ULD own airline code.');
           return;
@@ -247,11 +253,11 @@ export class UldCreateComponent implements OnInit {
 
         this.isLoading = true;
         var uld: UldCreateRM = this.uldForm.value;
+        console.log(uld, 'uld')
         if (uld.uLDMetaData) {
+          console.log(uld.uLDMetaData, 'm1')
           uld.uLDMetaData.volumeUnitId = '9f0928df-5d33-4e5d-affc-f7e2e2b72680';
-          uld.uLDMetaData.height = this.convertToMeters(uld.uLDMetaData.height || 0, uld.uLDMetaData.volumeUnitId);
-          uld.uLDMetaData.length = this.convertToMeters(uld.uLDMetaData.length || 0, uld.uLDMetaData.volumeUnitId);
-          uld.uLDMetaData.width = this.convertToMeters(uld.uLDMetaData.width || 0, uld.uLDMetaData.volumeUnitId);
+          console.log(uld.uLDMetaData, 'm2')
         }
 
         this.uldService.create(uld).subscribe({

@@ -51,6 +51,7 @@
           <th style="text-align: center">AWB Number</th>
           <th style="text-align: center">Booking Date</th>
           <th style="text-align: center">Destination</th>
+          <th style="text-align: center">Origin</th>
           <th style="text-align: center">Flight Number</th>
           <th style="text-align: center">Flight Date</th>
           <th style="text-align: center">Status</th>
@@ -64,6 +65,7 @@
             <td style="text-align: center">{{booking.awbNumber}}</td>
             <td style="text-align: center">{{booking.bookingDate | date}}</td>
             <td style="text-align: center">{{booking.destinationAirportCode}}</td>
+            <td style="text-align: center">{{booking.originAirportCode}}</td>
             <td style="text-align: center">{{booking.flightNumber}}</td>
             <td style="text-align: center">{{booking?.flightDate | date}}</td>
             <td style="width: auto; text-align: center"> <span class="status-chip" [ngClass]="{

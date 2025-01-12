@@ -50,7 +50,7 @@
                         <th>Station</th>
                         <th>Last Used Date</th>
                         <th>Last Used Flight</th>
-                        <th>Dimensions (L x W x H) cm</th>
+                        <th>Dimensions (L x W x H) m</th>
                         <th>Weight</th>
                         <th>Max Weight</th>
                         <th>Max Volume</th>
@@ -69,7 +69,7 @@
                             <td>{{GetDimentions(item)}}</td>
                             <td>{{item.weight}}</td>
                             <td>{{item.maxWeight}}</td>
-                            <td>{{convertcm3Tom3(item.maxVolume)|number :'1.2-2'}}</td>
+                            <td>{{item.maxVolume}}</td>
                             <td>{{GetULDLocateStatus(item.uldLocateStatus)}}</td>
                             <td>
                                 <!-- <i class="ca ca-icn-view" title="View"></i> -->
